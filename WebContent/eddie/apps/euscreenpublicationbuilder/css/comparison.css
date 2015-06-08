@@ -1,0 +1,10 @@
+#comparison_page {
+	background-color: blue;
+}
+
+#media_item {
+	height: 200px;
+	float: left;
+	width: 50%;
+	border 1px solid black;
+}
