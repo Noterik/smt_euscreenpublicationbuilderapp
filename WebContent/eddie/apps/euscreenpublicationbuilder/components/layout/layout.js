@@ -14,12 +14,11 @@ Layout.prototype.update = function(message){
 		$('head').append(styleElement);
 		if(data.html){
 			styleElement.load(function(){
-				console.log("STYLE LOADED!!!");
 				self.element.html(data.html);
 			});
 		}
 	}else if(data.html){
-		this.element.append(data.html);
+		this.element.html(data.html);
 	}
 }
 /*
