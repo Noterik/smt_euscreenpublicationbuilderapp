@@ -1,8 +1,8 @@
-#comparison_page {
+.comparison_page {
 	background-color: blue;
 }
 
-#media_item {
+.media_item {
 	height: 200px;
 	float: left;
 	width: 50%;
