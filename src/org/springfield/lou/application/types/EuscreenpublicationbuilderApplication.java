@@ -27,6 +27,7 @@ import java.util.Random;
 import org.springfield.fs.FsNode;
 import org.springfield.lou.application.*;
 import org.springfield.lou.screen.*;
+import org.json.simple.JSONObject;
 
 public class EuscreenpublicationbuilderApplication extends Html5Application{
     public Publication publication = null;
@@ -60,8 +61,8 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	s.setContent("right", "<div id=\"right-header\"></div>");
       	s.setContent("right-header", "Bookmarks");
 
-    	s.setContent("middle", "Lorem IPSUM Lorem IPSUM Lorem IPSUM Lorem IPSUM Lorem IPSUM Lorem IPSUM Lorem IPSUM Lorem IPSUM Lorem IPSUM Lorem IPSUM");
-       
+    	s.setContent("middle", "<div id=\"layout\"></div>");
+    	this.loadContent(s, "layout", "layout");
 
     	String layoutBody = "";
     	int cnt = 0;
@@ -78,16 +79,23 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     public void setLayout0(Screen s, String c) {
     	s.setProperties(c);
     	FsNode node = publication.layout.getLayoutBy(0);
-    	s.setContent("middle", node.getProperty("template"));
+    	JSONObject message = new JSONObject();
+    	message.put("html", node.getProperty("template"));
+    	message.put("style", "/eddie/apps/euscreenpublicationbuilder/css/comparison.css");
+    	s.putMsg("layout", "", "update(" + message + ")");
+    	//s.setContent("middle", node.getProperty("template"));
 
     	System.out.println("--------Comparison--------");
-    	s.putMsg("comparison", "", "setComparisonStyle()");
+    	//s.putMsg("comparison", "", "setComparisonStyle()");
    }
     
 	public void setLayout1(Screen s, String c) {
 		s.setProperties(c);
     	FsNode node = publication.layout.getLayoutBy(1);
-    	s.setContent("middle", node.getProperty("template"));
+    	JSONObject message = new JSONObject();
+    	message.put("html", node.getProperty("template"));
+    	message.put("style", "/eddie/apps/euscreenpublicationbuilder/css/comparison.css");
+    	s.putMsg("layout", "", "update(" + message + ")");
     	
     	System.out.println("--------Comparison2--------");
     	s.putMsg("comparison", "", "setComparisonStyle()");
