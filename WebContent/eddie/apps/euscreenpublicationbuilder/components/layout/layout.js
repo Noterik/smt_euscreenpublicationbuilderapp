@@ -15,24 +15,11 @@ Layout.prototype.update = function(message){
 		if(data.html){
 			styleElement.load(function(){
 				self.element.html(data.html);
+				tinymce.init({selector: "#txt"});
 			});
 		}
 	}else if(data.html){
 		this.element.html(data.html);
 	}
+
 }
-/*
-Layout.prototype.setStyle = function(){
-	
-};
-Layout.prototype.loadHTML = function(html){
-	
-};
-Layout.prototype.setComparisonStyle = function(){
-	// $('head').append('<link rel="stylesheet" type="text/css" href="/eddie/apps/euscreenpublicationbuilder/css/comparison.css">');
-	$('#comparison_page').css('background-color', 'blue');
-	$('#media_item').css({'height':'200px', 'float':'left', 'width':'50%', 'border':'1px solid black'});
-	$('head').append('<link rel="stylesheet" type="text/css" href="/eddie/apps/euscreenpublicationbuilder/css/comparison.css">');
-	//tinymce.init({selector:'#middle'});
-};
-*/

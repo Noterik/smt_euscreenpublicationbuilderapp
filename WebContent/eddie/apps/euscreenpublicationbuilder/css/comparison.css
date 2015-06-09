@@ -1,10 +1,17 @@
-.comparison_page {
-	background-color: blue;
-}
-
 .media_item {
 	height: 200px;
 	float: left;
-	width: 50%;
-	border 1px solid black;
+	width: 25%;
+	margin-left: 15%;
+	border: 1px solid black;
+	margin-bottom: 10px;
+}
+
+.text {
+	overflow: hidden;
+  	border: 1px solid black;
+  	width: 100%;
+  	margin: 0 auto;
+  	min-height: 400px;
+  	clear: both;
 }

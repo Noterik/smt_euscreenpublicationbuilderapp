@@ -33,20 +33,20 @@ body {
 
 #left {
 	float: left;
-	width: 7%;
+	width: 10%;
 	height: 300px;
 	background-color: gray;
 }
 
 #middle {
-	width: 86%;
+	width: 80%;
 	height: 300px;
 	float: left;
 }
 
 #right {
 	float: right;
-	width: 7%;
+	width: 10%;
 	height: 300px;
 }
 
@@ -54,4 +54,16 @@ body {
 	background-color: skyblue;
 	padding: 5px;
 	text-align: center;
+}
+
+#layout {
+  	background-color: rgb(232, 232, 232);
+ 	overflow: hidden;
+ 	width: 70%;
+	margin: 0 auto;
+	padding: 3%;
+}
+
+#mceu_13 {
+	clear: both;
 }

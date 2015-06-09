@@ -43,27 +43,14 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     public void onNewScreen(Screen s) {
         loadStyleSheet(s, "generic"); //Loading the genereic style from css folder
         loadContent(s, "comparison");
+        loadContent(s, "header");
+        loadContent(s, "left");
+        loadContent(s, "section");
+        loadContent(s, "right");
+        s.setContent("middle", "<div id=\"layout\"></div>");
+        this.loadContent(s, "layout", "layout");
         
-        s.setDiv("synctime", "style:display:none");
-
         publication = new Publication();
-    	
-
-        s.setContent("header", "<div id=\"header-title\"></div><div id=\"header-options\"></div>");
-        s.setContent("section", "<div id=\"left\"></div><div id=\"middle\"></div><div id=\"right\"></div>");
-
-    	s.setContent("header-title", "Create a video poster");
-    	s.setContent("header-options", "<a href=\"#\">Your video posters</a>//<a href=\"#\">Publish</a>");
-           	
-        s.setContent("left", "<div id=\"left-header\"></div><div id=\"layouts\"></div>");
-    	s.setContent("left-header", "Layouts");
-    	
-    	s.setContent("right", "<div id=\"right-header\"></div>");
-      	s.setContent("right-header", "Bookmarks");
-
-    	s.setContent("middle", "<div id=\"layout\"></div>");
-    	this.loadContent(s, "layout", "layout");
-
     	String layoutBody = "";
     	int cnt = 0;
     	for(FsNode node : publication.layout.getLayouts()) {
@@ -83,10 +70,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	message.put("html", node.getProperty("template"));
     	message.put("style", "/eddie/apps/euscreenpublicationbuilder/css/comparison.css");
     	s.putMsg("layout", "", "update(" + message + ")");
-    	//s.setContent("middle", node.getProperty("template"));
-
-    	System.out.println("--------Comparison--------");
-    	//s.putMsg("comparison", "", "setComparisonStyle()");
    }
     
 	public void setLayout1(Screen s, String c) {
@@ -96,10 +79,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	message.put("html", node.getProperty("template"));
     	message.put("style", "/eddie/apps/euscreenpublicationbuilder/css/comparison.css");
     	s.putMsg("layout", "", "update(" + message + ")");
-    	
-    	System.out.println("--------Comparison2--------");
-    	s.putMsg("comparison", "", "setComparisonStyle()");
-
 	}
     
 }
