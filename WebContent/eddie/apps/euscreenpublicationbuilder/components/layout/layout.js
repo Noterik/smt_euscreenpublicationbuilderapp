@@ -15,11 +15,51 @@ Layout.prototype.update = function(message){
 		if(data.html){
 			styleElement.load(function(){
 				self.element.html(data.html);
-				tinymce.init({selector: "#txt"});
+				$('.text').each(function(index) {
+  					tinymce.init({selector: '#' + $(this).attr('id')});
+				});
 			});
 		}
 	}else if(data.html){
 		this.element.html(data.html);
 	}
+	
+	setTimeout(function(){
+		$('.media_item').click(function (e){
+			console.log($('#context'));
+			if($('#context').length == 0){
+				$('#layout').append("<div id=\"context\"><ul><li id=\"youtube\">Youtube Item</li><li id=\"vimeo\">Vimeo Item</li><li id=\"close_menu\">Close menu</li></ul></div>");
+			}
+			if($('#context')) {			
+				$('#context').show();
+			}
+			
+			$($('#context')).css({'left':e.pageX, 'top':e.pageY});
+		
+			$('#youtube').click(function(){
+				console.log("YOUTUBE()");
+			});
+			
+			$('#vimeo').click(function(){
+				console.log("VIMEO()");
+			});
+			
+			$('#close_menu').click(function(){
+				$('#context').hide();
+			});
+		});
+		
+		$('.media_item').droppable( {
+	      accept: '.drag_bookmark',
+	      drop: self.handleCardDrop,
+    	});
 
+	}, 50);
+}
+
+Layout.prototype.handleCardDrop = function ( event, ui ) {
+    ui.draggable.draggable('disable');
+    $(this).droppable('disable');
+    ui.draggable.position( { of: $(this), my: 'left top', at: 'left top' } );
+    ui.draggable.draggable('option', 'revert', false);
 }

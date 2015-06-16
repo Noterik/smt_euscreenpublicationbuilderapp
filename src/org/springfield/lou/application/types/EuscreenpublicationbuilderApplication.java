@@ -44,7 +44,9 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
         loadStyleSheet(s, "generic"); //Loading the genereic style from css folder
         loadContent(s, "comparison");
         loadContent(s, "header");
+
         loadContent(s, "left");
+//        s.setDiv("left-header", "bind:mousedown", "Accordion");
         loadContent(s, "section");
         loadContent(s, "right");
         s.setContent("middle", "<div id=\"layout\"></div>");
@@ -61,6 +63,17 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	s.setContent("layouts", layoutBody);
     	s.setDiv("layout_0", "bind:mousedown","setLayout0" , this);
     	s.setDiv("layout_1", "bind:mousedown","setLayout1" , this);
+    	
+    	Bookmarks bookmarks = new Bookmarks();
+    	
+    	String bookmarkLayout = "";
+
+     	int cnt_bookmark = 0;
+    	for (BookmarkItem bmi : bookmarks.getBookmarklist()) {
+			bookmarkLayout += "<div id=\"bookmark_"+ cnt_bookmark +"\" class=\"drag_bookmark\"><img  class=\"layout_image\" src='" + bmi.getScreenshot() + "' id='"+bmi.getId()+"'/></div>";
+			cnt_bookmark++;
+		}
+    	s.setContent("bookmarklayout", bookmarkLayout);
     }
     
     public void setLayout0(Screen s, String c) {
@@ -80,5 +93,15 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	message.put("style", "/eddie/apps/euscreenpublicationbuilder/css/comparison.css");
     	s.putMsg("layout", "", "update(" + message + ")");
 	}
-    
+	
+	public void proccesspublication(Screen s, String c){
+		s.setProperties(c);
+		System.out.println("processPublication()");
+
+	}
+
+//	public void Accordion(Screen s, String c) {
+//		s.setProperties(c);
+//    	s.putMsg("left", "", "accordion()");
+//	}
 }

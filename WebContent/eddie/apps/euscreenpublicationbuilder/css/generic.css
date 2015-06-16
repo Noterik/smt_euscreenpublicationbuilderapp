@@ -67,3 +67,17 @@ body {
 #mceu_13 {
 	clear: both;
 }
+
+#context {
+	position: absolute;
+	width: 154px;
+  	background-color: white;
+  	opacity: 0.9;
+  	height: 102px;
+}
+
+#context ul {
+	height: 100%;
+	list-style-type: none;
+	padding-left: 34px;
+}
