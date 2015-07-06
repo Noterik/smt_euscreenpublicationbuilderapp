@@ -42,6 +42,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
  	 */
     public void onNewScreen(Screen s) {
         loadStyleSheet(s, "generic"); //Loading the genereic style from css folder
+        loadStyleSheet(s, "bootstrap");
         loadContent(s, "comparison");
         loadContent(s, "header");
 

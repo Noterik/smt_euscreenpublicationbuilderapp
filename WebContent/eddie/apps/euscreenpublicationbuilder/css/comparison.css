@@ -1,17 +1,31 @@
 .media_item {
+	border: 1px solid black;
+	margin-bottom: 20px;
 	height: 200px;
-	float: left;
+	background-color: rgba(255, 255, 255, 0.5);
+	/*float: left;
 	width: 25%;
 	margin-left: 15%;
-	border: 1px solid black;
-	margin-bottom: 10px;
+	margin-bottom: 10px;*/
 }
 
 .text {
-	overflow: hidden;
-  	border: 1px solid black;
+	border: 1px solid black;
+	/*overflow: hidden;
   	width: 100%;
   	margin: 0 auto;
   	min-height: 400px;
-  	clear: both;
+  	clear: both;*/
+}
+
+.comparison_page_title {
+	text-align: center;
+}
+
+.plus_icon {
+	width: 25px;
+	height: 25px;
+	margin: 0 auto;
+	margin-top: 29%;
+	background-image: url("../img/plus.png");
 }

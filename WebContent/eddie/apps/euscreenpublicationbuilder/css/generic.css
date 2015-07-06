@@ -1,10 +1,19 @@
 body {
-	background-color:#ffffff;
+	background-color:#F2F2F2 !important;
 	-webkit-background-size: 1024px 768px;
 	-moz-background-size: 1024px 768px;
 	-o-background-size: 1024px 768px;
 	background-size: 1024px 768px;
 	color: #444; 
+}
+
+a {
+	color: #808080!important;
+}
+
+a:hover {
+	color: #00AEEF !important;
+	text-decoration: none !important;
 }
 
 .layout_image {
@@ -17,25 +26,45 @@ body {
 
 #header {
 	width: 100%;
-	height: 100px;
-	background-color: gray;
+	height: 70px;
+	background-color: #FFF;
+	border-bottom: 5px solid #00AEEF;
+	margin-bottom: 5px;
 }
 
 #header-title {
 	float: left;
-	margin-top: 25px;
+	margin-top: 20px;
+	margin-left: 15px;
+	font-size: 1.291em;
+	font-family: "Titillium Web","DIN","Helvetica Neue",Monaco,"Andale Mono",Consolas,monospace;
 }
 
 #header-options {
 	float: right;
-	margin-top: 25px;
+	margin-top: 20px;
+	margin-right: 15px;
+	font-size: 1.291em;
+	font-family: "Titillium Web","DIN","Helvetica Neue",Monaco,"Andale Mono",Consolas,monospace;
+}
+
+#x-icon {
+	width: 50px;
+	height: 50px;
+	background-image: url("../img/x.png");
+}
+
+#x-icon:hover {
+	width: 50px;
+	height: 50px;
+	background-image: url("../img/xblack.png");
 }
 
 #left {
 	float: left;
 	width: 10%;
-	height: 300px;
-	background-color: gray;
+	height: auto;
+	background-color: #FFF;
 }
 
 #middle {
@@ -47,17 +76,33 @@ body {
 #right {
 	float: right;
 	width: 10%;
-	height: 300px;
+	height: auto;
+	background-color: #FFF;
+}
+
+#right-header {
+	background-color: #00AEEF;
+	padding: 5px;
+	margin-bottom: 10px;
+	text-align: center;
+	color: white;
+	border-bottom: 2px solid #F2F2F2;
+	font-family: "Titillium Web","DIN","Helvetica Neue",Monaco,"Andale Mono",Consolas,monospace;
 }
 
 #left-header {
-	background-color: skyblue;
+	background-color: #00AEEF;
 	padding: 5px;
+	margin-bottom: 10px;
 	text-align: center;
+	color: white;
+	border-bottom: 2px solid #F2F2F2;
+	font-family: "Titillium Web","DIN","Helvetica Neue",Monaco,"Andale Mono",Consolas,monospace;
 }
 
 #layout {
-  	background-color: rgb(232, 232, 232);
+  	/*background-color: rgb(232, 232, 232);*/
+  	background-color: #FFF;
  	overflow: hidden;
  	width: 70%;
 	margin: 0 auto;
