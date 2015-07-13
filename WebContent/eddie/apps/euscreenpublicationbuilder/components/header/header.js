@@ -22,7 +22,7 @@ var Header = function(options){
 		});
 		
 		console.log(mediaArray);
-		eddie.putLou("", "proccesspublication()");
+		eddie.putLou("", "proccesspublication("+mediaArray+")");
 	});
 }
 Header.prototype = Object.create(Component.prototype);
