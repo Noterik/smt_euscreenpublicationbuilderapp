@@ -65,7 +65,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
         loadContent(s, "header");
 
         loadContent(s, "left");
-//        s.setDiv("left-header", "bind:mousedown", "Accordion");
         loadContent(s, "section");
         loadContent(s, "right");
         s.setContent("middle", "<div id=\"layout\"></div>");
@@ -118,16 +117,17 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	}
 	
 	//Add media item external identifire
-	
 	public void actionAddExternalIdentifire(Screen s, String c){
 		try {
 			JSONObject json = (JSONObject)new JSONParser().parse(c);
+			System.out.println(json.toJSONString());
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
+	//Create publication XML
 	public void actionProccesspublication(Screen s, String c){
-//		s.setProperties(c);
 		try {
 			JSONObject json = (JSONObject)new JSONParser().parse(c);
 			Publication publication = new Publication();
@@ -159,6 +159,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 
 	}
 
+	//Get meta headers
 	public String getMetaHeaders(HttpServletRequest request) {
 		ipAddress=getClientIpAddress(request);
 		
@@ -186,6 +187,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 		"REMOTE_ADDR" 
 	};
 	
+	//Get IP address
 	public static String getClientIpAddress(HttpServletRequest request) {
 		for (String header : HEADERS_TO_TRY) {
 			String ip = request.getHeader(header);

@@ -88,8 +88,6 @@ public class Bookmarks {
 				ap = mount+"?ticket="+ticket;				
 			} 
 			
-			System.out.println("-------------BOOKMARKS------------------");
-			System.out.println(ap);
 			Bookmark bookmark = new Bookmark(bookmarkId, videoId, videoName, ap);
 
 			bookmarklist.add(bookmark);
@@ -100,7 +98,6 @@ public class Bookmarks {
 		String link = null;
 		for (Bookmark bookmark : this.bookmarklist) {
 			if(bookmark.getId() == id){
-				System.out.println("getBookmarkLinkById()");
 				return bookmark.getVideo();
 			}
 		}

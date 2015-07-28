@@ -46,7 +46,7 @@ var Layout = function(options){
 	   		$('#context').remove();
 			$($($($($(e.currentTarget)[0])[0].parentElement)[0].children)[0]).hide();
 			$($($(e.currentTarget)[0])[0].parentElement).append("<div class=\"addVideoBox\"><div id=\"youtube_id\" contentEditable=\"true\" style=\"border: 1px solid black\"></div><br /> <button class=\"submit_media_id\" data-type=\"YoutubeItem\">Submit Youtube item</button><div>");
-	   		self.bindEvent();
+	   		v.stopPropagation();
 	   });
 	   
 	   $('#vimeo').click(function(v){
@@ -54,6 +54,7 @@ var Layout = function(options){
 			$($($($($(e.currentTarget)[0])[0].parentElement)[0].children)[0]).hide();
 	   		$($($(e.currentTarget)[0])[0].parentElement).append("<div class=\"addVideoBox\"><div id=\"youtube_id\" contentEditable=\"true\" style=\"border: 1px solid black\"></div><br /> <button class=\"submit_media_id\" data-type=\"VimeoItem\">Submit Vimeo item</button><div>");
 	   		self.bindEvent();
+	   		v.stopPropagation();
 	   });
 	   
 	   $('#close_menu').click(function(v){
@@ -81,9 +82,11 @@ Layout.prototype.handleCardDrop = function ( event, ui ) {
 
 Layout.prototype.bindEvent = function() {
 	$('.submit_media_id').click(function(v){
-	console.log($(this).attr("data-type"));
-	console.log($($($($(v)[0].currentTarget).parent()[0])[0].firstChild).html());
-	//	console.log($($(this)[0]).val("data-type"));
-	//	console.log($($(this)[0]).parent());
+
+		var data_type = $(this).attr("data-type");
+		var identifire = $($($($(v)[0].currentTarget).parent()[0])[0].firstChild).html();
+		var result = JSON.stringify({data-type: data_type, identifire: identifire});
+		eddie.putLou("", "addExternalIdentifire(" + result + ")");
+		v.stopPropagation();
 	});
 }	
