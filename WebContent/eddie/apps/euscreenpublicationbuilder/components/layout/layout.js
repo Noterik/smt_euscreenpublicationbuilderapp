@@ -76,14 +76,18 @@ var Layout = function(options){
 Layout.prototype.setmediaitem = function (message) {
 	console.log("Layout.mediaurl(" + message + ")");
 	var data = JSON.parse(message);
-	$(data.container).html(data.video); 
+	$(data.container).html(data.video).droppable("option", "disabled", true);
+	$(data.container).attr("aria-disabled", "true");
+	$(data.container).draggable({ disabled: false });
 }
 
 Layout.prototype.handleCardDrop = function ( event, ui ) {
     ui.draggable.draggable('disable');
     $(this).droppable('disable');
     $(this).append(ui.draggable[0]);
-    
+    var currentBoxHeight = $($(this)[0]).height();
+    $($(ui.draggable[0])[0].childNodes[0]).removeClass("layout_image").addClass("videoAfterDrop");
+    $($(ui.draggable[0])[0].childNodes[0]).height(currentBoxHeight);
     ui.draggable.position( { of: $(this), my: 'left top', at: 'left top' } );
     ui.draggable.draggable('option', 'revert', false);
 }

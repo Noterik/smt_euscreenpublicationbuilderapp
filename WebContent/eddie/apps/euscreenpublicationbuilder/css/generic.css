@@ -145,3 +145,10 @@ a:hover {
 	margin-top: 20%;
     text-align: center;
 }
+
+.videoAfterDrop {
+	width: 100%;
+	height: 100%;
+    border: 0;
+    background-color: black;
+}
