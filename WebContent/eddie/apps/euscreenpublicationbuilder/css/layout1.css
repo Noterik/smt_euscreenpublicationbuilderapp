@@ -1,7 +1,7 @@
 .media_item {
 	border: 1px solid black;
 	margin-bottom: 20px;
-	height: 200px;
+	/*height: 200px;*/
 	background-color: rgba(255, 255, 255, 0.5);
 	/*float: left;
 	width: 25%;
@@ -25,23 +25,30 @@
 	width: 25px;
 	height: 25px;
 	margin: 0 auto;
-	margin-top: 29%;
+	margin-top: 32%;
 	background-image: url("../img/plus.png");
 }
 
+
 #media_0 {
-	width: 272px;
-    float: left;
+	
+	height: 200px;
+    /*float: left;*/
 }
 
 #media_1 {
-	float: right;
-    width: 272px;
-    margin-left: 25px;
+	/*float: right;*/
+    
+   /*margin-left: 25px;*/
     height: 419px;
 }
 
+#media_1.plus_icon {
+	margin-top: 50%;
+}
+
 #media_2 {
-	width: 272px;
-    float: left;
+	
+	height: 200px;
+   /* float: left;*/
 }

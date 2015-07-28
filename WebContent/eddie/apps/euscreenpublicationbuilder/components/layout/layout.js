@@ -85,7 +85,7 @@ Layout.prototype.bindEvent = function() {
 
 		var data_type = $(this).attr("data-type");
 		var identifire = $($($($(v)[0].currentTarget).parent()[0])[0].firstChild).html();
-		var result = JSON.stringify({data-type: data_type, identifire: identifire});
+		var result = JSON.stringify({dataType: data_type, identifire: identifire});
 		eddie.putLou("", "addExternalIdentifire(" + result + ")");
 		v.stopPropagation();
 	});
