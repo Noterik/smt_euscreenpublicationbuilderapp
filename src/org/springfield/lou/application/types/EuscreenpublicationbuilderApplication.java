@@ -116,11 +116,25 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	s.putMsg("layout", "", "update(" + message + ")");
 	}
 	
-	//Add media item external identifire
-	public void actionAddExternalIdentifire(Screen s, String c){
+	//Add media item external identifier
+	public void actionAddexternalidentifire(Screen s, String c){
 		try {
 			JSONObject json = (JSONObject)new JSONParser().parse(c);
 			System.out.println(json.toJSONString());
+			String data_type = json.get("dataType").toString().toLowerCase();
+			String identifier = json.get("identifier").toString();
+			String container = "#" + json.get("container").toString();
+	    	JSONObject message = new JSONObject();
+	    	
+			if(data_type.equals("youtubeitem")) {
+				String video = "<video class=\"layout_image\" controls><source src='" + "https://youtu.be/" + identifier + "' type=\"video/mp4\"></video>"; //djs43DFd2
+		    	message.put("video", video);
+			}else if (data_type.equals("vimeoitem")) {
+				String video = "<video class=\"layout_image\" controls><source src='" + "https://vimeo.com/" + identifier + "' type=\"video/mp4\"></video>"; //234234234234
+		    	message.put("video", video);
+			}
+			message.put("container", container);
+	    	s.putMsg("layout", "", "setmediaitem(" + message + ")");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

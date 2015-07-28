@@ -71,6 +71,15 @@ var Layout = function(options){
 	 }, 100);
 }
 
+
+Layout.prototype.setmediaitem = function (message) {
+	console.log("Layout.mediaurl(" + message + ")");
+	var data = JSON.parse(message);
+	console.log(data.container);
+	console.log(data.video);
+	$(container).append(data.video); 
+}
+
 Layout.prototype.handleCardDrop = function ( event, ui ) {
     ui.draggable.draggable('disable');
     $(this).droppable('disable');
@@ -84,9 +93,12 @@ Layout.prototype.bindEvent = function() {
 	$('.submit_media_id').click(function(v){
 
 		var data_type = $(this).attr("data-type");
-		var identifire = $($($($(v)[0].currentTarget).parent()[0])[0].firstChild).html();
-		var result = JSON.stringify({data-type: data_type, identifire: identifire});
-		eddie.putLou("", "addExternalIdentifire(" + result + ")");
+		var identifier = $($($($(v)[0].currentTarget).parent()[0])[0].firstChild).html();
+		var container = $($($($(v)[0].currentTarget).parent()[0])[0].parentElement).attr("id");
+		console.log('asdasdasdasda');
+		var result = JSON.stringify({dataType: data_type, identifier: identifier, container: container});
+		console.log(result);
+		eddie.putLou("", "addexternalidentifire(" + result + ")");
 		v.stopPropagation();
 	});
 }	

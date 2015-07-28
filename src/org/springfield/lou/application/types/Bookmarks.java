@@ -87,7 +87,7 @@ public class Bookmarks {
 				
 				ap = mount+"?ticket="+ticket;				
 			} 
-			
+			System.out.println(videoId);
 			Bookmark bookmark = new Bookmark(bookmarkId, videoId, videoName, ap);
 
 			bookmarklist.add(bookmark);
