@@ -46,6 +46,7 @@ var Layout = function(options){
 	   		$('#context').remove();
 			$($($($($(e.currentTarget)[0])[0].parentElement)[0].children)[0]).hide();
 			$($($(e.currentTarget)[0])[0].parentElement).append("<div class=\"addVideoBox\"><div id=\"youtube_id\" contentEditable=\"true\" style=\"border: 1px solid black\"></div><br /> <button class=\"submit_media_id\" data-type=\"YoutubeItem\">Submit Youtube item</button><div>");
+	   		self.bindEvent();
 	   		v.stopPropagation();
 	   });
 	   
@@ -75,9 +76,7 @@ var Layout = function(options){
 Layout.prototype.setmediaitem = function (message) {
 	console.log("Layout.mediaurl(" + message + ")");
 	var data = JSON.parse(message);
-	console.log(data.container);
-	console.log(data.video);
-	$(container).append(data.video); 
+	$(data.container).html(data.video); 
 }
 
 Layout.prototype.handleCardDrop = function ( event, ui ) {
@@ -91,20 +90,12 @@ Layout.prototype.handleCardDrop = function ( event, ui ) {
 
 Layout.prototype.bindEvent = function() {
 	$('.submit_media_id').click(function(v){
-
 		var data_type = $(this).attr("data-type");
-<<<<<<< HEAD
 		var identifier = $($($($(v)[0].currentTarget).parent()[0])[0].firstChild).html();
 		var container = $($($($(v)[0].currentTarget).parent()[0])[0].parentElement).attr("id");
-		console.log('asdasdasdasda');
 		var result = JSON.stringify({dataType: data_type, identifier: identifier, container: container});
-		console.log(result);
+
 		eddie.putLou("", "addexternalidentifire(" + result + ")");
-=======
-		var identifire = $($($($(v)[0].currentTarget).parent()[0])[0].firstChild).html();
-		var result = JSON.stringify({dataType: data_type, identifire: identifire});
-		eddie.putLou("", "addExternalIdentifire(" + result + ")");
->>>>>>> 4f999341f5935e419094690b4979d57d88d9a412
 		v.stopPropagation();
 	});
 }	

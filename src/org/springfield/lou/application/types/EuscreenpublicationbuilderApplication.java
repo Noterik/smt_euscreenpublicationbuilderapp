@@ -127,10 +127,12 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	    	JSONObject message = new JSONObject();
 	    	
 			if(data_type.equals("youtubeitem")) {
-				String video = "<video class=\"layout_image\" controls><source src='" + "https://youtu.be/" + identifier + "' type=\"video/mp4\"></video>"; //djs43DFd2
+				String video = "<iframe class=\"layout_image\" src='" + "http://www.youtube.com/embed/" + identifier + "'></iframe>";
+//				String video = "<video class=\"layout_image\" controls><source src='" + "www.youtube.com/watch?v=" + identifier + "' type=\"video/youtube\"></video>"; //djs43DFd2
 		    	message.put("video", video);
 			}else if (data_type.equals("vimeoitem")) {
-				String video = "<video class=\"layout_image\" controls><source src='" + "https://vimeo.com/" + identifier + "' type=\"video/mp4\"></video>"; //234234234234
+				String video = "<iframe class=\"layout_image\" src='" + "https://player.vimeo.com/video/" + identifier + "'></iframe>";
+//				String video = "<video class=\"layout_image\" controls><source src='" + "www.vimeo.com/" + identifier + "' type=\"video/vimeo\"></video>"; //234234234234
 		    	message.put("video", video);
 			}
 			message.put("container", container);
@@ -139,6 +141,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 			e.printStackTrace();
 		}
 	}
+	
 	
 	//Create publication XML
 	public void actionProccesspublication(Screen s, String c){
