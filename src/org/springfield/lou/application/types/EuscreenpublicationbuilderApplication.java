@@ -102,7 +102,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	setCurrentLayout(node);
     	JSONObject message = new JSONObject();
     	message.put("html", node.getProperty("template"));
-    	message.put("style", "/eddie/apps/euscreenpublicationbuilder/css/comparison.css");
+    	message.put("style", "/eddie/apps/euscreenpublicationbuilder/css/layout1.css");
     	s.putMsg("layout", "", "update(" + message + ")");
    }
     
