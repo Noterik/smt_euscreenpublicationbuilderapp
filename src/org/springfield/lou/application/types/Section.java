@@ -1,5 +1,12 @@
 package org.springfield.lou.application.types;
 
-public class Section {
+import java.util.List;
 
+public class Section {
+	public MediaSection mediaSection;
+	public TextSection textSection;
+	public Section() {
+		this.mediaSection = new MediaSection(null, null);
+		this.textSection = new TextSection(null, null);
+	}
 }

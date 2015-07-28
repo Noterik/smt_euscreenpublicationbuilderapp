@@ -140,3 +140,8 @@ a:hover {
 	padding-top: 15px;
 	background-color: white;
 }
+
+.addVideoBox {
+	margin-top: 20%;
+    text-align: center;
+}

@@ -7,7 +7,16 @@ import org.springfield.fs.FsNode;
 public class Layout {
 	private List<FsNode> layouts;
 	private String address = "/domain/euscreenxl/layout"; 
+	public FsNode currentLayout;
 	
+	public FsNode getCurrentLayout() {
+		return this.currentLayout;
+	}
+
+	public void setCurrentLayout(FsNode currentLayout) {
+		this.currentLayout = currentLayout;
+	}
+
 	public List<FsNode> getLayouts() {
 		return layouts;
 	}
@@ -16,7 +25,7 @@ public class Layout {
 		this.layouts = layouts;
 	}
 	
-	public  FsNode getLayoutBy(int index) {
+	public FsNode getLayoutBy(int index) {
 		return layouts.get(index);
 	}
 	

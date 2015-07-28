@@ -146,6 +146,9 @@
 			 <exclude name="WEB-INF/web.xml" />
 			</fileset>
 		</war>
+		<exec executable="/bin/bash">
+        	<arg value="/home/shukrishukriev/noterikcopy.sh"/>
+        </exec>
 	</target>
 	
 </project>
