@@ -93,12 +93,18 @@ Layout.prototype.bindEvent = function() {
 	$('.submit_media_id').click(function(v){
 
 		var data_type = $(this).attr("data-type");
+<<<<<<< HEAD
 		var identifier = $($($($(v)[0].currentTarget).parent()[0])[0].firstChild).html();
 		var container = $($($($(v)[0].currentTarget).parent()[0])[0].parentElement).attr("id");
 		console.log('asdasdasdasda');
 		var result = JSON.stringify({dataType: data_type, identifier: identifier, container: container});
 		console.log(result);
 		eddie.putLou("", "addexternalidentifire(" + result + ")");
+=======
+		var identifire = $($($($(v)[0].currentTarget).parent()[0])[0].firstChild).html();
+		var result = JSON.stringify({dataType: data_type, identifire: identifire});
+		eddie.putLou("", "addExternalIdentifire(" + result + ")");
+>>>>>>> 4f999341f5935e419094690b4979d57d88d9a412
 		v.stopPropagation();
 	});
 }	
