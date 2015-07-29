@@ -136,6 +136,11 @@ a:hover {
 	background-color: white;
 }
 
+#layouts ul {
+	padding-left: 0px;
+	list-style-type: none;
+}
+
 #bookmarklayout {
 	padding-top: 15px;
 	background-color: white;

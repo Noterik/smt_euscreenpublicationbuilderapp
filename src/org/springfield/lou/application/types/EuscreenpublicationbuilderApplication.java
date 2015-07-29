@@ -71,17 +71,18 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
         this.loadContent(s, "layout", "layout");
         
         layouts = new Layout();
-    	String layoutBody = "";
+    	String layoutBody = "<ul class=\"leftNavUl\">";
     	int cnt = 0;
     	for(FsNode node : layouts.getLayouts()) {
-    		layoutBody += "<div><img  class=\"layout_image\" id=\"layout_"+ cnt +"\" src='" + node.getProperty("icon") + "'/></div>";
+    		layoutBody += "<li><img  class=\"layout_image\" id=\"layout_"+ cnt +"\" src='" + node.getProperty("icon") + "'/></li>";
     		cnt++;
     	}
-    	
+    	layoutBody += "</ul>";
     	s.setContent("layouts", layoutBody);
     	s.setDiv("layout_0", "bind:mousedown","setLayout0" , this);
     	s.setDiv("layout_1", "bind:mousedown","setLayout1" , this);
-    	
+    	s.setDiv("layout_2", "bind:mousedown","setLayout2" , this);
+
     	Bookmarks bookmarks = new Bookmarks();
     	
     	String bookmarkLayout = "";
@@ -104,6 +105,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	message.put("html", node.getProperty("template"));
     	message.put("style", "/eddie/apps/euscreenpublicationbuilder/css/layout1.css");
     	s.putMsg("layout", "", "update(" + message + ")");
+    	s.putMsg("left", "", "accordion(" + ")");
    }
     
 	public void setLayout1(Screen s, String c) {
@@ -114,6 +116,18 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	message.put("html", node.getProperty("template"));
     	message.put("style", "/eddie/apps/euscreenpublicationbuilder/css/comparison.css");
     	s.putMsg("layout", "", "update(" + message + ")");
+    	s.putMsg("left", "", "accordion(" + ")");
+	}
+	
+	public void setLayout2(Screen s, String c) {
+		s.setProperties(c);
+    	FsNode node = layouts.getLayoutBy(2);
+    	setCurrentLayout(node);
+    	JSONObject message = new JSONObject();
+    	message.put("html", node.getProperty("template"));
+    	message.put("style", "/eddie/apps/euscreenpublicationbuilder/css/comparison.css");
+    	s.putMsg("layout", "", "update(" + message + ")");
+    	s.putMsg("left", "", "accordion(" + ")");
 	}
 	
 	//Add media item external identifier
