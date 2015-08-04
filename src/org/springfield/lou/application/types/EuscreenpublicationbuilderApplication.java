@@ -101,7 +101,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	int cntThema = 0;
     	
     	for(FsNode node : themes.getTehems()) {
-    		themeBody += "<li><h3 class=\"theme_name\">" + node.getProperty("name") + "</h3><img  class=\"layout_image\" id=\"theme_"+ cntThema +"\" src='" + node.getProperty("icon") + "'/></li>";
+    		themeBody += "<li><h3 class=\"theme_name\">" + node.getProperty("name") + "</h3><img  class=\"scheme_image\" id=\"theme_"+ cntThema +"\" src='" + node.getProperty("icon") + "'/></li>";
     		cntThema++;
     	}
     	themeBody += "</ul>";

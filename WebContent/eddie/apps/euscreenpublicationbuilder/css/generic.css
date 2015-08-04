@@ -66,6 +66,27 @@ a:hover {
 	height: auto;*/
 	background-color: #FFF;
 }
+
+.themeNavi {
+	list-style-type: none;
+    background-color: white;
+    padding-left: 0;
+}
+
+.theme_name {
+	text-align: center;
+	margin-top: 0;
+	padding-top: 15px;
+}
+
+.scheme_image {
+	width: 80%;
+  	margin-left: 10%;
+	margin-bottom: 20px;
+	background-color: transparent;
+	border: none;
+	
+}
 /*
 #middle {
 	width: 80%;
