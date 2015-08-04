@@ -1,11 +1,18 @@
 var Left = function(options){
 	Component.apply(this, arguments);
 	setTimeout(function(){ 
-		console.log($(".layout_image"));
 		$( ".leftNavUl" ).hover(function() {
-			console.log("neshto");
 			$('.leftNavUl').notify("Once you select one\n of these layouts you\n cannot come back and\n change it. Take your time\n and select with care.",   { position:"right", className: "warn", autoHideDelay: 3400});
 		});	 
+		
+		var $box = $('#colorPicker');
+            $box.tinycolorpicker();
+            
+            $("#left-header-theme").css('background-color', 'lightgray')
+            $("#color_schemes").toggle("fast");
+            
+            $("#left-header-background").css('background-color', 'lightgray');
+            $("#background").toggle("fast");
 	}, 100);
 	
 }
@@ -14,9 +21,20 @@ Left.prototype = Object.create(Component.prototype);
 
 Left.prototype.accordion = function () {
 	    $(".accordion").accordion();
-    	console.log($(".accordion"));
-    	console.log($(this));
-//    	$(this).find("#layouts").toggle( "fast" );
+	    
+    	$("#left-header-layout").css('background-color', 'lightgray');
     	$("#layouts").toggle( "fast" );
-    	$("#left-header").css('background-color', 'lightgray')
+    	
+    	$("#left-header-theme").css('background-color', '#00AEEF');
+    	$("#color_schemes").toggle("fast");  	
+}
+
+Left.prototype.accordionThemes = function () {
+	    $(".accordion").accordion();
+    	
+    	$("#left-header-theme").css('background-color', '#lightgray');
+    	$("#color_schemes").toggle("fast");
+    	
+    	$("#left-header-background").css('background-color', '#00AEEF');
+    	$("#background").toggle("fast");    	
 }

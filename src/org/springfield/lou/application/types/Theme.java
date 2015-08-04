@@ -1,16 +1,36 @@
 package org.springfield.lou.application.types;
 
+import java.util.List;
+
+import org.springfield.fs.Fs;
+import org.springfield.fs.FsNode;
+
 public class Theme {
-	private String style;
-
-	public String getStyle() {
-		return this.style;
+	private List<FsNode> themes;
+	private String address = "/domain/euscreenxl/theme"; 
+	public FsNode currentTheme;
+	
+	public FsNode getCurrentTheme() {
+		return this.currentTheme;
 	}
 
-	public void setStyle(String style) {
-		this.style = style;
+	public void setCurrentTheme(FsNode currentTheme) {
+		this.currentTheme = currentTheme;
 	}
 
+	public List<FsNode> getTehems() {
+		return themes;
+	}
+	
+	public void setThemes(List<FsNode> themes) {
+		this.themes = themes;
+	}
+	
+	public FsNode getLayoutBy(int index) {
+		return themes.get(index);
+	}
+	
 	public Theme() {
+		setThemes(Fs.getNodes(this.address, 1));
 	}
 }

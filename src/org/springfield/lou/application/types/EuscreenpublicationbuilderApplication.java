@@ -37,10 +37,19 @@ import org.json.simple.parser.JSONParser;
 
 public class EuscreenpublicationbuilderApplication extends Html5Application{
     public Layout layouts;
+    public Theme themes;
     private FsNode currentLayout;
+    private FsNode currentTheme;
 	public static String ipAddress = "";
 	public static boolean isAndroid;
 	
+    public FsNode getCurrentTheme() {
+		return currentTheme;
+	}
+
+	public void setCurrentTheme(FsNode currentTheme) {
+		this.currentTheme = currentTheme;
+	}
 	
  	public FsNode getCurrentLayout() {
 		return currentLayout;
@@ -61,6 +70,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     public void onNewScreen(Screen s) {
         loadStyleSheet(s, "generic"); //Loading the genereic style from css folder
         loadStyleSheet(s, "bootstrap");
+        loadStyleSheet(s, "tinycolorpicker");
         loadContent(s, "comparison");
         loadContent(s, "header");
 
@@ -70,9 +80,11 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
         s.setContent("middle", "<div id=\"layout\"></div>");
         this.loadContent(s, "layout", "layout");
         
+        //Load layouts
         layouts = new Layout();
     	String layoutBody = "<ul class=\"leftNavUl\">";
     	int cnt = 0;
+    	
     	for(FsNode node : layouts.getLayouts()) {
     		layoutBody += "<li><img  class=\"layout_image\" id=\"layout_"+ cnt +"\" src='" + node.getProperty("icon") + "'/></li>";
     		cnt++;
@@ -82,14 +94,31 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	s.setDiv("layout_0", "bind:mousedown","setLayout0" , this);
     	s.setDiv("layout_1", "bind:mousedown","setLayout1" , this);
     	s.setDiv("layout_2", "bind:mousedown","setLayout2" , this);
-
-    	Bookmarks bookmarks = new Bookmarks();
     	
+    	//Load themes
+        themes = new Theme();
+    	String themeBody = "<ul class=\"themeNavi\">";
+    	int cntThema = 0;
+    	
+    	for(FsNode node : themes.getTehems()) {
+    		themeBody += "<li><h3 class=\"theme_name\">" + node.getProperty("name") + "</h3><img  class=\"layout_image\" id=\"theme_"+ cntThema +"\" src='" + node.getProperty("icon") + "'/></li>";
+    		cntThema++;
+    	}
+    	themeBody += "</ul>";
+    	s.setContent("color_schemes", themeBody);
+    	s.setDiv("theme_0", "bind:mousedown","setTheme0" , this);
+    	s.setDiv("theme_1", "bind:mousedown","setTheme1" , this);
+    	s.setDiv("theme_2", "bind:mousedown","setTheme2" , this);
+    	s.setDiv("theme_3", "bind:mousedown","setTheme3" , this);
+    	s.setDiv("theme_4", "bind:mousedown","setTheme4" , this);
+    	s.setDiv("theme_5", "bind:mousedown","setTheme5" , this);
+
+    	//Load bookmarks
+    	Bookmarks bookmarks = new Bookmarks();    	
     	String bookmarkLayout = "";
 
      	int cnt_bookmark = 0;
     	for (Bookmark bmi : bookmarks.getBookmarklist()) {
-//			bookmarkLayout += "<div id=\"bookmark_"+ cnt_bookmark +"\" class=\"drag_bookmark\"><img  class=\"layout_image\" src='" + bmi.getScreenshot() + "' id='"+bmi.getId()+"'/></div>";
     		bookmarkLayout += "<div id=\"bookmark_"+ cnt_bookmark +"\" class=\"drag_bookmark\"><video class=\"layout_image\" controls><source src='"+bmi.getVideo()+"' type=\"video/mp4\"></video></div>";
 			cnt_bookmark++;
 		}
@@ -130,6 +159,67 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	s.putMsg("left", "", "accordion(" + ")");
 	}
 	
+	//Set theme actions
+	 public void setTheme0(Screen s, String c) {
+	    	s.setProperties(c);
+	    	FsNode node = themes.getLayoutBy(0);
+	    	setCurrentTheme(node);
+	    	JSONObject message = new JSONObject();
+	    	message.put("style", "/eddie/apps/euscreenpublicationbuilder/css/" + node.getProperty("css"));
+	    	s.putMsg("layout", "", "setTheme(" + message + ")");
+//	    	s.putMsg("left", "", "accordionThemes(" + ")");
+	 }
+	 
+	 public void setTheme1(Screen s, String c) {
+	    	s.setProperties(c);
+	    	FsNode node = themes.getLayoutBy(1);
+	    	setCurrentTheme(node);
+	    	JSONObject message = new JSONObject();
+	    	message.put("style", "/eddie/apps/euscreenpublicationbuilder/css/" + node.getProperty("css"));
+	    	s.putMsg("layout", "", "setTheme(" + message + ")");
+//	    	s.putMsg("left", "", "accordionThemes(" + ")");
+	   }
+	 
+	 public void setTheme2(Screen s, String c) {
+	    	s.setProperties(c);
+	    	FsNode node = themes.getLayoutBy(2);
+	    	setCurrentTheme(node);
+	    	JSONObject message = new JSONObject();
+	    	message.put("style", "/eddie/apps/euscreenpublicationbuilder/css/" + node.getProperty("css"));
+	    	s.putMsg("layout", "", "setTheme(" + message + ")");
+//	    	s.putMsg("left", "", "accordionThemes(" + ")");
+	   }
+	 
+	 public void setTheme3(Screen s, String c) {
+	    	s.setProperties(c);
+	    	FsNode node = themes.getLayoutBy(3);
+	    	setCurrentTheme(node);
+	    	JSONObject message = new JSONObject();
+	    	message.put("style", "/eddie/apps/euscreenpublicationbuilder/css/" + node.getProperty("css"));
+	    	s.putMsg("layout", "", "setTheme(" + message + ")");
+	    	s.putMsg("left", "", "accordionThemes(" + ")");
+	   }
+	 
+	 public void setTheme4(Screen s, String c) {
+	    	s.setProperties(c);
+	    	FsNode node = themes.getLayoutBy(4);
+	    	setCurrentTheme(node);
+	    	JSONObject message = new JSONObject();
+	    	message.put("style", "/eddie/apps/euscreenpublicationbuilder/css/" + node.getProperty("css"));
+	    	s.putMsg("layout", "", "setTheme(" + message + ")");
+//	    	s.putMsg("left", "", "accordionThemes(" + ")");
+	   }
+
+	 public void setTheme5(Screen s, String c) {
+	    	s.setProperties(c);
+	    	FsNode node = themes.getLayoutBy(5);
+	    	setCurrentTheme(node);
+	    	JSONObject message = new JSONObject();
+	    	message.put("style", "/eddie/apps/euscreenpublicationbuilder/css/" + node.getProperty("css"));
+	    	s.putMsg("layout", "", "setTheme(" + message + ")");
+//	    	s.putMsg("left", "", "accordionThemes(" + ")");
+	   }
+	
 	//Add media item external identifier
 	public void actionAddexternalidentifire(Screen s, String c){
 		try {
@@ -162,7 +252,8 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 		try {
 			JSONObject json = (JSONObject)new JSONParser().parse(c);
 			Publication publication = new Publication();
-			publication.theme.setStyle("newCss");
+			
+			publication.theme.setCurrentTheme(getCurrentTheme());
 			publication.template.layout.setCurrentLayout(getCurrentLayout());
 
 			JSONArray mediaArray = (JSONArray)json.get("mediaItem");

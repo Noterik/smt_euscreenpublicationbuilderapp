@@ -90,7 +90,27 @@ a:hover {
 	font-family: "Titillium Web","DIN","Helvetica Neue",Monaco,"Andale Mono",Consolas,monospace;
 }
 
-#left-header {
+#left-header-layout {
+	background-color: #00AEEF;
+	padding: 5px;
+	/*margin-bottom: 10px;*/
+	text-align: center;
+	color: white;
+	border-bottom: 2px solid #F2F2F2;
+	font-family: "Titillium Web","DIN","Helvetica Neue",Monaco,"Andale Mono",Consolas,monospace;
+}
+
+#left-header-theme {
+	background-color: #00AEEF;
+	padding: 5px;
+	/*margin-bottom: 10px;*/
+	text-align: center;
+	color: white;
+	border-bottom: 2px solid #F2F2F2;
+	font-family: "Titillium Web","DIN","Helvetica Neue",Monaco,"Andale Mono",Consolas,monospace;
+}
+
+#left-header-background {
 	background-color: #00AEEF;
 	padding: 5px;
 	/*margin-bottom: 10px;*/

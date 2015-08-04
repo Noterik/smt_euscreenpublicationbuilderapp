@@ -27,11 +27,15 @@ public class Publication extends VideoPoster{
 	public static void createXML(Publication publication){
 		System.out.println("createXML()");
 		FsNode layout = publication.template.layout.getCurrentLayout();
-		String theme = publication.theme.getStyle();
+		String theme = publication.theme.getCurrentTheme().getProperty("css");
 		List<TextContent> textContentList = publication.template.sections.textSection.getTextContents();
 		List<MediaItem> mediaItemList = publication.template.sections.mediaSection.getMediaItems();
-		layout.setProperty("theme", theme);
-		String html_layout = "<html><head><title>First parse</title></head><body>" + layout.getProperty("template").trim() + "</body></html>";
+		System.out.println("----------------------------");
+		System.out.println("CreateXML()");
+		System.out.println(theme);
+		System.out.println("----------------------------");
+		
+		String html_layout = "<html><head><title>First parse</title>" + "<link rel=\"stylesheet\" type=\"text/css\" href='" + theme + "'></link>" + "</head><body>" + layout.getProperty("template").trim() + "</body></html>";
 
 		Document d = null;
 		try {

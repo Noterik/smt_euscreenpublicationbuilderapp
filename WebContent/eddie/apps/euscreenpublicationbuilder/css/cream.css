@@ -1,0 +1,12 @@
+#layout {
+	background-color: #FFCBB8;
+}
+
+.media_item {
+    border: 1px solid gray;
+    background-color: #CEA89A;
+}
+
+.title {
+	color: #CEA89A;
+}

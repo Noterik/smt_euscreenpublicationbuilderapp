@@ -64,17 +64,28 @@ var Layout = function(options){
 	   e.stopPropagation();
 	  });
 		
-
+	//SetStyle
+	Layout.prototype.setTheme = function(message){
+	 	var self = this;
+	 	console.log("Layout.setTheme(" + message + ")");
+	 	var data = JSON.parse(message);
+	 
+	 	if(data.style){
+	  		var styleElement = $('<link rel="stylesheet" type="text/css" href="' + data.style + '">');
+	  		$('head').append(styleElement);
+	 	}
+	}
+	 
 	$('.media_item').droppable( {
-	       accept: '.drag_bookmark',
-	       drop: self.handleCardDrop,
-	   });
+	    accept: '.drag_bookmark',
+	    drop: self.handleCardDrop,
+
+	});
 	 }, 100);
 }
 
 
 Layout.prototype.setmediaitem = function (message) {
-	console.log("Layout.mediaurl(" + message + ")");
 	var data = JSON.parse(message);
 	$(data.container).html(data.video).droppable("option", "disabled", true);
 	$(data.container).attr("aria-disabled", "true");
@@ -82,6 +93,10 @@ Layout.prototype.setmediaitem = function (message) {
 }
 
 Layout.prototype.handleCardDrop = function ( event, ui ) {
+console.log(ui.helper);
+    //var bookmarkClone = $(ui.helper).removeAttr('style').removeClass('ui-draggable-dragging ui-draggable-disabled ui-state-disabled').attr('style', 'position: relative').clone(true);
+    $(ui.helper).clone(true).removeClass('drag_bookmark ui-draggable ui-draggable-dragging').addClass('drag_bookmark_clone').removeAttr('style').attr('style', 'position: relative').appendTo('#bookmarklayout');
+
     ui.draggable.draggable('disable');
     $(this).droppable('disable');
     $(this).append(ui.draggable[0]);
