@@ -8,7 +8,16 @@ public class Layout {
 	private List<FsNode> layouts;
 	private String address = "/domain/euscreenxl/layout"; 
 	public FsNode currentLayout;
+	public String currentLayoutStyle;
 	
+	public String getCurrentLayoutStyle() {
+		return currentLayoutStyle;
+	}
+
+	public void setCurrentLayoutStyle(String currentLayoutStyle) {
+		this.currentLayoutStyle = currentLayoutStyle;
+	}
+
 	public FsNode getCurrentLayout() {
 		return this.currentLayout;
 	}

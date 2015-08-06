@@ -1,5 +1,11 @@
 package org.springfield.lou.application.types;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -27,7 +33,14 @@ public class Publication extends VideoPoster{
 	public static void createXML(Publication publication){
 		System.out.println("createXML()");
 		FsNode layout = publication.template.layout.getCurrentLayout();
-		String theme = publication.theme.getCurrentTheme().getProperty("css");
+		String layoutStyle = publication.template.layout.getCurrentLayoutStyle();
+		System.out.println("layout style: " + layoutStyle);
+		String theme = null;
+		if(publication.theme.getCurrentTheme().getProperty("css") != null){
+			theme = publication.theme.getCurrentTheme().getProperty("css");
+		}
+		
+		
 		List<TextContent> textContentList = publication.template.sections.textSection.getTextContents();
 		List<MediaItem> mediaItemList = publication.template.sections.mediaSection.getMediaItems();
 		System.out.println("----------------------------");
@@ -35,7 +48,16 @@ public class Publication extends VideoPoster{
 		System.out.println(theme);
 		System.out.println("----------------------------");
 		
-		String html_layout = "<html><head><title>First parse</title>" + "<link rel=\"stylesheet\" type=\"text/css\" href='" + theme + "'></link>" + "</head><body>" + layout.getProperty("template").trim() + "</body></html>";
+		String html_layout = "<html><head><title>First parse</title>"
+			+ "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\"/>"
+			+ "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"></link>"
+			+ "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"/>" 
+			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + layoutStyle + "'></link>" 
+			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + theme + "'></link>" 
+			+ "</head>"
+			+ "<body><div id=\"layout\" style=\"width: 50%;margin: 0 auto;\">"
+			+ layout.getProperty("template").trim()
+			+ "</div></body></html>";
 
 		Document d = null;
 		try {
@@ -52,8 +74,17 @@ public class Publication extends VideoPoster{
 				Element element = (Element) media_item;
 				if (element != null && mediaItemList.get(i).getId() != null) {
 					if (mediaItemList.get(i).getId().trim().equals(element.attributeValue("id").trim())) {
-						String media = "<video class=\"layout_image\" controls><source src='" + mediaItemList.get(i).getValue().toString() + "' type=\"video/mp4\"></video>";
+						element.clearContent();
+						String media = null;
+						if (mediaItemList.get(i).getValue().toString().contains("http://www.youtube.com") || mediaItemList.get(i).getValue().toString().contains("https://player.vimeo")) {
+							media = "<iframe class=\"videoAfterDrop\" src='" + mediaItemList.get(i).getValue().toString() + "'></iframe>";
+						}else {
+							media = "<video class=\"videoAfterDrop\" controls><source src='" + mediaItemList.get(i).getValue().toString() + "' type=\"video/mp4\"></video>";
+						}
+						
 						media_item.setText(media);
+						System.out.println("-----------------Media item-----------------");
+						System.out.println(media_item.asXML());
 					}
 				}
 			}
@@ -74,13 +105,10 @@ public class Publication extends VideoPoster{
 		}
 		
 		List<Node> title_items = d.selectNodes("//h1[@class=\"title\"]");
-		System.out.println("-----------------");
-		System.out.println("Title items");
+
 		for (Node title : title_items) {
 			for(int i = 0; i < textContentList.size(); i++) {
 				Element element = (Element) title;
-
-				System.out.println(title + "---->" + element.asXML());
 
 				if (element != null && textContentList.get(i).getId() != null) {
 					if (textContentList.get(i).getId().trim().equals(element.attributeValue("id").trim())) {

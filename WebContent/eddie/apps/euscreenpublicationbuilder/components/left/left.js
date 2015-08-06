@@ -5,6 +5,10 @@ var Left = function(options){
 			$('.leftNavUl').notify("Once you select one\n of these layouts you\n cannot come back and\n change it. Take your time\n and select with care.",   { position:"right", className: "warn", autoHideDelay: 3400});
 		});	 
 		
+		$( ".themeNavi" ).hover(function() {
+			$('.themeNavi').notify('To approve your color schema please click on "color schemes title"',   { position:"right", className: "warn", autoHideDelay: 3400});
+		});
+		
 		var $box = $('#colorPicker');
             $box.tinycolorpicker();
             
@@ -35,6 +39,6 @@ Left.prototype.accordionThemes = function () {
     	$("#left-header-theme").css('background-color', '#lightgray');
     	$("#color_schemes").toggle("fast");
     	
-    	$("#left-header-background").css('background-color', '#00AEEF');
-    	$("#background").toggle("fast");    	
+    	//$("#left-header-background").css('background-color', '#00AEEF');
+    	//$("#background").toggle("fast");    	
 }
