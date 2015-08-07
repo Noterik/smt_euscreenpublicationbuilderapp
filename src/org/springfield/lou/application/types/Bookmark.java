@@ -12,8 +12,14 @@ public class Bookmark {
 	private String video_id;
 	private String name;
 	private String video;
-
+	private String screenshot;
 	
+	public String getScreenshot() {
+		return screenshot;
+	}
+	public void setScreenshot(String screenshot) {
+		this.screenshot = screenshot;
+	}
 	public String getId() {
 		return id;
 	}
@@ -39,11 +45,12 @@ public class Bookmark {
 		this.video = video;
 	}
 	
-	public Bookmark(String id, String video_id, String name, String video) {
+	public Bookmark(String id, String video_id, String name, String video, String screenshot) {
 		setId(id);
 		setVideo_id(video_id);
 		setName(name);
 		setVideo(video);
+		setScreenshot(screenshot);
 	}
 	
 }

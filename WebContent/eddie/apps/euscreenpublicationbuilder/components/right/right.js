@@ -8,8 +8,10 @@ var Right = function(options){
 		      revert: true,
 		      helper: 'clone',
 			  stop: function(event, ui) {
-			     var element = $(ui.helper).clone().removeAttr('style').draggable({ disabled: false });;
-			  	 $('#bookmarklayout').append(element);
+			  	 if(event.target.parentElement != $('#bookmarklayout')[0]){
+				     var element = $(ui.helper).clone().removeAttr('style').draggable({ disabled: false });;
+				  	 $('#bookmarklayout').append(element);
+			  	 }
 			  }
 		    });
 		}());

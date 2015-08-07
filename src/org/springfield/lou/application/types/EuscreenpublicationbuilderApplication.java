@@ -78,7 +78,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     public void onNewScreen(Screen s) {
         loadStyleSheet(s, "generic"); //Loading the genereic style from css folder
         loadStyleSheet(s, "bootstrap");
-        loadStyleSheet(s, "tinycolorpicker");
         loadStyleSheet(s, "font-awesome");
         loadStyleSheet(s, "font-awesome.min");
 
@@ -130,8 +129,9 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	String bookmarkLayout = "";
 
      	int cnt_bookmark = 0;
-    	for (Bookmark bmi : bookmarks.getBookmarklist()) {
-    		bookmarkLayout += "<div id=\"bookmark_"+ cnt_bookmark +"\" class=\"drag_bookmark\"><video class=\"layout_image\" controls><source src='"+bmi.getVideo()+"' type=\"video/mp4\"></video></div>";
+     	System.out.println("Screenshots");
+     	for (Bookmark bmi : bookmarks.getBookmarklist()) {
+    		bookmarkLayout += "<div id=\"bookmark_"+ cnt_bookmark +"\" class=\"drag_bookmark\"><video class=\"layout_image\" poster='"+bmi.getScreenshot()+"' controls><source src='"+bmi.getVideo()+"' type=\"video/mp4\"></video></div>";
 			cnt_bookmark++;
 		}
     	s.setContent("bookmarklayout", bookmarkLayout);
@@ -233,6 +233,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	 //Approve theme
 	 public void approveTheme(Screen s, String c) {
 		 s.putMsg("left", "", "accordionThemes(" + ")");
+	     loadStyleSheet(s, "tinycolorpicker");
 	 }
 	 
 	//Add media item external identifier

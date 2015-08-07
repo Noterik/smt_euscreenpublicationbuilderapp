@@ -30,7 +30,6 @@ public class Bookmarks {
 		
 		this.xmlCallList = Fs.getNodes(this.address, 2);
 
-
 		for (FsNode node : this.xmlCallList) {
 
 			String bookmarkId = node.getId();
@@ -45,50 +44,57 @@ public class Bookmarks {
 			String referUrl = referId + "/" + "rawvideo";
 			List<FsNode> referNode = Fs.getNodes(referUrl, 1);
 			String videoMount = referNode.get(0).getProperty("mount");
-
-			String[]videoMountArr = videoMount.split(","); 
+			
+			String ap = "";
 			String videoInfoUrl = videoUrl + "/" + videoId;
 			FsNode videoInfo = Fs.getNode(videoInfoUrl);
 			String videoName = videoInfo.getProperty("TitleSet_TitleSetInEnglish_title");
 			String screenshot = videoInfo.getProperty("screenshot");
 			
-			String mount = videoMountArr[0];
-			String ap = "";
-			if (mount.indexOf("http://")==-1 && mount.indexOf("rtmp://")==-1) {
-				Random randomGenerator = new Random();
-				Integer random= randomGenerator.nextInt(100000000);
-				String ticket = Integer.toString(random);
+			if(videoMount.contains("noterik.com")){
+				String[]videoMountArr = videoMount.split(","); 	
+				String mount = videoMountArr[0];
 				
-				String videoFile= mount;
-				ipAddress = EuscreenpublicationbuilderApplication.ipAddress;
-				isAndroid = EuscreenpublicationbuilderApplication.isAndroid;
-				
-				try{						
-					//System.out.println("CallingSendTicket");						
-					sendTicket(videoFile,ipAddress,ticket);
-				} catch (Exception e) {}
-				
-				
-				ap = mount+"?ticket="+ticket;
-			} else if (mount.indexOf(".noterik.com/progressive/") > -1) {
-				Random randomGenerator = new Random();
-				Integer random= randomGenerator.nextInt(100000000);
-				String ticket = Integer.toString(random);
-				
-				String videoFile = mount.substring(mount.indexOf("progressive")+11);
-				
-				ipAddress = EuscreenpublicationbuilderApplication.ipAddress;
-				isAndroid = EuscreenpublicationbuilderApplication.isAndroid;
-				
-				try{						
-					//System.out.println("CallingSendTicket");						
-					sendTicket(videoFile,ipAddress,ticket);
-				} catch (Exception e) {}
-				
-				ap = mount+"?ticket="+ticket;				
-			} 
-			System.out.println(videoId);
-			Bookmark bookmark = new Bookmark(bookmarkId, videoId, videoName, ap);
+				if (mount.indexOf("http://")==-1 && mount.indexOf("rtmp://")==-1) {
+					Random randomGenerator = new Random();
+					Integer random= randomGenerator.nextInt(100000000);
+					String ticket = Integer.toString(random);
+					
+					String videoFile= mount;
+					ipAddress = EuscreenpublicationbuilderApplication.ipAddress;
+					isAndroid = EuscreenpublicationbuilderApplication.isAndroid;
+					
+					try{						
+						//System.out.println("CallingSendTicket");						
+						sendTicket(videoFile,ipAddress,ticket);
+					} catch (Exception e) {}
+					
+					
+					ap = mount+"?ticket="+ticket;
+				} else if (mount.indexOf(".noterik.com/progressive/") > -1) {
+					Random randomGenerator = new Random();
+					Integer random= randomGenerator.nextInt(100000000);
+					String ticket = Integer.toString(random);
+					
+					String videoFile = mount.substring(mount.indexOf("progressive")+11);
+					
+					ipAddress = EuscreenpublicationbuilderApplication.ipAddress;
+					isAndroid = EuscreenpublicationbuilderApplication.isAndroid;
+					
+					try{						
+						//System.out.println("CallingSendTicket");						
+						sendTicket(videoFile,ipAddress,ticket);
+					} catch (Exception e) {}
+					
+					ap = mount+"?ticket="+ticket;				
+				} 
+			}else{
+				ap = videoMount;
+			}
+			System.out.println("Bookmark URL");
+			System.out.println(ap);
+			System.out.println("---------------------------------");
+			Bookmark bookmark = new Bookmark(bookmarkId, videoId, videoName, ap, screenshot);
 
 			bookmarklist.add(bookmark);
 		}

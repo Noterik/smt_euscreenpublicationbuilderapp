@@ -105,7 +105,7 @@ public class Publication extends VideoPoster{
 		}
 		
 		List<Node> title_items = d.selectNodes("//h1[@class=\"title\"]");
-
+		String xmlTitle = null;
 		for (Node title : title_items) {
 			for(int i = 0; i < textContentList.size(); i++) {
 				Element element = (Element) title;
@@ -113,12 +113,13 @@ public class Publication extends VideoPoster{
 				if (element != null && textContentList.get(i).getId() != null) {
 					if (textContentList.get(i).getId().trim().equals(element.attributeValue("id").trim())) {
 						title.setText(textContentList.get(i).getValue().toString());
+						xmlTitle = textContentList.get(i).getValue().toString();
 						System.out.println(textContentList.get(i).getValue().toString());
 					}
 				}
 			}
 		}
-		
+
 		String user = "david";
 		UUID uuid = UUID.randomUUID();
         String randomUUIDString = uuid.toString();
@@ -127,6 +128,7 @@ public class Publication extends VideoPoster{
 		
         FsNode posterNode = new FsNode("videoposter", randomUUIDString);
 		posterNode.setPath("/domain/euscreenxl/user/" + user + "/publications/1/videoposter/" + randomUUIDString);
+		posterNode.setProperty("title", xmlTitle);
 		posterNode.setProperty("xml", d.asXML());
 		Fs.insertNode(posterNode, "/domain/euscreenxl/user/" + user + "/publications/1");
 		
