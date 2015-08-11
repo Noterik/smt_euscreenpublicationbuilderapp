@@ -39,6 +39,6 @@ Left.prototype.accordionThemes = function () {
     	$("#left-header-theme").css('background-color', '#lightgray');
     	$("#color_schemes").toggle("fast");
     	
-    	//$("#left-header-background").css('background-color', '#00AEEF');
-    	//$("#background").toggle("fast");    	
+    	$("#left-header-background").css('background-color', '#00AEEF');
+    	$("#background").toggle("fast");    	
 }

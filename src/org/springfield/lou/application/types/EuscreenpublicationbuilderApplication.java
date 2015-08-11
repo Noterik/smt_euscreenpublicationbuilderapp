@@ -80,7 +80,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
         loadStyleSheet(s, "bootstrap");
         loadStyleSheet(s, "font-awesome");
         loadStyleSheet(s, "font-awesome.min");
-
+        loadStyleSheet(s, "tinycolorpicker");
         loadContent(s, "comparison");
         loadContent(s, "header");
 
@@ -182,6 +182,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	    	JSONObject message = new JSONObject();
 	    	message.put("style", node.getProperty("css"));
 	    	s.putMsg("layout", "", "setTheme(" + message + ")");
+	    	s.putMsg("left", "", "accordionThemes(" + ")");
 	 }
 	 
 	 public void setTheme1(Screen s, String c) {
@@ -191,6 +192,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	    	JSONObject message = new JSONObject();
 	    	message.put("style", node.getProperty("css"));
 	    	s.putMsg("layout", "", "setTheme(" + message + ")");
+	    	s.putMsg("left", "", "accordionThemes(" + ")");
 	   }
 	 
 	 public void setTheme2(Screen s, String c) {
@@ -200,6 +202,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	    	JSONObject message = new JSONObject();
 	    	message.put("style", node.getProperty("css"));
 	    	s.putMsg("layout", "", "setTheme(" + message + ")");
+	    	s.putMsg("left", "", "accordionThemes(" + ")");
 	   }
 	 
 	 public void setTheme3(Screen s, String c) {
@@ -209,7 +212,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	    	JSONObject message = new JSONObject();
 	    	message.put("style", node.getProperty("css"));
 	    	s.putMsg("layout", "", "setTheme(" + message + ")");
-//	    	s.putMsg("left", "", "accordionThemes(" + ")");
+	    	s.putMsg("left", "", "accordionThemes(" + ")");
 	   }
 	 
 	 public void setTheme4(Screen s, String c) {
@@ -219,6 +222,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	    	JSONObject message = new JSONObject();
 	    	message.put("style", node.getProperty("css"));
 	    	s.putMsg("layout", "", "setTheme(" + message + ")");
+	    	s.putMsg("left", "", "accordionThemes(" + ")");
 	   }
 
 	 public void setTheme5(Screen s, String c) {
@@ -228,6 +232,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	    	JSONObject message = new JSONObject();
 	    	message.put("style", node.getProperty("css"));
 	    	s.putMsg("layout", "", "setTheme(" + message + ")");
+	    	s.putMsg("left", "", "accordionThemes(" + ")");
 	   }
 	
 	 //Approve theme

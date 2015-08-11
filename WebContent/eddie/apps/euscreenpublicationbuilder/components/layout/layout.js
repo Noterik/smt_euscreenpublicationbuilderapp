@@ -14,26 +14,31 @@ Layout.prototype.update = function(message){
 	  $('head').append(styleElement);
 	  if(data.html){
 	   styleElement.load(function(){
-	    self.element.html(data.html);
-	    $('.text_item').each(function(index) {
-	       tinymce.init({selector: '#' + $(this).attr('id')});
-	    });
-	    
-	    $('.title').each(function(index){
-	    	$(this).attr('contenteditable','true');
-	    });
-	   });
-	  }
+		   self.element.html(data.html);
+			   $('.text_item').each(function(index) {
+			      tinymce.init({selector: '#' + $(this).attr('id')});
+			   });
+		
+			   $('.title').each(function(index){
+			   	$(this).attr('contenteditable','true');
+			   });
+		   });
+	   }
 	 }else if(data.html){
-	  this.element.html(data.html);
+	  this.element.html(data.html);    
 	 }
 	 
-	 setTimeout(function(){
+	var setDropable = setInterval(function(){
 		self.bindContext();
 		$('.media_item').droppable( {
 			accept: '.drag_bookmark',
 			drop: self.handleCardDrop,
 		});
+
+		if($('.media_item').attr('class') == 'media_item ui-droppable'){
+			clearInterval(setDropable);
+		}
+
 	}, 100);
 }
 
@@ -44,6 +49,7 @@ Layout.prototype.setTheme = function(message){
  	var data = JSON.parse(message);
  
  	if(data.style){
+ 		$('#layout').removeAttr('style');
   		var styleElement = $('<link rel="stylesheet" type="text/css" href="' + data.style + '">');
   		$('head').append(styleElement);
  	}
@@ -54,7 +60,7 @@ Layout.prototype.setmediaitem = function (message) {
 	var data = JSON.parse(message);
 	var self = this;
 	$(data.container).html(data.video).droppable("option", "disabled", true);
-	$(data.container).append("<div class=\"removeVideo\">RemoveVideo</div>");
+	$(data.container).append("<div class=\"removeVideo\">Remove video</div>");
 	$(data.container).attr("aria-disabled", "true");
 	$(data.container).draggable({ disabled: false });
 	
@@ -83,7 +89,7 @@ Layout.prototype.handleCardDrop = function ( event, ui ) {
     $($(ui.draggable[0])[0].childNodes[0]).height(currentBoxHeight);
     ui.draggable.position( { of: $(this), my: 'left top', at: 'left top' } );
     ui.draggable.draggable('option', 'revert', false);
-    
+    $(ui.draggable[0]).append("<div class=\"removeVideo\">Remove video</div>");
     
     $(".clickable").click(function() {
 		var parent = $(this).parent().droppable( "option", "disabled", false );  	
