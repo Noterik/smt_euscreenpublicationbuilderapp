@@ -101,10 +101,12 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	}
     	layoutBody += "</ul>";
     	s.setContent("layouts", layoutBody);
-    	s.setDiv("layout_0", "bind:mousedown","setLayout0" , this);
-    	s.setDiv("layout_1", "bind:mousedown","setLayout1" , this);
-    	s.setDiv("layout_2", "bind:mousedown","setLayout2" , this);
     	
+//    	s.setDiv("layout_0", "bind:mousedown","setLayout0" , this);
+//    	s.setDiv("layout_1", "bind:mousedown","setLayout1" , this);
+//    	s.setDiv("layout_2", "bind:mousedown","setLayout2" , this);
+    	s.putMsg("left", "", "setLayoutClick(" + cnt + ")");
+
     	//Load themes
         themes = new Theme();
     	String themeBody = "<ul class=\"themeNavi\">";
@@ -116,14 +118,18 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	}
     	themeBody += "</ul>";
     	s.setContent("color_schemes", themeBody);
-    	s.setDiv("theme_0", "bind:mousedown","setTheme0" , this);
-    	s.setDiv("theme_1", "bind:mousedown","setTheme1" , this);
-    	s.setDiv("theme_2", "bind:mousedown","setTheme2" , this);
-    	s.setDiv("theme_3", "bind:mousedown","setTheme3" , this);
-    	s.setDiv("theme_4", "bind:mousedown","setTheme4" , this);
-    	s.setDiv("theme_5", "bind:mousedown","setTheme5" , this);
     	
-    	s.setDiv("left-header-theme", "bind:mousedown","approveTheme" , this);
+//    	s.setDiv("theme_0", "bind:mousedown","setTheme0" , this);
+//    	s.setDiv("theme_1", "bind:mousedown","setTheme1" , this);
+//    	s.setDiv("theme_2", "bind:mousedown","setTheme2" , this);
+//    	s.setDiv("theme_3", "bind:mousedown","setTheme3" , this);
+//    	s.setDiv("theme_4", "bind:mousedown","setTheme4" , this);
+//    	s.setDiv("theme_5", "bind:mousedown","setTheme5" , this);
+       	s.putMsg("left", "", "setThemeClick(" + cntThema + ")");
+    	s.putMsg("left", "", "approveTheme()");
+
+    	//s.setDiv("left-header-theme", "bind:mousedown","approveTheme" , this);
+    	
     	//Load bookmarks
     	Bookmarks bookmarks = new Bookmarks();    	
     	String bookmarkLayout = "";
@@ -138,8 +144,9 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     }
     
     //Set layout actions
-    public void setLayout0(Screen s, String c) {
-    	s.setProperties(c);
+    public void actionSetlayout0(Screen s, String c) {
+    	//s.setProperties(c);
+		System.out.println("Layout 000");
     	FsNode node = layouts.getLayoutBy(0);
     	setCurrentLayout(node);
     	setCurrentLayoutStyle(node.getProperty("css"));
@@ -150,9 +157,10 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	s.putMsg("left", "", "accordion(" + ")");
    }
     
-	public void setLayout1(Screen s, String c) {
-		s.setProperties(c);
-    	FsNode node = layouts.getLayoutBy(1);
+	public void actionSetlayout1(Screen s, String c) {
+	//	s.setProperties(c);
+		System.out.println("Layout 1111");
+		FsNode node = layouts.getLayoutBy(1);
     	setCurrentLayout(node);
     	setCurrentLayoutStyle(node.getProperty("css"));
     	JSONObject message = new JSONObject();
@@ -162,8 +170,8 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	s.putMsg("left", "", "accordion(" + ")");
 	}
 	
-	public void setLayout2(Screen s, String c) {
-		s.setProperties(c);
+	public void actionSetlayout2(Screen s, String c) {
+		//s.setProperties(c);
     	FsNode node = layouts.getLayoutBy(2);
     	setCurrentLayout(node);
     	setCurrentLayoutStyle(node.getProperty("css"));
@@ -175,8 +183,8 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	}
 	
 	//Set theme actions
-	 public void setTheme0(Screen s, String c) {
-	    	s.setProperties(c);
+	 public void actionSettheme0(Screen s, String c) {
+//	    	s.setProperties(c);
 	    	FsNode node = themes.getLayoutBy(0);
 	    	setCurrentTheme(node);
 	    	JSONObject message = new JSONObject();
@@ -185,8 +193,8 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	    	s.putMsg("left", "", "accordionThemes(" + ")");
 	 }
 	 
-	 public void setTheme1(Screen s, String c) {
-	    	s.setProperties(c);
+	 public void actionSettheme1(Screen s, String c) {
+//	    	s.setProperties(c);
 	    	FsNode node = themes.getLayoutBy(1);
 	    	setCurrentTheme(node);
 	    	JSONObject message = new JSONObject();
@@ -195,8 +203,8 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	    	s.putMsg("left", "", "accordionThemes(" + ")");
 	   }
 	 
-	 public void setTheme2(Screen s, String c) {
-	    	s.setProperties(c);
+	 public void actionSettheme2(Screen s, String c) {
+	    	//s.setProperties(c);
 	    	FsNode node = themes.getLayoutBy(2);
 	    	setCurrentTheme(node);
 	    	JSONObject message = new JSONObject();
@@ -205,8 +213,8 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	    	s.putMsg("left", "", "accordionThemes(" + ")");
 	   }
 	 
-	 public void setTheme3(Screen s, String c) {
-	    	s.setProperties(c);
+	 public void actionSettheme3(Screen s, String c) {
+	    	//s.setProperties(c);
 	    	FsNode node = themes.getLayoutBy(3);
 	    	setCurrentTheme(node);
 	    	JSONObject message = new JSONObject();
@@ -215,8 +223,8 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	    	s.putMsg("left", "", "accordionThemes(" + ")");
 	   }
 	 
-	 public void setTheme4(Screen s, String c) {
-	    	s.setProperties(c);
+	 public void actionSettheme4(Screen s, String c) {
+	    	//s.setProperties(c);
 	    	FsNode node = themes.getLayoutBy(4);
 	    	setCurrentTheme(node);
 	    	JSONObject message = new JSONObject();
@@ -225,8 +233,8 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	    	s.putMsg("left", "", "accordionThemes(" + ")");
 	   }
 
-	 public void setTheme5(Screen s, String c) {
-	    	s.setProperties(c);
+	 public void actionSettheme5(Screen s, String c) {
+	    	//s.setProperties(c);
 	    	FsNode node = themes.getLayoutBy(5);
 	    	setCurrentTheme(node);
 	    	JSONObject message = new JSONObject();
@@ -236,7 +244,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	   }
 	
 	 //Approve theme
-	 public void approveTheme(Screen s, String c) {
+	 public void actionApprovetheme(Screen s, String c) {
 		 s.putMsg("left", "", "accordionThemes(" + ")");
 	     loadStyleSheet(s, "tinycolorpicker");
 	 }

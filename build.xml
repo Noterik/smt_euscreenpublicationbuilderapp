@@ -123,7 +123,7 @@
 		<delete file="${package.location.jar}"/>
 		<jar jarfile="${package.location.jar}" basedir="${classes.dir}">
 			<manifest>
-				<attribute name="Built-By" value="Noterik B.V."/>
+				<attribute name="Built-By" value="ubuntu@52.17.103.37"/>
 			   	<attribute name="Main-Class" value=""/>
 			</manifest>
 		</jar>
@@ -146,9 +146,7 @@
 			 <exclude name="WEB-INF/web.xml" />
 			</fileset>
 		</war>
-		<exec executable="/bin/bash">
-        	<arg value="/home/shukrishukriev/noterikcopy.sh"/>
-        </exec>
+
 	</target>
 	
 </project>

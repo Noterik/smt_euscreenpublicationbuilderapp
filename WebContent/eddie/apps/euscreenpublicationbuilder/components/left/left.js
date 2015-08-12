@@ -24,14 +24,58 @@ var Left = function(options){
 Left.prototype = Object.create(Component.prototype);
 
 Left.prototype.accordion = function () {
-	    $(".accordion").accordion();
-	    
-    	$("#left-header-layout").css('background-color', 'lightgray');
-    	$("#layouts").toggle( "fast" );
-    	
-    	$("#left-header-theme").css('background-color', '#00AEEF');
-    	$("#color_schemes").toggle("fast");  	
+    $(".accordion").accordion();
+    
+	$("#left-header-layout").css('background-color', 'lightgray');
+	$("#layouts").toggle( "fast" );
+	
+	$("#left-header-theme").css('background-color', '#00AEEF');
+	$("#color_schemes").toggle("fast");  	
 }
+
+Left.prototype.setLayoutClick = function(count) {
+	console.log("test");
+	var self = this;
+
+	for(var i = 0; i < count; i++)
+	{
+		this.bindLayoutClick(i);
+	}
+};
+
+Left.prototype.bindLayoutClick = function(i) {
+	var result = JSON.stringify({none: "none"});
+	var function_name ="setlayout"+i+"(" + result + ")"; 
+	
+	$('#layout_' + i).click(function(){
+		eddie.putLou("", "setlayout"+i+"(" + ")");
+	});
+};
+
+Left.prototype.setThemeClick = function(count) {
+	console.log("test");
+	var self = this;
+
+	for(var i = 0; i < count; i++)
+	{
+		this.bindThemeClick(i);
+	}
+};
+
+Left.prototype.bindThemeClick = function(i) {
+	var result = JSON.stringify({none: "none"});
+	var function_name ="settheme"+i+"(" + result + ")"; 
+	
+	$('#theme_' + i).click(function(){
+		eddie.putLou("", "settheme"+i+"(" + ")");
+	});
+};
+
+Left.prototype.approveTheme = function() {
+	$('#left-header-theme').click(function(){
+		eddie.putLou("", "approvetheme()");
+	});
+};
 
 Left.prototype.accordionThemes = function () {
 	    $(".accordion").accordion();

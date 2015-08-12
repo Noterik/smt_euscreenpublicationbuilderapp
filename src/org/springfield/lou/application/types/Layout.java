@@ -6,10 +6,10 @@ import org.springfield.fs.FsNode;
 
 public class Layout {
 	private List<FsNode> layouts;
-	private String address = "/domain/euscreenxl/layout"; 
+	private String address = "/domain/euscreenxl/user/admin/config/publicationbuilder/layout"; 
 	public FsNode currentLayout;
 	public String currentLayoutStyle;
-	
+
 	public String getCurrentLayoutStyle() {
 		return currentLayoutStyle;
 	}
@@ -40,5 +40,7 @@ public class Layout {
 	
 	public Layout() {
 		setLayouts(Fs.getNodes(this.address, 1));
+		System.out.println("Layouts");
+		System.out.println(Fs.getNodes(this.address, 1));
 	}
 }
