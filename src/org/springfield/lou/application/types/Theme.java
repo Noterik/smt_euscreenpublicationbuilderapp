@@ -7,7 +7,7 @@ import org.springfield.fs.FsNode;
 
 public class Theme {
 	private List<FsNode> themes;
-	private String address = "/domain/euscreenxl/theme"; 
+	private String address = "/domain/euscreenxl/user/admin/config/publicationbuilder/theme"; 
 	public FsNode currentTheme;
 	
 	public FsNode getCurrentTheme() {
@@ -32,5 +32,7 @@ public class Theme {
 	
 	public Theme() {
 		setThemes(Fs.getNodes(this.address, 1));
+		System.out.println("Themes");
+		System.out.println(Fs.getNodes(this.address, 1));
 	}
 }

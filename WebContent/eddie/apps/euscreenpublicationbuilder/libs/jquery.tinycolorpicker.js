@@ -142,7 +142,7 @@
                     $(document).bind("mousedown.colorpicker", function(event) {
                         $(document).unbind(".colorpicker");
 
-                        $track.hide();
+                        //$track.hide();
                     });
                 });
 
@@ -157,7 +157,7 @@
 
                             $(document).unbind(".colorpicker");
 
-                            $track.hide();
+                            //$track.hide();
 
                             return false;
                         });
@@ -185,7 +185,7 @@
                     $canvas.bind("touchend", function(event) {
                         mouseIsDown = false;
 
-                        $track.hide();
+                        //$track.hide();
 
                         return false;
                     });
@@ -249,7 +249,7 @@
                 self.colorRGB = color;
                 self.colorHex = self.rgbToHex(self.colorRGB);
             }
-
+			$('#layout').css("backgroundColor", self.colorHex);
             $color.find(".colorInner").css("backgroundColor", self.colorHex);
             $colorInput.val(self.colorHex);
         };
