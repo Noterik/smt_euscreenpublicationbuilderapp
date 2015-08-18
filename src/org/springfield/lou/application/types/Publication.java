@@ -17,6 +17,7 @@ import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.Node;
+import org.json.simple.JSONObject;
 import org.springfield.fs.Fs;
 import org.springfield.fs.FsNode;
 import org.springfield.lou.application.types.DTO.MediaItem;
@@ -30,7 +31,7 @@ public class Publication extends VideoPoster{
 
 	}
 	
-	public static void createXML(Publication publication){
+	public static JSONObject createXML(Publication publication){
 		System.out.println("createXML()");
 		FsNode layout = publication.template.layout.getCurrentLayout();
 		String layoutStyle = publication.template.layout.getCurrentLayoutStyle();
@@ -125,12 +126,23 @@ public class Publication extends VideoPoster{
         String randomUUIDString = uuid.toString();
         
         System.out.println("UNIQUE IDENTIFIRE: " + randomUUIDString);
-		
+        
+        JSONObject object = new JSONObject();
+        object.put("type", "videoposter");
+        object.put("id", randomUUIDString);
+        object.put("title", xmlTitle);
+        object.put("xml", d.asXML());
+        
+        return object;
+        
+        /*
         FsNode posterNode = new FsNode("videoposter", randomUUIDString);
 		posterNode.setPath("/domain/euscreenxl/user/" + user + "/publications/1/videoposter/" + randomUUIDString);
 		posterNode.setProperty("title", xmlTitle);
 		posterNode.setProperty("xml", d.asXML());
-		Fs.insertNode(posterNode, "/domain/euscreenxl/user/" + user + "/publications/1");
 		
+		
+		Fs.insertNode(posterNode, "/domain/euscreenxl/user/" + user + "/publications/1");
+		*/
 	}
 }

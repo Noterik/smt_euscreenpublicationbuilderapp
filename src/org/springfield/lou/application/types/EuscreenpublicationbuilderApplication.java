@@ -83,6 +83,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 
         loadContent(s, "comparison");
         loadContent(s, "header");
+        loadContent(s, "iframesender");
 
         loadContent(s, "left");
         loadContent(s, "section");
@@ -289,7 +290,8 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 				publication.template.sections.textSection.setTextContents(new TextContent(textId, textValue));
 			}
 			
-			Publication.createXML(publication);
+			JSONObject publicationJSON = Publication.createXML(publication);
+			s.putMsg("iframesender", "", "sendToParent(" + publicationJSON + ")");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
