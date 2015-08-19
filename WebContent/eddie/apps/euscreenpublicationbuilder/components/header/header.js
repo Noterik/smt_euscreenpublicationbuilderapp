@@ -25,15 +25,21 @@ var Header = function(options){
 			var obj = {};
 		
 			obj.id = $(this).attr('id');
-			if($(this)[0].childNodes[3] == undefined){
-				obj.value = $(this)[0].childNodes[0].src;
+			if($(this)[0].children[0].src == undefined){
+				obj.value = $($($(this)[0].children[1]).children()[0]).children()[0].src
 			}else{
-				obj.value = $(this)[0].childNodes[3].childNodes[0].childNodes[0].src;
+				obj.value = $(this)[0].children[0].src;
 			}
 			mediaArray.push(obj);
 		});
 		var result = JSON.stringify({textItem: textAreas, mediaItem: mediaArray});
 		eddie.putLou("", "proccesspublication(" + result + ")");
+			$('#header').notify("Your Poster has been saved",   { className:"success", autoHideDelay: 3400});
+		
 	});
 }
 Header.prototype = Object.create(Component.prototype);
+
+Header.prototype.success = function() {
+	$('#header').notify("Your Poster has been saved",   { className:"success", autoHideDelay: 3400});
+}

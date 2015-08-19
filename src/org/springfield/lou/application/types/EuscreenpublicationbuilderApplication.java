@@ -34,6 +34,7 @@ import org.springfield.lou.screen.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public class EuscreenpublicationbuilderApplication extends Html5Application{
     public Layout layouts;
@@ -41,6 +42,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     private FsNode currentLayout;
     private String currentLayoutStyle;
 	private FsNode currentTheme;
+	private String currentUser;
 	public static String ipAddress = "";
 	public static boolean isAndroid;
 	
@@ -84,8 +86,9 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
         loadContent(s, "comparison");
         loadContent(s, "header");
         loadContent(s, "iframesender");
-
         loadContent(s, "left");
+    	s.putMsg("left", "", "getCurrentUser()");
+
         loadContent(s, "section");
         loadContent(s, "right");
         s.setContent("middle", "<div id=\"layout\"></div>");
@@ -132,7 +135,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	//s.setDiv("left-header-theme", "bind:mousedown","approveTheme" , this);
     	
     	//Load bookmarks
-    	Bookmarks bookmarks = new Bookmarks();    	
+    	Bookmarks bookmarks = new Bookmarks(currentUser);    	
     	String bookmarkLayout = "";
 
      	int cnt_bookmark = 0;
@@ -274,6 +277,20 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 		}
 	}
 	
+	public void actionGetcurrentuser(Screen s, String c){
+
+			JSONObject json;
+			try {
+				json = (JSONObject)new JSONParser().parse(c);
+				System.out.println(json.toJSONString());
+				this.currentUser = json.get("user").toString();
+				System.out.println("Current user" + this.currentUser);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	}
+	
 	
 	//Create publication XML
 	public void actionProccesspublication(Screen s, String c){
@@ -303,7 +320,9 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 				publication.template.sections.textSection.setTextContents(new TextContent(textId, textValue));
 			}
 			
-			JSONObject publicationJSON = Publication.createXML(publication);
+			JSONObject publicationJSON = Publication.createXML(publication, this.currentUser);
+			System.out.println("----------------------Publication-----------------------");
+			System.out.println(publicationJSON.toJSONString());
 			s.putMsg("iframesender", "", "sendToParent(" + publicationJSON + ")");
 		} catch (Exception e) {
 			e.printStackTrace();

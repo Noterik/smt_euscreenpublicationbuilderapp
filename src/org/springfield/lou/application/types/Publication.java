@@ -31,7 +31,7 @@ public class Publication extends VideoPoster{
 
 	}
 	
-	public static JSONObject createXML(Publication publication){
+	public static JSONObject createXML(Publication publication, String user){
 		System.out.println("createXML()");
 		FsNode layout = publication.template.layout.getCurrentLayout();
 		String layoutStyle = publication.template.layout.getCurrentLayoutStyle();
@@ -69,7 +69,7 @@ public class Publication extends VideoPoster{
 			e.printStackTrace();
 		}
 		List<Node> media_items = d.selectNodes("//div[@class=\"media_item\"]");
-		Bookmarks bookmarks = new Bookmarks();
+		Bookmarks bookmarks = new Bookmarks(user);
 		for (Node media_item : media_items) {
 			for(int i = 0; i < mediaItemList.size(); i++) {
 				Element element = (Element) media_item;
@@ -77,6 +77,8 @@ public class Publication extends VideoPoster{
 					if (mediaItemList.get(i).getId().trim().equals(element.attributeValue("id").trim())) {
 						element.clearContent();
 						String media = null;
+						System.out.println("PubBuilder--");
+						System.out.println(mediaItemList.get(i).getId() + "-->" + mediaItemList.get(i).getValue());
 						if (mediaItemList.get(i).getValue().toString().contains("http://www.youtube.com") || mediaItemList.get(i).getValue().toString().contains("https://player.vimeo")) {
 							media = "<iframe class=\"videoAfterDrop\" src='" + mediaItemList.get(i).getValue().toString() + "'></iframe>";
 						}else {
@@ -121,7 +123,6 @@ public class Publication extends VideoPoster{
 			}
 		}
 
-		String user = "david";
 		UUID uuid = UUID.randomUUID();
         String randomUUIDString = uuid.toString();
         

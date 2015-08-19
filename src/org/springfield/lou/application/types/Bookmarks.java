@@ -16,7 +16,7 @@ import org.springfield.fs.FsNode;
 public class Bookmarks {
 	public List<Bookmark> bookmarklist = new ArrayList<Bookmark>();
 	private List<FsNode> xmlCallList;
-	private String address = "/domain/euscreenxl/user/david/publications/1/bookmark"; 
+	private String address = "/domain/euscreenxl/user/"; 
 	private static String ipAddress = "";
 	private static boolean isAndroid = false;
 	
@@ -25,8 +25,9 @@ public class Bookmarks {
 	}
 
 	
-	public Bookmarks() {
+	public Bookmarks(String user) {
 		super();
+		address = address + user + "/publications/1/bookmark";
 		
 		this.xmlCallList = Fs.getNodes(this.address, 2);
 

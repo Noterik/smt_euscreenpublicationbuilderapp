@@ -77,6 +77,18 @@ Left.prototype.approveTheme = function() {
 	});
 };
 
+Left.prototype.getCurrentUser = function() {
+		var url = window.location.href;
+		console.log("url");
+		console.log(url);
+		url = url.replace("http://", "");
+		var url_split = url.split("/");
+
+		var currentUser = url_split[5];
+		var result = JSON.stringify({user: currentUser});
+		eddie.putLou("", "getCurrentUser("+result+")");
+};
+
 Left.prototype.accordionThemes = function () {
 	    $(".accordion").accordion();
     	
