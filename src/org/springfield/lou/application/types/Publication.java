@@ -55,6 +55,7 @@ public class Publication extends VideoPoster{
 			+ "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"/>" 
 			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + layoutStyle + "'></link>" 
 			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + theme + "'></link>" 
+			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + "http://images1.noterik.com/euscreen/publicationbuilder/style/comparison_after.css" + "'></link>" 
 			+ "</head>"
 			+ "<body><div id=\"layout\" style=\"width: 50%;margin: 0 auto;\">"
 			+ layout.getProperty("template").trim()
