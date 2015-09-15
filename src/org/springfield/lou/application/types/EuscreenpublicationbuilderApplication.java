@@ -45,7 +45,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	private String currentUser;
 	public static String ipAddress = "";
 	public static boolean isAndroid;
-	
+	private Overlaydialog overlayDialog = null;
     public String getCurrentLayoutStyle() {
 		return currentLayoutStyle;
 	}
@@ -87,6 +87,9 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
         loadContent(s, "header");
         loadContent(s, "iframesender");
         loadContent(s, "left");
+		this.overlayDialog = new Overlaydialog(s);
+		this.overlayDialog.render();
+		
     	s.putMsg("left", "", "getCurrentUser()");
 
         loadContent(s, "section");
@@ -105,10 +108,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	}
     	layoutBody += "</ul>";
     	s.setContent("layouts", layoutBody);
-    	
-//    	s.setDiv("layout_0", "bind:mousedown","setLayout0" , this);
-//    	s.setDiv("layout_1", "bind:mousedown","setLayout1" , this);
-//    	s.setDiv("layout_2", "bind:mousedown","setLayout2" , this);
+
     	s.putMsg("left", "", "setLayoutClick(" + cnt + ")");
 
     	//Load themes
@@ -123,12 +123,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	themeBody += "</ul>";
     	s.setContent("color_schemes", themeBody);
     	
-//    	s.setDiv("theme_0", "bind:mousedown","setTheme0" , this);
-//    	s.setDiv("theme_1", "bind:mousedown","setTheme1" , this);
-//    	s.setDiv("theme_2", "bind:mousedown","setTheme2" , this);
-//    	s.setDiv("theme_3", "bind:mousedown","setTheme3" , this);
-//    	s.setDiv("theme_4", "bind:mousedown","setTheme4" , this);
-//    	s.setDiv("theme_5", "bind:mousedown","setTheme5" , this);
        	s.putMsg("left", "", "setThemeClick(" + cntThema + ")");
     	s.putMsg("left", "", "approveTheme()");
 
@@ -149,7 +143,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     
     //Set layout actions
     public void actionSetlayout0(Screen s, String c) {
-    	//s.setProperties(c);
 		System.out.println("Layout 000");
     	FsNode node = layouts.getLayoutBy(0);
     	setCurrentLayout(node);
@@ -162,7 +155,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
    }
     
 	public void actionSetlayout1(Screen s, String c) {
-	//	s.setProperties(c);
 		System.out.println("Layout 1111");
 		FsNode node = layouts.getLayoutBy(1);
     	setCurrentLayout(node);
@@ -175,7 +167,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	}
 	
 	public void actionSetlayout2(Screen s, String c) {
-		//s.setProperties(c);
     	FsNode node = layouts.getLayoutBy(2);
     	setCurrentLayout(node);
     	setCurrentLayoutStyle(node.getProperty("css"));
@@ -188,7 +179,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	
 	//Set theme actions
 	 public void actionSettheme0(Screen s, String c) {
-//	    	s.setProperties(c);
 	    	FsNode node = themes.getLayoutBy(0);
 	    	setCurrentTheme(node);
 	    	JSONObject message = new JSONObject();
@@ -198,7 +188,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	 }
 	 
 	 public void actionSettheme1(Screen s, String c) {
-//	    	s.setProperties(c);
 	    	FsNode node = themes.getLayoutBy(1);
 	    	setCurrentTheme(node);
 	    	JSONObject message = new JSONObject();
@@ -208,7 +197,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	   }
 	 
 	 public void actionSettheme2(Screen s, String c) {
-	    	//s.setProperties(c);
 	    	FsNode node = themes.getLayoutBy(2);
 	    	setCurrentTheme(node);
 	    	JSONObject message = new JSONObject();
@@ -218,7 +206,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	   }
 	 
 	 public void actionSettheme3(Screen s, String c) {
-	    	//s.setProperties(c);
 	    	FsNode node = themes.getLayoutBy(3);
 	    	setCurrentTheme(node);
 	    	JSONObject message = new JSONObject();
@@ -228,7 +215,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	   }
 	 
 	 public void actionSettheme4(Screen s, String c) {
-	    	//s.setProperties(c);
 	    	FsNode node = themes.getLayoutBy(4);
 	    	setCurrentTheme(node);
 	    	JSONObject message = new JSONObject();
@@ -238,7 +224,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	   }
 
 	 public void actionSettheme5(Screen s, String c) {
-	    	//s.setProperties(c);
 	    	FsNode node = themes.getLayoutBy(5);
 	    	setCurrentTheme(node);
 	    	JSONObject message = new JSONObject();
@@ -253,6 +238,61 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	     loadStyleSheet(s, "tinycolorpicker");
 	 }
 	 
+	//Action Preview
+	public void actionPreview(Screen s, String c) {
+//		System.out.println("PreviewAction()");
+//		System.out.println(c);
+//
+//		try {
+//			JSONObject json = (JSONObject)new JSONParser().parse(c);
+//
+//			this.overlayDialog.setHTML(json.get("html").toString());
+//			this.overlayDialog.setVisible(true);
+//			this.overlayDialog.update();
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		System.out.println("actionPreview()");
+		
+		
+		try {
+			JSONObject json = (JSONObject)new JSONParser().parse(c);
+			Publication publication = new Publication();
+			
+			publication.theme.setCurrentTheme(getCurrentTheme());
+			publication.template.layout.setCurrentLayout(getCurrentLayout());
+			publication.template.layout.setCurrentLayoutStyle(getCurrentLayoutStyle());
+			
+			JSONArray mediaArray = (JSONArray)json.get("mediaItem");
+			JSONArray textArray = (JSONArray)json.get("textItem");
+
+			for(int i = 0; i < mediaArray.size(); i++){
+				JSONObject ob = (JSONObject)mediaArray.get(i);
+				String mediaId = (String)ob.get("id");
+				String mediaValue = (String)ob.get("value");
+				String mediaPoster = (String)ob.get("poster");
+				publication.template.sections.mediaSection.setMediaItems(new MediaItem(mediaId, mediaValue, mediaPoster));
+			}
+			
+			for(int i = 0; i < textArray.size(); i++){
+				JSONObject ob = (JSONObject)textArray.get(i);
+				String textId = (String)ob.get("id");
+				String textValue = (String)ob.get("value");
+				
+				publication.template.sections.textSection.setTextContents(new TextContent(textId, textValue));
+			}
+			
+			JSONObject publicationJSON = Publication.createPreviewXML(publication, this.currentUser);
+			this.overlayDialog.setHTML(publicationJSON.get("xml").toString());
+			this.overlayDialog.setVisible(true);
+			this.overlayDialog.update();
+			System.out.println(publicationJSON.get("xml").toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 	//Add media item external identifier
 	public void actionAddexternalidentifire(Screen s, String c){
 		try {
@@ -260,14 +300,17 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 			System.out.println(json.toJSONString());
 			String data_type = json.get("dataType").toString().toLowerCase();
 			String identifier = json.get("identifier").toString();
+			
 			String container = "#" + json.get("container").toString();
 	    	JSONObject message = new JSONObject();
 	    	
 			if(data_type.equals("youtubeitem")) {
-				String video = "<iframe class=\"videoAfterDrop ui-draggable\" src='" + "http://www.youtube.com/embed/" + identifier + "'></iframe>";
+				String[] youtubeId = identifier.split("=");
+				String video = "<iframe class=\"videoAfterDrop ui-draggable\" src='" + "http://www.youtube.com/embed/" + youtubeId[1] + "'></iframe>";
 		    	message.put("video", video);
 			}else if (data_type.equals("vimeoitem")) {
-				String video = "<iframe class=\"videoAfterDrop\" src='" + "https://player.vimeo.com/video/" + identifier + "'></iframe>";
+				String[] vimeoId = identifier.split("/");
+				String video = "<iframe class=\"videoAfterDrop\" src='" + "https://player.vimeo.com/video/" + vimeoId[3] + "'></iframe>";
 		    	message.put("video", video);
 			}
 			message.put("container", container);
@@ -309,7 +352,8 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 				JSONObject ob = (JSONObject)mediaArray.get(i);
 				String mediaId = (String)ob.get("id");
 				String mediaValue = (String)ob.get("value");
-				publication.template.sections.mediaSection.setMediaItems(new MediaItem(mediaId, mediaValue));
+				String mediaPoster = (String)ob.get("poster");
+				publication.template.sections.mediaSection.setMediaItems(new MediaItem(mediaId, mediaValue, mediaPoster));
 			}
 			
 			for(int i = 0; i < textArray.size(); i++){
@@ -327,7 +371,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	//Get meta headers

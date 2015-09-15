@@ -14,9 +14,9 @@ public class MediaSection extends MediaItem{
 		this.mediaItems.add(mediaItems);
 	}
 
-	public MediaSection(String id, String value) {
-		super(id, value);
-		this.setMediaItems(new MediaItem(id, value ));
+	public MediaSection(String id, String value, String poster) {
+		super(id, value, poster);
+		this.setMediaItems(new MediaItem(id, value, poster));
 	}
 
 }

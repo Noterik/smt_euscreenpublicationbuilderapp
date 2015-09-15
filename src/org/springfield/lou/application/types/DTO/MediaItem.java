@@ -7,6 +7,7 @@ import interfaces.YouTubeItem;
 public class MediaItem implements BookmarkItem, VimeoItem, YouTubeItem{
 	private String id;
 	private String value;
+	private String poster;
 	
 	public String getValue() {
 		return value;
@@ -24,10 +25,18 @@ public class MediaItem implements BookmarkItem, VimeoItem, YouTubeItem{
 		this.id = id;
 	}
 	
-	
-	public MediaItem(String id, String value) {
+	public String getPoster() {
+		return poster;
+	}
+
+	public void setPoster(String poster) {
+		this.poster = poster;
+	}
+		
+	public MediaItem(String id, String value, String poster) {
 		this.setId(id);
-		setValue(value);
+		this.setValue(value);
+		this.setPoster(poster);
 	}
 	
 }
