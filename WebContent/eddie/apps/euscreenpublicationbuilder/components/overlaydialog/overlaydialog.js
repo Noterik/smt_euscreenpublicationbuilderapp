@@ -40,7 +40,10 @@ var Overlaydialog = function(){
 	
 	this.closeButton.on('click', function(){
 		self.element.hide();
-		eddie.putLou('', 'closePublicationBuilder()');
+		var result = JSON.stringify({textItem: ""});
+
+		eddie.putLou('', 'closepreview(' + result + ')');
+		
 	});
 	
 	

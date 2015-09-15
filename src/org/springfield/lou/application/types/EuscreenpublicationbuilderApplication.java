@@ -87,8 +87,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
         loadContent(s, "header");
         loadContent(s, "iframesender");
         loadContent(s, "left");
-		this.overlayDialog = new Overlaydialog(s);
-		this.overlayDialog.render();
 		
     	s.putMsg("left", "", "getCurrentUser()");
 
@@ -254,9 +252,11 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 //			e.printStackTrace();
 //		}
 		System.out.println("actionPreview()");
-		
-		
+
 		try {
+			this.overlayDialog = new Overlaydialog(s);
+			this.overlayDialog.render();
+			
 			JSONObject json = (JSONObject)new JSONParser().parse(c);
 			Publication publication = new Publication();
 			
@@ -290,9 +290,16 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 			System.out.println(publicationJSON.get("xml").toString());
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		
+		}	
 	}
+	
+	public void actionClosepreview(Screen s, String c){
+		System.out.println("actionClosePreview()");
+		this.overlayDialog.setURL("");
+		this.overlayDialog.setVisible(false);
+		this.overlayDialog.update();
+	}
+	
 	//Add media item external identifier
 	public void actionAddexternalidentifire(Screen s, String c){
 		try {

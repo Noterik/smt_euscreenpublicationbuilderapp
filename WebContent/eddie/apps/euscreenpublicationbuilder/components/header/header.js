@@ -36,11 +36,7 @@ var Header = function(options){
 		
 		var result = JSON.stringify({textItem: textAreas, mediaItem: mediaArray});
 		eddie.putLou("", "preview(" + result + ")");
-		
-		
-		/*var result = JSON.stringify({html:"<div>HASHTAG</div>"});
-		console.log(result);
-		eddie.putLou("", "preview(" + result + ")");*/
+
 	});
 	
 	$('#publish').click(function(){
