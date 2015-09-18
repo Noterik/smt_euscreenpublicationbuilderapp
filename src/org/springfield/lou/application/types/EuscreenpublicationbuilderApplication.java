@@ -141,7 +141,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     
     //Set layout actions
     public void actionSetlayout0(Screen s, String c) {
-		System.out.println("Layout 000");
     	FsNode node = layouts.getLayoutBy(0);
     	setCurrentLayout(node);
     	setCurrentLayoutStyle(node.getProperty("css"));
@@ -150,10 +149,11 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	message.put("style", node.getProperty("css"));
     	s.putMsg("layout", "", "update(" + message + ")");
     	s.putMsg("left", "", "accordion(" + ")");
+    	s.putMsg("header", "", "showbuttons(" + ")");
+
    }
     
 	public void actionSetlayout1(Screen s, String c) {
-		System.out.println("Layout 1111");
 		FsNode node = layouts.getLayoutBy(1);
     	setCurrentLayout(node);
     	setCurrentLayoutStyle(node.getProperty("css"));
@@ -162,6 +162,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	message.put("style", node.getProperty("css"));
     	s.putMsg("layout", "", "update(" + message + ")");
     	s.putMsg("left", "", "accordion(" + ")");
+    	s.putMsg("header", "", "showbuttons(" + ")");
 	}
 	
 	public void actionSetlayout2(Screen s, String c) {
@@ -173,6 +174,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	message.put("style", node.getProperty("css"));
     	s.putMsg("layout", "", "update(" + message + ")");
     	s.putMsg("left", "", "accordion(" + ")");
+    	s.putMsg("header", "", "showbuttons(" + ")");
 	}
 	
 	//Set theme actions
@@ -238,50 +240,41 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	 
 	//Action Preview
 	public void actionPreview(Screen s, String c) {
-//		System.out.println("PreviewAction()");
-//		System.out.println(c);
-//
-//		try {
-//			JSONObject json = (JSONObject)new JSONParser().parse(c);
-//
-//			this.overlayDialog.setHTML(json.get("html").toString());
-//			this.overlayDialog.setVisible(true);
-//			this.overlayDialog.update();
-//		} catch (ParseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 		System.out.println("actionPreview()");
 
 		try {
 			this.overlayDialog = new Overlaydialog(s);
 			this.overlayDialog.render();
-			
-			JSONObject json = (JSONObject)new JSONParser().parse(c);
+			JSONObject json = null;
+			if(c != null) json = (JSONObject)new JSONParser().parse(c);
 			Publication publication = new Publication();
-			
-			publication.theme.setCurrentTheme(getCurrentTheme());
+			if(getCurrentTheme() != null) publication.theme.setCurrentTheme(getCurrentTheme());
 			publication.template.layout.setCurrentLayout(getCurrentLayout());
 			publication.template.layout.setCurrentLayoutStyle(getCurrentLayoutStyle());
 			
-			JSONArray mediaArray = (JSONArray)json.get("mediaItem");
-			JSONArray textArray = (JSONArray)json.get("textItem");
-
-			for(int i = 0; i < mediaArray.size(); i++){
-				JSONObject ob = (JSONObject)mediaArray.get(i);
-				String mediaId = (String)ob.get("id");
-				String mediaValue = (String)ob.get("value");
-				String mediaPoster = (String)ob.get("poster");
-				publication.template.sections.mediaSection.setMediaItems(new MediaItem(mediaId, mediaValue, mediaPoster));
+			if(json.get("mediaItem") != null){
+				JSONArray mediaArray = (JSONArray)json.get("mediaItem");
+				for(int i = 0; i < mediaArray.size(); i++){
+					JSONObject ob = (JSONObject)mediaArray.get(i);
+					String mediaId = (String)ob.get("id");
+					String mediaValue = (String)ob.get("value");
+					String mediaPoster = (String)ob.get("poster");
+					publication.template.sections.mediaSection.setMediaItems(new MediaItem(mediaId, mediaValue, mediaPoster));
+				}
 			}
 			
-			for(int i = 0; i < textArray.size(); i++){
-				JSONObject ob = (JSONObject)textArray.get(i);
-				String textId = (String)ob.get("id");
-				String textValue = (String)ob.get("value");
-				
-				publication.template.sections.textSection.setTextContents(new TextContent(textId, textValue));
+			if(json.get("textItem") != null){
+				JSONArray textArray = (JSONArray)json.get("textItem");
+
+				for(int i = 0; i < textArray.size(); i++){
+					JSONObject ob = (JSONObject)textArray.get(i);
+					String textId = (String)ob.get("id");
+					String textValue = (String)ob.get("value");
+					
+					publication.template.sections.textSection.setTextContents(new TextContent(textId, textValue));
+				}
 			}
+
 			
 			JSONObject publicationJSON = Publication.createPreviewXML(publication, this.currentUser);
 			this.overlayDialog.setHTML(publicationJSON.get("xml").toString());

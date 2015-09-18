@@ -37,18 +37,16 @@ public class Publication extends VideoPoster{
 		String layoutStyle = publication.template.layout.getCurrentLayoutStyle();
 		System.out.println("layout style: " + layoutStyle);
 		String theme = null;
-		if(publication.theme.getCurrentTheme().getProperty("css") != null){
-			theme = publication.theme.getCurrentTheme().getProperty("css");
+		if(publication.theme.getCurrentTheme() != null){
+			if(publication.theme.getCurrentTheme().getProperty("css") != null){
+				theme = publication.theme.getCurrentTheme().getProperty("css");
+			}
 		}
 		
 		
 		List<TextContent> textContentList = publication.template.sections.textSection.getTextContents();
 		List<MediaItem> mediaItemList = publication.template.sections.mediaSection.getMediaItems();
-		System.out.println("----------------------------");
-		System.out.println("CreateXML()");
-		System.out.println(theme);
-		System.out.println("----------------------------");
-		
+
 		String html_layout = "<html><head><title>First parse</title>"
 			+ "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\"/>"
 			+ "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"></link>"
@@ -78,8 +76,7 @@ public class Publication extends VideoPoster{
 					if (mediaItemList.get(i).getId().trim().equals(element.attributeValue("id").trim())) {
 						element.clearContent();
 						String media = null;
-						System.out.println("PubBuilder--");
-						System.out.println(mediaItemList.get(i).getId() + "-->" + mediaItemList.get(i).getValue());
+						if(mediaItemList.get(i).getValue() != null){
 						if (mediaItemList.get(i).getValue().toString().contains("http://www.youtube.com") || mediaItemList.get(i).getValue().toString().contains("https://player.vimeo")) {
 							media = "<iframe class=\"videoAfterDrop\" src='" + mediaItemList.get(i).getValue().toString() + "'></iframe>";
 						}else {
@@ -91,8 +88,7 @@ public class Publication extends VideoPoster{
 						}
 						
 						media_item.setText(media);
-						System.out.println("-----------------Media item-----------------");
-						System.out.println(media_item.asXML());
+						}
 					}
 				}
 			}
@@ -157,22 +153,18 @@ public class Publication extends VideoPoster{
 		System.out.println("createPreviewXML()");
 		FsNode layout = publication.template.layout.getCurrentLayout();
 		String layoutStyle = publication.template.layout.getCurrentLayoutStyle();
-		System.out.println("layout style: " + layoutStyle);
-		String theme = null;
-		if(publication.theme.getCurrentTheme().getProperty("css") != null){
-			theme = publication.theme.getCurrentTheme().getProperty("css");
-		}
 		
+		String theme = null;
+		if(publication.theme.getCurrentTheme() != null){
+			if(publication.theme.getCurrentTheme().getProperty("css") != null){
+				theme = publication.theme.getCurrentTheme().getProperty("css");
+			}
+		}
 		
 		List<TextContent> textContentList = publication.template.sections.textSection.getTextContents();
 		List<MediaItem> mediaItemList = publication.template.sections.mediaSection.getMediaItems();
-		System.out.println("----------------------------");
-		System.out.println("CreateXML()");
-		System.out.println(theme);
-		System.out.println("----------------------------");
 		
 		String html_layout = "<html><head><title>First parse</title>"
-			+ "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\"/>"
 			+ "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"></link>"
 			+ "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"/>" 
 			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + layoutStyle + "'></link>" 
@@ -194,27 +186,28 @@ public class Publication extends VideoPoster{
 		List<Node> media_items = d.selectNodes("//div[@class=\"media_item\"]");
 		Bookmarks bookmarks = new Bookmarks(user);
 		for (Node media_item : media_items) {
-			for(int i = 0; i < mediaItemList.size(); i++) {
-				Element element = (Element) media_item;
-				if (element != null && mediaItemList.get(i).getId() != null) {
-					if (mediaItemList.get(i).getId().trim().equals(element.attributeValue("id").trim())) {
-						element.clearContent();
-						String media = null;
-						System.out.println("PubBuilder--");
-						System.out.println(mediaItemList.get(i).getId() + "-->" + mediaItemList.get(i).getValue());
-						if (mediaItemList.get(i).getValue().toString().contains("http://www.youtube.com") || mediaItemList.get(i).getValue().toString().contains("https://player.vimeo")) {
-							media = "<iframe class=\"videoAfterDrop\" src='" + mediaItemList.get(i).getValue().toString() + "'></iframe>";
-						}else {
-							if(mediaItemList.get(i).getPoster() != null){
-								media = "<video class=\"videoAfterDrop\" poster='" + mediaItemList.get(i).getPoster() + "' controls><source src='" + mediaItemList.get(i).getValue().toString() + "' type=\"video/mp4\"></video>";	
-							}else {
-								media = "<video class=\"videoAfterDrop\" controls><source src='" + mediaItemList.get(i).getValue().toString() + "' type=\"video/mp4\"></video>";
+			System.out.println("MEDIA ITEM LIST : " + mediaItemList.size());
+			if(mediaItemList.size() > 0){
+				for(int i = 0; i < mediaItemList.size(); i++) {
+					Element element = (Element) media_item;
+					if (element != null && mediaItemList.get(i).getId() != null) {
+						if (mediaItemList.get(i).getId().trim().equals(element.attributeValue("id").trim())) {
+							element.clearContent();
+							String media = null;
+							if(mediaItemList.get(i).getValue() != null){
+								if(mediaItemList.get(i).getValue().toString().contains("http://www.youtube.com") || mediaItemList.get(i).getValue().toString().contains("https://player.vimeo")) {
+									media = "<iframe class=\"videoAfterDrop\" src='" + mediaItemList.get(i).getValue().toString() + "'></iframe>";
+								}else {
+									if(mediaItemList.get(i).getPoster() != null){
+										media = "<video class=\"videoAfterDrop\" poster='" + mediaItemList.get(i).getPoster() + "' controls><source src='" + mediaItemList.get(i).getValue().toString() + "' type=\"video/mp4\"></video>";	
+									}else {
+										media = "<video class=\"videoAfterDrop\" controls><source src='" + mediaItemList.get(i).getValue().toString() + "' type=\"video/mp4\"></video>";
+									}
+								}
+								
+								media_item.setText(media);
 							}
 						}
-						
-						media_item.setText(media);
-						System.out.println("-----------------Media item-----------------");
-						System.out.println(media_item.asXML());
 					}
 				}
 			}
@@ -244,7 +237,6 @@ public class Publication extends VideoPoster{
 					if (textContentList.get(i).getId().trim().equals(element.attributeValue("id").trim())) {
 						title.setText(textContentList.get(i).getValue().toString());
 						xmlTitle = textContentList.get(i).getValue().toString();
-						System.out.println(textContentList.get(i).getValue().toString());
 					}
 				}
 			}

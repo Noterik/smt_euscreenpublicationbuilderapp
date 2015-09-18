@@ -1,6 +1,7 @@
 var Header = function(options){
 	Component.apply(this, arguments);
-	
+
+	var preview = true;
 	$('#preview').click(function(){
 		var textAreas = [];
 		$('.text_item').each(function(index) {
@@ -11,12 +12,15 @@ var Header = function(options){
 		});
 		
 		 $('.title').each(function(index){
-	    	console.log("title");
-	    	console.log($(this));
 	    	var obj = {};
 	    	obj.id = $(this).attr('id');
 	    	obj.value = $(this).text();
-	    	console.log(obj);
+	    	
+	    	if($(this).text() == "Fill in the title") {
+	    		preview = false;
+	    		$('#header').notify("Please change video poster title",   { className:"error", autoHideDelay: 3400});
+	    	}
+	    	
 	    	textAreas.push(obj);
 	    });
 		
@@ -26,8 +30,10 @@ var Header = function(options){
 		
 			obj.id = $(this).attr('id');
 			if($(this)[0].children[0].src == undefined){
-				obj.value = $($($(this)[0].children[1]).children()[0]).children()[0].src
-				obj.poster = $($(this)[0].children[1]).children()[0].poster;
+				if($($($(this)[0].children[1]).children()[0]).children()[0]){
+					obj.value = $($($(this)[0].children[1]).children()[0]).children()[0].src
+					obj.poster = $($(this)[0].children[1]).children()[0].poster;
+				}
 			}else{
 				obj.value = $(this)[0].children[0].src;
 			}
@@ -35,12 +41,15 @@ var Header = function(options){
 		});
 		
 		var result = JSON.stringify({textItem: textAreas, mediaItem: mediaArray});
-		eddie.putLou("", "preview(" + result + ")");
-
+		if(preview == true){
+			eddie.putLou("", "preview(" + result + ")");
+		}
+		console.log("preview()");
 	});
 	
 	$('#publish').click(function(){
 		var textAreas = [];
+		var publish = true;
 		$('.text_item').each(function(index) {
 			var obj = {};
 			obj.id = $(this).attr('id');
@@ -49,12 +58,15 @@ var Header = function(options){
 		});
 		
 		 $('.title').each(function(index){
-	    	console.log("title");
-	    	console.log($(this));
 	    	var obj = {};
 	    	obj.id = $(this).attr('id');
 	    	obj.value = $(this).text();
-	    	console.log(obj);
+	    	
+	    	if($(this).text() == "Fill in the title") {
+	    		publish = false;
+	    		$('#header').notify("Please change video poster title",   { className:"error", autoHideDelay: 3400});
+	    	}
+	    	
 	    	textAreas.push(obj);
 	    });
 		
@@ -64,8 +76,10 @@ var Header = function(options){
 		
 			obj.id = $(this).attr('id');
 			if($(this)[0].children[0].src == undefined){
-				obj.value = $($($(this)[0].children[1]).children()[0]).children()[0].src
-				obj.poster = $($(this)[0].children[1]).children()[0].poster;
+				if($($($(this)[0].children[1]).children()[0]).children()[0]){
+					obj.value = $($($(this)[0].children[1]).children()[0]).children()[0].src
+					obj.poster = $($(this)[0].children[1]).children()[0].poster;
+				}
 			}else{
 				obj.value = $(this)[0].children[0].src;
 			}
@@ -73,12 +87,19 @@ var Header = function(options){
 		});
 		
 		var result = JSON.stringify({textItem: textAreas, mediaItem: mediaArray});
-		eddie.putLou("", "proccesspublication(" + result + ")");
-		$('#header').notify("Your Poster has been saved",   { className:"success", autoHideDelay: 3400});
+		if(publish == true){
+			eddie.putLou("", "proccesspublication(" + result + ")");
+			$('#header').notify("Your Poster has been saved",   { className:"success", autoHideDelay: 3400});
+		}
 	});
 }
 Header.prototype = Object.create(Component.prototype);
 
 Header.prototype.success = function() {
 	$('#header').notify("Your Poster has been saved",   { className:"success", autoHideDelay: 3400});
+}
+
+Header.prototype.showbuttons = function () {
+	$('#preview').show();
+	$('#publish').show();	
 }
