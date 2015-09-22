@@ -92,11 +92,10 @@ public class Bookmarks {
 			}else{
 				ap = videoMount;
 			}
-			System.out.println("Bookmark URL");
-			System.out.println(ap);
-			System.out.println("---------------------------------");
-			Bookmark bookmark = new Bookmark(bookmarkId, videoId, videoName, ap, screenshot);
 
+			Bookmark bookmark = new Bookmark(bookmarkId, videoId, videoName, ap, screenshot);
+			System.out.println("WE ARE GETTING BOOKMARKS");
+			System.out.println(bookmark.getId());
 			bookmarklist.add(bookmark);
 		}
 	}	

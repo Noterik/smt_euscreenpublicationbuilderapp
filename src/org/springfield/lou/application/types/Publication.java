@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,11 +18,14 @@ import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.Node;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springfield.fs.Fs;
 import org.springfield.fs.FsNode;
 import org.springfield.lou.application.types.DTO.MediaItem;
 import org.springfield.lou.application.types.DTO.TextContent;
+
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 
 public class Publication extends VideoPoster{
@@ -29,6 +33,77 @@ public class Publication extends VideoPoster{
 	public Publication() {
 		super();
 
+	}
+	public static JSONArray editPublication(String poster_url){
+        FsNode poster_node = Fs.getNode(poster_url);
+        JSONArray jsarr = new JSONArray();
+        Document d = null;
+		try {
+			d = DocumentHelper.parseText(poster_node.getProperty("html"));
+			
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println(poster_node.asXML());
+		Node title = d.selectSingleNode("//h1[@class=\"title\"]");
+		List<Node> media_item = d.selectNodes("//div[@class=\"media_item\"]");
+		List<Node> text_item = d.selectNodes("//div[@class=\"text_item\"]");
+		List<Node> links = d.selectNodes("//link");
+		
+		//Get styles
+		Element layoutStyleURL = (Element)links.get(1);
+		Element colorShemaURL = (Element)links.get(2);
+		
+		String layoutHref = layoutStyleURL.attributeValue("href").trim();
+		String colorHref = colorShemaURL.attributeValue("href").trim();
+		
+		
+		String layoutt = EuscreenpublicationbuilderApplication.layoutWithStyle.get(layoutHref);
+		JSONObject layout = new JSONObject();
+		layout.put("type", "layout");
+		layout.put("layout_type", layoutt);
+		jsarr.add(layout);
+
+		JSONObject styles = new JSONObject();
+		styles.put("type", "styles");
+		styles.put("layout", layoutHref);
+		String style = EuscreenpublicationbuilderApplication.styleWithId.get(colorHref);
+		styles.put("colorSchema", style);
+		jsarr.add(styles);
+
+		//Get title object
+		Element title_el = (Element) title;
+		JSONObject titleObject = new JSONObject();
+		titleObject.put("type", "title");
+		titleObject.put("id", title_el.attributeValue("id"));
+		titleObject.put("value", title.getStringValue());
+		jsarr.add(titleObject);
+		
+		//Get media items objects
+		for (Node node : media_item) {
+			Element el = (Element) node;
+
+			JSONObject mediaObject = new JSONObject();
+			mediaObject.put("type", "media_item");
+			mediaObject.put("id", el.attributeValue("id"));
+			mediaObject.put("value", node.getStringValue());
+			jsarr.add(mediaObject);
+		}
+		
+		
+		//Get text item objects
+		for (Node node : text_item) {
+			Element el = (Element) node;
+			JSONObject textObject = new JSONObject();
+			textObject.put("type", "text_item");
+			textObject.put("id", el.attributeValue("id"));
+			textObject.put("value", node.getStringValue());
+			jsarr.add(textObject);
+		}
+		
+		return jsarr;
 	}
 	
 	public static JSONObject createXML(Publication publication, String user){

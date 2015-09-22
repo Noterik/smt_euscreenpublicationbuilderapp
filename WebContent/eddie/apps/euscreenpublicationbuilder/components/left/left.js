@@ -83,7 +83,7 @@ Left.prototype.getCurrentUser = function() {
 		console.log(url);
 		url = url.replace("http://", "");
 		var url_split = url.split("/");
-
+		console.log(url_split);
 		var currentUser = url_split[5];
 		var result = JSON.stringify({user: currentUser});
 		eddie.putLou("", "getCurrentUser("+result+")");

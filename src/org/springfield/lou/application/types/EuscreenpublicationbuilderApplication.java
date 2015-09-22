@@ -22,15 +22,23 @@
 package org.springfield.lou.application.types;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springfield.fs.Fs;
 import org.springfield.fs.FsNode;
 import org.springfield.lou.application.*;
 import org.springfield.lou.application.types.DTO.MediaItem;
 import org.springfield.lou.application.types.DTO.TextContent;
 import org.springfield.lou.screen.*;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
+import org.dom4j.Node;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -39,6 +47,7 @@ import org.json.simple.parser.ParseException;
 public class EuscreenpublicationbuilderApplication extends Html5Application{
     public Layout layouts;
     public Theme themes;
+    public Bookmarks bookmarks;
     private FsNode currentLayout;
     private String currentLayoutStyle;
 	private FsNode currentTheme;
@@ -46,10 +55,13 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	public static String ipAddress = "";
 	public static boolean isAndroid;
 	private Overlaydialog overlayDialog = null;
+	public static HashMap<String, String> layoutWithStyle = new HashMap<String, String>();
+	public static HashMap<String, String> styleWithId = new HashMap<String, String>(); 
+
     public String getCurrentLayoutStyle() {
 		return currentLayoutStyle;
 	}
-
+    
 	public void setCurrentLayoutStyle(String currentLayoutStyle) {
 		this.currentLayoutStyle = currentLayoutStyle;
 	}
@@ -73,6 +85,20 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 		super(id); 
 	}
 	
+	public void actionGetcurrentuser(Screen s, String c){
+
+		JSONObject json;
+		try {
+			json = (JSONObject)new JSONParser().parse(c);
+			System.out.println(json.toJSONString());
+			this.currentUser = json.get("user").toString();
+			System.out.println("Current user" + this.currentUser);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
  	/*
  	 * This method is called when a browser window opens the application
  	 * @see org.springfield.lou.application.Html5Application#onNewScreen(org.springfield.lou.screen.Screen)
@@ -87,14 +113,48 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
         loadContent(s, "header");
         loadContent(s, "iframesender");
         loadContent(s, "left");
-		
+        
     	s.putMsg("left", "", "getCurrentUser()");
 
         loadContent(s, "section");
         loadContent(s, "right");
+        System.out.println("CURRENT USER " + currentUser);
+        //Load bookmarks
+    	bookmarks = new Bookmarks(currentUser);
+    	System.out.println(bookmarks.getBookmarklist());
+    	System.out.println(bookmarks);
+    	System.out.println("YES");
+    	String bookmarkLayout = "<div class=\"right-header\" id=\"right_header_0\">Bookmarks</div>";
+ 		bookmarkLayout += "<div id=\"toggle_0\" class=\"tgl\">";
+
+     	int cnt_bookmark = 0;
+     	for (Bookmark bmi : bookmarks.getBookmarklist()) {
+    		bookmarkLayout += "<div id=\"bookmark_"+ cnt_bookmark +"\" class=\"drag_bookmark\"><video class=\"layout_image\" poster='"+bmi.getScreenshot()+"' controls><source src='"+bmi.getVideo()+"' type=\"video/mp4\"></video></div>";
+			cnt_bookmark++;
+		}
+     	bookmarkLayout += "</div>";
+     	
+     	//Load collections
+     	Collections collections = new Collections(currentUser);    	
+     	int cnt_header = 1;
+     	for (Collection col : collections.getCollectionlist()) {
+     		String right_header_div_id = "right_header_" + cnt_header;
+     		String right_toggle_div_id = "toggle_" + cnt_header;
+     		bookmarkLayout += "<div class=\"right-header\" id='" + right_header_div_id + "'>" + col.getName() + "</div>";
+     		bookmarkLayout += "<div id='" + right_toggle_div_id + "' class=\"tgl\">";
+     		for (Bookmark bk : col.getVideos()) {
+        		bookmarkLayout += "<div id=\"bookmark_"+ cnt_bookmark +"\" class=\"drag_bookmark\"><video class=\"layout_image\" poster='"+bk.getScreenshot()+"' controls><source src='"+bk.getVideo()+"' type=\"video/mp4\"></video></div>";
+        		cnt_bookmark++;
+			}
+     		bookmarkLayout += "</div>";
+     		cnt_header++;
+		}
+    	
+    	s.setContent("bookmarklayout", bookmarkLayout);
+    	
         s.setContent("middle", "<div id=\"layout\"></div>");
         this.loadContent(s, "layout", "layout");
-        
+                
         //Load layouts
         layouts = new Layout();
     	String layoutBody = "<ul class=\"leftNavUl\">";
@@ -102,6 +162,8 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	
     	for(FsNode node : layouts.getLayouts()) {
     		layoutBody += "<li><h3 class=\"theme_name\">" + node.getProperty("name") + "</h3><img  class=\"layout_image\" id=\"layout_"+ cnt +"\" src='" + node.getProperty("icon") + "'/></li>";
+    		layoutWithStyle.put(node.getProperty("css"), "layout_"+ cnt);
+    		System.out.println(layoutWithStyle.size());
     		cnt++;
     	}
     	layoutBody += "</ul>";
@@ -116,6 +178,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	
     	for(FsNode node : themes.getTehems()) {
     		themeBody += "<li><h3 class=\"theme_name\">" + node.getProperty("name") + "</h3><img  class=\"scheme_image\" id=\"theme_"+ cntThema +"\" src='" + node.getProperty("icon") + "'/></li>";
+    		styleWithId.put(node.getProperty("css").trim(), "theme_"+ cntThema);
     		cntThema++;
     	}
     	themeBody += "</ul>";
@@ -126,17 +189,20 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 
     	//s.setDiv("left-header-theme", "bind:mousedown","approveTheme" , this);
     	
-    	//Load bookmarks
-    	Bookmarks bookmarks = new Bookmarks(currentUser);    	
-    	String bookmarkLayout = "";
+    	
+     	s.putMsg("right", "", "closeAll(" + cnt_header + ")");
+     	
+        //Catch modes
+        if(s.getParameter("status").equals("edit")){
+        	System.out.println("MODE = EDIT");
+            String poster_url = s.getParameter("posterid");
+            System.out.println("-----------POSTER URL----------");
+            
+            JSONArray arr = Publication.editPublication(poster_url);
+            
+        	s.putMsg("layout", "", "edit(" + arr + ")");
 
-     	int cnt_bookmark = 0;
-     	System.out.println("Screenshots");
-     	for (Bookmark bmi : bookmarks.getBookmarklist()) {
-    		bookmarkLayout += "<div id=\"bookmark_"+ cnt_bookmark +"\" class=\"drag_bookmark\"><video class=\"layout_image\" poster='"+bmi.getScreenshot()+"' controls><source src='"+bmi.getVideo()+"' type=\"video/mp4\"></video></div>";
-			cnt_bookmark++;
-		}
-    	s.setContent("bookmarklayout", bookmarkLayout);
+        }
     }
     
     //Set layout actions
@@ -318,22 +384,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public void actionGetcurrentuser(Screen s, String c){
-
-			JSONObject json;
-			try {
-				json = (JSONObject)new JSONParser().parse(c);
-				System.out.println(json.toJSONString());
-				this.currentUser = json.get("user").toString();
-				System.out.println("Current user" + this.currentUser);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	}
-	
+	}	
 	
 	//Create publication XML
 	public void actionProccesspublication(Screen s, String c){

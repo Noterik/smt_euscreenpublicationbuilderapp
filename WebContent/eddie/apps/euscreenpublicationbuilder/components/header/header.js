@@ -18,7 +18,7 @@ var Header = function(options){
 	    	
 	    	if($(this).text() == "Fill in the title") {
 	    		preview = false;
-	    		$('#header').notify("Please change video poster title",   { className:"error", autoHideDelay: 3400});
+	    		$('#header').notify("In order to save you need to change the title of your video poster",   { className:"error", autoHideDelay: 3400});
 	    	}
 	    	
 	    	textAreas.push(obj);
@@ -64,7 +64,7 @@ var Header = function(options){
 	    	
 	    	if($(this).text() == "Fill in the title") {
 	    		publish = false;
-	    		$('#header').notify("Please change video poster title",   { className:"error", autoHideDelay: 3400});
+	    		$('#header').notify("In order to save you need to change the title of your video poster",   { className:"error", autoHideDelay: 3400});
 	    	}
 	    	
 	    	textAreas.push(obj);

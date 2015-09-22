@@ -42,6 +42,45 @@ Layout.prototype.update = function(message){
 	}, 100);
 }
 
+//Edit
+Layout.prototype.edit = function(message){
+	var self = this;
+	var data = JSON.parse(message);
+	console.log("Layout.edit(" + data + ")");
+	console.log(data);
+	$.each(data, function(key, value){
+		switch(value.type) {
+			case "layout":
+					$('#' + value.layout_type).trigger("click");
+				break;
+			case "styles":
+					$('#' + value.colorSchema).trigger("click");
+				break;
+			case "media_item":
+					setTimeout(function(){
+						$("#" + value.id).html(value.value);
+					}, 500);
+				break;
+			case "text_item":
+					setTimeout(function(){
+						var id = "#" + $("#" + value.id).prev().attr("id");
+						tinyMCE.get(value.id).setContent(value.value);
+						console.log(tinyMCE.get(id));
+						console.log(tinyMCE.get($("#" + value.id).prev().attr("id")));
+						
+						//$("#" + value.id).prev().attr("id");
+					}, 500);
+				break;
+			case "title":
+					setTimeout(function(){
+						$("#" + value.id).text(value.value);
+					}, 500);
+				break;
+		}
+	});
+	
+}
+
 //SetStyle
 Layout.prototype.setTheme = function(message){
  	var self = this;

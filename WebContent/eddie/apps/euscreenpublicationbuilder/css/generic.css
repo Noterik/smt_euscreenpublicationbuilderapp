@@ -117,7 +117,7 @@ a:hover {
 	background-color: #FFF;
 }
 
-#right-header {
+.right-header {
 	background-color: #00AEEF;
 	padding: 5px;
 	/*margin-bottom: 10px;*/
@@ -199,7 +199,6 @@ a:hover {
 }
 
 #bookmarklayout {
-	padding-top: 15px;
 	background-color: white;
 }
 
