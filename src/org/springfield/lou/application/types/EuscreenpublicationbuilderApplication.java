@@ -85,20 +85,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 		super(id); 
 	}
 	
-	public void actionGetcurrentuser(Screen s, String c){
-
-		JSONObject json;
-		try {
-			json = (JSONObject)new JSONParser().parse(c);
-			System.out.println(json.toJSONString());
-			this.currentUser = json.get("user").toString();
-			System.out.println("Current user" + this.currentUser);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
  	/*
  	 * This method is called when a browser window opens the application
  	 * @see org.springfield.lou.application.Html5Application#onNewScreen(org.springfield.lou.screen.Screen)
@@ -112,13 +98,12 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
         loadContent(s, "comparison");
         loadContent(s, "header");
         loadContent(s, "iframesender");
-        loadContent(s, "left");
-        
-    	s.putMsg("left", "", "getCurrentUser()");
-
+        loadContent(s, "left");     
         loadContent(s, "section");
         loadContent(s, "right");
-        System.out.println("CURRENT USER " + currentUser);
+        
+        //Get Current user
+        this.getCurrentUser(s);
         //Load bookmarks
     	bookmarks = new Bookmarks(currentUser);
     	System.out.println(bookmarks.getBookmarklist());
@@ -176,7 +161,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	String themeBody = "<ul class=\"themeNavi\">";
     	int cntThema = 0;
     	
-    	for(FsNode node : themes.getTehems()) {
+    	for(FsNode node : themes.getThemes()) {
     		themeBody += "<li><h3 class=\"theme_name\">" + node.getProperty("name") + "</h3><img  class=\"scheme_image\" id=\"theme_"+ cntThema +"\" src='" + node.getProperty("icon") + "'/></li>";
     		styleWithId.put(node.getProperty("css").trim(), "theme_"+ cntThema);
     		cntThema++;
@@ -422,6 +407,14 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void getCurrentUser(Screen s){
+
+		String[] arr = s.getId().split("/");
+	    System.out.println("--------------------------------------");
+    	System.out.println(arr[4]);
+    	this.currentUser = arr[4];
 	}
 
 	//Get meta headers

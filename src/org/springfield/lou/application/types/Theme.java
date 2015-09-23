@@ -18,7 +18,7 @@ public class Theme {
 		this.currentTheme = currentTheme;
 	}
 
-	public List<FsNode> getTehems() {
+	public List<FsNode> getThemes() {
 		return themes;
 	}
 	

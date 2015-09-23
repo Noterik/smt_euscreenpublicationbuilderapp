@@ -77,6 +77,7 @@ Left.prototype.approveTheme = function() {
 	});
 };
 
+/*
 Left.prototype.getCurrentUser = function() {
 		var url = window.location.href;
 		console.log("url");
@@ -88,6 +89,8 @@ Left.prototype.getCurrentUser = function() {
 		var result = JSON.stringify({user: currentUser});
 		eddie.putLou("", "getCurrentUser("+result+")");
 };
+
+*/
 
 Left.prototype.accordionThemes = function () {
 	    $(".accordion").accordion();
