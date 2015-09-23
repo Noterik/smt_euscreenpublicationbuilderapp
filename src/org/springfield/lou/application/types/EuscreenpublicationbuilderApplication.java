@@ -357,11 +357,12 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	    	
 			if(data_type.equals("youtubeitem")) {
 				String[] youtubeId = identifier.split("=");
-				String video = "<iframe class=\"videoAfterDrop ui-draggable\" src='" + "http://www.youtube.com/embed/" + youtubeId[1] + "'></iframe>";
+//				https://www.youtube.com/watch?v=A4Tme1q2iew
+				String video = "<iframe class=\"videoAfterDrop ui-draggable\" src='" + "http://www.youtube.com/embed/" + youtubeId[1] + "' frameborder=\"0\" allowfullscreen></iframe>";
 		    	message.put("video", video);
 			}else if (data_type.equals("vimeoitem")) {
 				String[] vimeoId = identifier.split("/");
-				String video = "<iframe class=\"videoAfterDrop\" src='" + "https://player.vimeo.com/video/" + vimeoId[3] + "'></iframe>";
+				String video = "<iframe class=\"videoAfterDrop\" src='" + "https://player.vimeo.com/video/" + vimeoId[3] + "' frameborder=\"0\" allowfullscreen></iframe>";
 		    	message.put("video", video);
 			}
 			message.put("container", container);

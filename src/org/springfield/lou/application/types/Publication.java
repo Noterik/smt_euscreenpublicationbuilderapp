@@ -153,7 +153,7 @@ public class Publication extends VideoPoster{
 						String media = null;
 						if(mediaItemList.get(i).getValue() != null){
 						if (mediaItemList.get(i).getValue().toString().contains("http://www.youtube.com") || mediaItemList.get(i).getValue().toString().contains("https://player.vimeo")) {
-							media = "<iframe class=\"videoAfterDrop\" src='" + mediaItemList.get(i).getValue().toString() + "'></iframe>";
+							media = "<iframe class=\"videoAfterDrop\" src='" + mediaItemList.get(i).getValue().toString() + "' frameborder=\"0\" allowfullscreen></iframe>";
 						}else {
 							if(mediaItemList.get(i).getPoster() != null){
 								media = "<video class=\"videoAfterDrop\" poster='" + mediaItemList.get(i).getPoster() + "' controls><source src='" + mediaItemList.get(i).getValue().toString() + "' type=\"video/mp4\"></video>";	
@@ -271,7 +271,7 @@ public class Publication extends VideoPoster{
 							String media = null;
 							if(mediaItemList.get(i).getValue() != null){
 								if(mediaItemList.get(i).getValue().toString().contains("http://www.youtube.com") || mediaItemList.get(i).getValue().toString().contains("https://player.vimeo")) {
-									media = "<iframe class=\"videoAfterDrop\" src='" + mediaItemList.get(i).getValue().toString() + "'></iframe>";
+									media = "<iframe class=\"videoAfterDrop\" src='" + mediaItemList.get(i).getValue().toString() + "' frameborder=\"0\" allowfullscreen></iframe>";
 								}else {
 									if(mediaItemList.get(i).getPoster() != null){
 										media = "<video class=\"videoAfterDrop\" poster='" + mediaItemList.get(i).getPoster() + "' controls><source src='" + mediaItemList.get(i).getValue().toString() + "' type=\"video/mp4\"></video>";	
