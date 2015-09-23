@@ -92,6 +92,7 @@ var Header = function(options){
 		var result = JSON.stringify({textItem: textAreas, mediaItem: mediaArray});
 		if(publish == true){
 			eddie.putLou("", "proccesspublication(" + result + ")");
+			$('#publish').hide();
 			$('#header').notify("Your Poster has been saved",   { className:"success", autoHideDelay: 3400});
 		}
 	});
