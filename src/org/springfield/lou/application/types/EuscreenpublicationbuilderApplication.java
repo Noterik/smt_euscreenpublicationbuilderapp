@@ -401,7 +401,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 				publication.template.sections.textSection.setTextContents(new TextContent(textId, textValue));
 			}
 			
-			JSONObject publicationJSON = Publication.createXML(publication, this.currentUser);
+			JSONObject publicationJSON = Publication.createXML(publication, this.currentUser, s.getId());
 			System.out.println("----------------------Publication-----------------------");
 			System.out.println(publicationJSON.toJSONString());
 			s.putMsg("iframesender", "", "sendToParent(" + publicationJSON + ")");

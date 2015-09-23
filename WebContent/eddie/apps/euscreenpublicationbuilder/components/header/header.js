@@ -7,7 +7,8 @@ var Header = function(options){
 		$('.text_item').each(function(index) {
 			var obj = {};
 			obj.id = $(this).attr('id');
-			obj.value = tinyMCE.get($(this).attr('id')).getContent();;
+			obj.value = tinyMCE.get($(this).attr('id')).getContent();
+			obj.value = obj.value.replace(/&lt;/g,'<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
 			textAreas.push(obj);			
 		});
 		
@@ -53,7 +54,9 @@ var Header = function(options){
 		$('.text_item').each(function(index) {
 			var obj = {};
 			obj.id = $(this).attr('id');
-			obj.value = tinyMCE.get($(this).attr('id')).getContent();;
+			obj.value = tinyMCE.get($(this).attr('id')).getContent();
+			obj.value = obj.value.replace(/&lt;/g,'<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+			
 			textAreas.push(obj);			
 		});
 		

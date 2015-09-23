@@ -16,7 +16,10 @@ Layout.prototype.update = function(message){
 	   styleElement.load(function(){
 		   self.element.html(data.html);
 			   $('.text_item').each(function(index) {
-			      tinymce.init({selector: '#' + $(this).attr('id'), entities: "38,amp,34,quot,162,cent,8364,euro,163,pound,165,yen,169,copy,174,reg,8482,trade"});
+			      tinymce.init(
+			      {
+			      	selector: '#' + $(this).attr('id'), entities: "38,amp,34,quot,162,cent,8364,euro,163,pound,165,yen,169,copy,174,reg,8482,trade"   
+			      });
 			   });
 		
 			   $('.title').each(function(index){

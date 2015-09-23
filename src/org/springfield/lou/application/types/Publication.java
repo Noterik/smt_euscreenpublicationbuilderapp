@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
@@ -106,7 +107,7 @@ public class Publication extends VideoPoster{
 		return jsarr;
 	}
 	
-	public static JSONObject createXML(Publication publication, String user){
+	public static JSONObject createXML(Publication publication, String user, String id){
 		System.out.println("createXML()");
 		FsNode layout = publication.template.layout.getCurrentLayout();
 		String layoutStyle = publication.template.layout.getCurrentLayoutStyle();
@@ -198,15 +199,28 @@ public class Publication extends VideoPoster{
 				}
 			}
 		}
-
-		UUID uuid = UUID.randomUUID();
-        String randomUUIDString = uuid.toString();
         
-        System.out.println("UNIQUE IDENTIFIRE: " + randomUUIDString);
+        long time = new Date().getTime();
+		int hash = (user + ":poster_"+id+"t"+time).hashCode();
+
+		String eusId = "EUS_"+Integer.toHexString(hash).toUpperCase()+Integer.toHexString((""+new Date().getTime()).hashCode()).toUpperCase()+Integer.toHexString((""+new Date().getTime()).hashCode()).toUpperCase()+Integer.toHexString((""+new Date().getTime()).hashCode()).toUpperCase();
+		//Random geted id from preview just to compare
+		String originalid = "EUS_0612ECCF06F3082EB2B36A8432245F7A";
+		
+		if(eusId.length() > originalid.length()){
+			eusId = eusId.substring(0, originalid.length() - eusId.length());			
+		}else if (eusId.length() < originalid.length()){
+			eusId += Integer.toHexString((""+new Date().getTime()).hashCode()).toUpperCase();
+			eusId = eusId.substring(0, originalid.length() - eusId.length());			
+		}
+		
+		System.out.println(originalid);
+		System.out.println("MD5="+eusId);
+
         
         JSONObject object = new JSONObject();
         object.put("type", "videoposter");
-        object.put("id", randomUUIDString);
+        object.put("id", eusId);
         object.put("title", xmlTitle);
         object.put("xml", d.asXML());
         
