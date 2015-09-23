@@ -58,7 +58,11 @@ Layout.prototype.edit = function(message){
 				break;
 			case "media_item":
 					setTimeout(function(){
-						$("#" + value.id).html(value.value);
+						if(value.value) {
+							$("#" + value.id).html(value.value);
+						}else{
+							$("#" + value.id).html("<div class=\"plus_icon\"></div>");
+						}
 					}, 500);
 				break;
 			case "text_item":
