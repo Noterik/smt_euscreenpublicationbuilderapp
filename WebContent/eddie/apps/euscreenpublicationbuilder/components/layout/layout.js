@@ -18,8 +18,9 @@ Layout.prototype.update = function(message){
 			   $('.text_item').each(function(index) {
 			      tinymce.init(
 			      {
-			      	plugins: "link",
-			      	selector: '#' + $(this).attr('id'), entities: "38,amp,34,quot,162,cent,8364,euro,163,pound,165,yen,169,copy,174,reg,8482,trade"   
+			      	plugins: "link paste",
+			      	selector: '#' + $(this).attr('id'), entities: "38,amp,34,quot,162,cent,8364,euro,163,pound,165,yen,169,copy,174,reg,8482,trade",   
+			        paste_as_text: true,
 			      });
 			   });
 		
@@ -49,6 +50,9 @@ Layout.prototype.update = function(message){
 //Edit
 Layout.prototype.edit = function(message){
 	var self = this;
+
+	self.bindContext();
+	console.log(self);
 	var data = JSON.parse(message);
 	console.log("Layout.edit(" + data + ")");
 	console.log(data);
@@ -63,7 +67,24 @@ Layout.prototype.edit = function(message){
 			case "media_item":
 					setTimeout(function(){
 						if(value.value) {
-							$("#" + value.id).html(value.value);
+							var self = this;
+							$("#" + value.id).draggable({ disabled: true });
+							$("#" + value.id).html(value.value).droppable("option", "disabled", true);
+							$("#" + value.id).append("<div class=\"removeVideo\">Remove video</div>");
+							$("#" + value.id).attr("aria-disabled", "true");
+							
+							$(".removeVideo").click(function(){
+								var baseElement = $($(this).parent()[0]); 
+								console.log(baseElement);
+								baseElement.droppable( "option", "disabled", false );
+								baseElement.draggable({ disabled: true });
+								$($(this).parent()[0]).children(0).remove();
+								baseElement.append("<div class=\"plus_icon\"></div>");
+
+
+								self.bindContext();
+							});
+							
 						}else{
 							$("#" + value.id).html("<div class=\"plus_icon\"></div>");
 						}
