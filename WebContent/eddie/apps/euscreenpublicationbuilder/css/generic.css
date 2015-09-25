@@ -32,6 +32,15 @@ a:hover {
 	display: none;
 }
 
+
+#mceu_24 {
+	display: none;
+}
+
+#mceu_57 {
+	display: none;
+}
+
 .layout_image {
 	width: 80%;
   	margin-left: 10%;
@@ -262,4 +271,16 @@ a:hover {
 
 #publish {
 	display: none;
+}
+
+#left-header-layout {
+ cursor:pointer; 
+}
+
+#left-header-theme {
+ cursor:pointer; 
+}
+
+#right_header_0 {
+ cursor:pointer;
 }
