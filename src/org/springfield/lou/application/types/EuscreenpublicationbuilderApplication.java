@@ -55,6 +55,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	public static String ipAddress = "";
 	public static boolean isAndroid;
 	private Overlaydialog overlayDialog = null;
+	private String oldPublicationID = "";
 	public static HashMap<String, String> layoutWithStyle = new HashMap<String, String>();
 	public static HashMap<String, String> styleWithId = new HashMap<String, String>(); 
 
@@ -184,7 +185,9 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
             System.out.println("-----------POSTER URL----------");
             
             JSONArray arr = Publication.editPublication(poster_url);
-            
+            JSONObject idOb = (JSONObject) arr.get(0);
+            this.oldPublicationID = idOb.get("id").toString();
+            s.putMsg("header", "", "modeEdit()");
         	s.putMsg("layout", "", "edit(" + arr + ")");
 
         }
@@ -400,11 +403,21 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 				
 				publication.template.sections.textSection.setTextContents(new TextContent(textId, textValue));
 			}
-			
-			JSONObject publicationJSON = Publication.createXML(publication, this.currentUser, s.getId());
-			System.out.println("----------------------Publication-----------------------");
-			System.out.println(publicationJSON.toJSONString());
-			s.putMsg("iframesender", "", "sendToParent(" + publicationJSON + ")");
+			if(json.get("mode") != null){
+				if(json.get("mode").toString().trim().equals("edit")){
+					System.out.println("============================================");
+					System.out.println("EDIT IS CALLED");
+					JSONObject publicationJSON = Publication.editXml(publication, this.currentUser, s.getId(), this.oldPublicationID);
+					System.out.println("EDIT JSON IFRAME SENDER");
+					System.out.println(publicationJSON.toJSONString());
+					s.putMsg("iframesender", "", "sendToParent(" + publicationJSON + ")");
+				}
+			}else{
+				JSONObject publicationJSON = Publication.createXML(publication, this.currentUser, s.getId());
+				System.out.println("----------------------Publication-----------------------");
+				System.out.println(publicationJSON.toJSONString());
+				s.putMsg("iframesender", "", "sendToParent(" + publicationJSON + ")");	
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

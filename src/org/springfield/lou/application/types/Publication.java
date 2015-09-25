@@ -38,8 +38,14 @@ public class Publication extends VideoPoster{
 	public static JSONArray editPublication(String poster_url){
         FsNode poster_node = Fs.getNode(poster_url);
         JSONArray jsarr = new JSONArray();
+        
+        JSONObject Oldid = new JSONObject();
+        Oldid.put("id", poster_node.getId());
+        jsarr.add(Oldid);
+        
         Document d = null;
-		try {
+		
+        try {
 			d = DocumentHelper.parseText(poster_node.getProperty("html"));
 			
 		} catch (DocumentException e) {
@@ -235,6 +241,108 @@ public class Publication extends VideoPoster{
 		
 		Fs.insertNode(posterNode, "/domain/euscreenxl/user/" + user + "/publications/1");
 		*/
+	}
+	
+	public static JSONObject editXml(Publication publication, String user, String id, String oldId){
+		System.out.println("createXML()");
+		FsNode layout = publication.template.layout.getCurrentLayout();
+		String layoutStyle = publication.template.layout.getCurrentLayoutStyle();
+		System.out.println("layout style: " + layoutStyle);
+		String theme = null;
+		if(publication.theme.getCurrentTheme() != null){
+			if(publication.theme.getCurrentTheme().getProperty("css") != null){
+				theme = publication.theme.getCurrentTheme().getProperty("css");
+			}
+		}
+		
+		
+		List<TextContent> textContentList = publication.template.sections.textSection.getTextContents();
+		List<MediaItem> mediaItemList = publication.template.sections.mediaSection.getMediaItems();
+
+		String html_layout = "<html><head><title>First parse</title>"
+			+ "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\"/>"
+			+ "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"></link>"
+			+ "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"/>" 
+			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + layoutStyle + "'></link>" 
+			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + theme + "'></link>" 
+			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + "http://images1.noterik.com/euscreen/publicationbuilder/style/comparison_after.css" + "'></link>" 
+			+ "</head>"
+			+ "<body><div id=\"layout\" style=\"width: 50%;margin: 0 auto;\">"
+			+ layout.getProperty("template").trim()
+			+ "</div></body></html>";
+
+		Document d = null;
+		try {
+			d = DocumentHelper.parseText(html_layout);
+			
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		List<Node> media_items = d.selectNodes("//div[@class=\"media_item\"]");
+		Bookmarks bookmarks = new Bookmarks(user);
+		for (Node media_item : media_items) {
+			for(int i = 0; i < mediaItemList.size(); i++) {
+				Element element = (Element) media_item;
+				if (element != null && mediaItemList.get(i).getId() != null) {
+					if (mediaItemList.get(i).getId().trim().equals(element.attributeValue("id").trim())) {
+						element.clearContent();
+						String media = null;
+						if(mediaItemList.get(i).getValue() != null){
+						if (mediaItemList.get(i).getValue().toString().contains("http://www.youtube.com") || mediaItemList.get(i).getValue().toString().contains("https://player.vimeo")) {
+							media = "<iframe class=\"videoAfterDrop\" src='" + mediaItemList.get(i).getValue().toString() + "' frameborder=\"0\" allowfullscreen></iframe>";
+						}else {
+							if(mediaItemList.get(i).getPoster() != null){
+								media = "<video class=\"videoAfterDrop\" poster='" + mediaItemList.get(i).getPoster() + "' controls><source src='" + mediaItemList.get(i).getValue().toString() + "' type=\"video/mp4\"></video>";	
+							}else {
+								media = "<video class=\"videoAfterDrop\" controls><source src='" + mediaItemList.get(i).getValue().toString() + "' type=\"video/mp4\"></video>";
+							}
+						}
+						
+						media_item.setText(media);
+						}
+					}
+				}
+			}
+		}
+
+		List<Node> text_items = d.selectNodes("//div[@class=\"text_item\"]");
+
+		for (Node text_item : text_items) {
+			for(int i = 0; i < textContentList.size(); i++) {
+				Element element = (Element) text_item;
+				if (element != null && textContentList.get(i).getId() != null) {
+					if (textContentList.get(i).getId().trim().equals(element.attributeValue("id").trim())) {
+						text_item.setText(textContentList.get(i).getValue().toString());
+					
+					}
+				}
+			}
+		}
+		
+		List<Node> title_items = d.selectNodes("//h1[@class=\"title\"]");
+		String xmlTitle = null;
+		for (Node title : title_items) {
+			for(int i = 0; i < textContentList.size(); i++) {
+				Element element = (Element) title;
+
+				if (element != null && textContentList.get(i).getId() != null) {
+					if (textContentList.get(i).getId().trim().equals(element.attributeValue("id").trim())) {
+						title.setText(textContentList.get(i).getValue().toString());
+						xmlTitle = textContentList.get(i).getValue().toString();
+						System.out.println(textContentList.get(i).getValue().toString());
+					}
+				}
+			}
+		}
+        
+        JSONObject object = new JSONObject();
+        object.put("type", "videoposter");
+        object.put("id", oldId);
+        object.put("title", xmlTitle);
+        object.put("xml", d.asXML());
+        
+        return object;
 	}
 	
 	

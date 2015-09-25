@@ -19,6 +19,7 @@ Layout.prototype.update = function(message){
 			      tinymce.init(
 			      {
 			      	plugins: "link paste",
+			      	fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
 			      	selector: '#' + $(this).attr('id'), entities: "38,amp,34,quot,162,cent,8364,euro,163,pound,165,yen,169,copy,174,reg,8482,trade",   
 			        paste_as_text: true,
 			      });
@@ -50,9 +51,7 @@ Layout.prototype.update = function(message){
 //Edit
 Layout.prototype.edit = function(message){
 	var self = this;
-
-	self.bindContext();
-	console.log(self);
+	
 	var data = JSON.parse(message);
 	console.log("Layout.edit(" + data + ")");
 	console.log(data);
@@ -65,9 +64,10 @@ Layout.prototype.edit = function(message){
 					$('#' + value.colorSchema).trigger("click");
 				break;
 			case "media_item":
+				var self = this;
 					setTimeout(function(){
 						if(value.value) {
-							var self = this;
+							
 							$("#" + value.id).draggable({ disabled: true });
 							$("#" + value.id).html(value.value).droppable("option", "disabled", true);
 							$("#" + value.id).append("<div class=\"removeVideo\">Remove video</div>");
@@ -75,14 +75,11 @@ Layout.prototype.edit = function(message){
 							
 							$(".removeVideo").click(function(){
 								var baseElement = $($(this).parent()[0]); 
-								console.log(baseElement);
 								baseElement.droppable( "option", "disabled", false );
 								baseElement.draggable({ disabled: true });
 								$($(this).parent()[0]).children(0).remove();
 								baseElement.append("<div class=\"plus_icon\"></div>");
-
-
-								self.bindContext();
+								
 							});
 							
 						}else{

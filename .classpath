@@ -10,5 +10,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.6.0_45"/>
 	<classpathentry kind="lib" path="/smt_ponggameapp/libs/servlet-api.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/myeuscreen_helper.jar"/>
+	<classpathentry kind="lib" path="/smt_myeuscreen/libs/servlet-api.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
