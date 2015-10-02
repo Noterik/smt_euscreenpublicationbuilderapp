@@ -217,7 +217,9 @@ public class Publication extends VideoPoster{
 			eusId = eusId.substring(0, originalid.length() - eusId.length());			
 		}else if (eusId.length() < originalid.length()){
 			eusId += Integer.toHexString((""+new Date().getTime()).hashCode()).toUpperCase();
-			eusId = eusId.substring(0, originalid.length() - eusId.length());			
+			eusId += Integer.toHexString((""+new Date().getTime()).hashCode()).toUpperCase();
+			eusId += Integer.toHexString((""+new Date().getTime()).hashCode()).toUpperCase();
+			eusId = eusId.substring(0, originalid.length());			
 		}
 		
 		System.out.println(originalid);

@@ -189,7 +189,8 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
             this.oldPublicationID = idOb.get("id").toString();
             s.putMsg("header", "", "modeEdit()");
         	s.putMsg("layout", "", "edit(" + arr + ")");
-
+        }else {
+	    	s.putMsg("header", "", "showbuttons(" + ")");
         }
     }
     
@@ -203,8 +204,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	message.put("style", node.getProperty("css"));
     	s.putMsg("layout", "", "update(" + message + ")");
     	s.putMsg("left", "", "accordion(" + ")");
-    	s.putMsg("header", "", "showbuttons(" + ")");
-
    }
     
 	public void actionSetlayout1(Screen s, String c) {
@@ -216,7 +215,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	message.put("style", node.getProperty("css"));
     	s.putMsg("layout", "", "update(" + message + ")");
     	s.putMsg("left", "", "accordion(" + ")");
-    	s.putMsg("header", "", "showbuttons(" + ")");
 	}
 	
 	public void actionSetlayout2(Screen s, String c) {
@@ -228,7 +226,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	message.put("style", node.getProperty("css"));
     	s.putMsg("layout", "", "update(" + message + ")");
     	s.putMsg("left", "", "accordion(" + ")");
-    	s.putMsg("header", "", "showbuttons(" + ")");
 	}
 	
 	//Set theme actions
@@ -416,7 +413,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 				JSONObject publicationJSON = Publication.createXML(publication, this.currentUser, s.getId());
 				System.out.println("----------------------Publication-----------------------");
 				System.out.println(publicationJSON.toJSONString());
-				s.putMsg("iframesender", "", "sendToParent(" + publicationJSON + ")");	
+				s.putMsg("iframesender", "", "sendToParent(" + publicationJSON + ")");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
