@@ -19,6 +19,7 @@ Layout.prototype.update = function(message){
 			      tinymce.init(
 			      {
 			      	plugins: "link paste",
+			      	default_link_target:"_blank",
 			      	fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
 			      	selector: '#' + $(this).attr('id'), entities: "38,amp,34,quot,162,cent,8364,euro,163,pound,165,yen,169,copy,174,reg,8482,trade",   
 			        paste_as_text: true,
@@ -79,12 +80,14 @@ Layout.prototype.edit = function(message){
 								baseElement.draggable({ disabled: true });
 								$($(this).parent()[0]).children(0).remove();
 								baseElement.append("<div class=\"plus_icon\"></div>");
+								//window.Layout.prototype.bindContext();
 								
 							});
 							
 						}else{
 							$("#" + value.id).html("<div class=\"plus_icon\"></div>");
 						}
+												
 					}, 500);
 				break;
 			case "text_item":

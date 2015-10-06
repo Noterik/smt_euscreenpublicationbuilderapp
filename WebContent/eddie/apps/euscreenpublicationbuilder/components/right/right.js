@@ -1,4 +1,5 @@
 var Right = function(options){
+	var self = this;
 	Component.apply(this, arguments);	
 	setInterval(function(){
 		(function(){
@@ -7,10 +8,13 @@ var Right = function(options){
 		      cursor: 'move',
 		      revert: true,
 		      helper: 'clone',
-			  stop: function(event, ui) {
+		      drag: function( event, ui ) {
+		      	self.parentBox = ui.helper.parent().attr("id");
+		      },
+		      stop: function(event, ui) {
 			  	 if(event.target.parentElement != $('#bookmarklayout')[0]){
 				     var element = $(ui.helper).clone().removeAttr('style').draggable({ disabled: false });
-				     $('#bookmarklayout').append(element);
+				     $('#' + self.parentBox).append(element);
 			  	 }
 			  }
 		    });
