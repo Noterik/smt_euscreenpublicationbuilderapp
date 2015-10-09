@@ -50,16 +50,57 @@ Layout.prototype.update = function(message){
 }
 
 //Edit
+/* comment by david: I think this is not the right way to do this. Building the layout and actually making the browser use the interface
+ * through $().click() seems like an inefficient way to do this. You're coupling the application logic and rendering logic very tightly. What 
+ * happens when we want to render the layout in another interface where these buttons might not neccesarily exist?
+ * So really this should be on top of the list of things to change in the future.
+ * 
+ * What you should do is have several functions that are solely doing rendering, and other functions that listen to the GUI controls (buttons)
+ * and call the rendering functions. In this way you can still call the rendering functions without having to programmaticaly trigger a
+ * click event on a GUI control. 
+ */
 Layout.prototype.edit = function(message){
 	var self = this;
 	
 	var data = JSON.parse(message);
-	console.log("Layout.edit(" + data + ")");
+	console.log("Layout.edit(" , data , ")");
 	console.log(data);
+	
 	$.each(data, function(key, value){
+		
+		
 		switch(value.type) {
 			case "layout":
-					$('#' + value.layout_type).trigger("click");
+					//TODO: This is a hack i've build in because it doesn't work, please get rid of this and make it work without ;)
+					if(!value.layout_type){
+						var stylesNode = data.filter(function(val){
+							return val.type === "styles";
+						})[0];
+						if(stylesNode){
+							var layoutStr = stylesNode.layout;
+							var layoutSplits = layoutStr.split("/");
+							var layoutCss = layoutSplits[layoutSplits.length - 1];
+							var rawLayoutStr = layoutCss.replace(".css", "");
+							switch(rawLayoutStr){
+								case "layout1":
+									value.layout_type = "layout_1";
+									break;
+								case "layout2":
+									value.layout_type = "layout_2";
+									break;
+								case "layout3":
+									value.layout_type = "layout_3";
+									break;
+								case "layout4":
+									value.layout_type = "layout_4";
+									break;
+							}
+						}
+					}
+					if($('#' + value.layout_type)[0]){
+						$('#' + value.layout_type).trigger("click");
+					}
+					
 				break;
 			case "styles":
 					$('#' + value.colorSchema).trigger("click");
@@ -91,14 +132,18 @@ Layout.prototype.edit = function(message){
 					}, 500);
 				break;
 			case "text_item":
+					
 					setTimeout(function(){
 						var id = "#" + $("#" + value.id).prev().attr("id");
+						console.log("VALUE: ", value);
+						console.log("TINY MCE: " , tinyMCE);
 						tinyMCE.get(value.id).setContent(value.value);
 						console.log(tinyMCE.get(id));
 						console.log(tinyMCE.get($("#" + value.id).prev().attr("id")));
 						
 						//$("#" + value.id).prev().attr("id");
 					}, 500);
+					
 				break;
 			case "title":
 					setTimeout(function(){
