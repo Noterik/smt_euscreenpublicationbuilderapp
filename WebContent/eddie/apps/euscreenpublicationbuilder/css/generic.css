@@ -265,6 +265,14 @@ a:hover {
 	width: 100%;
 }
 
+#youtube_id {
+	width: 93%;
+	height: 22px;
+	overflow: hidden;
+	margin: 0px auto;
+	background: rgba(0, 0, 0, 0.2) none repeat scroll 0% 0%;
+}
+
 #preview {
 	display: none;
 }
