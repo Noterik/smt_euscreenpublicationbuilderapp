@@ -58,11 +58,13 @@ Layout.prototype.edit = function(message){
 	console.log(data);
 	$.each(data, function(key, value){
 		switch(value.type) {
-			case "layout":
-					$('#' + value.layout_type).trigger("click");
+			case "layout":					
+					var layoutNumber = value.layout_type.split("_");
+					eddie.putLou("", "setlayout"+layoutNumber[1]+"(" + ")");
 				break;
 			case "styles":
-					$('#' + value.colorSchema).trigger("click");
+					var colorSchemaNumber = value.colorSchema.split("_");
+					eddie.putLou("", "settheme"+colorSchemaNumber[1]+"(" + ")");
 				break;
 			case "media_item":
 				var self = this;
@@ -94,10 +96,7 @@ Layout.prototype.edit = function(message){
 					setTimeout(function(){
 						var id = "#" + $("#" + value.id).prev().attr("id");
 						tinyMCE.get(value.id).setContent(value.value);
-						console.log(tinyMCE.get(id));
-						console.log(tinyMCE.get($("#" + value.id).prev().attr("id")));
 						
-						//$("#" + value.id).prev().attr("id");
 					}, 500);
 				break;
 			case "title":
