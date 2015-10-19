@@ -131,8 +131,8 @@ public class Publication extends VideoPoster{
 
 		String html_layout = "<html><head><title>First parse</title>"
 			+ "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\"/>"
-			+ "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"></link>"
 			+ "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\"/>" 
+			+ "<link rel=\"stylesheet\" href=\"https://maxcd.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"></link>"
 			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + layoutStyle + "'></link>" 
 			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + theme + "'></link>" 
 			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + "http://images1.noterik.com/euscreen/publicationbuilder/style/comparison_after.css" + "'></link>" 
@@ -231,7 +231,8 @@ public class Publication extends VideoPoster{
         object.put("id", eusId);
         object.put("title", xmlTitle);
         object.put("xml", d.asXML());
-        
+        System.out.println("-----------------------------CREATE XML-----------------------");
+        System.out.println(object.get("xml"));
         return object;
         
         /*

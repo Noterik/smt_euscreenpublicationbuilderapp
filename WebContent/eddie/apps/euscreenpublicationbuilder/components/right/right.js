@@ -7,14 +7,23 @@ var Right = function(options){
 		      stack: '#bookmarklayout',
 		      cursor: 'move',
 		      revert: true,
-		      helper: 'clone',
+		      //helper: 'clone',
 		      drag: function( event, ui ) {
 		      	self.parentBox = ui.helper.parent().attr("id");
+		      	self.el = $(ui.helper).clone();
 		      },
 		      stop: function(event, ui) {
 			  	 if(event.target.parentElement != $('#bookmarklayout')[0]){
-				     var element = $(ui.helper).clone().removeAttr('style').draggable({ disabled: false });
-				     $('#' + self.parentBox).append(element);
+				    var element = $(ui.helper).clone();
+				    element = element.removeAttr('style').draggable({ disabled: false }).attr("id", ui.helper.context.attributes[0].nodeValue);
+				    					
+					if(element.children().length > 0) {
+						element.children().remove(".removeVideo");
+					}
+				   	
+				    if ($('#' + self.parentBox).find("#" + ui.helper.context.attributes[0].nodeValue).length == 0) {
+				    	$('#' + self.parentBox).append(element);
+					}					
 			  	 }
 			  }
 		    });
