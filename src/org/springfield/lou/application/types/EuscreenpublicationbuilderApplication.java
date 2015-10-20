@@ -20,29 +20,18 @@
 * along with Screenevents app.  If not, see <http://www.gnu.org/licenses/>.
 */
 package org.springfield.lou.application.types;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springfield.fs.Fs;
-import org.springfield.fs.FsNode;
-import org.springfield.lou.application.*;
-import org.springfield.lou.application.types.DTO.MediaItem;
-import org.springfield.lou.application.types.DTO.TextContent;
-import org.springfield.lou.screen.*;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
-import org.dom4j.Node;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import org.springfield.fs.FsNode;
+import org.springfield.lou.application.Html5Application;
+import org.springfield.lou.application.types.DTO.MediaItem;
+import org.springfield.lou.application.types.DTO.TextContent;
+import org.springfield.lou.screen.Screen;
 
 public class EuscreenpublicationbuilderApplication extends Html5Application{
     public Layout layouts;
@@ -148,10 +137,14 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	
     	for(FsNode node : layouts.getLayouts()) {
     		layoutBody += "<li><h3 class=\"theme_name\">" + node.getProperty("name") + "</h3><img  class=\"layout_image\" id=\"layout_"+ cnt +"\" src='" + node.getProperty("icon") + "'/></li>";
-    		layoutWithStyle.put(node.getProperty("css"), "layout_"+ cnt);
-    		System.out.println(layoutWithStyle.size());
+    		String layoutStr = node.getProperty("css");
+    		String[] splits = layoutStr.split("/");
+    		String lo = splits[splits.length -1];
+    		lo = lo.trim();
+    		layoutWithStyle.put(lo, "layout_"+ cnt);
     		cnt++;
     	}
+    	
     	layoutBody += "</ul>";
     	s.setContent("layouts", layoutBody);
 
