@@ -19,6 +19,7 @@ import org.springfield.fs.Fs;
 import org.springfield.fs.FsNode;
 import org.springfield.lou.application.types.DTO.MediaItem;
 import org.springfield.lou.application.types.DTO.TextContent;
+import org.springfield.lou.application.util.PublicationHTMLWriter;
 
 
 public class Publication extends VideoPoster{
@@ -230,19 +231,10 @@ public class Publication extends VideoPoster{
         object.put("type", "videoposter");
         object.put("id", eusId);
         object.put("title", xmlTitle);
-
-        StringWriter sw = new StringWriter();
-        OutputFormat format = OutputFormat.createPrettyPrint();
-        HTMLWriter writer = new HTMLWriter(sw, format);
-
-        try{
-        	writer.write(d);
-	        writer.flush();
-	        object.put("xml", sw.toString());
-        }catch(IOException ioe){
-        	ioe.printStackTrace();
-        }
-
+        
+        PublicationHTMLWriter writer = new PublicationHTMLWriter();
+        object.put("xml", writer.getHTML(d));
+        
         return object;
 
         /*
@@ -353,18 +345,9 @@ public class Publication extends VideoPoster{
         object.put("type", "videoposter");
         object.put("id", oldId);
         object.put("title", xmlTitle);
-
-        StringWriter sw = new StringWriter();
-        OutputFormat format = OutputFormat.createPrettyPrint();
-        HTMLWriter writer = new HTMLWriter(sw, format);
-
-        try{
-        	writer.write(d);
-	        writer.flush();
-	        object.put("xml", sw.toString());
-        }catch(IOException ioe){
-        	ioe.printStackTrace();
-        }
+        
+        PublicationHTMLWriter writer = new PublicationHTMLWriter();
+        object.put("xml", writer.getHTML(d));
 
         return object;
 	}
@@ -473,17 +456,8 @@ public class Publication extends VideoPoster{
         object.put("id", randomUUIDString);
         object.put("title", xmlTitle);
 
-        StringWriter sw = new StringWriter();
-        OutputFormat format = OutputFormat.createPrettyPrint();
-        HTMLWriter writer = new HTMLWriter(sw, format);
-
-        try{
-        	writer.write(d);
-	        writer.flush();
-	        object.put("xml", sw.toString());
-        }catch(IOException ioe){
-        	ioe.printStackTrace();
-        }
+        PublicationHTMLWriter writer = new PublicationHTMLWriter();
+	    object.put("xml", writer.getHTML(d));
 
         return object;
 	}
