@@ -138,7 +138,7 @@ public class Publication extends VideoPoster{
 			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + theme + "'></link>"
 			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + server + "/euscreenpublicationbuilder/css/layouts/comparison_after.css'></link>"
 			+ "</head>"
-			+ "<body style=\"background-color: rgba(0, 0, 0, 0); overflow-y: hidden\"><div id=\"layout\" style=\"width: 50%;margin: 0 auto; max-height: 100%; overflow-y: scroll;\">"
+			+ "<body style=\"background-color: rgba(0, 0, 0, 0); overflow-y: hidden\"><div id=\"layout\" style=\"width: 50%;margin: 0 auto; max-height: 100%; overflow-y: auto;\">"
 			+ layout.getProperty("template").trim()
 			+ "</div></body></html>";
 
@@ -272,7 +272,7 @@ public class Publication extends VideoPoster{
 			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + theme + "'></link>"
 			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + server + "/euscreenpublicationbuilder/css/layouts/comparison_after.css'></link>"
 			+ "</head>"
-			+ "<body style=\"background-color: rgba(0, 0, 0, 0); overflow-y: hidden\"><div id=\"layout\" style=\"width: 50%;margin: 0 auto; max-height: 100%; overflow-y: scroll;\">"
+			+ "<body style=\"background-color: rgba(0, 0, 0, 0); overflow-y: hidden\"><div id=\"layout\" style=\"width: 50%;margin: 0 auto; max-height: 100%; overflow-y: auto;\">"
 			+ layout.getProperty("template").trim()
 			+ "</div></body></html>";
 
@@ -375,7 +375,7 @@ public class Publication extends VideoPoster{
 			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + theme + "'></link>"
 			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + server + "/euscreenpublicationbuilder/css/layouts/comparison_after.css'></link>"
 			+ "</head>"
-			+ "<body style=\"background-color: rgba(0, 0, 0, 0); overflow-y: hidden\"><div id=\"layout\" style=\"width: 50%;margin: 0 auto; max-height: 100%; overflow-y: scroll;\">"
+			+ "<body style=\"background-color: rgba(0, 0, 0, 0); overflow-y: hidden\"><div id=\"layout\" style=\"width: 50%;margin: 0 auto; max-height: 100%; overflow-y: auto;\">"
 			+ layout.getProperty("template").trim()
 			+ "</div></body></html>";
 
