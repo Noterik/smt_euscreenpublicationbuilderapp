@@ -15,7 +15,7 @@ Layout.prototype.update = function(message){
 	  if(data.html){
 	   styleElement.load(function(){
 		   self.element.html(data.html);
-			   $('.text_item').each(function(index) {
+			 /*  $('.text_item').each(function(index) {
 			      tinymce.init(
 			      {
 			      	plugins: "link paste",
@@ -24,8 +24,19 @@ Layout.prototype.update = function(message){
 			      	selector: '#' + $(this).attr('id'), entities: "38,amp,34,quot,162,cent,8364,euro,163,pound,165,yen,169,copy,174,reg,8482,trade",   
 			        paste_as_text: true,
 			      });
+			     
 			   });
-		
+		 	*/
+		 	
+		 	  tinyMCE.init(
+			      {
+			      	plugins: "link paste",
+			      	default_link_target:"_blank",
+			      	fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
+			      	selector: '.text_item', entities: "38,amp,34,quot,162,cent,8364,euro,163,pound,165,yen,169,copy,174,reg,8482,trade",   
+			        paste_as_text: true,
+			      });
+			      console.log(tinyMCE);
 			   $('.title').each(function(index){
 			   	$(this).attr('contenteditable','true');
 			   });
