@@ -7,6 +7,7 @@ Layout.prototype = Object.create(Component.prototype);
 Layout.prototype.update = function(message){
 	 var self = this;
 	 console.log("Layout.update(" + message + ")");
+	 console.log("---------------------UPDATE-------------------");
 	 var data = JSON.parse(message);
 
 	 if(data.style){
@@ -15,7 +16,9 @@ Layout.prototype.update = function(message){
 	  if(data.html){
 	   styleElement.load(function(){
 		   self.element.html(data.html);
-			 /*  $('.text_item').each(function(index) {
+			 /* $('.text_item').each(function(index) {
+			  					console.log("Init tnyMCE");
+			  
 			      tinymce.init(
 			      {
 			      	plugins: "link paste",
@@ -24,11 +27,11 @@ Layout.prototype.update = function(message){
 			      	selector: '#' + $(this).attr('id'), entities: "38,amp,34,quot,162,cent,8364,euro,163,pound,165,yen,169,copy,174,reg,8482,trade",
 			        paste_as_text: true,
 			      });
-
 			   });
-		 	*/
-
-		 	  tinyMCE.init(
+				*/
+							  					console.log("Init tnyMCE");
+				
+				  tinymce.init(
 			      {
 			      	plugins: "link paste",
 			      	default_link_target:"_blank",
@@ -36,7 +39,6 @@ Layout.prototype.update = function(message){
 			      	selector: '.text_item', entities: "38,amp,34,quot,162,cent,8364,euro,163,pound,165,yen,169,copy,174,reg,8482,trade",
 			        paste_as_text: true,
 			      });
-			      console.log(tinyMCE);
 			   $('.title').each(function(index){
 			   	$(this).attr('contenteditable','true');
 			   });
@@ -57,7 +59,7 @@ Layout.prototype.update = function(message){
 			clearInterval(setDropable);
 		}
 
-	}, 100);
+	}, 50);
 }
 
 Layout.prototype.edit = function(message){
@@ -72,9 +74,11 @@ Layout.prototype.edit = function(message){
 			case "layout":					
 					var layoutNumber = value.layout_type.split("_");
 					eddie.putLou("", "setlayout"+layoutNumber[1]+"(" + ")");
+					
 				break;
 			case "styles":
-					if(value.colorShema){
+				console.log(value);
+					if(value.colorSchema){
 						var colorSchemaNumber = value.colorSchema.split("_");
 						eddie.putLou("", "settheme"+colorSchemaNumber[1]+"(" + ")");
 					}
@@ -106,18 +110,11 @@ Layout.prototype.edit = function(message){
 					}, 500);
 				break;
 			case "text_item":
-
+					      		      
 					setTimeout(function(){
 						var id = "#" + $("#" + value.id).prev().attr("id");
-						console.log("VALUE: ", value);
-						console.log("TINY MCE: " , tinyMCE);
-						jQuery(id).text(value.value);
-						//tinyMCE.get(id).setContent(value.value);
-						//console.log(tinyMCE.get(id));
-					//	console.log(tinyMCE.get($("#" + value.id).prev().attr("id")));
-
-						//$("#" + value.id).prev().attr("id");
-					}, 500);
+						tinyMCE.get(value.id).setContent(value.value);					
+						}, 500);
 
 				break;
 			case "title":
@@ -195,7 +192,6 @@ Layout.prototype.bindEvent = function() {
 		var container = $($($($(v)[0].currentTarget).parent()[0])[0].parentElement).attr("id");
 		var result = JSON.stringify({dataType: data_type, identifier: identifier, container: container});
 
-
 		eddie.putLou("", "addexternalidentifire(" + result + ")");
 		v.stopPropagation();
 	});
@@ -227,6 +223,8 @@ Layout.prototype.bindContext = function() {
 			$($($($($(e.currentTarget)[0])[0].parentElement)[0].children)[0]).hide();
 			$($($(e.currentTarget)[0])[0].parentElement).append("<div class=\"addVideoBox\"><div id=\"youtube_id\" contentEditable=\"true\" style=\"border: 1px solid black\"></div><br /> <button class=\"submit_media_id\" data-type=\"YoutubeItem\">Submit Youtube item</button><div>");
 	   		self.bindEvent();
+	   		
+
 	   		self.bindContext();
 	   });
 
