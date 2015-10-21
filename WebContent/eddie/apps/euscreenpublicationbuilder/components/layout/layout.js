@@ -234,6 +234,7 @@ Layout.prototype.bindEvent = function() {
 		var container = $($($($(v)[0].currentTarget).parent()[0])[0].parentElement).attr("id");
 		var result = JSON.stringify({dataType: data_type, identifier: identifier, container: container});
 
+
 		eddie.putLou("", "addexternalidentifire(" + result + ")");
 		v.stopPropagation();
 	});
