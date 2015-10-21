@@ -85,6 +85,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
         loadStyleSheet(s, "font-awesome");
         loadStyleSheet(s, "font-awesome.min");
         loadStyleSheet(s, "tinycolorpicker");
+        loadContent(s, "embedlib");
         loadContent(s, "comparison");
         loadContent(s, "header");
         loadContent(s, "iframesender");
@@ -104,7 +105,14 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 
      	int cnt_bookmark = 0;
      	for (Bookmark bmi : bookmarks.getBookmarklist()) {
-    		bookmarkLayout += "<div id=\"bookmark_"+ cnt_bookmark +"\" class=\"drag_bookmark\"><video class=\"layout_image\" poster='"+bmi.getScreenshot()+"' controls><source src='"+bmi.getVideo()+"' type=\"video/mp4\"></video></div>";
+     		String id = "bookmark_"+ cnt_bookmark;
+    		bookmarkLayout += "<div id=\"" + id +"\" class=\"drag_bookmark\"><video class=\"layout_image\" poster='"+bmi.getScreenshot()+"' controls><source src='"+bmi.getVideo()+"' type=\"video/mp4\"></video></div>";
+    		bookmarkLayout += "<script type=\"text/javascript\">"
+    				+ "eddie.getComponent('embedlib').loaded().then(function(){"
+    				+ "		EuScreen.getVideo({src: '" + bmi.getVideo() + "', poster: '" + bmi.getScreenshot() + "', controls: true}, function(html){"
+    				+ "			jQuery('#" + id + "').html(html);"
+    				+ "		});"
+    				+ "});</script>";
 			cnt_bookmark++;
 		}
      	bookmarkLayout += "</div>";

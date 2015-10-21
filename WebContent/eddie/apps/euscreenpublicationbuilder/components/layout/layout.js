@@ -163,6 +163,22 @@ Layout.prototype.setmediaitem = function (message) {
 }
 
 Layout.prototype.handleCardDrop = function ( event, ui ) {
+	console.log("Layout.handleCardDrop(", event , ", " , ui , ")");
+	var video = ui.helper.find('video');
+	var src = video.attr('src');
+	src = src.substring(0, src.lastIndexOf("?"));
+	var poster = video.attr('poster');
+	
+	eddie.getComponent('embedlib').loaded().then(function(){
+		EuScreen.getVideo({
+			src: src,
+			poster: poster,
+			controls: true
+		}, function(html){
+			$(event.target).html(html);
+		});
+	})
+	/*
     ui.draggable.draggable('disable');
     $(this).droppable('disable');
     $(this).append(ui.draggable[0]);
@@ -183,6 +199,7 @@ Layout.prototype.handleCardDrop = function ( event, ui ) {
 		//var elem = $($(this)[0]).removeAttr('style').attr('style', 'position: relative').draggable('enable');
 		//elem.appendTo('#bookmarklayout');
 	});
+	*/
 };
 
 Layout.prototype.bindEvent = function() {

@@ -126,6 +126,11 @@ a:hover {
 	background-color: #FFF;
 }
 
+#right video{
+	position: relative;
+	width: 100%;
+}
+
 .right-header {
 	background-color: #00AEEF;
 	padding: 5px;
@@ -291,4 +296,11 @@ a:hover {
 
 #right_header_0 {
  cursor:pointer;
+}
+
+.media_item .drag_bookmark .removeVideo{
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	bottom: -25px;
 }
