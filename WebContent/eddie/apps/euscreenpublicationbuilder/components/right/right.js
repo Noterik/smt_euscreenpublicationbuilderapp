@@ -11,6 +11,7 @@ var Right = function(options){
 		      drag: function( event, ui ) {
 		      	self.parentBox = ui.helper.parent().attr("id");
 		      	self.el = $(ui.helper).clone();
+		      	self.sibling = $(ui.helper).context.previousSibling;
 		      },
 		      stop: function(event, ui) {
 			  	 if(event.target.parentElement != $('#bookmarklayout')[0]){
@@ -19,12 +20,24 @@ var Right = function(options){
 				    element = element.removeAttr('style').draggable({ disabled: false }).attr("id", ui.helper.context.attributes['id'].nodeValue);
 				    					
 					if(element.children().length > 0) {
-						element.children().remove(".removeVideo");
+						element.children().first().removeClass('videoAfterDrop');
+						element.children().remove(".removeVideo").addClass('layout_image').removeAttr('style');
 					}
 				   	
 				   	console.log(self.el);
 				    if ($('#' + self.parentBox).find("#" + ui.helper.context.attributes['id'].nodeValue).length == 0) {
-				    	$('#' + self.parentBox).append(element);
+				    	var pos = element.attr('id').split('_');
+				    	console.log(pos[1]);
+				    	if(self.sibling != null) {
+				    		console.log("sibling");
+				    		console.log($(self.sibling));
+				    		$(self.sibling).after(element);
+				    	}else {
+				    		$('#' + self.parentBox).prepend(element);
+				    	}
+				    	//$('#' + self.parentBox).append(element);
+				    					    	console.log($('#' + self.parentBox).children());
+				    	
 					}					
 			  	 }
 			  	 
