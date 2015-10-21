@@ -72,45 +72,6 @@ Layout.prototype.edit = function(message){
 			case "layout":					
 					var layoutNumber = value.layout_type.split("_");
 					eddie.putLou("", "setlayout"+layoutNumber[1]+"(" + ")");
-/*
-=======
-			case "layout":
-					console.log("DO THIS!");
-					console.log("DOES IT WORK?");
-					console.log(value);
-					//TODO: This is a hack i've build in because it doesn't work, please get rid of this and make it work without ;)
-					if(!value.layout_type){
-						var stylesNode = data.filter(function(val){
-							return val.type === "styles";
-						})[0];
-						if(stylesNode){
-							var layoutStr = stylesNode.layout;
-							var layoutSplits = layoutStr.split("/");
-							var layoutCss = layoutSplits[layoutSplits.length - 1];
-							var rawLayoutStr = layoutCss.replace(".css", "");
-							switch(rawLayoutStr){
-								case "layout1":
-									value.layout_type = "layout_1";
-									break;
-								case "layout2":
-									value.layout_type = "layout_2";
-									break;
-								case "layout3":
-									value.layout_type = "layout_3";
-									break;
-								case "layout4":
-									value.layout_type = "layout_4";
-									break;
-							}
-						}
-					}
-					console.log("LAYOUT: " + value.layout_type);
-					if($('#' + value.layout_type)[0]){
-						$('#' + value.layout_type).trigger("click");
-					}
-
->>>>>>> Stashed changes
-*/
 				break;
 			case "styles":
 					if(value.colorShema){
