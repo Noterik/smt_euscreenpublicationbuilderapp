@@ -202,6 +202,7 @@ Layout.prototype.handleCardDrop = function ( event, ui ) {
 	*/
 };
 
+//TODO: Rewrite this!
 Layout.prototype.bindEvent = function() {
 	$('.submit_media_id').click(function(v){
 		var data_type = $(this).attr("data-type");
@@ -214,6 +215,7 @@ Layout.prototype.bindEvent = function() {
 	});
 }
 
+//TODO: Rewrite this, get rid of $($($($($($($($($($)$($)$($)$($)
 Layout.prototype.bindContext = function() {
 	var self = this;
  	$('.plus_icon').click(function (e){

@@ -21,6 +21,13 @@ import org.springfield.lou.application.types.DTO.MediaItem;
 import org.springfield.lou.application.types.DTO.TextContent;
 import org.springfield.lou.application.util.PublicationHTMLWriter;
 
+/* TODO
+ * Why are there three functions that almost do the same? avoid code duplication... 
+ * Put generic code in a single functions and the small subtleties/difference can be put in 
+ * other functions. 
+ * Now everytime I change something I have to change it in all three functions. 
+ * Not efficient/scalable and very prone to errors. 
+ */
 
 public class Publication extends VideoPoster{
 
@@ -133,14 +140,36 @@ public class Publication extends VideoPoster{
 		String html_layout = "<html><head><title>First parse</title>"
 			+ "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\">&#xA0;</script>"
 			+ "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"></link>"
-			+ "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\">adfasfsaf</script>"
+			+ "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\">&#xA0;</script>"
+			+ "<script src=\"http://pb.euscreenxl.eu:8080/euscreen_embed/euscreenembedlib.js\">&#xA0;</script>"
 			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + layoutStyle + "'></link>"
 			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + theme + "'></link>"
 			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + server + "/euscreenpublicationbuilder/css/layouts/comparison_after.css'></link>"
 			+ "</head>"
 			+ "<body style=\"background-color: rgba(0, 0, 0, 0); overflow-y: hidden; height: 100%\"><div id=\"layout\" style=\"width: 50%;margin: 0 auto; height: 100%; overflow-y: auto;\">"
 			+ layout.getProperty("template").trim()
-			+ "</div></body></html>";
+			+ "</div>"
+			+ "<script type=\"text/javascript\">"
+			+ "	   <![CDATA["
+			
+			+ "    $('video[data-src]').each(function(index, video){"
+			+ "			console.log(video); "
+			+ "			var src = $(video).data('src');"
+			+ "			var poster = $(video).data('poster');"
+			+ "			EuScreen.getVideo({"
+			+ "				src: src,"
+			+ "				poster: poster,"
+			+ "				controls: true"
+			+ "			   }, (function(video){"
+			+ "				   return function(html){"
+			+ "					   $(video).replaceWith(html); "
+			+ "				   }"
+			+ "			   })(video)"
+			+ "		   )"
+			+ "	   });"
+			+ " 	]]>"
+			+ "</script>"
+			+ "</body></html>";
 
 		Document d = null;
 		try {
@@ -163,11 +192,15 @@ public class Publication extends VideoPoster{
 						if (mediaItemList.get(i).getValue().toString().contains("http://www.youtube.com") || mediaItemList.get(i).getValue().toString().contains("https://player.vimeo")) {
 							media = "<iframe class=\"videoAfterDrop\" src='" + mediaItemList.get(i).getValue().toString() + "' frameborder=\"0\" allowfullscreen></iframe>";
 						}else {
+							String src = mediaItemList.get(i).getValue().toString();
+							src = src.substring(0, src.lastIndexOf("?"));
+							media = "<video data-src=\"" + src + "\" data-poster=\"" + mediaItemList.get(i).getPoster() + "\"/>";
+							/*
 							if(mediaItemList.get(i).getPoster() != null){
 								media = "<video class=\"videoAfterDrop\" poster='" + mediaItemList.get(i).getPoster() + "' controls><source src='" + mediaItemList.get(i).getValue().toString() + "' type=\"video/mp4\"></video>";
 							}else {
 								media = "<video class=\"videoAfterDrop\" controls><source src='" + mediaItemList.get(i).getValue().toString() + "' type=\"video/mp4\"></video>";
-							}
+							}*/
 						}
 
 						media_item.setText(media);
@@ -267,14 +300,35 @@ public class Publication extends VideoPoster{
 		String html_layout = "<html><head><title>First parse</title>"
 			+ "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\">gadfaf</script>"
 			+ "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"></link>"
-			+ "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\">adsfasf</script>"
+			+ "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\">&#xA0;</script>"
+			+ "<script src=\"http://pb.euscreenxl.eu:8080/euscreen_embed/euscreenembedlib.js\">&#xA0;</script>"
 			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + layoutStyle + "'></link>"
 			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + theme + "'></link>"
 			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + server + "/euscreenpublicationbuilder/css/layouts/comparison_after.css'></link>"
 			+ "</head>"
 			+ "<body style=\"background-color: rgba(0, 0, 0, 0); overflow-y: hidden; height: 100%\"><div id=\"layout\" style=\"width: 50%;margin: 0 auto; height: 100%; overflow-y: auto;\">"
 			+ layout.getProperty("template").trim()
-			+ "</div></body></html>";
+			+ "</div>"
+			+ "<script type=\"text/javascript\">"
+			+ "	   <![CDATA["
+			+ "    $('video[data-src]').each(function(index, video){"
+			+ "			console.log(video); "
+			+ "			var src = $(video).data('src');"
+			+ "			var poster = $(video).data('poster');"
+			+ "			EuScreen.getVideo({"
+			+ "				src: src,"
+			+ "				poster: poster,"
+			+ "				controls: true"
+			+ "			   }, (function(video){"
+			+ "				   return function(html){"
+			+ "					   $(video).replaceWith(html); "
+			+ "				   }"
+			+ "			   })(video)"
+			+ "		   )"
+			+ "	   });"
+			+ " 	]]>"
+			+ "</script>"
+			+ "</body></html>";
 
 		Document d = null;
 		try {
@@ -297,11 +351,15 @@ public class Publication extends VideoPoster{
 						if (mediaItemList.get(i).getValue().toString().contains("http://www.youtube.com") || mediaItemList.get(i).getValue().toString().contains("https://player.vimeo")) {
 							media = "<iframe class=\"videoAfterDrop\" src='" + mediaItemList.get(i).getValue().toString() + "' frameborder=\"0\" allowfullscreen></iframe>";
 						}else {
+							String src = mediaItemList.get(i).getValue().toString();
+							src = src.substring(0, src.lastIndexOf("?"));
+							media = "<video data-src=\"" + src + "\" data-poster=\"" + mediaItemList.get(i).getPoster() + "\"/>";
+							/*
 							if(mediaItemList.get(i).getPoster() != null){
-								media = "<video class=\"videoAfterDrop\" poster='" + mediaItemList.get(i).getPoster() + "' controls><source src='" + mediaItemList.get(i).getValue().toString() + "' type=\"video/mp4\"></video>";
+								//media = "<video class=\"videoAfterDrop\" poster='" + mediaItemList.get(i).getPoster() + "' controls><source src='" + mediaItemList.get(i).getValue().toString() + "' type=\"video/mp4\"></video>";
 							}else {
 								media = "<video class=\"videoAfterDrop\" controls><source src='" + mediaItemList.get(i).getValue().toString() + "' type=\"video/mp4\"></video>";
-							}
+							}*/
 						}
 
 						media_item.setText(media);
@@ -371,13 +429,34 @@ public class Publication extends VideoPoster{
 		String html_layout = "<html><head><title>First parse</title>"
 			+ "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"></link>"
 			+ "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\">&#xA0;</script>"
+			+ "<script src=\"http://pb.euscreenxl.eu:8080/euscreen_embed/euscreenembedlib.js\">&#xA0;</script>"
 			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + layoutStyle + "'></link>"
 			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + theme + "'></link>"
 			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + server + "/euscreenpublicationbuilder/css/layouts/comparison_after.css'></link>"
 			+ "</head>"
 			+ "<body style=\"background-color: rgba(0, 0, 0, 0); overflow-y: hidden; height: 100%;\"><div id=\"layout\" style=\"width: 50%;margin: 0 auto; height: 100%; overflow-y: auto;\">"
 			+ layout.getProperty("template").trim()
-			+ "</div></body></html>";
+			+ "</div>"
+			+ "<script type=\"text/javascript\">"
+			+ "	   <![CDATA["
+			+ "    $('video[data-src]').each(function(index, video){"
+			+ "			console.log('VIDEO: ', video);"
+			+ "			var src = $(video).data('src);"
+			+ "			var poster = $(video).data('poster');"
+			+ "			EuScreen.getVideo({"
+			+ "				src: src,"
+			+ "				poster: poster,"
+			+ "				controls: true"
+			+ "			   }, (function(video){"
+			+ "				   return function(html){"
+			+ "					   $(video).replaceWith(html); "
+			+ "				   }"
+			+ "			   })(video)"
+			+ "		   )"
+			+ "	   });"
+			+ " 	]]>"
+			+ "</script>"
+			+ "</body></html>";
 
 		Document d = null;
 		try {
@@ -393,20 +472,26 @@ public class Publication extends VideoPoster{
 			System.out.println("MEDIA ITEM LIST : " + mediaItemList.size());
 			if(mediaItemList.size() > 0){
 				for(int i = 0; i < mediaItemList.size(); i++) {
+					//TODO: Instead of always doing mediaItemList.get(i), just make a variable and store it. Makes it more readable.
+					MediaItem currItem = mediaItemList.get(i);
 					Element element = (Element) media_item;
-					if (element != null && mediaItemList.get(i).getId() != null) {
-						if (mediaItemList.get(i).getId().trim().equals(element.attributeValue("id").trim())) {
+					if (element != null && currItem.getId() != null) {
+						if (currItem.getId().trim().equals(element.attributeValue("id").trim())) {
 							element.clearContent();
 							String media = null;
 							if(mediaItemList.get(i).getValue() != null){
 								if(mediaItemList.get(i).getValue().toString().contains("http://www.youtube.com") || mediaItemList.get(i).getValue().toString().contains("https://player.vimeo")) {
 									media = "<iframe class=\"videoAfterDrop\" src='" + mediaItemList.get(i).getValue().toString() + "' frameborder=\"0\" allowfullscreen></iframe>";
 								}else {
+									String src = mediaItemList.get(i).getValue().toString();
+									src = src.substring(0, src.lastIndexOf("?"));
+									media = "<video data-src=\"" + src + "\" data-poster=\"" + mediaItemList.get(i).getPoster() + "\"/>";
+									/*
 									if(mediaItemList.get(i).getPoster() != null){
 										media = "<video class=\"videoAfterDrop\" poster='" + mediaItemList.get(i).getPoster() + "' controls><source src='" + mediaItemList.get(i).getValue().toString() + "' type=\"video/mp4\"></video>";
 									}else {
 										media = "<video class=\"videoAfterDrop\" controls><source src='" + mediaItemList.get(i).getValue().toString() + "' type=\"video/mp4\"></video>";
-									}
+									}*/
 								}
 
 								media_item.setText(media);

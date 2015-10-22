@@ -75,6 +75,8 @@ var Header = function(options){
 	    });
 		
 		var mediaArray = [];
+		// TODO: Unreadable/not understandable/not efficient/not reusable, look at my code below
+		/*
 		$('.media_item').each(function(index) {
 			var obj = {};
 		
@@ -86,6 +88,31 @@ var Header = function(options){
 				}
 			}else{
 				obj.value = $(this)[0].children[0].src;
+			}
+			mediaArray.push(obj);
+		});
+		*/
+		
+		//Code by david
+		$('.media_item').each(function(index, element){
+			//Let's cache this element, doing $() over and over again kills performance, try to learn this and do it next time, I've already said it a couple of times.
+			var $element = $(element);
+			var obj = {
+				id: $element.attr('id')
+			};
+			
+			//Doing stuff like $($().children()) makes your code completely unreadable. We know we want to get the src/poster of a video, so also reflect this in your code. 
+			//When we encounter a simple video
+			if($element.find('video')[0]){
+				var $video = $element.find('video');
+				
+				//Why are you calling the src a "value" and the poster a "poster"? Stay consistent. 
+				obj['value'] = $video.attr('src');
+				obj['poster'] = $video.attr('poster');
+				
+			//When we find an embed from youtube/vimeo
+			}else if($element.find('iframe')[0]){
+				obj['value'] = $element.find('iframe').attr('src');
 			}
 			mediaArray.push(obj);
 		});

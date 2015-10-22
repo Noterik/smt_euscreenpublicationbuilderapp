@@ -375,6 +375,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	
 	//Create publication XML
 	public void actionProccesspublication(Screen s, String c){
+		System.out.println("EuscreenpublicationbuilderApplication.actionProcesspublication(" + c + ")");
 		try {
 			JSONObject json = (JSONObject)new JSONParser().parse(c);
 			Publication publication = new Publication();
