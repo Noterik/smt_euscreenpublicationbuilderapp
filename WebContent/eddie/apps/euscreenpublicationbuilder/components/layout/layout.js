@@ -124,7 +124,12 @@ Layout.prototype.edit = function(message){
 				break;
 		}
 	});
-
+	console.log("LETS CALL TRANSFORM VIDEOS!");
+	//TODO: I don't want to set the timeout, but I'm sort of forced to.
+	setTimeout(function(){
+		eddie.getComponent('embedlib').transformVideos();
+	}, 1000);
+	
 }
 
 //SetStyle
@@ -175,7 +180,12 @@ Layout.prototype.handleCardDrop = function ( event, ui ) {
 			poster: poster,
 			controls: true
 		}, function(html){
-			$(event.target).html(html);
+			var $target = $(event.target);
+			$target.html(html);
+			$target.append("<div class=\"removeVideo\">Remove video</div>");
+			$target.find('.removeVideo').on('click', function(){
+				$target.html('<div class="plus_icon"></div>');
+			});
 		});
 	})
 	/*

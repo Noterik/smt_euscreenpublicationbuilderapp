@@ -201,6 +201,9 @@ a:hover {
 }
 
 .removeVideo {
+	position: absolute;
+	width: 100%;
+	bottom: -25px;
 	text-align: center;
 	color: white;
 	cursor: pointer;
