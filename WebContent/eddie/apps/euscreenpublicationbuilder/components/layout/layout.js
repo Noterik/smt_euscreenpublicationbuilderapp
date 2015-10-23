@@ -33,6 +33,10 @@ Layout.prototype.update = function(message){
 				
 				  tinymce.init(
 			      {
+			    	height : "287",
+			    	theme_advanced_font_sizes: "10px,12px,13px,14px,16px,18px,20px",
+			    	font_size_style_values : "10px,12px,13px,14px,16px,18px,20px",
+			    	fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
 			      	plugins: "link paste",
 			      	default_link_target:"_blank",
 			      	fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
