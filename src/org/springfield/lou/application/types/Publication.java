@@ -33,7 +33,8 @@ public class Publication extends VideoPoster{
 
 	//Should really be put in a Config object that should be injected into every class that needs it, no time for this so quick and dirty way.
 	private static String server = Fs.getNode("/domain/euscreenxl/user/admin/config/publicationbuilder").getProperty("server");
-
+	private static String libServer =  Fs.getNode("/domain/euscreenxl/user/admin/config/publicationbuilder").getProperty("embedLib");
+	
 	public Publication() {
 		super();
 	}
@@ -141,7 +142,7 @@ public class Publication extends VideoPoster{
 			+ "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\">&#xA0;</script>"
 			+ "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"></link>"
 			+ "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\">&#xA0;</script>"
-			+ "<script src=\"http://pb.euscreenxl.eu:8080/euscreen_embed/euscreenembedlib.js\">&#xA0;</script>"
+			+ "<script src=\"" + libServer + "\">&#xA0;</script>"
 			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + layoutStyle + "'></link>"
 			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + theme + "'></link>"
 			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + server + "/euscreenpublicationbuilder/css/layouts/comparison_after.css'></link>"
@@ -301,7 +302,7 @@ public class Publication extends VideoPoster{
 			+ "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\">gadfaf</script>"
 			+ "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"></link>"
 			+ "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\">&#xA0;</script>"
-			+ "<script src=\"http://pb.euscreenxl.eu:8080/euscreen_embed/euscreenembedlib.js\">&#xA0;</script>"
+			+ "<script src=\"" + libServer + "\">&#xA0;</script>"
 			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + layoutStyle + "'></link>"
 			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + theme + "'></link>"
 			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + server + "/euscreenpublicationbuilder/css/layouts/comparison_after.css'></link>"
@@ -429,7 +430,7 @@ public class Publication extends VideoPoster{
 		String html_layout = "<html><head><title>First parse</title>"
 			+ "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"></link>"
 			+ "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\">&#xA0;</script>"
-			+ "<script src=\"http://pb.euscreenxl.eu:8080/euscreen_embed/euscreenembedlib.js\">&#xA0;</script>"
+			+ "<script src=\"" + libServer + "\">&#xA0;</script>"
 			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + layoutStyle + "'></link>"
 			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + theme + "'></link>"
 			+ "<link rel=\"stylesheet\" type=\"text/css\" href='" + server + "/euscreenpublicationbuilder/css/layouts/comparison_after.css'></link>"
