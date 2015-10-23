@@ -1,7 +1,5 @@
 package org.springfield.lou.application.types;
 
-import java.io.IOException;
-import java.io.StringWriter;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -11,8 +9,6 @@ import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.Node;
-import org.dom4j.io.HTMLWriter;
-import org.dom4j.io.OutputFormat;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springfield.fs.Fs;
