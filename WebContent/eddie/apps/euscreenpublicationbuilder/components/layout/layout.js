@@ -3,6 +3,24 @@ var Layout = function(options){
 	 Component.apply(this, arguments);
 }
 Layout.prototype = Object.create(Component.prototype);
+Layout.prototype.initTinyMce = function(){
+	console.log("Layout.initTinyMce()");
+	 this.element.find('.text_item[data-section-type="text"]').each(function(){
+		 tinymce.init({
+			 mode: "exact",
+			 elements: this.id
+		 });
+	 });
+	 
+	 this.element.find('.text_item[data-section-type="text_big"]').each(function(){
+		 tinymce.init({
+			 mode: "exact",
+			 elements: this.id,
+			 toolbar: "fontselect fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+		 });
+	 });
+	 
+};
 
 Layout.prototype.update = function(message){
 	 var self = this;
@@ -11,45 +29,19 @@ Layout.prototype.update = function(message){
 	 var data = JSON.parse(message);
 
 	 if(data.style){
-	  var styleElement = $('<link rel="stylesheet" type="text/css" href="' + data.style + '">');
-	  $('head').append(styleElement);
-	  if(data.html){
-	   styleElement.load(function(){
-		   self.element.html(data.html);
-			 /* $('.text_item').each(function(index) {
-			  					console.log("Init tnyMCE");
-			  
-			      tinymce.init(
-			      {
-			      	plugins: "link paste",
-			      	default_link_target:"_blank",
-			      	fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
-			      	selector: '#' + $(this).attr('id'), entities: "38,amp,34,quot,162,cent,8364,euro,163,pound,165,yen,169,copy,174,reg,8482,trade",
-			        paste_as_text: true,
-			      });
-			   });
-				*/
-							  					console.log("Init tnyMCE");
-				
-				  tinymce.init(
-			      {
-			    	height : "287",
-			    	theme_advanced_font_sizes: "10px,12px,13px,14px,16px,18px,20px",
-			    	font_size_style_values : "10px,12px,13px,14px,16px,18px,20px",
-			    	fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
-			      	plugins: "link paste",
-			      	default_link_target:"_blank",
-			      	fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
-			      	selector: '.text_item', entities: "38,amp,34,quot,162,cent,8364,euro,163,pound,165,yen,169,copy,174,reg,8482,trade",
-			        paste_as_text: true,
-			      });
-			   $('.title').each(function(index){
-			   	$(this).attr('contenteditable','true');
-			   });
-		   });
-	   }
+		 var styleElement = $('<link rel="stylesheet" type="text/css" href="' + data.style + '">');
+		 $('head').append(styleElement);
+		 if(data.html){
+			 styleElement.load(function(){
+				 self.element.html(data.html);
+				 self.initTinyMce();
+				 $('.title').each(function(index){
+					 $(this).attr('contenteditable','true');
+				 });
+			 });
+		 }
 	 }else if(data.html){
-	  this.element.html(data.html);
+		 this.element.html(data.html);
 	 }
 
 	var setDropable = setInterval(function(){
