@@ -115,6 +115,7 @@ footer {
 
 #context {
   	padding-top: 9px;
+  	z-index: 1;
 }
 
 #context ul {
