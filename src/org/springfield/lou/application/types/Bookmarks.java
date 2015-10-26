@@ -52,48 +52,15 @@ public class Bookmarks {
 			String videoName = videoInfo.getProperty("TitleSet_TitleSetInEnglish_title");
 			String screenshot = videoInfo.getProperty("screenshot");
 			
-			if(videoMount.contains("noterik.com")){
+			String mount = "";
+			
+			if(videoMount.contains("noterik.com") && !videoMount.contains("rtmp://")){
 				String[]videoMountArr = videoMount.split(","); 	
-				String mount = videoMountArr[0];
-				
-				if (mount.indexOf("http://")==-1 && mount.indexOf("rtmp://")==-1) {
-					Random randomGenerator = new Random();
-					Integer random= randomGenerator.nextInt(100000000);
-					String ticket = Integer.toString(random);
-					
-					String videoFile= mount;
-					ipAddress = EuscreenpublicationbuilderApplication.ipAddress;
-					isAndroid = EuscreenpublicationbuilderApplication.isAndroid;
-					
-					try{						
-						//System.out.println("CallingSendTicket");						
-						sendTicket(videoFile,ipAddress,ticket);
-					} catch (Exception e) {}
-					
-					
-					ap = mount+"?ticket="+ticket;
-				} else if (mount.indexOf(".noterik.com/progressive/") > -1) {
-					Random randomGenerator = new Random();
-					Integer random= randomGenerator.nextInt(100000000);
-					String ticket = Integer.toString(random);
-					
-					String videoFile = mount.substring(mount.indexOf("progressive")+11);
-					
-					ipAddress = EuscreenpublicationbuilderApplication.ipAddress;
-					isAndroid = EuscreenpublicationbuilderApplication.isAndroid;
-					
-					try{						
-						//System.out.println("CallingSendTicket");						
-						sendTicket(videoFile,ipAddress,ticket);
-					} catch (Exception e) {}
-					
-					ap = mount+"?ticket="+ticket;				
-				} 
-			}else{
-				ap = videoMount;
+				mount = videoMountArr[0];
 			}
+			
 
-			Bookmark bookmark = new Bookmark(bookmarkId, videoId, videoName, ap, screenshot);
+			Bookmark bookmark = new Bookmark(bookmarkId, videoId, videoName, mount, screenshot);
 			System.out.println("WE ARE GETTING BOOKMARKS");
 			System.out.println(bookmark.getId());
 			bookmarklist.add(bookmark);

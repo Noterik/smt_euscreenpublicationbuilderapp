@@ -7,16 +7,11 @@ var Right = function(options){
 		      stack: '#bookmarklayout',
 		      cursor: 'move',
 		      revert: true,
-		      helper: 'clone',
-		      drag: function( event, ui ) {
-		      	self.parentBox = ui.helper.parent().attr("id");
-		      },
-		      stop: function(event, ui) {
-			  	 if(event.target.parentElement != $('#bookmarklayout')[0]){
-				     var element = $(ui.helper).clone().removeAttr('style').draggable({ disabled: false });
-				     $('#' + self.parentBox).append(element);
-			  	 }
-			  }
+		      //helper: 'clone',
+		      stop: function(ui, event){
+		    	  console.log("UI", ui);
+		    	  console.log("EVENT", event);
+		      }
 		    });
 		}());
 	}, 50);

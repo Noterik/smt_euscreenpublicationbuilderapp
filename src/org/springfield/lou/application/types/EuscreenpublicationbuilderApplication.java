@@ -20,29 +20,18 @@
 * along with Screenevents app.  If not, see <http://www.gnu.org/licenses/>.
 */
 package org.springfield.lou.application.types;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springfield.fs.Fs;
-import org.springfield.fs.FsNode;
-import org.springfield.lou.application.*;
-import org.springfield.lou.application.types.DTO.MediaItem;
-import org.springfield.lou.application.types.DTO.TextContent;
-import org.springfield.lou.screen.*;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
-import org.dom4j.Node;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import org.springfield.fs.FsNode;
+import org.springfield.lou.application.Html5Application;
+import org.springfield.lou.application.types.DTO.MediaItem;
+import org.springfield.lou.application.types.DTO.TextContent;
+import org.springfield.lou.screen.Screen;
 
 public class EuscreenpublicationbuilderApplication extends Html5Application{
     public Layout layouts;
@@ -96,6 +85,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
         loadStyleSheet(s, "font-awesome");
         loadStyleSheet(s, "font-awesome.min");
         loadStyleSheet(s, "tinycolorpicker");
+        loadContent(s, "embedlib");
         loadContent(s, "comparison");
         loadContent(s, "header");
         loadContent(s, "iframesender");
@@ -115,7 +105,14 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 
      	int cnt_bookmark = 0;
      	for (Bookmark bmi : bookmarks.getBookmarklist()) {
-    		bookmarkLayout += "<div id=\"bookmark_"+ cnt_bookmark +"\" class=\"drag_bookmark\"><video class=\"layout_image\" poster='"+bmi.getScreenshot()+"' controls><source src='"+bmi.getVideo()+"' type=\"video/mp4\"></video></div>";
+     		String id = "bookmark_"+ cnt_bookmark;
+    		bookmarkLayout += "<div id=\"" + id +"\" class=\"drag_bookmark\"><video class=\"layout_image\" poster='"+bmi.getScreenshot()+"' controls><source src='"+bmi.getVideo()+"' type=\"video/mp4\"></video></div>";
+    		bookmarkLayout += "<script type=\"text/javascript\">"
+    				+ "eddie.getComponent('embedlib').loaded().then(function(){"
+    				+ "		EuScreen.getVideo({src: '" + bmi.getVideo() + "', poster: '" + bmi.getScreenshot() + "', controls: true}, function(html){"
+    				+ "			jQuery('#" + id + "').html(html);"
+    				+ "		});"
+    				+ "});</script>";
 			cnt_bookmark++;
 		}
      	bookmarkLayout += "</div>";
@@ -148,10 +145,14 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	
     	for(FsNode node : layouts.getLayouts()) {
     		layoutBody += "<li><h3 class=\"theme_name\">" + node.getProperty("name") + "</h3><img  class=\"layout_image\" id=\"layout_"+ cnt +"\" src='" + node.getProperty("icon") + "'/></li>";
-    		layoutWithStyle.put(node.getProperty("css"), "layout_"+ cnt);
-    		System.out.println(layoutWithStyle.size());
+    		String layoutStr = node.getProperty("css");
+    		String[] splits = layoutStr.split("/");
+    		String lo = splits[splits.length -1];
+    		lo = lo.trim();
+    		layoutWithStyle.put(lo, "layout_"+ cnt);
     		cnt++;
     	}
+    	
     	layoutBody += "</ul>";
     	s.setContent("layouts", layoutBody);
 
@@ -374,6 +375,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	
 	//Create publication XML
 	public void actionProccesspublication(Screen s, String c){
+		System.out.println("EuscreenpublicationbuilderApplication.actionProcesspublication(" + c + ")");
 		try {
 			JSONObject json = (JSONObject)new JSONParser().parse(c);
 			Publication publication = new Publication();
