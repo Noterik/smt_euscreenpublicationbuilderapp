@@ -22,3 +22,9 @@ dist/smt_euscreenpublicationbuilderapp.war
 src/org/springfield/lou/application/types/EuscreenpublicationbuilderApplication.java
 
 WebContent/WEB-INF/lib/smt_euscreenpublicationbuilderapp.jar
+
+build/smt_euscreenpublicationbuilderapp.jar
+
+dist/smt_euscreenpublicationbuilderapp.war
+
+WebContent/WEB-INF/lib/smt_euscreenpublicationbuilderapp.jar

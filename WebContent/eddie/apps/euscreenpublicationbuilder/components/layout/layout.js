@@ -12,7 +12,7 @@ Layout.prototype.initTinyMce = function(){
 			 elements: this.id
 		 });
 	 });
-	 
+
 	 this.element.find('.text_item[data-section-type="text_big"]').each(function(){
 		 tinymce.init({
 			 mode: "exact",
@@ -22,7 +22,7 @@ Layout.prototype.initTinyMce = function(){
 		 });
 		 console.log(tinymce);
 	 });
-	 
+
 };
 
 Layout.prototype.update = function(message){
@@ -70,17 +70,12 @@ Layout.prototype.edit = function(message){
 
 	$.each(data, function(key, value){
 		switch(value.type) {
-			case "layout":					
+			case "layout":
 					var layoutNumber = value.layout_type.split("_");
 					eddie.putLou("", "setlayout"+layoutNumber[1]+"(" + ")");
-					
-				break;
 			case "styles":
-				console.log(value);
-					if(value.colorSchema){
-						var colorSchemaNumber = value.colorSchema.split("_");
-						eddie.putLou("", "settheme"+colorSchemaNumber[1]+"(" + ")");
-					}
+					var colorSchemaNumber = value.colorSchema.split("_");
+					eddie.putLou("", "settheme"+colorSchemaNumber[1]+"(" + ")");
 				break;
 			case "media_item":
 				var self = this;
@@ -109,12 +104,11 @@ Layout.prototype.edit = function(message){
 					}, 500);
 				break;
 			case "text_item":
-					      		      
-					setTimeout(function(){
-						var id = "#" + $("#" + value.id).prev().attr("id");
-						tinyMCE.get(value.id).setContent(value.value);					
-						}, 500);
 
+			  setTimeout(function(){
+						var id = "#" + $("#" + value.id).prev().attr("id");
+						tinyMCE.get(value.id).setContent(value.value);
+				}, 500);
 				break;
 			case "title":
 					setTimeout(function(){
@@ -128,7 +122,7 @@ Layout.prototype.edit = function(message){
 	setTimeout(function(){
 		eddie.getComponent('embedlib').transformVideos();
 	}, 1000);
-	
+
 }
 
 //SetStyle
@@ -172,7 +166,7 @@ Layout.prototype.handleCardDrop = function ( event, ui ) {
 	var src = video.attr('src');
 	src = src.substring(0, src.lastIndexOf("?"));
 	var poster = video.attr('poster');
-	
+
 	eddie.getComponent('embedlib').loaded().then(function(){
 		EuScreen.getVideo({
 			src: src,
@@ -251,7 +245,7 @@ Layout.prototype.bindContext = function() {
 			$($($($($(e.currentTarget)[0])[0].parentElement)[0].children)[0]).hide();
 			$($($(e.currentTarget)[0])[0].parentElement).append("<div class=\"addVideoBox\"><div id=\"youtube_id\" contentEditable=\"true\" style=\"border: 1px solid black\"></div><br /> <button class=\"submit_media_id\" data-type=\"YoutubeItem\">Submit Youtube item</button><div>");
 	   		self.bindEvent();
-	   		
+
 
 	   		self.bindContext();
 	   });
