@@ -9,7 +9,10 @@ Layout.prototype.initTinyMce = function(){
 		 tinymce.init({
 			 mode: "exact",
 			 menubar: false,
-			 elements: this.id
+			 plugins: 'link',
+			 toolbar: "fontselect | fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+			 elements: this.id,
+			 height: 256
 		 });
 	 });
 
@@ -18,6 +21,7 @@ Layout.prototype.initTinyMce = function(){
 			 mode: "exact",
 			 elements: this.id,
 			 menubar: false,
+			 plugins: 'link',
 			 toolbar: "fontselect fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
 		 });
 		 console.log(tinymce);
