@@ -8,6 +8,7 @@ Layout.prototype.initTinyMce = function(){
 	 this.element.find('.text_item[data-section-type="text"]').each(function(){
 		 tinymce.init({
 			 mode: "exact",
+			 menubar: false,
 			 elements: this.id
 		 });
 	 });
@@ -16,8 +17,10 @@ Layout.prototype.initTinyMce = function(){
 		 tinymce.init({
 			 mode: "exact",
 			 elements: this.id,
+			 menubar: false,
 			 toolbar: "fontselect fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
 		 });
+		 console.log(tinymce);
 	 });
 	 
 };
