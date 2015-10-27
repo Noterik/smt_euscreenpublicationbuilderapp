@@ -147,8 +147,7 @@ public class Publication extends VideoPoster{
 			+ layout.getProperty("template").trim()
 			+ "</div>"
 			+ "<script type=\"text/javascript\">"
-			+ "	   <![CDATA["
-			
+			+ "	   <![CDATA["		
 			+ "    $('video[data-src]').each(function(index, video){"
 			+ "			console.log(video); "
 			+ "			var src = $(video).data('src');"
@@ -159,7 +158,22 @@ public class Publication extends VideoPoster{
 			+ "				controls: true"
 			+ "			   }, (function(video){"
 			+ "				   return function(html){"
-			+ "					   $(video).replaceWith(html); "
+			+ "					   var $video = $(html);"
+			+ "					   $(video).replaceWith($video); "
+			+ "					   $fullScreenIcon = $('<i class=\"fullscreen glyphicon glyphicon-resize-full\"></i>');"
+			+ "					   $video.parent().append($fullScreenIcon);"						
+			+ "					   $fullScreenIcon.on('click', function(){"
+			+ "						var elem = $video[0];"
+			+ "						if (elem.requestFullscreen) {"
+			+ "							elem.requestFullscreen();"
+			+ "						} else if (elem.msRequestFullscreen) {"
+			+ "							elem.msRequestFullscreen();"
+			+ "						} else if (elem.mozRequestFullScreen) {"
+			+ "							elem.mozRequestFullScreen();"
+			+ "						} else if (elem.webkitRequestFullscreen) {"
+			+ "							elem.webkitRequestFullscreen();"
+			+ "						}"
+			+ "					   });"
 			+ "				   }"
 			+ "			   })(video)"
 			+ "		   )"
@@ -192,12 +206,6 @@ public class Publication extends VideoPoster{
 							String src = mediaItemList.get(i).getValue().toString();
 							src = src.substring(0, src.lastIndexOf("?"));
 							media = "<video data-src=\"" + src + "\" data-poster=\"" + mediaItemList.get(i).getPoster() + "\"/>";
-							/*
-							if(mediaItemList.get(i).getPoster() != null){
-								media = "<video class=\"videoAfterDrop\" poster='" + mediaItemList.get(i).getPoster() + "' controls><source src='" + mediaItemList.get(i).getValue().toString() + "' type=\"video/mp4\"></video>";
-							}else {
-								media = "<video class=\"videoAfterDrop\" controls><source src='" + mediaItemList.get(i).getValue().toString() + "' type=\"video/mp4\"></video>";
-							}*/
 						}
 
 						media_item.setText(media);
@@ -308,6 +316,10 @@ public class Publication extends VideoPoster{
 			+ "</div>"
 			+ "<script type=\"text/javascript\">"
 			+ "	   <![CDATA["
+			+ "    $('.fullscreen').click(function(){"
+			+ "		$video = $(this).parent().find('video');"
+			+ "		$video[0].requestFullscreen();"
+			+ "	   });"
 			+ "    $('video[data-src]').each(function(index, video){"
 			+ "			console.log(video); "
 			+ "			var src = $(video).data('src');"
@@ -318,7 +330,22 @@ public class Publication extends VideoPoster{
 			+ "				controls: true"
 			+ "			   }, (function(video){"
 			+ "				   return function(html){"
-			+ "					   $(video).replaceWith(html); "
+			+ "					   var $video = $(html);"
+			+ "					   $(video).replaceWith($video); "
+			+ "					   $fullScreenIcon = $('<i class=\"fullscreen glyphicon glyphicon-resize-full\"></i>');"
+			+ "					   $video.parent().append($fullScreenIcon);"						
+			+ "					   $fullScreenIcon.on('click', function(){"
+			+ "						var elem = $video[0];"
+			+ "						if (elem.requestFullscreen) {"
+			+ "							elem.requestFullscreen();"
+			+ "						} else if (elem.msRequestFullscreen) {"
+			+ "							elem.msRequestFullscreen();"
+			+ "						} else if (elem.mozRequestFullScreen) {"
+			+ "							elem.mozRequestFullScreen();"
+			+ "						} else if (elem.webkitRequestFullscreen) {"
+			+ "							elem.webkitRequestFullscreen();"
+			+ "						}"
+			+ "					   });"
 			+ "				   }"
 			+ "			   })(video)"
 			+ "		   )"
@@ -351,12 +378,6 @@ public class Publication extends VideoPoster{
 							String src = mediaItemList.get(i).getValue().toString();
 							src = src.substring(0, src.lastIndexOf("?"));
 							media = "<video data-src=\"" + src + "\" data-poster=\"" + mediaItemList.get(i).getPoster() + "\"/>";
-							/*
-							if(mediaItemList.get(i).getPoster() != null){
-								//media = "<video class=\"videoAfterDrop\" poster='" + mediaItemList.get(i).getPoster() + "' controls><source src='" + mediaItemList.get(i).getValue().toString() + "' type=\"video/mp4\"></video>";
-							}else {
-								media = "<video class=\"videoAfterDrop\" controls><source src='" + mediaItemList.get(i).getValue().toString() + "' type=\"video/mp4\"></video>";
-							}*/
 						}
 
 						media_item.setText(media);
@@ -436,6 +457,10 @@ public class Publication extends VideoPoster{
 			+ "</div>"
 			+ "<script type=\"text/javascript\">"
 			+ "	   <![CDATA["
+			+ "    $('.fullscreen').click(function(){"
+			+ "		$video = $(this).parent().find('video');"
+			+ "		$video[0].requestFullscreen();"
+			+ "	   });"
 			+ "    $('video[data-src]').each(function(index, video){"
 			+ "			console.log('VIDEO: ', video);"
 			+ "			var src = $(video).data('src);"
@@ -446,7 +471,22 @@ public class Publication extends VideoPoster{
 			+ "				controls: true"
 			+ "			   }, (function(video){"
 			+ "				   return function(html){"
-			+ "					   $(video).replaceWith(html); "
+			+ "					   var $video = $(html);"
+			+ "					   $(video).replaceWith($video); "
+			+ "					   $fullScreenIcon = $('<i class=\"fullscreen glyphicon glyphicon-resize-full\"></i>');"
+			+ "					   $video.parent().append($fullScreenIcon);"						
+			+ "					   $fullScreenIcon.on('click', function(){"
+			+ "						var elem = $video[0];"
+			+ "						if (elem.requestFullscreen) {"
+			+ "							elem.requestFullscreen();"
+			+ "						} else if (elem.msRequestFullscreen) {"
+			+ "							elem.msRequestFullscreen();"
+			+ "						} else if (elem.mozRequestFullScreen) {"
+			+ "							elem.mozRequestFullScreen();"
+			+ "						} else if (elem.webkitRequestFullscreen) {"
+			+ "							elem.webkitRequestFullscreen();"
+			+ "						}"
+			+ "					   });"
 			+ "				   }"
 			+ "			   })(video)"
 			+ "		   )"
@@ -483,12 +523,6 @@ public class Publication extends VideoPoster{
 									String src = mediaItemList.get(i).getValue().toString();
 									src = src.substring(0, src.lastIndexOf("?"));
 									media = "<video data-src=\"" + src + "\" data-poster=\"" + mediaItemList.get(i).getPoster() + "\"/>";
-									/*
-									if(mediaItemList.get(i).getPoster() != null){
-										media = "<video class=\"videoAfterDrop\" poster='" + mediaItemList.get(i).getPoster() + "' controls><source src='" + mediaItemList.get(i).getValue().toString() + "' type=\"video/mp4\"></video>";
-									}else {
-										media = "<video class=\"videoAfterDrop\" controls><source src='" + mediaItemList.get(i).getValue().toString() + "' type=\"video/mp4\"></video>";
-									}*/
 								}
 
 								media_item.setText(media);
