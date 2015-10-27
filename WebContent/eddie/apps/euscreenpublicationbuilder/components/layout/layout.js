@@ -171,8 +171,6 @@ Layout.prototype.handleCardDrop = function ( event, ui ) {
 	src = src.substring(0, src.lastIndexOf("?"));
 	var poster = video.attr('poster');
 	
-	console.log("SOURCE: " + src);
-
 	eddie.getComponent('embedlib').loaded().then(function(){
 		EuScreen.getVideo({
 			src: src,
