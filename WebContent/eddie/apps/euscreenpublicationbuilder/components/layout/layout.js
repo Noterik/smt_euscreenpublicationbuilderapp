@@ -78,8 +78,10 @@ Layout.prototype.edit = function(message){
 					var layoutNumber = value.layout_type.split("_");
 					eddie.putLou("", "setlayout"+layoutNumber[1]+"(" + ")");
 			case "styles":
-					var colorSchemaNumber = value.colorSchema.split("_");
-					eddie.putLou("", "settheme"+colorSchemaNumber[1]+"(" + ")");
+					if(value.colorSchema){
+						var colorSchemaNumber = value.colorSchema.split("_");
+						eddie.putLou("", "settheme"+colorSchemaNumber[1]+"(" + ")");
+					}
 				break;
 			case "media_item":
 				var self = this;
