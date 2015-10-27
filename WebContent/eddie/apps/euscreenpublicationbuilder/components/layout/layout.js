@@ -177,10 +177,24 @@ Layout.prototype.handleCardDrop = function ( event, ui ) {
 			poster: poster,
 			controls: true
 		}, function(html){
+			var video = $(html)[0];
 			var $target = $(event.target);
-			$target.html(html);
-			$target.append("<div class=\"removeVideo\">Remove video</div>");
-			$target.find('.removeVideo').on('click', function(){
+			$target.html(video);
+			var fullScreenIcon = $('<i class=\"fullscreen glyphicon glyphicon-resize-full\"></i>');
+			var removeIcon = $('<i class=\"remove glyphicon glyphicon-remove\"></i>');
+			$target.append(fullScreenIcon);
+			$target.append(removeIcon);
+			fullScreenIcon.on('click', function(){
+				console.log(video);
+				if (video.requestFullscreen) {
+					video.requestFullscreen();
+				} else if (video.mozRequestFullScreen) {
+					video.mozRequestFullScreen();
+				} else if (video.webkitRequestFullscreen) {
+					video.webkitRequestFullscreen();
+				}
+			});
+			removeIcon.on('click', function(){
 				$target.html('<div class="plus_icon"></div>');
 			});
 		});
