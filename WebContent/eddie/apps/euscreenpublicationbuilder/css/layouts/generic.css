@@ -208,3 +208,7 @@ a:hover {
 	color: white;
 	cursor: pointer;
 }
+.media_item .fullscreen{
+	top: 10px;
+	left: 10px;
+}

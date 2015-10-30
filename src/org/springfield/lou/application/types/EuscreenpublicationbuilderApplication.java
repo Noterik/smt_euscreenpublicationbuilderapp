@@ -106,7 +106,11 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
      	int cnt_bookmark = 0;
      	for (Bookmark bmi : bookmarks.getBookmarklist()) {
      		String id = "bookmark_"+ cnt_bookmark;
+<<<<<<< HEAD
     		bookmarkLayout += "<div id=\"" + id +"\" class=\"drag_bookmark\"><video poster='"+bmi.getScreenshot()+"' controls><source src='"+bmi.getVideo()+"' type=\"video/mp4\"></video></div>";
+=======
+    		bookmarkLayout += "<div id=\"" + id +"\" class=\"drag_bookmark\"><video  poster='"+bmi.getScreenshot()+"' src=\"" + bmi.getVideo() + "\" controls></video></div>";
+>>>>>>> prod-26102015
     		bookmarkLayout += "<script type=\"text/javascript\">"
     				+ "eddie.getComponent('embedlib').loaded().then(function(){"
     				+ "		EuScreen.getVideo({src: '" + bmi.getVideo() + "', poster: '" + bmi.getScreenshot() + "', controls: true}, function(html){"
@@ -126,11 +130,33 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
      		bookmarkLayout += "<div class=\"right-header\" id='" + right_header_div_id + "'>" + col.getName() + "</div>";
      		bookmarkLayout += "<div id='" + right_toggle_div_id + "' class=\"tgl\">";
      		for (Bookmark bk : col.getVideos()) {
+<<<<<<< HEAD
         		bookmarkLayout += "<div id=\"bookmark_"+ cnt_bookmark +"\" class=\"drag_bookmark\"><video poster='"+bk.getScreenshot()+"' controls><source src='"+bk.getVideo()+"' type=\"video/mp4\"></video></div>";
         		cnt_bookmark++;
+=======
+     			try{
+	     			String id = "bookmark_" + cnt_bookmark;
+	     			String src = bk.getVideo();
+	     			System.out.println("SRC: " + src);
+	     			if(src != null && src.contains("http://")){
+	     				bookmarkLayout += "<div id=\"" + id + "\" class=\"drag_bookmark\"><video poster='"+bk.getScreenshot()+"' data-src='" + bk.getVideo() + "' controls></video></div>";
+	            		bookmarkLayout += "<script type=\"text/javascript\">"
+	            				+ "eddie.getComponent('embedlib').loaded().then(function(){"
+	            				+ "		EuScreen.getVideo({src: '" + src + "', poster: '" + bk.getScreenshot() + "', controls: true}, function(html){"
+	            				+ "			jQuery('#" + id + "').html(html);"
+	            				+ "		});"
+	            				+ "});</script>";
+	            		cnt_bookmark++;
+	     			}
+     			}catch(Exception e){
+     				e.printStackTrace();
+     			}
+        		
+>>>>>>> prod-26102015
 			}
      		bookmarkLayout += "</div>";
      		cnt_header++;
+     		System.out.println("REACHED END OF COLLECTIONS!");
 		}
     	
     	s.setContent("bookmarklayout", bookmarkLayout);

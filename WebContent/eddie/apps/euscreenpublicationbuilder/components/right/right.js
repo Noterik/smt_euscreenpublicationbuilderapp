@@ -7,6 +7,7 @@ var Right = function(options){
 		      stack: '#bookmarklayout',
 		      cursor: 'move',
 		      revert: true,
+		      revertDuration: 0,
 		      //helper: 'clone',
 		      stop: function(ui, event){
 		    	  console.log("UI", ui);

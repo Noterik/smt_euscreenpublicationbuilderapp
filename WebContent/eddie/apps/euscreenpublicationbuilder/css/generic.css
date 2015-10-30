@@ -273,6 +273,22 @@ a:hover {
  cursor:pointer;
 }
 
+.media_item i{
+	cursor: pointer;
+	color: white;
+	position: absolute;
+}
+
+.media_item .fullscreen{
+	top: 10px;
+	left: 10px;
+}
+
+.media_item .remove{
+	top: 10px;
+	right: 10px;
+}
+
 .media_item .drag_bookmark .removeVideo{
 	position: absolute;
 	width: 100%;

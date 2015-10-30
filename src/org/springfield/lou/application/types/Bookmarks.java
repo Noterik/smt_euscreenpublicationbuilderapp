@@ -32,7 +32,7 @@ public class Bookmarks {
 		this.xmlCallList = Fs.getNodes(this.address, 2);
 
 		for (FsNode node : this.xmlCallList) {
-
+			
 			String bookmarkId = node.getId();
 
 			String videoUrl = this.address + "/" + node.getId() + "/video";
@@ -43,10 +43,9 @@ public class Bookmarks {
 			FsNode videoNd = Fs.getNode(videoUrl + "/" +videoId);
 			String referId = videoNd.getReferid();
 			String referUrl = referId + "/" + "rawvideo";
-			List<FsNode> referNode = Fs.getNodes(referUrl, 1);
-			String videoMount = referNode.get(0).getProperty("mount");
+			List<FsNode> referNodes = Fs.getNodes(referUrl, 1);
+			//String videoMount = referNodes.get(0).getProperty("mount");
 			
-			String ap = "";
 			String videoInfoUrl = videoUrl + "/" + videoId;
 			FsNode videoInfo = Fs.getNode(videoInfoUrl);
 			String videoName = videoInfo.getProperty("TitleSet_TitleSetInEnglish_title");
@@ -54,17 +53,34 @@ public class Bookmarks {
 			
 			String mount = "";
 			
+			for(FsNode referNode : referNodes){
+				if(referNode.getProperty("format").equals("MP4")){
+					String[] mounts = referNode.getProperty("mount").split(",");
+					for(String mnt : mounts){
+						if(mnt.contains("http://") && mnt.contains("/progressive/")){
+							mount = mnt;
+							break;
+						}else{
+							mount = "http://" + mnt + ".noterik.com/progressive/" + mnt + referNode.getPath() + "/raw.mp4";
+							break;
+						}
+					}
+					break;
+				};
+			}
+			
+			/*
 			if(videoMount.contains("noterik.com") && !videoMount.contains("rtmp://")){
 				String[]videoMountArr = videoMount.split(","); 	
 				mount = videoMountArr[0];
-			}
+			}*/
 			
-
-			Bookmark bookmark = new Bookmark(bookmarkId, videoId, videoName, mount, screenshot);
-			System.out.println("WE ARE GETTING BOOKMARKS");
-			System.out.println(bookmark.getId());
-			bookmarklist.add(bookmark);
+			if(mount != null){
+				Bookmark bookmark = new Bookmark(bookmarkId, videoId, videoName, mount, screenshot);
+				bookmarklist.add(bookmark);
+			}
 		}
+		
 	}	
 	
 	public String getBookmarkLinkById(String id){

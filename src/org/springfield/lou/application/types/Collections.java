@@ -46,9 +46,7 @@ public class Collections {
 			for (FsNode collection : collectionNodesList) {
 		 
 				if(!collection.getId().contentEquals("1")){
-			
-	
-					
+
 					String videoId = collection.getId();
 					String videoUrl = currCollectionAddress + "/video/" +videoId;
 
@@ -56,63 +54,39 @@ public class Collections {
 					String referId = videoNd.getReferid();
 					
 					String referUrl = referId + "/" + "rawvideo";
-					List<FsNode> referNode = Fs.getNodes(referUrl, 1);
-					String videoMount = referNode.get(0).getProperty("mount");
+					List<FsNode> referNodes = Fs.getNodes(referUrl, 1);
 					
-					String ap = "";
 					String videoInfoUrl = currCollectionAddress + "/video/" + videoId;
 					FsNode videoInfo = Fs.getNode(videoInfoUrl);
 					String videoName = videoInfo.getProperty("TitleSet_TitleSetInEnglish_title");
 					String screenshot = videoInfo.getProperty("screenshot");
 					
+					String mount = "";
 					
-					
-					if(videoMount.contains("noterik.com")){
-						String[]videoMountArr = videoMount.split(","); 	
-						String mount = videoMountArr[0];
-						
-						if (mount.indexOf("http://")==-1 && mount.indexOf("rtmp://")==-1) {
-							Random randomGenerator = new Random();
-							Integer random= randomGenerator.nextInt(100000000);
-							String ticket = Integer.toString(random);
-							
-							String videoFile= mount;
-							ipAddress = EuscreenpublicationbuilderApplication.ipAddress;
-							isAndroid = EuscreenpublicationbuilderApplication.isAndroid;
-							
-							try{						
-								//System.out.println("CallingSendTicket");						
-								sendTicket(videoFile,ipAddress,ticket);
-							} catch (Exception e) {}
-							
-							
-							ap = mount+"?ticket="+ticket;
-						} else if (mount.indexOf(".noterik.com/progressive/") > -1) {
-							Random randomGenerator = new Random();
-							Integer random= randomGenerator.nextInt(100000000);
-							String ticket = Integer.toString(random);
-							
-							String videoFile = mount.substring(mount.indexOf("progressive")+11);
-							
-							ipAddress = EuscreenpublicationbuilderApplication.ipAddress;
-							isAndroid = EuscreenpublicationbuilderApplication.isAndroid;
-							
-							try{						
-								//System.out.println("CallingSendTicket");						
-								sendTicket(videoFile,ipAddress,ticket);
-							} catch (Exception e) {}
-							
-							ap = mount+"?ticket="+ticket;				
-						} 
-					}else{
-						ap = videoMount;
+					for(FsNode referNode : referNodes){
+						if(referNode.getProperty("format").equals("MP4")){
+							String[] mounts = referNode.getProperty("mount").split(",");
+							for(String mnt : mounts){
+								if(mnt.contains("http://") && mnt.contains("/progressive/")){
+									mount = mnt;
+									break;
+								}else{
+									mount = "http://" + mnt + ".noterik.com/progressive/" + mnt + referNode.getPath() + "/raw.mp4";
+									break;
+								}
+							}
+							break;
+						};
 					}
-					
-					videos.add(new Bookmark(collectionId, videoId, videoName, ap, screenshot));
+					if(mount != null){
+						videos.add(new Bookmark(collectionId, videoId, videoName, mount, screenshot));
+					}
 				}				
 			}
+			System.out.println("REACHED END OF LOOP!");
 			collectionlist.add(new Collection(collection_name, videos));
 		}
+		System.out.println("REACHED END OF FUNCTION!");
 	}	
 	
 	private static void sendTicket(String videoFile, String ipAddress, String ticket) throws IOException {

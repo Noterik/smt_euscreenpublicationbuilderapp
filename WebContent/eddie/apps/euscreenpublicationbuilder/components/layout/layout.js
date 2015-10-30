@@ -78,8 +78,10 @@ Layout.prototype.edit = function(message){
 					var layoutNumber = value.layout_type.split("_");
 					eddie.putLou("", "setlayout"+layoutNumber[1]+"(" + ")");
 			case "styles":
-					var colorSchemaNumber = value.colorSchema.split("_");
-					eddie.putLou("", "settheme"+colorSchemaNumber[1]+"(" + ")");
+					if(value.colorSchema){
+						var colorSchemaNumber = value.colorSchema.split("_");
+						eddie.putLou("", "settheme"+colorSchemaNumber[1]+"(" + ")");
+					}
 				break;
 			case "media_item":
 				var self = this;
@@ -170,17 +172,31 @@ Layout.prototype.handleCardDrop = function ( event, ui ) {
 	var src = video.attr('src');
 	src = src.substring(0, src.lastIndexOf("?"));
 	var poster = video.attr('poster');
-
+	
 	eddie.getComponent('embedlib').loaded().then(function(){
 		EuScreen.getVideo({
 			src: src,
 			poster: poster,
 			controls: true
 		}, function(html){
+			var video = $(html)[0];
 			var $target = $(event.target);
-			$target.html(html);
-			$target.append("<div class=\"removeVideo\">Remove video</div>");
-			$target.find('.removeVideo').on('click', function(){
+			$target.html(video);
+			var fullScreenIcon = $('<i class=\"fullscreen glyphicon glyphicon-resize-full\"></i>');
+			var removeIcon = $('<i class=\"remove glyphicon glyphicon-remove\"></i>');
+			$target.append(fullScreenIcon);
+			$target.append(removeIcon);
+			fullScreenIcon.on('click', function(){
+				console.log(video);
+				if (video.requestFullscreen) {
+					video.requestFullscreen();
+				} else if (video.mozRequestFullScreen) {
+					video.mozRequestFullScreen();
+				} else if (video.webkitRequestFullscreen) {
+					video.webkitRequestFullscreen();
+				}
+			});
+			removeIcon.on('click', function(){
 				$target.html('<div class="plus_icon"></div>');
 			});
 		});

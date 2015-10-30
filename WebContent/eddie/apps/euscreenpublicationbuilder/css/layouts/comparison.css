@@ -23,7 +23,15 @@ footer {
 	background-color: black;
 	margin: -1px;
 }
-
+.media_item i{
+	cursor: pointer;
+	color: white;
+	position: absolute;
+}
+.media_item .fullscreen{
+	top: 10px;
+	left: 10px;
+}
 
 .comparison_page {
 	background-image: url("../../img/layouts/background.jpg");
