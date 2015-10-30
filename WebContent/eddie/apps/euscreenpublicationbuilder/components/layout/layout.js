@@ -202,7 +202,7 @@ Layout.prototype.handleCardDrop = function ( event, ui ) {
     $(".clickable").click(function() {
 		var parent = $(this).parent().droppable( "option", "disabled", false );
 		$($($($(this)[0])[0].childNodes[0])).parent().remove();
-		$($($($(this)[0])[0].childNodes[0])).removeAttr('style').removeClass("videoAfterDrop").addClass("layout_image").remove();
+		$($($($(this)[0])[0].childNodes[0])).removeAttr('style').removeClass("videoAfterDrop").remove();
 		//var elem = $($(this)[0]).removeAttr('style').attr('style', 'position: relative').draggable('enable');
 		//elem.appendTo('#bookmarklayout');
 	});

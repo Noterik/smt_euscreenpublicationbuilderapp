@@ -20,15 +20,17 @@ var Embedlib = function(){
       $('video[data-src]').each(function(index, video) {
         var src = $(video).data('src');
         var poster = $(video).data('poster');
-        EuScreen.getVideo({
-        	src: src,
-        	poster: poster,
-        	controls: true
-        }, (function(video){
-        	return function(html){
-        		video.replaceWith(html);
-        	}
-        })($(video)))
+        if(src && src !== ""){
+	        EuScreen.getVideo({
+	        	src: src,
+	        	poster: poster,
+	        	controls: true
+	        }, (function(video){
+	        	return function(html){
+	        		video.replaceWith(html);
+	        	}
+	        })($(video)))
+        }
 
       });
     };
