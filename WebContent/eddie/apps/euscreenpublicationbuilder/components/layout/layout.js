@@ -3,6 +3,7 @@ var Layout = function(options){
 	 Component.apply(this, arguments);
 }
 Layout.prototype = Object.create(Component.prototype);
+
 Layout.prototype.initTinyMce = function(){
 	console.log("Layout.initTinyMce()");
 	 this.element.find('.text_item[data-section-type="text"]').each(function(){
@@ -24,15 +25,12 @@ Layout.prototype.initTinyMce = function(){
 			 plugins: 'link',
 			 toolbar: "fontselect fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
 		 });
-		 console.log(tinymce);
 	 });
 
 };
 
 Layout.prototype.update = function(message){
 	 var self = this;
-	 console.log("Layout.update(" + message + ")");
-	 console.log("---------------------UPDATE-------------------");
 	 var data = JSON.parse(message);
 
 	 if(data.style){
@@ -67,68 +65,46 @@ Layout.prototype.update = function(message){
 
 Layout.prototype.edit = function(message){
 	var self = this;
-
 	var data = JSON.parse(message);
-	console.log("Layout.edit(" , data , ")");
-
-
-	$.each(data, function(key, value){
-		switch(value.type) {
-			case "layout":
-					var layoutNumber = value.layout_type.split("_");
-					eddie.putLou("", "setlayout"+layoutNumber[1]+"(" + ")");
-			case "styles":
-					if(value.colorSchema){
-						var colorSchemaNumber = value.colorSchema.split("_");
-						eddie.putLou("", "settheme"+colorSchemaNumber[1]+"(" + ")");
-					}
-				break;
-			case "media_item":
-				var self = this;
-					setTimeout(function(){
-						if(value.value) {
-
-							$("#" + value.id).draggable({ disabled: true });
-							$("#" + value.id).html(value.value).droppable("option", "disabled", true);
-							$("#" + value.id).append("<div class=\"removeVideo\">Remove video</div>");
-							$("#" + value.id).attr("aria-disabled", "true");
-
-							$(".removeVideo").click(function(){
-								var baseElement = $($(this).parent()[0]);
-								baseElement.droppable( "option", "disabled", false );
-								baseElement.draggable({ disabled: true });
-								$($(this).parent()[0]).children(0).remove();
-								baseElement.append("<div class=\"plus_icon\"></div>");
-								//window.Layout.prototype.bindContext();
-
-							});
-
-						}else{
-							$("#" + value.id).html("<div class=\"plus_icon\"></div>");
-						}
-
-					}, 500);
-				break;
-			case "text_item":
-
-			  setTimeout(function(){
-						var id = "#" + $("#" + value.id).prev().attr("id");
-						tinyMCE.get(value.id).setContent(value.value);
-				}, 500);
-				break;
-			case "title":
-					setTimeout(function(){
-						$("#" + value.id).text(value.value);
-					}, 500);
-				break;
-		}
+	eddie.getComponent('readycheck').loaded().then(function(){	
+		$.each(data, function(key, value){
+				switch(value.type) {
+					case "media_item":
+						var self = this;
+								if(value.value) {
+		
+									$("#" + value.id).draggable({ disabled: true });
+									$("#" + value.id).html(value.value).droppable("option", "disabled", true);
+									$("#" + value.id).append("<div class=\"removeVideo\">Remove video</div>");
+									$("#" + value.id).attr("aria-disabled", "true");
+		
+									$(".removeVideo").click(function(){
+										var baseElement = $($(this).parent()[0]);
+										baseElement.droppable( "option", "disabled", false );
+										baseElement.draggable({ disabled: true });
+										$($(this).parent()[0]).children(0).remove();
+										baseElement.append("<div class=\"plus_icon\"></div>");
+										//window.Layout.prototype.bindContext();
+		
+									});
+		
+								}else{
+									$("#" + value.id).html("<div class=\"plus_icon\"></div>");
+								}
+						break;
+					case "text_item":
+						 	console.log("load tinymce");
+							console.log(tinyMCE);
+							var id = "#" + $("#" + value.id).prev().attr("id");
+							tinyMCE.get(value.id).setContent(value.value);
+						break;
+					case "title":
+						 $("#" + value.id).text(value.value);
+						break;
+				}
+			});
+			eddie.getComponent('embedlib').transformVideos();
 	});
-	console.log("LETS CALL TRANSFORM VIDEOS!");
-	//TODO: I don't want to set the timeout, but I'm sort of forced to.
-	setTimeout(function(){
-		eddie.getComponent('embedlib').transformVideos();
-	}, 1000);
-
 }
 
 //SetStyle
