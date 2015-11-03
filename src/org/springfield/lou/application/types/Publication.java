@@ -372,15 +372,19 @@ public class Publication extends VideoPoster{
 						element.clearContent();
 						String media = null;
 						if(mediaItemList.get(i).getValue() != null){
-						if (mediaItemList.get(i).getValue().toString().contains("http://www.youtube.com") || mediaItemList.get(i).getValue().toString().contains("https://player.vimeo")) {
-							media = "<iframe class=\"videoAfterDrop\" src='" + mediaItemList.get(i).getValue().toString() + "' frameborder=\"0\" allowfullscreen></iframe>";
-						}else {
-							String src = mediaItemList.get(i).getValue().toString();
-							src = src.substring(0, src.lastIndexOf("?"));
-							media = "<video data-src=\"" + src + "\" data-poster=\"" + mediaItemList.get(i).getPoster() + "\"/>";
-						}
+							if (mediaItemList.get(i).getValue().toString().contains("http://www.youtube.com") || mediaItemList.get(i).getValue().toString().contains("https://player.vimeo")) {
+								media = "<iframe class=\"videoAfterDrop\" src='" + mediaItemList.get(i).getValue().toString() + "' frameborder=\"0\" allowfullscreen></iframe>";
+							}else {
+								String src = mediaItemList.get(i).getValue().toString();
+								System.out.println("-------------------------------------------------");
+								System.out.println(mediaItemList.get(i));
+								System.out.println(mediaItemList.get(i).getValue());
+								System.out.println(src);
+								src = src.substring(0, src.lastIndexOf("?"));
+								media = "<video data-src=\"" + src + "\" data-poster=\"" + mediaItemList.get(i).getPoster() + "\"/>";
+							}
 
-						media_item.setText(media);
+							media_item.setText(media);
 						}
 					}
 				}
