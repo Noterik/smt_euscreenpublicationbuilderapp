@@ -224,7 +224,7 @@ Layout.prototype.bindContext = function() {
 	   		$(e.currentTarget).parent().append("<div class=\"addVideoBox\"><div id=\"youtube_id\" contentEditable=\"true\" style=\"border: 1px solid black\"></div><br /> <button class=\"submit_media_id\" data-type=\"YoutubeItem\">Submit Youtube item</button><div>");
 	   		self.bindEvent();
 
-	   		//self.bindContext();
+	   		self.bindContext();
 	   });
 
 	   $('#vimeo').click(function(v){
@@ -235,7 +235,7 @@ Layout.prototype.bindContext = function() {
 			$(e.currentTarget).hide();
 	   		$(e.currentTarget).parent().append("<div class=\"addVideoBox\"><div id=\"youtube_id\" contentEditable=\"true\" style=\"border: 1px solid black\"></div><br /> <button class=\"submit_media_id\" data-type=\"YoutubeItem\">Submit Youtube item</button><div>");
 	   		self.bindEvent();
-	   		//self.bindContext();
+	   		self.bindContext();
 	   });
 
 	   $('#close_menu').click(function(v){
