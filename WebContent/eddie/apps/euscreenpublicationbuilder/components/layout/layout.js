@@ -74,12 +74,11 @@ Layout.prototype.edit = function(message){
 						case "media_item":
 							var self = this;
 									if(value.value) {
-										console.log(value.value);
-										$("#" + value.id).draggable({ disabled: true });
-										$("#" + value.id).html(value.value).droppable("option", "disabled", true);
-										console.log($("#" + value.id));
-										$("#" + value.id).append("<div class=\"removeVideo\">Remove video</div>");
-										$("#" + value.id).attr("aria-disabled", "true");
+										$elem = $("#" + value.id);
+										$elem.draggable({ disabled: true });
+										$elem.html(value.value).droppable("option", "disabled", true);
+										$elem.append("<div class=\"removeVideo\">Remove video</div>");
+										$elem.attr("aria-disabled", "true");
 
 										$(".removeVideo").click(function(){
 											var baseElement = $($(this).parent()[0]);

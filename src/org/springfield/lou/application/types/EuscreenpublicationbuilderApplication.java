@@ -201,165 +201,144 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
             JSONObject idOb = (JSONObject) arr.get(0);
             this.oldPublicationID = idOb.get("id").toString();
             
-            System.out.println("=======1=========");
             s.putMsg("header", "", "modeEdit()");
-            System.out.println("=======2=========");
 
 			//Set layout
             JSONObject layout_json = (JSONObject)arr.get(1);
-            System.out.println("=======3=========");
 			String layout = (String) layout_json.get("layout_type");
-            System.out.println("=======4=========");
 
 
 			if(layout.equals("layout_0")) {
-	            System.out.println("=======5.1=========");
-
-				this.actionSetlayout0(s, "");
+				this.actionSetlayout(s, "0");
 				
 			}else if(layout.equals("layout_1")) {
-	            System.out.println("=======5.2=========");
-
-				this.actionSetlayout1(s, "");
+				this.actionSetlayout(s, "1");
 			
 			}else if(layout.equals("layout_2")) {
-	            System.out.println("=======5.3=========");
-
-				this.actionSetlayout2(s, "");
+				this.actionSetlayout(s, "2");
 				
 			}
-            System.out.println("=======6=========");
 
 			//Set theme
 			JSONObject colorSchema_json = (JSONObject)arr.get(2);
             String colorSchema = (String) colorSchema_json.get("colorSchema");
             System.out.println("COLOR SCHEMA: " + colorSchema);
-            System.out.println("=======7=========");
             
 			if(colorSchema == null || colorSchema.equals("theme_0")) {
-	            System.out.println("=======8.1=========");
-
-				this.actionSettheme0(s, "");
+				this.actionSettheme(s, "0");
 				
 			}else if(colorSchema.equals("theme_1")) {
-	            System.out.println("=======8.2=========");
-
-				this.actionSettheme1(s, "");
+				this.actionSettheme(s, "1");
 
 			}else if(colorSchema.equals("theme_2")) {
-	            System.out.println("=======8.3=========");
-
-				this.actionSettheme2(s, "");
+				this.actionSettheme(s, "2");
 
 			}else if(colorSchema.equals("theme_3")) {
-	            System.out.println("=======8.4=========");
-
-				this.actionSettheme3(s, "");
+				this.actionSettheme(s, "3");
 				
 			}else if(colorSchema.equals("theme_4")) {
-	            System.out.println("=======8.5=========");
-
-				this.actionSettheme4(s, "");
+				this.actionSettheme(s, "4");
 				
+			}else if(colorSchema.equals("theme_5")) {
+				this.actionSettheme(s, "5");
+
 			}
-            System.out.println("=======9=========");
 
         	s.putMsg("layout", "", "edit(" + arr + ")");
         }else {
-            System.out.println("=======10=========");
-
 	    	s.putMsg("header", "", "showbuttons(" + ")");
+	    	
         }
     }
     
-    //Set layout actions
-    public void actionSetlayout0(Screen s, String c) {
-    	FsNode node = layouts.getLayoutBy(0);
-    	setCurrentLayout(node);
-    	setCurrentLayoutStyle(node.getProperty("css"));
-    	JSONObject message = new JSONObject();
-    	message.put("html", node.getProperty("template"));
-    	message.put("style", node.getProperty("css"));
-    	s.putMsg("layout", "", "update(" + message + ")");
-    	s.putMsg("left", "", "accordion(" + ")");
-   }
-    
-	public void actionSetlayout1(Screen s, String c) {
-		FsNode node = layouts.getLayoutBy(1);
-    	setCurrentLayout(node);
-    	setCurrentLayoutStyle(node.getProperty("css"));
-    	JSONObject message = new JSONObject();
-    	message.put("html", node.getProperty("template"));
-    	message.put("style", node.getProperty("css"));
-    	s.putMsg("layout", "", "update(" + message + ")");
-    	s.putMsg("left", "", "accordion(" + ")");
+	public void actionSetlayout(Screen s, String c) {
+		System.out.println("actionSetlayout(" + c + ")");
+		if(c.equals("0")){
+			FsNode node = layouts.getLayoutBy(0);
+			setCurrentLayout(node);
+			setCurrentLayoutStyle(node.getProperty("css"));
+			JSONObject message = new JSONObject();
+			message.put("html", node.getProperty("template"));
+			message.put("style", node.getProperty("css"));
+			s.putMsg("layout", "", "update(" + message + ")");
+			s.putMsg("left", "", "accordion(" + ")");
+		
+		}else if(c.equals("1")) {
+			FsNode node = layouts.getLayoutBy(1);
+	    	setCurrentLayout(node);
+	    	setCurrentLayoutStyle(node.getProperty("css"));
+	    	JSONObject message = new JSONObject();
+	    	message.put("html", node.getProperty("template"));
+	    	message.put("style", node.getProperty("css"));
+	    	s.putMsg("layout", "", "update(" + message + ")");
+	    	s.putMsg("left", "", "accordion(" + ")");
+		
+		}else if(c.equals("2")) {
+	    	FsNode node = layouts.getLayoutBy(2);
+	    	setCurrentLayout(node);
+	    	setCurrentLayoutStyle(node.getProperty("css"));
+	    	JSONObject message = new JSONObject();
+	    	message.put("html", node.getProperty("template"));
+	    	message.put("style", node.getProperty("css"));
+	    	s.putMsg("layout", "", "update(" + message + ")");
+	    	s.putMsg("left", "", "accordion(" + ")");
+	    	
+		}
+
 	}
-	
-	public void actionSetlayout2(Screen s, String c) {
-    	FsNode node = layouts.getLayoutBy(2);
-    	setCurrentLayout(node);
-    	setCurrentLayoutStyle(node.getProperty("css"));
-    	JSONObject message = new JSONObject();
-    	message.put("html", node.getProperty("template"));
-    	message.put("style", node.getProperty("css"));
-    	s.putMsg("layout", "", "update(" + message + ")");
-    	s.putMsg("left", "", "accordion(" + ")");
-	}
-	
+
 	//Set theme actions
-	 public void actionSettheme0(Screen s, String c) {
+	 public void actionSettheme(Screen s, String c) {
+		 if(c.equals("0")) {
 	    	FsNode node = themes.getLayoutBy(0);
 	    	setCurrentTheme(node);
 	    	JSONObject message = new JSONObject();
 	    	message.put("style", node.getProperty("css"));
 	    	s.putMsg("layout", "", "setTheme(" + message + ")");
 	    	s.putMsg("left", "", "accordionThemes(" + ")");
-	 }
-	 
-	 public void actionSettheme1(Screen s, String c) {
+	    	
+		 } else if (c.equals("1")) {
 	    	FsNode node = themes.getLayoutBy(1);
 	    	setCurrentTheme(node);
 	    	JSONObject message = new JSONObject();
 	    	message.put("style", node.getProperty("css"));
 	    	s.putMsg("layout", "", "setTheme(" + message + ")");
 	    	s.putMsg("left", "", "accordionThemes(" + ")");
-	   }
-	 
-	 public void actionSettheme2(Screen s, String c) {
+		    	
+		 }else if (c.equals("2")) {
 	    	FsNode node = themes.getLayoutBy(2);
 	    	setCurrentTheme(node);
 	    	JSONObject message = new JSONObject();
 	    	message.put("style", node.getProperty("css"));
 	    	s.putMsg("layout", "", "setTheme(" + message + ")");
 	    	s.putMsg("left", "", "accordionThemes(" + ")");
-	   }
-	 
-	 public void actionSettheme3(Screen s, String c) {
+	    	
+		 }else if (c.equals("3")) {
 	    	FsNode node = themes.getLayoutBy(3);
 	    	setCurrentTheme(node);
 	    	JSONObject message = new JSONObject();
 	    	message.put("style", node.getProperty("css"));
 	    	s.putMsg("layout", "", "setTheme(" + message + ")");
 	    	s.putMsg("left", "", "accordionThemes(" + ")");
-	   }
-	 
-	 public void actionSettheme4(Screen s, String c) {
+	    	
+		 }else if (c.equals("4")) {
 	    	FsNode node = themes.getLayoutBy(4);
 	    	setCurrentTheme(node);
 	    	JSONObject message = new JSONObject();
 	    	message.put("style", node.getProperty("css"));
 	    	s.putMsg("layout", "", "setTheme(" + message + ")");
-	    	s.putMsg("left", "", "accordionThemes(" + ")");
-	   }
-
-	 public void actionSettheme5(Screen s, String c) {
+	    	s.putMsg("left", "", "accordionThemes(" + ")"); 
+	    	
+		 }else if (c.equals("5")) {
 	    	FsNode node = themes.getLayoutBy(5);
 	    	setCurrentTheme(node);
 	    	JSONObject message = new JSONObject();
 	    	message.put("style", node.getProperty("css"));
 	    	s.putMsg("layout", "", "setTheme(" + message + ")");
 	    	s.putMsg("left", "", "accordionThemes(" + ")");
-	   }
+	    	
+		 }
+	 }
 	
 	 //Approve theme
 	 public void actionApprovetheme(Screen s, String c) {

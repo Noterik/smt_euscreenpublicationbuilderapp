@@ -8,7 +8,6 @@ var Readycheck = function(){
 				if(tinyMCE.editors.length > 0){
 					tinyMCELoaded = true;
 				}
-				console.log("===================READYCHECK================");
 				if(tinyMCELoaded){
 					console.log(tinyMCELoaded);
 					console.log(media_item);

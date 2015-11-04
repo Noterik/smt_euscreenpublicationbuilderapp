@@ -48,7 +48,8 @@ Left.prototype.bindLayoutClick = function(i) {
 	var function_name ="setlayout"+i+"(" + result + ")"; 
 	
 	$('#layout_' + i).click(function(){
-		eddie.putLou("", "setlayout"+i+"(" + ")");
+		console.log("setLayout");
+		eddie.putLou("", "setlayout"+"(" + i + ")");
 	});
 };
 
@@ -67,7 +68,7 @@ Left.prototype.bindThemeClick = function(i) {
 	var function_name ="settheme"+i+"(" + result + ")"; 
 	
 	$('#theme_' + i).click(function(){
-		eddie.putLou("", "settheme"+i+"(" + ")");
+		eddie.putLou("", "settheme"+"(" + i + ")");
 	});
 };
 
