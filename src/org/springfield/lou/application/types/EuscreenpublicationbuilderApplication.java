@@ -98,9 +98,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
         this.getCurrentUser(s);
         //Load bookmarks
     	bookmarks = new Bookmarks(currentUser);
-    	System.out.println(bookmarks.getBookmarklist());
-    	System.out.println(bookmarks);
-    	System.out.println("YES");
     	String bookmarkLayout = "<div class=\"right-header\" id=\"right_header_0\">Bookmarks</div>";
  		bookmarkLayout += "<div id=\"toggle_0\" class=\"tgl\">";
 
@@ -131,7 +128,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
      			try{
 	     			String id = "bookmark_" + cnt_bookmark;
 	     			String src = bk.getVideo();
-	     			System.out.println("SRC: " + src);
 	     			if(src != null && src.contains("http://")){
 	     				bookmarkLayout += "<div id=\"" + id + "\" class=\"drag_bookmark\"><video poster='"+bk.getScreenshot()+"' data-src='" + bk.getVideo() + "' controls></video></div>";
 	            		bookmarkLayout += "<script type=\"text/javascript\">"
@@ -149,7 +145,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 			}
      		bookmarkLayout += "</div>";
      		cnt_header++;
-     		System.out.println("REACHED END OF COLLECTIONS!");
 		}
     	
     	s.setContent("bookmarklayout", bookmarkLayout);
@@ -200,53 +195,79 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
      	
         //Catch modes
         if(s.getParameter("status").equals("edit")){
-        	System.out.println("==================MODE = EDIT==================");
             String poster_url = s.getParameter("posterid");
             
             JSONArray arr = Publication.editPublication(poster_url);
             JSONObject idOb = (JSONObject) arr.get(0);
             this.oldPublicationID = idOb.get("id").toString();
+            
+            System.out.println("=======1=========");
             s.putMsg("header", "", "modeEdit()");
-            System.out.println(arr.toJSONString());
+            System.out.println("=======2=========");
 
 			//Set layout
             JSONObject layout_json = (JSONObject)arr.get(1);
+            System.out.println("=======3=========");
 			String layout = (String) layout_json.get("layout_type");
-			
+            System.out.println("=======4=========");
+
+
 			if(layout.equals("layout_0")) {
+	            System.out.println("=======5.1=========");
+
 				this.actionSetlayout0(s, "");
 				
 			}else if(layout.equals("layout_1")) {
+	            System.out.println("=======5.2=========");
+
 				this.actionSetlayout1(s, "");
 			
 			}else if(layout.equals("layout_2")) {
+	            System.out.println("=======5.3=========");
+
 				this.actionSetlayout2(s, "");
 				
 			}
-			
+            System.out.println("=======6=========");
+
 			//Set theme
 			JSONObject colorSchema_json = (JSONObject)arr.get(2);
             String colorSchema = (String) colorSchema_json.get("colorSchema");
+            System.out.println("COLOR SCHEMA: " + colorSchema);
+            System.out.println("=======7=========");
             
-			if(colorSchema.equals("theme_0")) {
+			if(colorSchema == null || colorSchema.equals("theme_0")) {
+	            System.out.println("=======8.1=========");
+
 				this.actionSettheme0(s, "");
 				
 			}else if(colorSchema.equals("theme_1")) {
+	            System.out.println("=======8.2=========");
+
 				this.actionSettheme1(s, "");
 
 			}else if(colorSchema.equals("theme_2")) {
+	            System.out.println("=======8.3=========");
+
 				this.actionSettheme2(s, "");
 
 			}else if(colorSchema.equals("theme_3")) {
+	            System.out.println("=======8.4=========");
+
 				this.actionSettheme3(s, "");
 				
 			}else if(colorSchema.equals("theme_4")) {
+	            System.out.println("=======8.5=========");
+
 				this.actionSettheme4(s, "");
 				
 			}
+            System.out.println("=======9=========");
 
         	s.putMsg("layout", "", "edit(" + arr + ")");
         }else {
+            System.out.println("=======10=========");
+
 	    	s.putMsg("header", "", "showbuttons(" + ")");
         }
     }
@@ -348,7 +369,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	 
 	//Action Preview
 	public void actionPreview(Screen s, String c) {
-		System.out.println("actionPreview()");
 
 		try {
 			this.overlayDialog = new Overlaydialog(s);
@@ -388,14 +408,12 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 			this.overlayDialog.setHTML(publicationJSON.get("xml").toString());
 			this.overlayDialog.setVisible(true);
 			this.overlayDialog.update();
-			System.out.println(publicationJSON.get("xml").toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
 	}
 	
 	public void actionClosepreview(Screen s, String c){
-		System.out.println("actionClosePreview()");
 		this.overlayDialog.setURL("");
 		this.overlayDialog.setVisible(false);
 		this.overlayDialog.update();
@@ -405,7 +423,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	public void actionAddexternalidentifire(Screen s, String c){
 		try {
 			JSONObject json = (JSONObject)new JSONParser().parse(c);
-			System.out.println(json.toJSONString());
 			String data_type = json.get("dataType").toString().toLowerCase();
 			String identifier = json.get("identifier").toString();
 			
@@ -431,7 +448,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	
 	//Create publication XML
 	public void actionProccesspublication(Screen s, String c){
-		System.out.println("EuscreenpublicationbuilderApplication.actionProcesspublication(" + c + ")");
 		try {
 			JSONObject json = (JSONObject)new JSONParser().parse(c);
 			Publication publication = new Publication();
@@ -460,17 +476,11 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 			}
 			if(json.get("mode") != null){
 				if(json.get("mode").toString().trim().equals("edit")){
-					System.out.println("============================================");
-					System.out.println("EDIT IS CALLED");
 					JSONObject publicationJSON = Publication.editXml(publication, this.currentUser, s.getId(), this.oldPublicationID);
-					System.out.println("EDIT JSON IFRAME SENDER");
-					System.out.println(publicationJSON.toJSONString());
 					s.putMsg("iframesender", "", "sendToParent(" + publicationJSON + ")");
 				}
 			}else{
 				JSONObject publicationJSON = Publication.createXML(publication, this.currentUser, s.getId());
-				System.out.println("----------------------Publication-----------------------");
-				System.out.println(publicationJSON.toJSONString());
 				s.putMsg("iframesender", "", "sendToParent(" + publicationJSON + ")");
 			}
 		} catch (Exception e) {
@@ -481,17 +491,13 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	public void getCurrentUser(Screen s){
 
 		String[] arr = s.getId().split("/");
-	    System.out.println("--------------------------------------");
-    	System.out.println(arr[4]);
     	this.currentUser = arr[4];
 	}
 
 	//Get meta headers
 	public String getMetaHeaders(HttpServletRequest request) {
 		ipAddress=getClientIpAddress(request);
-		
-		System.out.println("Get ip = "+ipAddress);
-		
+				
 		String browserType = request.getHeader("User-Agent");
 		if(browserType.indexOf("Mobile") != -1) {
 			String ua = request.getHeader("User-Agent").toLowerCase();

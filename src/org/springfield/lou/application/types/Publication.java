@@ -35,12 +35,17 @@ public class Publication extends VideoPoster{
 		super();
 	}
 	public static JSONArray editPublication(String poster_url){
+		System.out.println("Publication.editPublication(" + poster_url + ")");
         FsNode poster_node = Fs.getNode(poster_url);
         JSONArray jsarr = new JSONArray();
 
         JSONObject Oldid = new JSONObject();
         Oldid.put("id", poster_node.getId());
         jsarr.add(Oldid);
+        
+        System.out.println("HI!");
+        
+        System.out.println("Oldid: " + Oldid);
 
         Document d = null;
 
@@ -51,78 +56,76 @@ public class Publication extends VideoPoster{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		System.out.println(poster_node.asXML());
-		Node title = d.selectSingleNode("//h1[@class=\"title\"]");
-		List<Node> media_item = d.selectNodes("//div[@class=\"media_item\"]");
-		List<Node> text_item = d.selectNodes("//div[@class=\"text_item\"]");
-		List<Node> links = d.selectNodes("//link");
-
-		//Get styles
-		Element layoutStyleURL = (Element)links.get(1);
-		Element colorShemaURL = (Element)links.get(2);
-
-		String layoutHref = layoutStyleURL.attributeValue("href").trim();
-		String colorHref = colorShemaURL.attributeValue("href").trim();
-
-		String[] splits = layoutHref.split("/");
-		String layoutStr = splits[splits.length - 1];
-		layoutStr = layoutStr.trim();
-		System.out.println("layoutStr: " + layoutStr.trim());
-		System.out.println(EuscreenpublicationbuilderApplication.layoutWithStyle);
-		System.out.println(EuscreenpublicationbuilderApplication.layoutWithStyle.containsKey(layoutStr));
-		String layoutt = EuscreenpublicationbuilderApplication.layoutWithStyle.get(layoutStr);
-		System.out.println("LAYOUT: " + layoutt);
-		JSONObject layout = new JSONObject();
-		layout.put("type", "layout");
-		layout.put("layout_type", layoutt);
-		jsarr.add(layout);
-
-		JSONObject styles = new JSONObject();
-		styles.put("type", "styles");
-		styles.put("layout", layoutHref);
-		String style = EuscreenpublicationbuilderApplication.styleWithId.get(colorHref);
-		styles.put("colorSchema", style);
-		jsarr.add(styles);
-
-		//Get title object
-		Element title_el = (Element) title;
-		JSONObject titleObject = new JSONObject();
-		titleObject.put("type", "title");
-		titleObject.put("id", title_el.attributeValue("id"));
-		titleObject.put("value", title.getStringValue());
-		jsarr.add(titleObject);
-
-		//Get media items objects
-		for (Node node : media_item) {
-			Element el = (Element) node;
-
-			JSONObject mediaObject = new JSONObject();
-			mediaObject.put("type", "media_item");
-			mediaObject.put("id", el.attributeValue("id"));
-			mediaObject.put("value", node.getStringValue());
-			jsarr.add(mediaObject);
-		}
-
-
-		//Get text item objects
-		for (Node node : text_item) {
-			Element el = (Element) node;
-			JSONObject textObject = new JSONObject();
-			textObject.put("type", "text_item");
-			textObject.put("id", el.attributeValue("id"));
-			textObject.put("value", node.getStringValue());
-			jsarr.add(textObject);
-		}
-
+        
+        try{
+			Node title = d.selectSingleNode("//h1[@class=\"title\"]");
+			List<Node> media_item = d.selectNodes("//div[@class=\"media_item\"]");
+			List<Node> text_item = d.selectNodes("//div[@class=\"text_item\"]");
+			List<Node> links = d.selectNodes("//link");
+	
+			//Get styles
+			Element layoutStyleURL = (Element)links.get(1);
+			Element colorShemaURL = (Element)links.get(2);
+	
+			String layoutHref = layoutStyleURL.attributeValue("href").trim();
+			String colorHref = colorShemaURL.attributeValue("href").trim();
+	
+			String[] splits = layoutHref.split("/");
+			String layoutStr = splits[splits.length - 1];
+			layoutStr = layoutStr.trim();
+			String layoutt = EuscreenpublicationbuilderApplication.layoutWithStyle.get(layoutStr);
+			JSONObject layout = new JSONObject();
+			layout.put("type", "layout");
+			layout.put("layout_type", layoutt);
+			jsarr.add(layout);
+	
+			JSONObject styles = new JSONObject();
+			styles.put("type", "styles");
+			styles.put("layout", layoutHref);
+			String style = EuscreenpublicationbuilderApplication.styleWithId.get(colorHref);
+			styles.put("colorSchema", style);
+			jsarr.add(styles);
+	
+			//Get title object
+			Element title_el = (Element) title;
+			JSONObject titleObject = new JSONObject();
+			titleObject.put("type", "title");
+			titleObject.put("id", title_el.attributeValue("id"));
+			titleObject.put("value", title.getStringValue());
+			jsarr.add(titleObject);
+	
+			//Get media items objects
+			for (Node node : media_item) {
+				Element el = (Element) node;
+	
+				JSONObject mediaObject = new JSONObject();
+				mediaObject.put("type", "media_item");
+				mediaObject.put("id", el.attributeValue("id"));
+				mediaObject.put("value", node.getStringValue());
+				jsarr.add(mediaObject);
+			}
+	
+	
+			//Get text item objects
+			for (Node node : text_item) {
+				Element el = (Element) node;
+				JSONObject textObject = new JSONObject();
+				textObject.put("type", "text_item");
+				textObject.put("id", el.attributeValue("id"));
+				textObject.put("value", node.getStringValue());
+				jsarr.add(textObject);
+			}
+			System.out.println("ARRAY: " + jsarr);
+        }catch(Exception e){
+        	e.printStackTrace();
+        }
+        System.out.println("FINISHED Publication.editPublication()");
 		return jsarr;
 	}
 
 	public static JSONObject createXML(Publication publication, String user, String id){
-		System.out.println("Publication.createXML()");
 		FsNode layout = publication.template.layout.getCurrentLayout();
 		String layoutStyle = publication.template.layout.getCurrentLayoutStyle();
-		System.out.println("layout style: " + layoutStyle);
 		String theme = null;
 		if(publication.theme.getCurrentTheme() != null){
 			if(publication.theme.getCurrentTheme().getProperty("css") != null){
@@ -239,7 +242,6 @@ public class Publication extends VideoPoster{
 					if (textContentList.get(i).getId().trim().equals(element.attributeValue("id").trim())) {
 						title.setText(textContentList.get(i).getValue().toString());
 						xmlTitle = textContentList.get(i).getValue().toString();
-						System.out.println(textContentList.get(i).getValue().toString());
 					}
 				}
 			}
@@ -260,10 +262,6 @@ public class Publication extends VideoPoster{
 			eusId += Integer.toHexString((""+new Date().getTime()).hashCode()).toUpperCase();
 			eusId = eusId.substring(0, originalid.length());
 		}
-
-		System.out.println(originalid);
-		System.out.println("MD5="+eusId);
-
 
         JSONObject object = new JSONObject();
         object.put("type", "videoposter");
@@ -287,10 +285,9 @@ public class Publication extends VideoPoster{
 	}
 
 	public static JSONObject editXml(Publication publication, String user, String id, String oldId){
-		System.out.println("createXML()");
+		System.out.println("Publication.editXML()");
 		FsNode layout = publication.template.layout.getCurrentLayout();
 		String layoutStyle = publication.template.layout.getCurrentLayoutStyle();
-		System.out.println("layout style: " + layoutStyle);
 		String theme = null;
 		if(publication.theme.getCurrentTheme() != null){
 			if(publication.theme.getCurrentTheme().getProperty("css") != null){
@@ -376,10 +373,6 @@ public class Publication extends VideoPoster{
 								media = "<iframe class=\"videoAfterDrop\" src='" + mediaItemList.get(i).getValue().toString() + "' frameborder=\"0\" allowfullscreen></iframe>";
 							}else {
 								String src = mediaItemList.get(i).getValue().toString();
-								System.out.println("-------------------------------------------------");
-								System.out.println(mediaItemList.get(i));
-								System.out.println(mediaItemList.get(i).getValue());
-								System.out.println(src);
 								src = src.substring(0, src.lastIndexOf("?"));
 								media = "<video data-src=\"" + src + "\" data-poster=\"" + mediaItemList.get(i).getPoster() + "\"/>";
 							}
@@ -415,7 +408,6 @@ public class Publication extends VideoPoster{
 					if (textContentList.get(i).getId().trim().equals(element.attributeValue("id").trim())) {
 						title.setText(textContentList.get(i).getValue().toString());
 						xmlTitle = textContentList.get(i).getValue().toString();
-						System.out.println(textContentList.get(i).getValue().toString());
 					}
 				}
 			}
@@ -510,7 +502,6 @@ public class Publication extends VideoPoster{
 		List<Node> media_items = d.selectNodes("//div[@class=\"media_item\"]");
 		Bookmarks bookmarks = new Bookmarks(user);
 		for (Node media_item : media_items) {
-			System.out.println("MEDIA ITEM LIST : " + mediaItemList.size());
 			if(mediaItemList.size() > 0){
 				for(int i = 0; i < mediaItemList.size(); i++) {
 					//TODO: Instead of always doing mediaItemList.get(i), just make a variable and store it. Makes it more readable.
@@ -568,8 +559,6 @@ public class Publication extends VideoPoster{
 
 		UUID uuid = UUID.randomUUID();
         String randomUUIDString = uuid.toString();
-
-        System.out.println("UNIQUE IDENTIFIRE: " + randomUUIDString);
 
         JSONObject object = new JSONObject();
         object.put("type", "videoposter");

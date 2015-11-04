@@ -83,10 +83,8 @@ public class Collections {
 					}
 				}				
 			}
-			System.out.println("REACHED END OF LOOP!");
 			collectionlist.add(new Collection(collection_name, videos));
 		}
-		System.out.println("REACHED END OF FUNCTION!");
 	}	
 	
 	private static void sendTicket(String videoFile, String ipAddress, String ticket) throws IOException {
@@ -124,12 +122,6 @@ public class Collections {
 
 		httpRequestBodyWriter.write(content);
 		httpRequestBodyWriter.close();
-	
-		// Reading from the HTTP response body
-		Scanner httpResponseScanner = new Scanner(urlConnection.getInputStream());
-		while(httpResponseScanner.hasNextLine()) {
-			System.out.println(httpResponseScanner.nextLine());
-		}
-		httpResponseScanner.close();		
+		
 	}	
 }

@@ -40,7 +40,5 @@ public class Layout {
 	
 	public Layout() {
 		setLayouts(Fs.getNodes(this.address, 1));
-		System.out.println("Layouts");
-		System.out.println(Fs.getNodes(this.address, 1));
 	}
 }

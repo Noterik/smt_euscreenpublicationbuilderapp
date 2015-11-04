@@ -32,7 +32,5 @@ public class Theme {
 	
 	public Theme() {
 		setThemes(Fs.getNodes(this.address, 1));
-		System.out.println("Themes");
-		System.out.println(Fs.getNodes(this.address, 1));
 	}
 }

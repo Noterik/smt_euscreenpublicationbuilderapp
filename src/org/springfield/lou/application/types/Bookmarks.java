@@ -130,11 +130,5 @@ public class Bookmarks {
 		httpRequestBodyWriter.write(content);
 		httpRequestBodyWriter.close();
 	
-		// Reading from the HTTP response body
-		Scanner httpResponseScanner = new Scanner(urlConnection.getInputStream());
-		while(httpResponseScanner.hasNextLine()) {
-			System.out.println(httpResponseScanner.nextLine());
-		}
-		httpResponseScanner.close();		
 	}	
 }
