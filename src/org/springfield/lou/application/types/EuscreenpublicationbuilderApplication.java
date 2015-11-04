@@ -85,6 +85,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
         loadStyleSheet(s, "font-awesome");
         loadStyleSheet(s, "font-awesome.min");
         loadStyleSheet(s, "tinycolorpicker");
+        loadContent(s, "readycheck");
         loadContent(s, "embedlib");
         loadContent(s, "comparison");
         loadContent(s, "header");
@@ -199,14 +200,51 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
      	
         //Catch modes
         if(s.getParameter("status").equals("edit")){
-        	System.out.println("MODE = EDIT");
+        	System.out.println("==================MODE = EDIT==================");
             String poster_url = s.getParameter("posterid");
-            System.out.println("-----------POSTER URL----------");
             
             JSONArray arr = Publication.editPublication(poster_url);
             JSONObject idOb = (JSONObject) arr.get(0);
             this.oldPublicationID = idOb.get("id").toString();
             s.putMsg("header", "", "modeEdit()");
+            System.out.println(arr.toJSONString());
+
+			//Set layout
+            JSONObject layout_json = (JSONObject)arr.get(1);
+			String layout = (String) layout_json.get("layout_type");
+			
+			if(layout.equals("layout_0")) {
+				this.actionSetlayout0(s, "");
+				
+			}else if(layout.equals("layout_1")) {
+				this.actionSetlayout1(s, "");
+			
+			}else if(layout.equals("layout_2")) {
+				this.actionSetlayout2(s, "");
+				
+			}
+			
+			//Set theme
+			JSONObject colorSchema_json = (JSONObject)arr.get(2);
+            String colorSchema = (String) colorSchema_json.get("colorSchema");
+            
+			if(colorSchema.equals("theme_0")) {
+				this.actionSettheme0(s, "");
+				
+			}else if(colorSchema.equals("theme_1")) {
+				this.actionSettheme1(s, "");
+
+			}else if(colorSchema.equals("theme_2")) {
+				this.actionSettheme2(s, "");
+
+			}else if(colorSchema.equals("theme_3")) {
+				this.actionSettheme3(s, "");
+				
+			}else if(colorSchema.equals("theme_4")) {
+				this.actionSettheme4(s, "");
+				
+			}
+
         	s.putMsg("layout", "", "edit(" + arr + ")");
         }else {
 	    	s.putMsg("header", "", "showbuttons(" + ")");
