@@ -26,16 +26,27 @@ a:hover {
 
 #header {
 	width: 100%;
-	height: 70px;
-	background-color: #FFF;
+	height: 122px;
+	background-color: #FFF;\
 	border-bottom: 5px solid #00AEEF;
 	margin-bottom: 5px;
+}
+
+.col-md-12.col-sm-12.more {
+	height: 65px;
+}
+
+.col-md-12.col-sm-12.more-2 {
+	background-color: rgb(246, 246, 246);
+	height: 72px;
+	border-bottom: 1px solid #E8E8E8;
+	border-top: 1px solid #E8E8E8;
 }
 
 #header-title {
 	float: left;
 	margin-top: 20px;
-	margin-left: 15px;
+	margin-left: 111px;
 	font-size: 1.291em;
 	font-family: "Titillium Web","DIN","Helvetica Neue",Monaco,"Andale Mono",Consolas,monospace;
 }
@@ -46,6 +57,13 @@ a:hover {
 	margin-right: 15px;
 	font-size: 1.291em;
 	font-family: "Titillium Web","DIN","Helvetica Neue",Monaco,"Andale Mono",Consolas,monospace;
+}
+
+#header-options {
+	width: 230px;
+	float: right;
+	margin-top: 24px;
+	margin-right: 111px;
 }
 
 #x-icon {
@@ -85,7 +103,6 @@ a:hover {
 	margin-bottom: 20px;
 	background-color: transparent;
 	border: none;
-	
 }
 /*
 #middle {
@@ -147,12 +164,41 @@ a:hover {
 }
 
 #layout {
-  	/*background-color: rgb(232, 232, 232);*/
+  	/*background-color: rgb(232, 232, 232);
   	background-color: #FFF;
  	overflow: hidden;
  	width: 100%;
 	margin: 0 auto;
 	padding: 3%;
+	background-color: #FFF;*/
+	width: auto;
+	float: left;
+	margin-left: 111px;
+	margin-top: 27px;
+	cursor: pointer;
+}
+
+#color-schemes {
+	width: auto;
+	float: left;
+	margin-top: 27px;
+	margin-left: 40px;
+	cursor: pointer;
+}
+
+#build {
+	width: auto;
+	float: left;
+	margin-top: 27px;
+	margin-left: 40px;
+	cursor: pointer;
+}
+
+.arrow-pinter {
+	background: url("http://pb.euscreenxl.eu/eddie/apps/euscreenpublicationbuilder/img/menu-arrow.png");
+	background-repeat: no-repeat;
+    background-position: center bottom;
+    height: 43px;
 }
 
 #mceu_13 {
@@ -255,6 +301,21 @@ a:hover {
 
 #preview {
 	display: none;
+}
+
+#preview {
+	border-radius: 5px;
+	padding: 4px 30px;
+	color: white !important;
+	background-color: rgb(217, 217, 217);
+}
+
+#publish {
+	display: inline;
+	background-color: #afd779;
+	border-radius: 5px;
+	padding: 4px 25px;
+	color: #FFF !important;
 }
 
 #publish {
