@@ -197,11 +197,9 @@ Header.prototype.modeEdit = function () {
 $( ".nav-arrow-togle" ).click(function() {
 
 	var arr = $( ".nav-arrow-togle" );
-	console.log(arr);
 	for (var i = 0; i < arr.length; i++) {
 		$(arr.get(i)).removeClass("arrow-pinter");  
 	}
-	console.log($(this));
 	$(this).addClass("arrow-pinter");
 	return false;
 });
