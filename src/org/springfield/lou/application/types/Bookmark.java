@@ -13,6 +13,7 @@ public class Bookmark {
 	private String name;
 	private String video;
 	private String screenshot;
+	private boolean isPublic;
 	
 	public String getScreenshot() {
 		return screenshot;
@@ -45,12 +46,21 @@ public class Bookmark {
 		this.video = video;
 	}
 	
-	public Bookmark(String id, String video_id, String name, String video, String screenshot) {
+	public boolean getIsPublic() {
+		return this.isPublic;
+	}
+	
+	public void setIsPublic(boolean isPublic) {
+		this.isPublic = isPublic;
+	}
+	
+	public Bookmark(String id, String video_id, String name, String video, String screenshot, boolean isPublic) {
 		setId(id);
 		setVideo_id(video_id);
 		setName(name);
 		setVideo(video);
 		setScreenshot(screenshot);
+		setIsPublic(isPublic);
 	}
 	
 }

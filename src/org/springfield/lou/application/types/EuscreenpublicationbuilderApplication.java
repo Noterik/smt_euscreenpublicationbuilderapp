@@ -103,6 +103,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 
      	int cnt_bookmark = 0;
      	for (Bookmark bmi : bookmarks.getBookmarklist()) {
+     		System.out.println(bmi.getIsPublic());
      		String id = "bookmark_"+ cnt_bookmark;
     		bookmarkLayout += "<div id=\"" + id +"\" class=\"drag_bookmark\"><video  poster='"+bmi.getScreenshot()+"' src=\"" + bmi.getVideo() + "\" controls></video></div>";
     		bookmarkLayout += "<script type=\"text/javascript\">"

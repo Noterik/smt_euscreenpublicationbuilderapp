@@ -16,7 +16,9 @@ import org.springfield.fs.FsNode;
 public class Bookmarks {
 	public List<Bookmark> bookmarklist = new ArrayList<Bookmark>();
 	private List<FsNode> xmlCallList;
-	private String address = "/domain/euscreenxl/user/"; 
+	private static String domain = "/domain/euscreenxl";
+
+	private String address = domain + "/user/";
 	private static String ipAddress = "";
 	private static boolean isAndroid = false;
 	
@@ -76,12 +78,27 @@ public class Bookmarks {
 			}*/
 			
 			if(mount != null){
-				Bookmark bookmark = new Bookmark(bookmarkId, videoId, videoName, mount, screenshot);
+				System.out.println(checkIsPublic(videoId));
+				Bookmark bookmark = new Bookmark(bookmarkId, videoId, videoName, mount, screenshot, checkIsPublic(videoId));
 				bookmarklist.add(bookmark);
 			}
 		}
 		
-	}	
+	}
+	
+	public static boolean checkIsPublic(String Id) {
+		String blacklistEntryUrl = domain + "/config/blacklist/entry/" + Id;
+		System.out.println("=====================================");
+		System.out.println("CHECK IS PUBLIC URL = " + blacklistEntryUrl);
+		FsNode isPublicNode = Fs.getNode(blacklistEntryUrl);
+		if(isPublicNode !=  null && isPublicNode.getProperty("videoposter") != null) {
+			if(Boolean.parseBoolean(isPublicNode.getProperty("videoposter")) == true) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 	
 	public String getBookmarkLinkById(String id){
 		String link = null;

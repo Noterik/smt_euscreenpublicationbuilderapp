@@ -79,7 +79,7 @@ public class Collections {
 						};
 					}
 					if(mount != null){
-						videos.add(new Bookmark(collectionId, videoId, videoName, mount, screenshot));
+						videos.add(new Bookmark(collectionId, videoId, videoName, mount, screenshot, Bookmarks.checkIsPublic(videoId)));
 					}
 				}				
 			}
