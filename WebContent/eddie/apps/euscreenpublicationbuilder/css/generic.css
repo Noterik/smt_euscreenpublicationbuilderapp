@@ -17,11 +17,14 @@ a:hover {
 }
 
 .layout_image {
-	width: 80%;
+	/*width: 80%;
   	margin-left: 10%;
 	border: 1px solid black;
 	background-color: gray;
-	margin-bottom: 20px;
+	margin-bottom: 20px;*/
+    width: 98%;
+	margin: 0 auto;
+    display: block;
 }
 
 #header {
@@ -82,6 +85,10 @@ a:hover {
 	height: 17px;
 	background-image: url("../img/xblack.png");
 	background: url("http://pb.euscreenxl.eu/eddie/apps/euscreenpublicationbuilder/img/ex-button.png");
+}
+
+#layoutsContent {
+	background-color: #fff;
 }
 
 #left {
@@ -177,17 +184,21 @@ a:hover {
 	margin: 0 auto;
 	padding: 3%;
 	background-color: #FFF;*/
+	
+}
+
+#layout-nav {
 	width: auto;
 	float: left;
 	margin-left: 111px;
-	margin-top: 27px;
+	margin-top: 28px;
 	cursor: pointer;
 }
 
 #color-schemes {
 	width: auto;
 	float: left;
-	margin-top: 27px;
+	margin-top: 28px;
 	margin-left: 40px;
 	cursor: pointer;
 }
@@ -195,9 +206,14 @@ a:hover {
 #build {
 	width: auto;
 	float: left;
-	margin-top: 27px;
+	margin-top: 28px;
 	margin-left: 40px;
 	cursor: pointer;
+}
+
+.theme-desc {
+	font-size: 13px;
+    color: #8d8d8d;
 }
 
 .arrow-pinter {
@@ -305,9 +321,9 @@ a:hover {
 	background: rgba(0, 0, 0, 0.2) none repeat scroll 0% 0%;
 }
 
-#preview {
+/*#preview {
 	display: none;
-}
+}*/
 
 #preview {
 	border-radius: 5px;
@@ -324,8 +340,16 @@ a:hover {
 	color: #FFF !important;
 }
 
-#publish {
+/*#publish {
 	display: none;
+}*/
+
+.layouts-title {
+	width: 83%;
+    font-size: 16px;
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 #left-header-layout {

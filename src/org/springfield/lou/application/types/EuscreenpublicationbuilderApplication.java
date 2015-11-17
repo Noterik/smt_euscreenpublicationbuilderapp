@@ -332,19 +332,28 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
                 
         //Load layouts
         layouts = new Layout();
-    	String layoutBody = "";
+    	String layoutBody = "<div class=\"container-fluid\"><div class=\"row\"><div class=\"col-sm-12 col-md-12 col-lg-12\"><h1 class=\"layouts-title\">Please select the available video poster layout below. Remember that this is one-time only, once you select a layout there is no coming back</h1></div></div></div>";
     	int cnt = 0;
-    	
-    	for(FsNode node : layouts.getLayouts()) {
-    		layoutBody += "<div><h3 class=\"theme_name\">" + node.getProperty("name") + "</h3><img  class=\"layout_image\" id=\"layout_"+ cnt +"\" src='" + node.getProperty("icon") + "'/></div>";
-    		String layoutStr = node.getProperty("css");
+    	layoutBody += "<div class=\"container\">";
+    	for(int i=0; i<layouts.getLayouts().size(); i++) {
+    		if(i+1%3==0){
+    			layoutBody += "<div class=\"row\">";
+    		}
+    		
+    		layoutBody += "<div class=\"col-sm-4 col-md-4 col-lg-4\"><img  class=\"layout_image\" id=\"layout_"+ cnt +"\" src='" + layouts.getLayouts().get(i).getProperty("icon") + "'/><h4 class=\"theme_name\">" + layouts.getLayouts().get(i).getProperty("name") + "</h4><p class=\"theme-desc\">" + layouts.getLayouts().get(i).getProperty("description") + "</p></div>";
+    		
+    		if(i+1%3==0){
+    			layoutBody += "</div>";    		
+			}
+    		
+    		String layoutStr = layouts.getLayouts().get(i).getProperty("css");
     		String[] splits = layoutStr.split("/");
     		String lo = splits[splits.length -1];
     		lo = lo.trim();
     		layoutWithStyle.put(lo, "layout_"+ cnt);
     		cnt++;
     	}
-    	
+    	layoutBody += "</div>";
     	s.setContent("layoutsContent", layoutBody);
     	//s.putMsg("layoutsContent", "", "setLayoutClick(" + cnt + ")");
     	
