@@ -1,0 +1,70 @@
+var LayoutsContent = function(options){
+	Component.apply(this, arguments);
+}
+
+LayoutsContent.prototype = Object.create(Component.prototype);
+
+LayoutsContent.prototype.accordion = function () {
+    $(".accordion").accordion();
+    
+	$("#left-header-layout").css('background-color', 'lightgray');
+	$("#layouts").toggle( "fast" );
+	
+	$("#left-header-theme").css('background-color', '#00AEEF');
+	$("#color_schemes").toggle("fast");  	
+}
+
+LayoutsContent.prototype.setLayoutClick = function(count) {
+	console.log("test");
+	var self = this;
+
+	for(var i = 0; i < count; i++)
+	{
+		this.bindLayoutClick(i);
+	}
+};
+
+LayoutsContent.prototype.bindLayoutClick = function(i) {
+	var result = JSON.stringify({none: "none"});
+	var function_name ="setlayout"+i+"(" + result + ")"; 
+	
+	$('#layout_' + i).click(function(){
+		console.log("setLayout");
+		eddie.putLou("", "setlayout"+"(" + i + ")");
+	});
+};
+
+LayoutsContent.prototype.setThemeClick = function(count) {
+	console.log("test");
+	var self = this;
+
+	for(var i = 0; i < count; i++)
+	{
+		this.bindThemeClick(i);
+	}
+};
+
+LayoutsContent.prototype.bindThemeClick = function(i) {
+	var result = JSON.stringify({none: "none"});
+	var function_name ="settheme"+i+"(" + result + ")"; 
+	
+	$('#theme_' + i).click(function(){
+		eddie.putLou("", "settheme"+"(" + i + ")");
+	});
+};
+
+LayoutsContent.prototype.approveTheme = function() {
+	$('#left-header-theme').click(function(){
+		eddie.putLou("", "approvetheme()");
+	});
+};
+
+LayoutsContent.prototype.accordionThemes = function () {
+	    $(".accordion").accordion();
+    	
+    	$("#left-header-theme").css('background-color', '#lightgray');
+    	$("#color_schemes").toggle("fast");
+    	
+    	$("#left-header-background").css('background-color', '#00AEEF');
+    	$("#background").toggle("fast");    	
+}

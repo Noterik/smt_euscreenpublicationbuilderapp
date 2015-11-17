@@ -121,7 +121,7 @@ var Header = function(options){
 		if(publish == true){
 			eddie.putLou("", "proccesspublication(" + result + ")");
 			$('#publish').hide();
-			$('#header').notify("Your Poster has been saved",   { className:"success", autoHideDelay: 3400});
+			$('#header').notify("Your Poster has been saved", { className:"success", autoHideDelay: 3400});
 		}
 	});
 	
@@ -200,7 +200,24 @@ $( ".nav-arrow-togle" ).click(function() {
 	for (var i = 0; i < arr.length; i++) {
 		$(arr.get(i)).removeClass("arrow-pinter");  
 	}
+	
 	$(this).addClass("arrow-pinter");
+	
+	switch($(this).attr("type")) {
+    case "layout":
+    		console.log("layout");
+        	eddie.putLou("", "generatelayout()");
+        break;
+    case "colorShemes":
+        	//TODO
+        break;
+    case "build" :
+    		//TODO
+    	break;
+    default:
+		break;
+	}
+	
 	return false;
 });
 

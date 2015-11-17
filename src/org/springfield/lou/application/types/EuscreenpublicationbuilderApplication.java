@@ -90,9 +90,9 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
         loadContent(s, "comparison");
         loadContent(s, "header");
         loadContent(s, "iframesender");
-        loadContent(s, "left");     
+        //loadContent(s, "left");     
         loadContent(s, "section");
-        loadContent(s, "right");
+        //loadContent(s, "right");
         
         //Get Current user
         this.getCurrentUser(s);
@@ -148,30 +148,8 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
      		cnt_header++;
 		}
     	
-    	s.setContent("bookmarklayout", bookmarkLayout);
+    	//s.setContent("bookmarklayout", bookmarkLayout);
     	
-        s.setContent("middle", "<div id=\"layout\"></div>");
-        this.loadContent(s, "layout", "layout");
-                
-        //Load layouts
-        layouts = new Layout();
-    	String layoutBody = "<ul class=\"leftNavUl\">";
-    	int cnt = 0;
-    	
-    	for(FsNode node : layouts.getLayouts()) {
-    		layoutBody += "<li><h3 class=\"theme_name\">" + node.getProperty("name") + "</h3><img  class=\"layout_image\" id=\"layout_"+ cnt +"\" src='" + node.getProperty("icon") + "'/></li>";
-    		String layoutStr = node.getProperty("css");
-    		String[] splits = layoutStr.split("/");
-    		String lo = splits[splits.length -1];
-    		lo = lo.trim();
-    		layoutWithStyle.put(lo, "layout_"+ cnt);
-    		cnt++;
-    	}
-    	
-    	layoutBody += "</ul>";
-    	s.setContent("layouts", layoutBody);
-
-    	s.putMsg("left", "", "setLayoutClick(" + cnt + ")");
 
     	//Load themes
         themes = new Theme();
@@ -184,9 +162,10 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     		cntThema++;
     	}
     	themeBody += "</ul>";
-    	s.setContent("color_schemes", themeBody);
     	
-       	s.putMsg("left", "", "setThemeClick(" + cntThema + ")");
+    	//s.setContent("color_schemes", themeBody);
+    	
+       //s.putMsg("left", "", "setThemeClick(" + cntThema + ")");
     	s.putMsg("left", "", "approveTheme()");
 
     	//s.setDiv("left-header-theme", "bind:mousedown","approveTheme" , this);
@@ -283,7 +262,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	    	message.put("style", node.getProperty("css"));
 	    	s.putMsg("layout", "", "update(" + message + ")");
 	    	s.putMsg("left", "", "accordion(" + ")");
-	    	
 		}
 
 	}
@@ -347,6 +325,30 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	     loadStyleSheet(s, "tinycolorpicker");
 	 }
 	 
+	//Generate layout
+	public void actionGeneratelayout(Screen s, String c) {
+		System.out.println("actionGenerateLayout()");
+        this.loadContent(s, "layoutsContent");
+                
+        //Load layouts
+        layouts = new Layout();
+    	String layoutBody = "";
+    	int cnt = 0;
+    	
+    	for(FsNode node : layouts.getLayouts()) {
+    		layoutBody += "<div><h3 class=\"theme_name\">" + node.getProperty("name") + "</h3><img  class=\"layout_image\" id=\"layout_"+ cnt +"\" src='" + node.getProperty("icon") + "'/></div>";
+    		String layoutStr = node.getProperty("css");
+    		String[] splits = layoutStr.split("/");
+    		String lo = splits[splits.length -1];
+    		lo = lo.trim();
+    		layoutWithStyle.put(lo, "layout_"+ cnt);
+    		cnt++;
+    	}
+    	
+    	s.setContent("layoutsContent", layoutBody);
+    	//s.putMsg("layoutsContent", "", "setLayoutClick(" + cnt + ")");
+    	
+	}
 	//Action Preview
 	public void actionPreview(Screen s, String c) {
 
