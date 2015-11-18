@@ -89,6 +89,12 @@ a:hover {
 
 #layoutsContent {
 	background-color: #fff;
+	padding-bottom: 130px;
+}
+
+#colorschemesContent {
+	background-color: #fff;
+	padding-bottom: 130px;
 }
 
 #left {
@@ -214,6 +220,7 @@ a:hover {
 .theme-desc {
 	font-size: 13px;
     color: #8d8d8d;
+    text-align: center;
 }
 
 .arrow-pinter {

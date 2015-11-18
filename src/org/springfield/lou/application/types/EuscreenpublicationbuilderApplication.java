@@ -359,17 +359,57 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
                 
         //Load color schemes
         themes = new Theme();
-    	String colorSchemesBody = "<ul class=\"themeNavi\">";
-    	int cntThema = 0;
-    	
-    	for(FsNode node : themes.getThemes()) {
-    		colorSchemesBody += "<li><h3 class=\"theme_name\">" + node.getProperty("name") + "</h3><img  class=\"scheme_image\" id=\"theme_"+ cntThema +"\" src='" + node.getProperty("icon") + "'/></li>";
-    		styleWithId.put(node.getProperty("css").trim(), "theme_"+ cntThema);
-    		cntThema++;
+    	String colorSchemesBody = "<div class=\"container\">";
+		int cntRow = 0;
+		boolean isRow = false;
+    	for(int i = 0; i < themes.getThemes().size(); i++) {
+
+    			if((i) % 3 == 0) {
+        			isRow = true;
+
+        			colorSchemesBody += "<div class=\"row\">";
+        			System.out.println("======ROW 2======");
+
+    			}else if(i == 0) {
+        			isRow = true;
+
+    				colorSchemesBody += "<div class=\"row\">";
+        			System.out.println("======ROW 3======");
+    			}
+
+    		
+    		if(isRow == true){
+    			System.out.println("======ROW TRUE======");
+
+    			cntRow++;
+    		}	
+    		
+    		colorSchemesBody += "<div class=\"col-sm-4 col-md-4 col-lg-4\"><h3 class=\"theme_name\">" + themes.getThemes().get(i).getProperty("name") + "</h3><img  class=\"scheme_image\" id=\"theme_"+ i +"\" src='" + themes.getThemes().get(i).getProperty("icon") + "'/></div>";
+    		styleWithId.put(themes.getThemes().get(i).getProperty("css").trim(), "theme_"+ i);
+	    	
+    		if(themes.getThemes().size() > 3){
+	    		if(cntRow == 3){
+	    			colorSchemesBody += "</div>"; 
+        			System.out.println("======ROW FALSE 3======");
+
+	    			isRow = false;
+	    			cntRow = 0;
+	    		}
+    		}else {
+    			if(cntRow == themes.getThemes().size()){
+        			System.out.println("======ROW FALSE 1======");
+
+	    			colorSchemesBody += "</div>"; 
+	    			isRow = false;
+	    			cntRow = 0;
+	    		}
+    		}
+
+    		cntRow++;
     	}
-    	colorSchemesBody += "</ul>";
-    	s.setContent("colorschemesContent", colorSchemesBody);
     	
+		colorSchemesBody += "</div>";    		
+    	s.setContent("colorschemesContent", colorSchemesBody);
 	}
 	//Action Preview
 	public void actionPreview(Screen s, String c) {

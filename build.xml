@@ -107,7 +107,7 @@
 	<!-- Compilation initialisation -->
 	<target name="compile.init" depends="init, copy.dependencies" />
 	
-	<!-- Copile java code -->
+	<!-- Compile java code -->
 	<target name="compile" depends="compile.init">
 	  <javac srcdir="${sources.dir}" destdir="${classes.dir}" debug="on">
 	    <classpath>
@@ -146,9 +146,9 @@
 			 <exclude name="WEB-INF/web.xml" />
 			</fileset>
 		</war>
-		<exec executable="/bin/bash">
+		<!--<exec executable="/bin/bash">
         	<arg value="/home/shukrishukriev/Amazon/PublicationbuilderCopy.sh"/>
-		 </exec>
+		 </exec>-->
 	</target>
 	
 </project>
