@@ -324,25 +324,45 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
         //Load layouts
         layouts = new Layout();
     	String layoutBody = "<div class=\"container-fluid\"><div class=\"row\"><div class=\"col-sm-12 col-md-12 col-lg-12\"><h1 class=\"layouts-title\">Please select the available video poster layout below. Remember that this is one-time only, once you select a layout there is no coming back</h1></div></div></div>";
-    	int cnt = 0;
-    	layoutBody += "<div class=\"container\">";
-    	for(int i=0; i<layouts.getLayouts().size(); i++) {
-    		if(i+1%3==0){
+		int cntRow = 0;
+		boolean isRow = false;
+		
+		layoutBody += "<div class=\"container\">";
+		
+    	for(int i = 0; i < layouts.getLayouts().size(); i++) {
+			if (i % 3 == 0) {
+    			isRow = true;
     			layoutBody += "<div class=\"row\">";
-    		}
-    		
-    		layoutBody += "<div class=\"col-sm-4 col-md-4 col-lg-4\"><img  class=\"layout_image\" id=\"layout_"+ cnt +"\" src='" + layouts.getLayouts().get(i).getProperty("icon") + "'/><h4 class=\"theme_name\">" + layouts.getLayouts().get(i).getProperty("name") + "</h4><p class=\"theme-desc\">" + layouts.getLayouts().get(i).getProperty("description") + "</p></div>";
-    		
-    		if(i+1%3==0){
-    			layoutBody += "</div>";    		
+				
 			}
+    		
+    		layoutBody += "<div class=\"col-sm-4 col-md-4 col-lg-4\"><img  class=\"layout_image\" id=\"layout_"+ i +"\" src='" + layouts.getLayouts().get(i).getProperty("icon") + "'/><h4 class=\"theme_name\">" + layouts.getLayouts().get(i).getProperty("name") + "</h4><p class=\"theme-desc\">" + layouts.getLayouts().get(i).getProperty("description") + "</p></div>";
     		
     		String layoutStr = layouts.getLayouts().get(i).getProperty("css");
     		String[] splits = layoutStr.split("/");
     		String lo = splits[splits.length -1];
     		lo = lo.trim();
-    		layoutWithStyle.put(lo, "layout_"+ cnt);
-    		cnt++;
+    		layoutWithStyle.put(lo, "layout_"+ i);
+    		
+    		if(isRow == true) {
+	    		if(layouts.getLayouts().size() > 3){
+		    		if(cntRow == 3){
+		    			layoutBody += "</div>"; 
+		    			isRow = false;
+		    			cntRow = 0;
+		    			
+		    		}
+		    		
+	    		}else {
+	    			if(cntRow == layouts.getLayouts().size() - 1){
+	    				layoutBody += "</div>"; 
+		    			isRow = false;
+		    			cntRow = 0;
+		    			
+		    		}
+	    			
+	    		}
+	    	}
     	}
     	layoutBody += "</div>";
     	s.setContent("layoutsContent", layoutBody);
@@ -363,49 +383,35 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 		int cntRow = 0;
 		boolean isRow = false;
     	for(int i = 0; i < themes.getThemes().size(); i++) {
-
-    			if((i) % 3 == 0) {
-        			isRow = true;
-
-        			colorSchemesBody += "<div class=\"row\">";
-        			System.out.println("======ROW 2======");
-
-    			}else if(i == 0) {
-        			isRow = true;
-
-    				colorSchemesBody += "<div class=\"row\">";
-        			System.out.println("======ROW 3======");
-    			}
-
-    		
-    		if(isRow == true){
-    			System.out.println("======ROW TRUE======");
-
-    			cntRow++;
-    		}	
-    		
-    		colorSchemesBody += "<div class=\"col-sm-4 col-md-4 col-lg-4\"><h3 class=\"theme_name\">" + themes.getThemes().get(i).getProperty("name") + "</h3><img  class=\"scheme_image\" id=\"theme_"+ i +"\" src='" + themes.getThemes().get(i).getProperty("icon") + "'/></div>";
-    		styleWithId.put(themes.getThemes().get(i).getProperty("css").trim(), "theme_"+ i);
-	    	
-    		if(themes.getThemes().size() > 3){
-	    		if(cntRow == 3){
-	    			colorSchemesBody += "</div>"; 
-        			System.out.println("======ROW FALSE 3======");
-
-	    			isRow = false;
-	    			cntRow = 0;
-	    		}
-    		}else {
-    			if(cntRow == themes.getThemes().size()){
-        			System.out.println("======ROW FALSE 1======");
-
-	    			colorSchemesBody += "</div>"; 
-	    			isRow = false;
-	    			cntRow = 0;
-	    		}
-    		}
-
+			
+			if (i % 3 == 0) {
+    			isRow = true;
+				colorSchemesBody += "<div class=\"row\">";
+				
+			}
+    
+    		colorSchemesBody += "<div class=\"col-sm-4 col-md-4 col-lg-4\"><h3 class=\"theme_name\">" + themes.getThemes().get(i).getProperty("name") + "</h3><img  class=\"scheme_image\" id=\"theme_"+ i +"\" src='" + themes.getThemes().get(i).getProperty("icon") + "'/></div>";    
     		cntRow++;
+
+    		styleWithId.put(themes.getThemes().get(i).getProperty("css").trim(), "theme_"+ i);
+
+    		if(isRow == true) {
+	    		if(themes.getThemes().size() > 3){
+		    		if(cntRow == 3){
+		    			colorSchemesBody += "</div>"; 
+		    			isRow = false;
+		    			cntRow = 0;
+		    			
+		    		}
+	    		}else {
+	    			if(cntRow == themes.getThemes().size() - 1){
+		    			colorSchemesBody += "</div>"; 
+		    			isRow = false;
+		    			cntRow = 0;
+		    			
+		    		}
+	    		}
+	    	}
     	}
     	
 		colorSchemesBody += "</div>";    		
