@@ -146,9 +146,9 @@
 			 <exclude name="WEB-INF/web.xml" />
 			</fileset>
 		</war>
-		<!--<exec executable="/bin/bash">
+		<exec executable="/bin/bash">
         	<arg value="/home/shukrishukriev/Amazon/PublicationbuilderCopy.sh"/>
-		 </exec>-->
+		 </exec>
 	</target>
 	
 </project>

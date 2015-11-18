@@ -75,25 +75,7 @@ var Header = function(options){
 	    });
 		
 		var mediaArray = [];
-		// TODO: Unreadable/not understandable/not efficient/not reusable, look at my code below
-		/*
-		$('.media_item').each(function(index) {
-			var obj = {};
-		
-			obj.id = $(this).attr('id');
-			if($(this)[0].children[0].src == undefined){
-				if($($($(this)[0].children[1]).children()[0]).children()[0]){
-					obj.value = $($($(this)[0].children[1]).children()[0]).children()[0].src
-					obj.poster = $($(this)[0].children[1]).children()[0].poster;
-				}
-			}else{
-				obj.value = $(this)[0].children[0].src;
-			}
-			mediaArray.push(obj);
-		});
-		*/
-		
-		//Code by david
+
 		$('.media_item').each(function(index, element){
 			//Let's cache this element, doing $() over and over again kills performance, try to learn this and do it next time, I've already said it a couple of times.
 			var $element = $(element);
@@ -209,7 +191,7 @@ $( ".nav-arrow-togle" ).click(function() {
         	eddie.putLou("", "generatelayout()");
         break;
     case "colorShemes":
-        	//TODO
+        	eddie.putLou("", "generatecolorschemes()");
         break;
     case "build" :
     		//TODO

@@ -96,6 +96,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
         
         //Get Current user
         this.getCurrentUser(s);
+        
         //Load bookmarks
     	bookmarks = new Bookmarks(currentUser);
     	String bookmarkLayout = "<div class=\"right-header\" id=\"right_header_0\">Bookmarks</div>";
@@ -151,22 +152,12 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	//s.setContent("bookmarklayout", bookmarkLayout);
     	
 
-    	//Load themes
-        themes = new Theme();
-    	String themeBody = "<ul class=\"themeNavi\">";
-    	int cntThema = 0;
     	
-    	for(FsNode node : themes.getThemes()) {
-    		themeBody += "<li><h3 class=\"theme_name\">" + node.getProperty("name") + "</h3><img  class=\"scheme_image\" id=\"theme_"+ cntThema +"\" src='" + node.getProperty("icon") + "'/></li>";
-    		styleWithId.put(node.getProperty("css").trim(), "theme_"+ cntThema);
-    		cntThema++;
-    	}
-    	themeBody += "</ul>";
     	
     	//s.setContent("color_schemes", themeBody);
     	
        //s.putMsg("left", "", "setThemeClick(" + cntThema + ")");
-    	s.putMsg("left", "", "approveTheme()");
+    	//s.putMsg("left", "", "approveTheme()");
 
     	//s.setDiv("left-header-theme", "bind:mousedown","approveTheme" , this);
     	
@@ -356,6 +347,28 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	layoutBody += "</div>";
     	s.setContent("layoutsContent", layoutBody);
     	//s.putMsg("layoutsContent", "", "setLayoutClick(" + cnt + ")");
+    	
+	}
+	
+	//Generate color schemes
+	public void actionGeneratecolorschemes(Screen s, String c) {
+		System.out.println("actionGeneratecolorschemes()");
+		this.removeContent(s, "layoutsContent");
+		this.removeContentAllScreens("layoutsContent");
+        this.loadContent(s, "colorschemesContent");
+                
+        //Load color schemes
+        themes = new Theme();
+    	String colorSchemesBody = "<ul class=\"themeNavi\">";
+    	int cntThema = 0;
+    	
+    	for(FsNode node : themes.getThemes()) {
+    		colorSchemesBody += "<li><h3 class=\"theme_name\">" + node.getProperty("name") + "</h3><img  class=\"scheme_image\" id=\"theme_"+ cntThema +"\" src='" + node.getProperty("icon") + "'/></li>";
+    		styleWithId.put(node.getProperty("css").trim(), "theme_"+ cntThema);
+    		cntThema++;
+    	}
+    	colorSchemesBody += "</ul>";
+    	s.setContent("colorschemesContent", colorSchemesBody);
     	
 	}
 	//Action Preview
