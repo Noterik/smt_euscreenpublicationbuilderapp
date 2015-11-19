@@ -95,7 +95,7 @@ a:hover {
 #colorschemesContent {
 	background-color: #fff;
 	padding-bottom: 130px;
-	margin-top: 16px;
+	margin-top: 15px;
    /*border-top: 1px solid #E8E8E8;*/
 }
 
@@ -115,7 +115,8 @@ a:hover {
 .theme_name {
 	text-align: center;
 	margin-top: 0;
-	padding-top: 15px;
+    font-size: 20px;
+	margin-top: 15px;
 }
 
 .scheme_image {
@@ -234,7 +235,7 @@ a:hover {
 	background: url("http://pb.euscreenxl.eu/eddie/apps/euscreenpublicationbuilder/img/menu-arrow.png");
 	background-repeat: no-repeat;
     background-position: center bottom;
-    height: 44px;
+    height: 43px;
 }
 
 #mceu_13 {
@@ -359,7 +360,7 @@ a:hover {
 }*/
 
 .layouts-title {
-	width: 83%;
+	/*width: 83%;*/
     font-size: 16px;
     margin: 0 auto;
     margin-top: 30px;

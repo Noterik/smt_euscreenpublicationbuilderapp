@@ -326,7 +326,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
                 
         //Load layouts
         layouts = new Layout();
-    	String layoutBody = "<div class=\"container-fluid\"><div class=\"row\"><div class=\"col-sm-12 col-md-12 col-lg-12\"><h1 class=\"layouts-title\">Please select the available video poster layout below. Remember that this is one-time only, once you select a layout there is no coming back</h1></div></div></div>";
+    	String layoutBody = "<div class=\"container\"><div class=\"row\"><div class=\"col-sm-12 col-md-12 col-lg-12\"><h1 class=\"layouts-title\">Please select the available video poster layout below. Remember that this is one-time only, once you select a layout there is no coming back</h1></div></div></div>";
 		int cntRow = 0;
 		int cntLayout = 0;
 		boolean isRow = false;
@@ -387,7 +387,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
                 
         //Load color schemes
         themes = new Theme();
-    	String colorSchemesBody = "<div class=\"container-fluid\"><div class=\"row\"><div class=\"col-sm-12 col-md-12 col-lg-12\"><h1 class=\"layouts-title\">Please select the color scheme for your Video Poster below, alternatively you can edit the font color in the build section.</h1></div></div></div>";
+    	String colorSchemesBody = "<div class=\"container\"><div class=\"row\"><div class=\"col-sm-12 col-md-12 col-lg-12\"><h1 class=\"layouts-title\">Please select the color scheme for your Video Poster below, alternatively you can edit the font color in the build section.</h1></div></div></div>";
     	colorSchemesBody += "<div class=\"container\">";
 		int cntRow = 0;
 		int cntTheme = 0;
@@ -402,9 +402,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     
     		colorSchemesBody += "<div class=\"col-sm-4 col-md-4 col-lg-4\"><div class=\"inner-div-scheme\"><img  class=\"scheme_image\" id=\"theme_"+ i +"\" src='" + themes.getThemes().get(i).getProperty("icon") + "'/><h3 class=\"theme_name\">" + themes.getThemes().get(i).getProperty("name") + "</h3></div></div>";    
    
-      		System.out.println("===========================CNT THEMES===========================");
-    		System.out.println(cntTheme);
-    		
     		cntRow++;
     		cntTheme++;
   
