@@ -390,7 +390,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 				
 			}
     
-    		colorSchemesBody += "<div class=\"col-sm-4 col-md-4 col-lg-4\"><h3 class=\"theme_name\">" + themes.getThemes().get(i).getProperty("name") + "</h3><img  class=\"scheme_image\" id=\"theme_"+ i +"\" src='" + themes.getThemes().get(i).getProperty("icon") + "'/></div>";    
+    		colorSchemesBody += "<div class=\"col-sm-4 col-md-4 col-lg-4\"><div class=\"inner-div-scheme\"><img  class=\"scheme_image\" id=\"theme_"+ i +"\" src='" + themes.getThemes().get(i).getProperty("icon") + "'/><h3 class=\"theme_name\">" + themes.getThemes().get(i).getProperty("name") + "</h3></div></div>";    
     		cntRow++;
 
     		styleWithId.put(themes.getThemes().get(i).getProperty("css").trim(), "theme_"+ i);
