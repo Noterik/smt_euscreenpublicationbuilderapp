@@ -19,17 +19,18 @@ LayoutsContent.prototype.bindLayoutClick = function(i) {
 	var function_name ="setlayout"+i+"(" + result + ")"; 
 	
 	$('#layout_' + i).click(function(){
-		console.log("setLayout");
+		LayoutsContent.prototype.closeLayoutsTab();
 		eddie.putLou("", "setlayout"+"(" + i + ")");
 	});
 };
 
-LayoutsContent.prototype.accordion = function () {
-    $(".accordion").accordion();
-    
-	$("#left-header-layout").css('background-color', 'lightgray');
-	$("#layouts").toggle( "fast" );
+LayoutsContent.prototype.closeLayoutsTab = function () {
+	$layout = $("#layout-nav");
+	$layout.css("color", "lightgray");
+	$layout.unbind("click");
+	$layout.removeClass("arrow-pinter");
 	
-	$("#left-header-theme").css('background-color', '#00AEEF');
-	$("#color_schemes").toggle("fast");  	
+	eddie.putLou("", "generatecolorschemes()");
+	
+	$("#color-schemes").addClass("arrow-pinter");	
 }

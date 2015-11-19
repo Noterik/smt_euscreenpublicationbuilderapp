@@ -187,7 +187,6 @@ $( ".nav-arrow-togle" ).click(function() {
 	
 	switch($(this).attr("type")) {
     case "layout":
-    		console.log("layout");
         	eddie.putLou("", "generatelayout()");
         break;
     case "colorShemes":

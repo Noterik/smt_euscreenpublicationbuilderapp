@@ -342,7 +342,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     		
     		layoutBody += "<div class=\"col-sm-4 col-md-4 col-lg-4\"><img  class=\"layout_image\" id=\"layout_"+ i +"\" src='" + layouts.getLayouts().get(i).getProperty("icon") + "'/><h4 class=\"theme_name\">" + layouts.getLayouts().get(i).getProperty("name") + "</h4><p class=\"theme-desc\">" + layouts.getLayouts().get(i).getProperty("description") + "</p></div>";
     		
-    		//cntRow++;
+    		cntRow++;
     		cntLayout++;
     		
     		String layoutStr = layouts.getLayouts().get(i).getProperty("css");
@@ -374,7 +374,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	}
     	layoutBody += "</div>";
     	s.setContent("layoutsContent", layoutBody);
-    	//s.putMsg("layoutsContent", "", "setLayoutClick(" + cntLayout + ")");
+    	s.putMsg("layoutsContent", "", "setLayoutClick(" + cntLayout + ")");
     	
 	}
 	
@@ -387,7 +387,8 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
                 
         //Load color schemes
         themes = new Theme();
-    	String colorSchemesBody = "<div class=\"container\">";
+    	String colorSchemesBody = "<div class=\"container-fluid\"><div class=\"row\"><div class=\"col-sm-12 col-md-12 col-lg-12\"><h1 class=\"layouts-title\">Please select the color scheme for your Video Poster below, alternatively you can edit the font color in the build section.</h1></div></div></div>";
+    	colorSchemesBody += "<div class=\"container\">";
 		int cntRow = 0;
 		int cntTheme = 0;
 		boolean isRow = false;
@@ -399,9 +400,14 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 				
 			}
     
-    		colorSchemesBody += "<div class=\"col-sm-4 col-md-4 col-lg-4\"><h3 class=\"theme_name\">" + themes.getThemes().get(i).getProperty("name") + "</h3><img  class=\"scheme_image\" id=\"theme_"+ i +"\" src='" + themes.getThemes().get(i).getProperty("icon") + "'/></div>";    
+    		colorSchemesBody += "<div class=\"col-sm-4 col-md-4 col-lg-4\"><div class=\"inner-div-scheme\"><img  class=\"scheme_image\" id=\"theme_"+ i +"\" src='" + themes.getThemes().get(i).getProperty("icon") + "'/><h3 class=\"theme_name\">" + themes.getThemes().get(i).getProperty("name") + "</h3></div></div>";    
+   
+      		System.out.println("===========================CNT THEMES===========================");
+    		System.out.println(cntTheme);
+    		
     		cntRow++;
     		cntTheme++;
+  
     		styleWithId.put(themes.getThemes().get(i).getProperty("css").trim(), "theme_"+ i);
 
     		if(isRow == true) {
@@ -425,7 +431,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	
 		colorSchemesBody += "</div>";    		
     	s.setContent("colorschemesContent", colorSchemesBody);
-        //s.putMsg("colorschemesContent", "", "setThemeClick(" + cntTheme + ")");
+        s.putMsg("colorschemesContent", "", "setThemeClick(" + cntTheme + ")");
 
 	}
 	//Action Preview
