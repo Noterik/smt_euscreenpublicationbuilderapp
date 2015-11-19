@@ -95,6 +95,8 @@ a:hover {
 #colorschemesContent {
 	background-color: #fff;
 	padding-bottom: 130px;
+	margin-top: 16px;
+   /*border-top: 1px solid #E8E8E8;*/
 }
 
 #left {
@@ -122,6 +124,7 @@ a:hover {
 	margin-bottom: 20px;*/
 	background-color: transparent;
 	border: none;
+	margin-top: 30px;
 }
 
 /*#middle {
@@ -231,7 +234,7 @@ a:hover {
 	background: url("http://pb.euscreenxl.eu/eddie/apps/euscreenpublicationbuilder/img/menu-arrow.png");
 	background-repeat: no-repeat;
     background-position: center bottom;
-    height: 43px;
+    height: 44px;
 }
 
 #mceu_13 {

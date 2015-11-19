@@ -379,7 +379,8 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
                 
         //Load color schemes
         themes = new Theme();
-    	String colorSchemesBody = "<div class=\"container\">";
+    	String colorSchemesBody = "<div class=\"container-fluid\"><div class=\"row\"><div class=\"col-sm-12 col-md-12 col-lg-12\"><h1 class=\"layouts-title\">Please select the color scheme for your Video Poster below, alternatively you can edit the font color in the build section.</h1></div></div></div>";
+    	colorSchemesBody += "<div class=\"container\">";
 		int cntRow = 0;
 		boolean isRow = false;
     	for(int i = 0; i < themes.getThemes().size(); i++) {
