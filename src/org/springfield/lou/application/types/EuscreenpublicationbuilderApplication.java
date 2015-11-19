@@ -223,7 +223,8 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     }
     
 	public void actionSetlayout(Screen s, String c) {
-		System.out.println("actionSetlayout(" + c + ")");
+		System.out.println("======== actionSetlayout(" + c + ") ========");
+		 
 		if(c.equals("0")){
 			FsNode node = layouts.getLayoutBy(0);
 			setCurrentLayout(node);
@@ -259,6 +260,8 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 
 	//Set theme actions
 	 public void actionSettheme(Screen s, String c) {
+		 System.out.println("======== actionSettheme(" + c + ") ========");
+		 System.out.println(c);
 		 if(c.equals("0")) {
 	    	FsNode node = themes.getLayoutBy(0);
 	    	setCurrentTheme(node);
@@ -325,6 +328,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
         layouts = new Layout();
     	String layoutBody = "<div class=\"container-fluid\"><div class=\"row\"><div class=\"col-sm-12 col-md-12 col-lg-12\"><h1 class=\"layouts-title\">Please select the available video poster layout below. Remember that this is one-time only, once you select a layout there is no coming back</h1></div></div></div>";
 		int cntRow = 0;
+		int cntLayout = 0;
 		boolean isRow = false;
 		
 		layoutBody += "<div class=\"container\">";
@@ -338,11 +342,15 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     		
     		layoutBody += "<div class=\"col-sm-4 col-md-4 col-lg-4\"><img  class=\"layout_image\" id=\"layout_"+ i +"\" src='" + layouts.getLayouts().get(i).getProperty("icon") + "'/><h4 class=\"theme_name\">" + layouts.getLayouts().get(i).getProperty("name") + "</h4><p class=\"theme-desc\">" + layouts.getLayouts().get(i).getProperty("description") + "</p></div>";
     		
+    		//cntRow++;
+    		cntLayout++;
+    		
     		String layoutStr = layouts.getLayouts().get(i).getProperty("css");
     		String[] splits = layoutStr.split("/");
     		String lo = splits[splits.length -1];
     		lo = lo.trim();
     		layoutWithStyle.put(lo, "layout_"+ i);
+    		
     		
     		if(isRow == true) {
 	    		if(layouts.getLayouts().size() > 3){
@@ -366,7 +374,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	}
     	layoutBody += "</div>";
     	s.setContent("layoutsContent", layoutBody);
-    	//s.putMsg("layoutsContent", "", "setLayoutClick(" + cnt + ")");
+    	//s.putMsg("layoutsContent", "", "setLayoutClick(" + cntLayout + ")");
     	
 	}
 	
@@ -381,6 +389,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
         themes = new Theme();
     	String colorSchemesBody = "<div class=\"container\">";
 		int cntRow = 0;
+		int cntTheme = 0;
 		boolean isRow = false;
     	for(int i = 0; i < themes.getThemes().size(); i++) {
 			
@@ -392,7 +401,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     
     		colorSchemesBody += "<div class=\"col-sm-4 col-md-4 col-lg-4\"><h3 class=\"theme_name\">" + themes.getThemes().get(i).getProperty("name") + "</h3><img  class=\"scheme_image\" id=\"theme_"+ i +"\" src='" + themes.getThemes().get(i).getProperty("icon") + "'/></div>";    
     		cntRow++;
-
+    		cntTheme++;
     		styleWithId.put(themes.getThemes().get(i).getProperty("css").trim(), "theme_"+ i);
 
     		if(isRow == true) {
@@ -416,6 +425,8 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	
 		colorSchemesBody += "</div>";    		
     	s.setContent("colorschemesContent", colorSchemesBody);
+        //s.putMsg("colorschemesContent", "", "setThemeClick(" + cntTheme + ")");
+
 	}
 	//Action Preview
 	public void actionPreview(Screen s, String c) {
