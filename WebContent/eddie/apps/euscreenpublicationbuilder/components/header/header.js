@@ -193,7 +193,7 @@ $( ".nav-arrow-togle" ).click(function() {
         	eddie.putLou("", "generatecolorschemes()");
         break;
     case "build" :
-    		//TODO
+    		eddie.putLou("", "generatebuild()");
     	break;
     default:
 		break;

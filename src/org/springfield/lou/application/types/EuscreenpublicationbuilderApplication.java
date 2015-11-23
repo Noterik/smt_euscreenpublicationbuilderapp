@@ -90,6 +90,8 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
         loadContent(s, "comparison");
         loadContent(s, "header");
         loadContent(s, "iframesender");
+        actionGeneratelayout(s, "");
+
         //loadContent(s, "left");     
         loadContent(s, "section");
         //loadContent(s, "right");
@@ -97,72 +99,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
         //Get Current user
         this.getCurrentUser(s);
         
-        //Load bookmarks
-    	bookmarks = new Bookmarks(currentUser);
-    	String bookmarkLayout = "<div class=\"right-header\" id=\"right_header_0\">Bookmarks</div>";
- 		bookmarkLayout += "<div id=\"toggle_0\" class=\"tgl\">";
-
-     	int cnt_bookmark = 0;
-     	for (Bookmark bmi : bookmarks.getBookmarklist()) {
-     		System.out.println(bmi.getIsPublic());
-     		String id = "bookmark_"+ cnt_bookmark;
-    		bookmarkLayout += "<div id=\"" + id +"\" class=\"drag_bookmark\"><video  poster='"+bmi.getScreenshot()+"' src=\"" + bmi.getVideo() + "\" controls></video></div>";
-    		bookmarkLayout += "<script type=\"text/javascript\">"
-    				+ "eddie.getComponent('embedlib').loaded().then(function(){"
-    				+ "		EuScreen.getVideo({src: '" + bmi.getVideo() + "', poster: '" + bmi.getScreenshot() + "', controls: true}, function(html){"
-    				+ "			jQuery('#" + id + "').html(html);"
-    				+ "		});"
-    				+ "});</script>";
-			cnt_bookmark++;
-		}
-     	bookmarkLayout += "</div>";
-     	
-     	//Load collections
-     	Collections collections = new Collections(currentUser);    	
-     	int cnt_header = 1;
-     	for (Collection col : collections.getCollectionlist()) {
-     		String right_header_div_id = "right_header_" + cnt_header;
-     		String right_toggle_div_id = "toggle_" + cnt_header;
-     		bookmarkLayout += "<div class=\"right-header\" id='" + right_header_div_id + "'>" + col.getName() + "</div>";
-     		bookmarkLayout += "<div id='" + right_toggle_div_id + "' class=\"tgl\">";
-     		for (Bookmark bk : col.getVideos()) {
-
-     			try{
-	     			String id = "bookmark_" + cnt_bookmark;
-	     			String src = bk.getVideo();
-	     			if(src != null && src.contains("http://")){
-	     				bookmarkLayout += "<div id=\"" + id + "\" class=\"drag_bookmark\"><video poster='"+bk.getScreenshot()+"' data-src='" + bk.getVideo() + "' controls></video></div>";
-	            		bookmarkLayout += "<script type=\"text/javascript\">"
-	            				+ "eddie.getComponent('embedlib').loaded().then(function(){"
-	            				+ "		EuScreen.getVideo({src: '" + src + "', poster: '" + bk.getScreenshot() + "', controls: true}, function(html){"
-	            				+ "			jQuery('#" + id + "').html(html);"
-	            				+ "		});"
-	            				+ "});</script>";
-	            		cnt_bookmark++;
-	     			}
-     			}catch(Exception e){
-     				e.printStackTrace();
-     			}
-        		
-			}
-     		bookmarkLayout += "</div>";
-     		cnt_header++;
-		}
-    	
-    	//s.setContent("bookmarklayout", bookmarkLayout);
-    	
-
-    	
-    	
-    	//s.setContent("color_schemes", themeBody);
-    	
-       //s.putMsg("left", "", "setThemeClick(" + cntThema + ")");
-    	//s.putMsg("left", "", "approveTheme()");
-
-    	//s.setDiv("left-header-theme", "bind:mousedown","approveTheme" , this);
-    	
-    	
-     	s.putMsg("right", "", "closeAll(" + cnt_header + ")");
      	
         //Catch modes
         if(s.getParameter("status").equals("edit")){
@@ -224,7 +160,8 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     
 	public void actionSetlayout(Screen s, String c) {
 		System.out.println("======== actionSetlayout(" + c + ") ========");
-		 
+        this.loadBookmarks(s);
+
 		if(c.equals("0")){
 			FsNode node = layouts.getLayoutBy(0);
 			setCurrentLayout(node);
@@ -232,8 +169,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 			JSONObject message = new JSONObject();
 			message.put("html", node.getProperty("template"));
 			message.put("style", node.getProperty("css"));
-			s.putMsg("layout", "", "update(" + message + ")");
-			s.putMsg("left", "", "accordion(" + ")");
+			s.putMsg("buildContent", "", "update(" + message + ")");
 		
 		}else if(c.equals("1")) {
 			FsNode node = layouts.getLayoutBy(1);
@@ -242,8 +178,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	    	JSONObject message = new JSONObject();
 	    	message.put("html", node.getProperty("template"));
 	    	message.put("style", node.getProperty("css"));
-	    	s.putMsg("layout", "", "update(" + message + ")");
-	    	s.putMsg("left", "", "accordion(" + ")");
+	    	s.putMsg("buildContent", "", "update(" + message + ")");
 		
 		}else if(c.equals("2")) {
 	    	FsNode node = layouts.getLayoutBy(2);
@@ -252,78 +187,125 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	    	JSONObject message = new JSONObject();
 	    	message.put("html", node.getProperty("template"));
 	    	message.put("style", node.getProperty("css"));
-	    	s.putMsg("layout", "", "update(" + message + ")");
-	    	s.putMsg("left", "", "accordion(" + ")");
+	    	s.putMsg("buildContent", "", "update(" + message + ")");
 		}
 
 	}
+	
+    //Load bookmarks
+	public void loadBookmarks(Screen s) {
+    	bookmarks = new Bookmarks(currentUser);
+    	String bookmarkLayout = "<div class=\"right-header\" id=\"right_header_0\">Bookmarks</div>";
+ 		bookmarkLayout += "<div id=\"toggle_0\" class=\"tgl\">";
 
+     	int cnt_bookmark = 0;
+     	for (Bookmark bmi : bookmarks.getBookmarklist()) {
+     		System.out.println(bmi.getIsPublic());
+     		String id = "bookmark_"+ cnt_bookmark;
+    		bookmarkLayout += "<div id=\"" + id +"\" class=\"drag_bookmark\"><video  poster='"+bmi.getScreenshot()+"' src=\"" + bmi.getVideo() + "\" controls></video></div>";
+    		bookmarkLayout += "<script type=\"text/javascript\">"
+    				+ "eddie.getComponent('embedlib').loaded().then(function(){"
+    				+ "		EuScreen.getVideo({src: '" + bmi.getVideo() + "', poster: '" + bmi.getScreenshot() + "', controls: true}, function(html){"
+    				+ "			jQuery('#" + id + "').html(html);"
+    				+ "		});"
+    				+ "});</script>";
+			cnt_bookmark++;
+		}
+     	bookmarkLayout += "</div>";
+     	
+     	//Load collections
+     	Collections collections = new Collections(currentUser);    	
+     	int cnt_header = 1;
+     	for (Collection col : collections.getCollectionlist()) {
+     		String right_header_div_id = "right_header_" + cnt_header;
+     		String right_toggle_div_id = "toggle_" + cnt_header;
+     		bookmarkLayout += "<div class=\"right-header\" id='" + right_header_div_id + "'>" + col.getName() + "</div>";
+     		bookmarkLayout += "<div id='" + right_toggle_div_id + "' class=\"tgl\">";
+     		for (Bookmark bk : col.getVideos()) {
+
+     			try{
+	     			String id = "bookmark_" + cnt_bookmark;
+	     			String src = bk.getVideo();
+	     			if(src != null && src.contains("http://")){
+	     				bookmarkLayout += "<div id=\"" + id + "\" class=\"drag_bookmark\"><video poster='"+bk.getScreenshot()+"' data-src='" + bk.getVideo() + "' controls></video></div>";
+	            		bookmarkLayout += "<script type=\"text/javascript\">"
+	            				+ "eddie.getComponent('embedlib').loaded().then(function(){"
+	            				+ "		EuScreen.getVideo({src: '" + src + "', poster: '" + bk.getScreenshot() + "', controls: true}, function(html){"
+	            				+ "			jQuery('#" + id + "').html(html);"
+	            				+ "		});"
+	            				+ "});</script>";
+	            		cnt_bookmark++;
+	     			}
+     			}catch(Exception e){
+     				e.printStackTrace();
+     			}
+        		
+			}
+     		bookmarkLayout += "</div>";
+     		cnt_header++;
+		}
+     	
+    	s.setContent("bookmarklayout", bookmarkLayout);
+     	s.putMsg("bookmarksContent", "", "closeAll(" + cnt_header + ")");
+	}
+	
+	
 	//Set theme actions
 	 public void actionSettheme(Screen s, String c) {
 		 System.out.println("======== actionSettheme(" + c + ") ========");
-		 System.out.println(c);
+	
 		 if(c.equals("0")) {
 	    	FsNode node = themes.getLayoutBy(0);
 	    	setCurrentTheme(node);
 	    	JSONObject message = new JSONObject();
 	    	message.put("style", node.getProperty("css"));
-	    	s.putMsg("layout", "", "setTheme(" + message + ")");
-	    	s.putMsg("left", "", "accordionThemes(" + ")");
+	    	s.putMsg("buildContent", "", "setTheme(" + message + ")");
 	    	
 		 } else if (c.equals("1")) {
 	    	FsNode node = themes.getLayoutBy(1);
 	    	setCurrentTheme(node);
 	    	JSONObject message = new JSONObject();
 	    	message.put("style", node.getProperty("css"));
-	    	s.putMsg("layout", "", "setTheme(" + message + ")");
-	    	s.putMsg("left", "", "accordionThemes(" + ")");
+	    	s.putMsg("buildContent", "", "setTheme(" + message + ")");
 		    	
 		 }else if (c.equals("2")) {
 	    	FsNode node = themes.getLayoutBy(2);
 	    	setCurrentTheme(node);
 	    	JSONObject message = new JSONObject();
 	    	message.put("style", node.getProperty("css"));
-	    	s.putMsg("layout", "", "setTheme(" + message + ")");
-	    	s.putMsg("left", "", "accordionThemes(" + ")");
+	    	s.putMsg("buildContent", "", "setTheme(" + message + ")");
 	    	
 		 }else if (c.equals("3")) {
 	    	FsNode node = themes.getLayoutBy(3);
 	    	setCurrentTheme(node);
 	    	JSONObject message = new JSONObject();
 	    	message.put("style", node.getProperty("css"));
-	    	s.putMsg("layout", "", "setTheme(" + message + ")");
-	    	s.putMsg("left", "", "accordionThemes(" + ")");
+	    	s.putMsg("buildContent", "", "setTheme(" + message + ")");
 	    	
 		 }else if (c.equals("4")) {
 	    	FsNode node = themes.getLayoutBy(4);
 	    	setCurrentTheme(node);
 	    	JSONObject message = new JSONObject();
 	    	message.put("style", node.getProperty("css"));
-	    	s.putMsg("layout", "", "setTheme(" + message + ")");
-	    	s.putMsg("left", "", "accordionThemes(" + ")"); 
+	    	s.putMsg("buildContent", "", "setTheme(" + message + ")");
 	    	
 		 }else if (c.equals("5")) {
 	    	FsNode node = themes.getLayoutBy(5);
 	    	setCurrentTheme(node);
 	    	JSONObject message = new JSONObject();
 	    	message.put("style", node.getProperty("css"));
-	    	s.putMsg("layout", "", "setTheme(" + message + ")");
-	    	s.putMsg("left", "", "accordionThemes(" + ")");
+	    	s.putMsg("buildContent", "", "setTheme(" + message + ")");
 	    	
 		 }
 	 }
 	
-	 //Approve theme
-	 public void actionApprovetheme(Screen s, String c) {
-		 s.putMsg("left", "", "accordionThemes(" + ")");
-	     loadStyleSheet(s, "tinycolorpicker");
-	 }
-	 
 	//Generate layout
 	public void actionGeneratelayout(Screen s, String c) {
 		System.out.println("actionGenerateLayout()");
         this.loadContent(s, "layoutsContent");
-                
+        this.loadContent(s, "buildContent");
+        this.loadContent(s, "bookmarksContent");
+
         //Load layouts
         layouts = new Layout();
     	String layoutBody = "<div class=\"container\"><div class=\"row\"><div class=\"col-sm-12 col-md-12 col-lg-12\"><h1 class=\"layouts-title\">Please select the available video poster layout below. Remember that this is one-time only, once you select a layout there is no coming back</h1></div></div></div>";
@@ -373,6 +355,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	    	}
     	}
     	layoutBody += "</div>";
+
     	s.setContent("layoutsContent", layoutBody);
     	s.putMsg("layoutsContent", "", "setLayoutClick(" + cntLayout + ")");
     	
@@ -429,8 +412,15 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 		colorSchemesBody += "</div>";    		
     	s.setContent("colorschemesContent", colorSchemesBody);
         s.putMsg("colorschemesContent", "", "setThemeClick(" + cntTheme + ")");
-
 	}
+	
+	
+	//Generate build
+	public void actionGeneratebuild(Screen s, String c) {
+		System.out.println("========GENERATE BUILD======");
+    	
+	}
+	
 	//Action Preview
 	public void actionPreview(Screen s, String c) {
 

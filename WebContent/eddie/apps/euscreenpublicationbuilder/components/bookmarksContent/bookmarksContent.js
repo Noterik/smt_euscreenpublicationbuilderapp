@@ -1,6 +1,7 @@
-var Right = function(options){
-	var self = this;
-	Component.apply(this, arguments);	
+var BookmarksContent = function(options){
+	Component.apply(this, arguments);
+	this.element = $("#bookmarksContent");
+	this.element.hide();
 	setInterval(function(){
 		(function(){
 			$('.drag_bookmark').draggable( {
@@ -16,11 +17,12 @@ var Right = function(options){
 		    });
 		}());
 	}, 50);
+	
 }
 
-Right.prototype = Object.create(Component.prototype);
+BookmarksContent.prototype = Object.create(Component.prototype);
 
-Right.prototype.closeAll = function(cnt_header) {
+BookmarksContent.prototype.closeAll = function(cnt_header) {
 	for(var i = 0; i < cnt_header; i++) {
 		$("#toggle_" + i).toggle("fast");
 
@@ -30,14 +32,4 @@ Right.prototype.closeAll = function(cnt_header) {
 			$("#" + toggle_id).toggle("fast");
 		});		
 	}
-}
-
-Right.prototype.accordion = function() {
-    $(".accordion").accordion();
-    
-	$("#left-header-layout").css('background-color', 'lightgray');
-	$("#layouts").toggle( "fast" );
-	
-	$("#left-header-theme").css('background-color', '#00AEEF');
-	$("#color_schemes").toggle("fast");  	
 }
