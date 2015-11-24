@@ -200,7 +200,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 
      	int cnt_bookmark = 0;
      	for (Bookmark bmi : bookmarks.getBookmarklist()) {
-     		System.out.println(bmi.getIsPublic());
+     		System.out.println("BOOKMARK IS PUBLIC = " + bmi.getIsPublic());
      		String id = "bookmark_"+ cnt_bookmark;
     		bookmarkLayout += "<div id=\"" + id +"\" class=\"drag_bookmark\"><video  poster='"+bmi.getScreenshot()+"' src=\"" + bmi.getVideo() + "\" controls></video></div>";
     		bookmarkLayout += "<script type=\"text/javascript\">"
@@ -222,6 +222,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
      		bookmarkLayout += "<div class=\"right-header\" id='" + right_header_div_id + "'>" + col.getName() + "</div>";
      		bookmarkLayout += "<div id='" + right_toggle_div_id + "' class=\"tgl\">";
      		for (Bookmark bk : col.getVideos()) {
+         		System.out.println("BOOKMARK IS PUBLIC = " + bk.getIsPublic());
 
      			try{
 	     			String id = "bookmark_" + cnt_bookmark;
