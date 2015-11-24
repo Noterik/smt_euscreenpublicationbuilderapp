@@ -1,8 +1,8 @@
 var BuildContent = function(options){
-	 this.element = jQuery("#buildContent");
+	 this.element = jQuery("#buildCont");
 	 Component.apply(this, arguments);
 	 
-	 this.element.hide();
+	 jQuery("#buildContent").hide();
 }
 BuildContent.prototype = Object.create(Component.prototype);
 
@@ -39,6 +39,8 @@ BuildContent.prototype.update = function(message){
 		 $('head').append(styleElement);
 		 if(data.html){
 			 styleElement.load(function(){
+				 console.log("============== BUILD CONTENT ==============");
+				 console.log(self.element);
 				 self.element.html(data.html);
 				 self.initTinyMce();
 				 $('.title').each(function(index){

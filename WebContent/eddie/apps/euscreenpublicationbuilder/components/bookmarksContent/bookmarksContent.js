@@ -1,7 +1,6 @@
 var BookmarksContent = function(options){
 	Component.apply(this, arguments);
-	this.element = $("#bookmarksContent");
-	this.element.hide();
+	this.element = $("#bookmarksCont");
 	setInterval(function(){
 		(function(){
 			$('.drag_bookmark').draggable( {

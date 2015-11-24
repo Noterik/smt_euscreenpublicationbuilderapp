@@ -93,7 +93,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
         actionGeneratelayout(s, "");
 
         //loadContent(s, "left");     
-        loadContent(s, "section");
         //loadContent(s, "right");
         
         //Get Current user
@@ -160,6 +159,9 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     
 	public void actionSetlayout(Screen s, String c) {
 		System.out.println("======== actionSetlayout(" + c + ") ========");
+        loadContent(s, "buildContent");
+        loadContent(s, "bookmarksContent");
+        
         this.loadBookmarks(s);
 
 		if(c.equals("0")){
@@ -246,6 +248,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
      		cnt_header++;
 		}
      	
+     	
     	s.setContent("bookmarklayout", bookmarkLayout);
      	s.putMsg("bookmarksContent", "", "closeAll(" + cnt_header + ")");
 	}
@@ -304,8 +307,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	public void actionGeneratelayout(Screen s, String c) {
 		System.out.println("actionGenerateLayout()");
         this.loadContent(s, "layoutsContent");
-        this.loadContent(s, "buildContent");
-        this.loadContent(s, "bookmarksContent");
+
 
         //Load layouts
         layouts = new Layout();

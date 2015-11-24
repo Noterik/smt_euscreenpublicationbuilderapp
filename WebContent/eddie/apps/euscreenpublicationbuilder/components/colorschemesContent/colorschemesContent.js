@@ -28,7 +28,7 @@ ColorschemesContent.prototype.bindThemeClick = function(i) {
 ColorschemesContent.prototype.closeThemesTab = function () {
 	$("#colorschemesContent").hide();
 	$("#buildContent").show();
-	$("#bookmarksContent").show();
+	
 	$colorSchemes = $("#color-schemes");
 	$colorSchemes.removeClass("arrow-pinter");	
 	
