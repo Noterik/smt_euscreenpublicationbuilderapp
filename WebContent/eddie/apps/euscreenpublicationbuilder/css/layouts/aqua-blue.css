@@ -1,7 +1,17 @@
-.top {
-    background-color: rgba(0, 225, 255, 0.5);
+.comparison_page {
+    overflow-y: auto;
+    background-image: url("../../img/layouts/green-bg.jpg");
+    background-repeat: repeat;
 }
 
 .border {
-	border-bottom: 2px solid #7FF0FF;
+    border-bottom: 4px solid #afd779;
+    width: 75px;
+    margin: 0 auto;
+}
+
+.media_item {
+	margin-bottom: 25px;
+    height: 200px;
+    background-color: #afd779;
 }
