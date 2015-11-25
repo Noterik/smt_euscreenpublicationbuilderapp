@@ -8,12 +8,12 @@ footer {
 }
 
 .media_item {
-	position: relative;
+	/*position: relative;
 	border: 1px solid black;
+	box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);*/
 	margin-bottom: 25px;
 	height: 200px;
 	background-color: rgba(255, 255, 255, 0.5);
-	box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .media_item video{
