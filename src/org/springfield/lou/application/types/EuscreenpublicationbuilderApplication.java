@@ -200,7 +200,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	String bookmarkLayout = "<div class=\"right-header\" id=\"right_header_0\">Bookmarks</div>";
  		bookmarkLayout += "<div id=\"toggle_0\" class=\"tgl\">";
  
- 		String colectionsLayout = "";
+ 		String collectionsLayout = "<div class=\"right-header\" id=\"collections\">Collections</div>";
 
      	int cnt_bookmark = 0;
      	for (Bookmark bmi : bookmarks.getBookmarklist()) {
@@ -223,8 +223,8 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
      	for (Collection col : collections.getCollectionlist()) {
      		String right_header_div_id = "right_header_" + cnt_header;
      		String right_toggle_div_id = "toggle_" + cnt_header;
-     		colectionsLayout += "<div class=\"right-header\" id='" + right_header_div_id + "'>" + col.getName() + "</div>";
-     		colectionsLayout += "<div id='" + right_toggle_div_id + "' class=\"tgl\">";
+     		collectionsLayout += "<div class=\"right-header collection-header\" id='" + right_header_div_id + "'>" + col.getName() + "</div>";
+     		collectionsLayout += "<div id='" + right_toggle_div_id + "' class=\"tgl\">";
      		for (Bookmark bk : col.getVideos()) {
          		System.out.println("BOOKMARK IS PUBLIC = " + bk.getIsPublic());
 
@@ -232,8 +232,8 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	     			String id = "bookmark_" + cnt_bookmark;
 	     			String src = bk.getVideo();
 	     			if(src != null && src.contains("http://")){
-	     				colectionsLayout += "<div id=\"" + id + "\" class=\"drag_bookmark\"><video poster='"+bk.getScreenshot()+"' data-src='" + bk.getVideo() + "' controls></video></div>";
-	     				colectionsLayout += "<script type=\"text/javascript\">"
+	     				collectionsLayout += "<div id=\"" + id + "\" class=\"drag_bookmark\"><video poster='"+bk.getScreenshot()+"' data-src='" + bk.getVideo() + "' controls></video></div>";
+	     				collectionsLayout += "<script type=\"text/javascript\">"
 	            				+ "eddie.getComponent('embedlib').loaded().then(function(){"
 	            				+ "		EuScreen.getVideo({src: '" + src + "', poster: '" + bk.getScreenshot() + "', controls: true}, function(html){"
 	            				+ "			jQuery('#" + id + "').html(html);"
@@ -246,15 +246,15 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
      			}
         		
 			}
-     		colectionsLayout += "</div>";
-     		System.out.println(colectionsLayout);
+     		collectionsLayout += "</div>";
+     		System.out.println(collectionsLayout);
      		cnt_header++;
 		}
-     	System.out.println("================================");
-     	System.out.println(colectionsLayout);
-     	
+   
+     	collectionsLayout += "</div>"; 
+     	collectionsLayout += "</div>"; 
     	s.setContent("bookmarklayout", bookmarkLayout);
-    	s.setContent("colectionslayout", colectionsLayout);
+    	s.setContent("colectionslayout", collectionsLayout);
      	s.putMsg("bookmarksContent", "", "closeAll(" + cnt_header + ")");
 	}
 	

@@ -1,0 +1,22 @@
+.comparison_page {
+    overflow-y: auto;
+    background-image: url("../../img/layouts/red-bg.jpg");
+    background-repeat: repeat;
+}
+
+.border {
+    border-bottom: 4px solid #f89fd4;
+    width: 75px;
+    margin: 0 auto;
+	margin-bottom: 20px;
+}
+
+.media_item {
+	margin-bottom: 25px;
+    height: 200px;
+    background-color: #f89fd4;
+}
+
+.title {
+    color: #c079a3;
+}

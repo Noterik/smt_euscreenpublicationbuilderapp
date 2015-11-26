@@ -1,0 +1,22 @@
+.comparison_page {
+    overflow-y: auto;
+    background-image: url("../../img/layouts/black-bg.jpg");
+    background-repeat: repeat;
+}
+
+.border {
+    border-bottom: 4px solid #4d4d4d;
+    width: 75px;
+    margin: 0 auto;
+	margin-bottom: 20px;
+}
+
+.media_item {
+	margin-bottom: 25px;
+    height: 200px;
+    background-color: #4d4d4d;
+}
+
+.title {
+    color: #fff;
+}

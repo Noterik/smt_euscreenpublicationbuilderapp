@@ -98,6 +98,10 @@ a:hover {
 	
 }
 
+#right_header_1 {
+    cursor: pointer;
+}
+
 #right {
 	/*float: right;
 	width: 10%;
@@ -105,52 +109,62 @@ a:hover {
 	background-color: #FFF;
 }
 
-#right-header {
-	background-color: #AFD779;
-	padding: 5px;
-	text-align: center;
-	color: white;
-	border-bottom: 2px solid #F2F2F2;
-	font-family: "Titillium Web","DIN","Helvetica Neue",Monaco,"Andale Mono",Consolas,monospace;
+.tgl {
+	-ms-transform: rotate(135deg); 
+    -webkit-transform: rotate(135deg);
+    transform: rotate(135deg);
 }
 
-#left-header-layout {
-	background-color: #00AEEF;
-	padding: 5px;
-	/*margin-bottom: 10px;*/
-	text-align: center;
-	color: white;
-	border-bottom: 2px solid #F2F2F2;
-	font-family: "Titillium Web","DIN","Helvetica Neue",Monaco,"Andale Mono",Consolas,monospace;
+.side-box-wrapp-top {
+    width: 100%;
+    border-bottom: 4px solid #afd779; 
+    height: 54px;
 }
 
-#left-header-theme {
-	background-color: #00AEEF;
-	padding: 5px;
-	/*margin-bottom: 10px;*/
-	text-align: center;
-	color: white;
-	border-bottom: 2px solid #F2F2F2;
-	font-family: "Titillium Web","DIN","Helvetica Neue",Monaco,"Andale Mono",Consolas,monospace;
+#bookmarklayout {
+	float: left;
+    padding: 15px 50px;
+    background-color: #afd779;
 }
 
-#left-header-background {
-	background-color: #00AEEF;
-	padding: 5px;
-	/*margin-bottom: 10px;*/
-	text-align: center;
-	color: white;
-	border-bottom: 2px solid #F2F2F2;
-	font-family: "Titillium Web","DIN","Helvetica Neue",Monaco,"Andale Mono",Consolas,monospace;
+#colectionslayout {
+	float: left;
+	padding: 15px 49px;
+    background-color: #afd779;
+}
+
+.collection-header {
+	display: none;
+}
+
+.right-header {
+    text-align: center;
+    font-family: "Titillium Web","DIN","Helvetica Neue",Monaco,"Andale Mono",Consolas,monospace;
+}
+
+.additional-icon-1 {
+	width: 33px;
+	height: 24px;
+	background-image: url("../../img/layouts/img/youtube-i.png");
+}
+
+.additional-icon-2 {
+	width: 27px;
+	height: 23px;
+	background-image: url("../../img/layouts/img/vmeo-i.png");
+}
+
+.additional-icon-3 {
+	width: 30px;
+	height: 30px;
+	background-image: url("../../img/layouts/img/plus-i.png");
 }
 
 #layout {
-  	/*background-color: rgb(232, 232, 232);*/
   	background-color: #FFF;
  	overflow: hidden;
  	width: 100%;
 	margin: 0 auto;
-	/*padding: 3%;*/
 }
 
 #mceu_13 {

@@ -1,0 +1,22 @@
+.comparison_page {
+    overflow-y: auto;
+    background-image: url("../../img/layouts/green-bg.jpg");
+    background-repeat: repeat;
+}
+
+.border {
+    border-bottom: 4px solid #afd779;
+    width: 75px;
+    margin: 0 auto;
+	margin-bottom: 20px;
+}
+
+.media_item {
+	margin-bottom: 25px;
+    height: 200px;
+    background-color: #afd779;
+}
+
+.title {
+    color: #87a85b;
+}

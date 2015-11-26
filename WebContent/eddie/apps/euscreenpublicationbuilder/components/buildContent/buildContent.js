@@ -34,6 +34,7 @@ BuildContent.prototype.initTinyMce = function(){
 BuildContent.prototype.update = function(message){
 	 var self = this;
 	 var data = JSON.parse(message);
+	 
 	 if(data.style){
 		 var styleElement = $('<link rel="stylesheet" type="text/css" href="' + data.style + '">');
 		 $('head').append(styleElement);
@@ -52,8 +53,22 @@ BuildContent.prototype.update = function(message){
 		 this.element.html(data.html);
 	 }
 
+
 	var setDropable = setInterval(function(){
 		self.bindContext();
+		
+		// icons toggle
+		 $('.additional-icon-3').click(function() {
+			 $('.additional-icon-1').toggle('slow');
+			 $('.additional-icon-2').toggle('slow');
+			
+			 $( '.additional-icon-3' ).click(function() {
+				  $(this).toggleClass('.tgl');
+			});
+		 });
+		 
+		
+		 
 		$('.media_item').droppable( {
 			accept: '.drag_bookmark',
 			drop: self.handleCardDrop,

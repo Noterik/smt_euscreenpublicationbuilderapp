@@ -22,6 +22,10 @@ var BookmarksContent = function(options){
 BookmarksContent.prototype = Object.create(Component.prototype);
 
 BookmarksContent.prototype.closeAll = function(cnt_header) {
+	$(".collection-header").toggle();
+	$("#collections").bind( "click", function() {
+		 $(".collection-header").toggle();
+	});
 	for(var i = 0; i < cnt_header; i++) {
 		$("#toggle_" + i).toggle("fast");
 
