@@ -216,13 +216,14 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
      	bookmarkLayout += "</div>";
      	
      	//Load collections
+     	String colectionsLayout = "<div>";
      	Collections collections = new Collections(currentUser);    	
      	int cnt_header = 1;
      	for (Collection col : collections.getCollectionlist()) {
      		String right_header_div_id = "right_header_" + cnt_header;
      		String right_toggle_div_id = "toggle_" + cnt_header;
-     		bookmarkLayout += "<div class=\"right-header\" id='" + right_header_div_id + "'>" + col.getName() + "</div>";
-     		bookmarkLayout += "<div id='" + right_toggle_div_id + "' class=\"tgl\">";
+     		colectionsLayout += "<div class=\"right-header\" id='" + right_header_div_id + "'>" + col.getName() + "</div>";
+     		colectionsLayout += "<div id='" + right_toggle_div_id + "' class=\"tgl\">";
      		for (Bookmark bk : col.getVideos()) {
          		System.out.println("BOOKMARK IS PUBLIC = " + bk.getIsPublic());
 
@@ -230,8 +231,8 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	     			String id = "bookmark_" + cnt_bookmark;
 	     			String src = bk.getVideo();
 	     			if(src != null && src.contains("http://")){
-	     				bookmarkLayout += "<div id=\"" + id + "\" class=\"drag_bookmark\"><video poster='"+bk.getScreenshot()+"' data-src='" + bk.getVideo() + "' controls></video></div>";
-	            		bookmarkLayout += "<script type=\"text/javascript\">"
+	     				colectionsLayout += "<div id=\"" + id + "\" class=\"drag_bookmark\"><video poster='"+bk.getScreenshot()+"' data-src='" + bk.getVideo() + "' controls></video></div>";
+	     				colectionsLayout += "<script type=\"text/javascript\">"
 	            				+ "eddie.getComponent('embedlib').loaded().then(function(){"
 	            				+ "		EuScreen.getVideo({src: '" + src + "', poster: '" + bk.getScreenshot() + "', controls: true}, function(html){"
 	            				+ "			jQuery('#" + id + "').html(html);"
@@ -244,12 +245,15 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
      			}
         		
 			}
-     		bookmarkLayout += "</div>";
+     		colectionsLayout += "</div>";
      		cnt_header++;
 		}
-     	
+     	colectionsLayout += "</div>";
+     	System.out.println("========ddsdsf========");
+     	System.out.println(colectionsLayout);
      	
     	s.setContent("bookmarklayout", bookmarkLayout);
+    	s.setContent("colectionslayout", colectionsLayout);
      	s.putMsg("bookmarksContent", "", "closeAll(" + cnt_header + ")");
 	}
 	
