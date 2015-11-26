@@ -199,6 +199,8 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	bookmarks = new Bookmarks(currentUser);
     	String bookmarkLayout = "<div class=\"right-header\" id=\"right_header_0\">Bookmarks</div>";
  		bookmarkLayout += "<div id=\"toggle_0\" class=\"tgl\">";
+ 
+ 		String colectionsLayout = "";
 
      	int cnt_bookmark = 0;
      	for (Bookmark bmi : bookmarks.getBookmarklist()) {
@@ -216,7 +218,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
      	bookmarkLayout += "</div>";
      	
      	//Load collections
-     	String colectionsLayout = "<div>";
      	Collections collections = new Collections(currentUser);    	
      	int cnt_header = 1;
      	for (Collection col : collections.getCollectionlist()) {
@@ -246,10 +247,10 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
         		
 			}
      		colectionsLayout += "</div>";
+     		System.out.println(colectionsLayout);
      		cnt_header++;
 		}
-     	colectionsLayout += "</div>";
-     	System.out.println("========ddsdsf========");
+     	System.out.println("================================");
      	System.out.println(colectionsLayout);
      	
     	s.setContent("bookmarklayout", bookmarkLayout);
