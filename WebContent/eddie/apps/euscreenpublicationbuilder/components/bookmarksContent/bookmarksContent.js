@@ -1,6 +1,6 @@
 var BookmarksContent = function(options){
 	Component.apply(this, arguments);
-	this.element = $("#bookmarksCont");
+	var self = this;
 	setInterval(function(){
 		(function(){
 			$('.drag_bookmark').draggable( {
@@ -10,8 +10,6 @@ var BookmarksContent = function(options){
 		      revertDuration: 0,
 		      //helper: 'clone',
 		      stop: function(ui, event){
-		    	  console.log("UI", ui);
-		    	  console.log("EVENT", event);
 		      }
 		    });
 		}());

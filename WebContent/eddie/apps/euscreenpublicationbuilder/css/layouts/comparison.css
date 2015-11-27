@@ -152,3 +152,36 @@ footer {
   	background: rgba(0, 0, 0, 0.2) none repeat scroll 0% 0%;
 	color: white;
 }
+
+.additional-icon-1 {
+	width: 33px;
+	height: 24px;
+    position: absolute;
+    bottom: 55px;
+    right: 71px;
+    display: none;
+	background-image: url("../../img/youtube-i.png");
+}
+
+.additional-icon-2 {
+	width: 27px;
+	height: 23px;
+	position: absolute;
+    bottom: 91px;
+    right: 40px;
+    display: none;
+	background-image: url("../../img/vmeo-i.png");
+}
+
+.additional-icon-3 {
+	width: 30px;
+	height: 30px;
+    position: absolute;
+    bottom: 45px;
+    right: 20px;
+	background-image: url("../../img/plus-i.png");
+}
+
+.no-pd {
+	padding: 0;
+}

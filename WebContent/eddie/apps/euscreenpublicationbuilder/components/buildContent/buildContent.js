@@ -40,40 +40,54 @@ BuildContent.prototype.update = function(message){
 		 $('head').append(styleElement);
 		 if(data.html){
 			 styleElement.load(function(){
-				 console.log("============== BUILD CONTENT ==============");
-				 console.log(self.element);
+				 
 				 self.element.html(data.html);
 				 self.initTinyMce();
+				 
 				 $('.title').each(function(index){
 					 $(this).attr('contenteditable','true');
 				 });
+				 
 			 });
 		 }
 	 }else if(data.html){
 		 this.element.html(data.html);
+		 
 	 }
 
 
-	var setDropable = setInterval(function(){
-		self.bindContext();
+	var setDropable = setInterval(function(){		
+		self.bindToggleEvents(); 
 		
-		// icons toggle
-		 $('.additional-icon-3').click(function() {
-			 $(this).toggleClass('tgl-rotate');
-			 $('.additional-icon-1').toggle('slow');
-			 $('.additional-icon-2').toggle('slow');
-		 });
-		 
-		$('.media_item').droppable( {
-			accept: '.drag_bookmark',
-			drop: self.handleCardDrop,
+		$('.media_item').droppable({
+			accept: 'div.drag_bookmark',
+			drop: self.handleCardDrop
 		});
 
-		if($('.media_item').attr('class') == 'media_item ui-droppable'){
+		if($('.media_item').attr('class') == "media_item ui-droppable"){
 			clearInterval(setDropable);
 		}
 
 	}, 50);
+}
+
+BuildContent.prototype.bindToggleEvents = function() {
+	BuildContent.prototype.bindContext();
+
+	$('.additional-icon-3').unbind('click').click(function(event) {
+		event.stopPropagation();
+		event.preventDefault();
+		 $(this).parent().children().each(function() {
+			 
+			if($(this).attr("class").indexOf("additional-icon-3") !=-1){
+				$(this).toggleClass('tgl-rotate');
+				
+			}else {
+			
+				$(this).toggle('slow');
+			}				
+		});
+	 });
 }
 
 BuildContent.prototype.edit = function(message){
@@ -99,13 +113,13 @@ BuildContent.prototype.edit = function(message){
 											baseElement.draggable({ disabled: true });
 											$($(this).parent()[0]).children(0).remove();
 
-											baseElement.append("<div class=\"plus_icon\"></div>");
-											console.log(window.BuildContent.prototype);
-											window.BuildContent.prototype.bindContext();
+											baseElement.html("<div id=\"youtube-input\" class=\"additional-icon-1 additional-icon\"></div> <div id=\"vmeo-input\" class=\"additional-icon-2 additional-icon\"></div><div class=\"additional-icon-3\"></div>");
+											BuildContent.prototype.bindToggleEvents();
 										});
 
 									}else{
-										$("#" + value.id).html("<div class=\"plus_icon\"></div>");
+										$("#" + value.id).html("<div id=\"youtube-input\" class=\"additional-icon-1 additional-icon\"></div> <div id=\"vmeo-input\" class=\"additional-icon-2 additional-icon\"></div><div class=\"additional-icon-3\"></div>");
+										BuildContent.prototype.bindToggleEvents();
 									}
 							break;
 						case "text_item":
@@ -127,7 +141,7 @@ BuildContent.prototype.setTheme = function(message){
  	var self = this;
  	console.log("BuildContent.setTheme(" + message + ")");
  	var data = JSON.parse(message);
- 	console.log("=============SET THEME================");
+
  	if(data.style){
  		$('#buildContent').removeAttr('style');
   		var styleElement = $('<link rel="stylesheet" type="text/css" href="' + data.style + '">');
@@ -135,10 +149,11 @@ BuildContent.prototype.setTheme = function(message){
  	}
 }
 
-
+//SET MEDIA ITEM BIND REMOVE BUTTON
 BuildContent.prototype.setmediaitem = function (message) {
 	var data = JSON.parse(message);
 	var self = this;
+	
 	$(data.container).html(data.video).droppable("option", "disabled", true);
 	$(data.container).append("<div class=\"removeVideo\">Remove video</div>");
 	$(data.container).attr("aria-disabled", "true");
@@ -146,34 +161,43 @@ BuildContent.prototype.setmediaitem = function (message) {
 
 	$(".removeVideo").click(function(){
 		var baseElement = $($(this).parent()[0]);
+		
 		baseElement.droppable( "option", "disabled", false );
+		
 		baseElement.draggable({ disabled: true });
 
 		$($(this).parent()[0]).children(0).remove();
-
-
-		baseElement.append("<div class=\"plus_icon\"></div>");
-		self.bindContext();
+		
+		//There is some position relative inline we are before release I'll remove it in js
+		baseElement.removeAttr("style");
+		baseElement.append("<div id=\"youtube-input\" class=\"additional-icon-1 additional-icon\"></div> <div id=\"vmeo-input\" class=\"additional-icon-2 additional-icon\"></div><div class=\"additional-icon-3\"></div>");
+		BuildContent.prototype.bindToggleEvents();
 	});
-
 }
 
+//HERE WE CATCH BOOKMARKS DROP
 BuildContent.prototype.handleCardDrop = function ( event, ui ) {
-	console.log("BuildContent.handleCardDrop(", event , ", " , ui , ")");
+	console.log("BuildContent.handleCardDrop(event, event)");
+	
 	var video = ui.helper.find('video');
 	var src = video.attr('src');
+	
+	console.log("MEDIA ITEM SOURCE: " + src);
+
 	src = src.substring(0, src.lastIndexOf("?"));
 	var poster = video.attr('poster');
-
+	
 	eddie.getComponent('embedlib').loaded().then(function(){
 		EuScreen.getVideo({
 			src: src,
 			poster: poster,
 			controls: true
 		}, function(html){
+			
 			var video = $(html)[0];
 			var $target = $(event.target);
 			$target.html(video);
+			
 			var fullScreenIcon = $('<i class=\"fullscreen glyphicon glyphicon-resize-full\"></i>');
 			var removeIcon = $('<i class=\"remove glyphicon glyphicon-remove\"></i>');
 			$target.append(fullScreenIcon);
@@ -189,75 +213,55 @@ BuildContent.prototype.handleCardDrop = function ( event, ui ) {
 				}
 			});
 			removeIcon.on('click', function(){
-				$target.html('<div class="plus_icon"></div>');
-				window.BuildContent.prototype.bindContext();
+				$target.html("<div id=\"youtube-input\" class=\"additional-icon-1 additional-icon\"></div> <div id=\"vmeo-input\" class=\"additional-icon-2 additional-icon\"></div><div class=\"additional-icon-3\"></div>");
+				BuildContent.prototype.bindToggleEvents();
 			});
 		});
 	})
 };
 
+//BIND SUBMIT MEDIA ITEM
 BuildContent.prototype.bindEvent = function() {
 	$('.submit_media_id').click(function(v){
+		v.stopPropagation();
+
 		var data_type = $(this).attr("data-type");
 		var identifier = $($(v).first().get(0).currentTarget.parentElement.firstChild).html()
 		var container = $($(v).first().get(0).currentTarget.parentElement.parentElement).attr("id");
 		var result = JSON.stringify({dataType: data_type, identifier: identifier, container: container});
 		eddie.putLou("", "addexternalidentifire(" + result + ")");
-		v.stopPropagation();
+				
 	});
 }
 
+
+//BIND CONTEXT
 BuildContent.prototype.bindContext = function() {
 	var self = this;
- 	$('.plus_icon').unbind('click').click(function (e){
- 		console.log(e);
-		$(".plus_icon").off('click');
 
-	  e.stopPropagation();
-	  e.preventDefault();
-	  if($('#context').length == 0){
-	  	$(this).after("<div id=\"context\"><ul><li id=\"youtube\">Youtube Item</li><li id=\"vimeo\">Vimeo Item</li><li id=\"close_menu\">Close menu</li></ul></div>");
-	  }
+ 	$('.additional-icon').unbind('click').click(function (e){
+ 		
+		$(".additional_icon").off('click');
 
-	   if($(this)) {
-	    $('#context').show();
-	   }
-		var parentOffset = $(this).parent().offset();
-
-	   $('#context').css({'left':e.pageX - parentOffset.left + 10, 'top':e.pageY - parentOffset.top});
-
-	   $('#youtube').click(function(v){
-	   	   	v.stopPropagation();
-	   	   	v.preventDefault();
-	   	   	$(".plus_icon").off('click');
-
-	   		$('#context').remove();
-			$(e.currentTarget).hide();
-	   		$(e.currentTarget).parent().append("<div class=\"addVideoBox\"><div id=\"youtube_id\" contentEditable=\"true\" style=\"border: 1px solid black\"></div><br /> <button class=\"submit_media_id\" data-type=\"YoutubeItem\">Submit Youtube item</button><div>");
-	   		self.bindEvent();
-
-	   		self.bindContext();
-	   });
-
-	   $('#vimeo').click(function(v){
-	   	   	v.stopPropagation();
-	   		v.preventDefault();
-	   		$(".plus_icon").off('click');
-	    	$('#context').remove();
-			$(e.currentTarget).hide();
-	   		$(e.currentTarget).parent().append("<div class=\"addVideoBox\"><div id=\"youtube_id\" contentEditable=\"true\" style=\"border: 1px solid black\"></div><br /> <button class=\"submit_media_id\" data-type=\"YoutubeItem\">Submit Youtube item</button><div>");
-	   		self.bindEvent();
-	   		self.bindContext();
-	   });
-
-	   $('#close_menu').click(function(v){
-	   		$('#context').remove();
-	   		self.bindContext();
-	   });
-
-		$(".plus_icon").click(function (e){
-			$(".plus_icon").off('click');
-
-		});
+		e.stopPropagation();
+	 	e.preventDefault();
+	  
+	 	$icon_type = $(this).attr("id");
+	 	
+	 	$(this).parent().children().each(function() {
+	 		$(this).hide();
+	 		$(this).toggle();
+	 	});
+	 	
+	 	if($icon_type != "vmeo-input"){
+	 		$(this).parent().append("<div class=\"addVideoBox\"><div id=\"youtube_id\" contentEditable=\"true\" style=\"border: 1px solid black\"></div><br /> <button class=\"submit_media_id\" data-type=\"YoutubeItem\">Submit Youtube item</button><div>");
+	 		BuildContent.prototype.bindEvent();
+	 		
+	 	}else {
+	 		$(this).parent().append("<div class=\"addVideoBox\"><div id=\"vimeo_id\" contentEditable=\"true\" style=\"border: 1px solid black\"></div><br /> <button class=\"submit_media_id\" data-type=\"VimeoItem\">Submit Vimeo item</button><div>");
+	 		BuildContent.prototype.bindEvent();
+	 		
+	 	}
+	 	
 	});
 }

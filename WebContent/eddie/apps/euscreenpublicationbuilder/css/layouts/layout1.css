@@ -14,79 +14,10 @@ footer {
 	background-color: rgba(255, 255, 255, 0.5);
 }
 
-.additional-icon-1 {
-	width: 33px;
-	height: 24px;
-    position: absolute;
-    bottom: 55px;
-    right: 71px;
-    display: none;
-	background-image: url("../../img/youtube-i.png");
-}
-
-.additional-icon-2 {
-	width: 27px;
-	height: 23px;
-	position: absolute;
-    bottom: 91px;
-    right: 40px;
-    display: none;
-	background-image: url("../../img/vmeo-i.png");
-}
-
-.additional-icon-3 {
-	width: 30px;
-	height: 30px;
-    position: absolute;
-    bottom: 45px;
-    right: 20px;
-	background-image: url("../../img/plus-i.png");
-}
-
 .side-box-wrapp-top {
     width: 100%;
     border-bottom: 4px solid #afd779; 
     height: 54px;
-}
-
-#bookmarklayout {
-	float: left;
-	color: white;
-    padding: 15px 50px;
-    background-color: #afd779;
-}
-
-#bookmarklayout:hover { 
-	background-color: #FFF;
-	color: #333;
-}
-
-.no-pd {
-	padding: 0;
-}
-
-#colectionslayout {
-	float: left;
-	color: #FFF;
-	padding: 15px 49px;
-    background-color: #afd779;
-}
-
-#colectionslayout:hover {
-	background-color: #FFF;
-	color: #333;
-}
-
-
-.right-header {
-    background-color: transparent;
-    padding: 0px;
-    margin-bottom: 0px;
-    text-align: center;
-    color: white;
-    border-bottom: none;
-    text-align: center;
-    font-family: "Titillium Web","DIN","Helvetica Neue",Monaco,"Andale Mono",Consolas,monospace;
 }
 
 .media_item video{
@@ -216,4 +147,38 @@ footer {
 #txt_1 {
 	background-color: rgba(225, 225, 255, 0.3);
 	border-radius: 3px;
+}
+
+
+.additional-icon-1 {
+	width: 33px;
+	height: 24px;
+    position: absolute;
+    bottom: 55px;
+    right: 71px;
+    display: none;
+	background-image: url("../../img/youtube-i.png");
+}
+
+.additional-icon-2 {
+	width: 27px;
+	height: 23px;
+	position: absolute;
+    bottom: 91px;
+    right: 40px;
+    display: none;
+	background-image: url("../../img/vmeo-i.png");
+}
+
+.additional-icon-3 {
+	width: 30px;
+	height: 30px;
+    position: absolute;
+    bottom: 45px;
+    right: 20px;
+	background-image: url("../../img/plus-i.png");
+}
+
+.no-pd {
+	padding: 0;
 }

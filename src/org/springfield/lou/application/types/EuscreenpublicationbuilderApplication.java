@@ -220,6 +220,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
      	//Load collections
      	Collections collections = new Collections(currentUser);    	
      	int cnt_header = 1;
+
      	for (Collection col : collections.getCollectionlist()) {
      		String right_header_div_id = "right_header_" + cnt_header;
      		String right_toggle_div_id = "toggle_" + cnt_header;
@@ -253,9 +254,11 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
    
      	collectionsLayout += "</div>"; 
      	collectionsLayout += "</div>"; 
+     	
     	s.setContent("bookmarklayout", bookmarkLayout);
     	s.setContent("colectionslayout", collectionsLayout);
-     	s.putMsg("bookmarksContent", "", "closeAll(" + cnt_header + ")");
+    	
+     	//s.putMsg("bookmarksContent", "", "closeAll(" + cnt_header + ")");
 	}
 	
 	
@@ -501,8 +504,10 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 				String video = "<iframe class=\"videoAfterDrop\" src='" + "https://player.vimeo.com/video/" + vimeoId[3] + "' frameborder=\"0\" allowfullscreen></iframe>";
 		    	message.put("video", video);
 			}
+			
 			message.put("container", container);
-	    	s.putMsg("layout", "", "setmediaitem(" + message + ")");
+	    	
+			s.putMsg("buildContent", "", "setmediaitem(" + message + ")");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

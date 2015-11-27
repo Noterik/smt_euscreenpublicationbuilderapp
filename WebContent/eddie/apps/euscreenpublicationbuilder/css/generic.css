@@ -279,7 +279,7 @@ a:hover {
 }
 
 .addVideoBox {
-	margin-top: 20%;
+	padding-top: 10%;
     text-align: center;
 }
 
@@ -426,4 +426,42 @@ a:hover {
 	width: 100%;
 	text-align: center;
 	bottom: -25px;
+}
+
+#bookmarklayout {
+	float: left;
+	color: white;
+    padding: 15px 40px;
+    background-color: #afd779;
+}
+
+#bookmarklayout:hover { 
+	background-color: #FFF;
+	color: #333 !important;
+}
+
+
+
+#colectionslayout {
+	float: right;
+	color: #FFF;
+	padding: 15px 40px;
+    background-color: #afd779;
+}
+
+#colectionslayout:hover {
+	background-color: #FFF;
+	color: #333 !important;
+}
+
+
+.right-header {
+    background-color: transparent;
+    padding: 0px;
+    margin-bottom: 0px;
+    text-align: center;
+    color: white;
+    border-bottom: none;
+    text-align: center;
+    font-family: "Titillium Web","DIN","Helvetica Neue",Monaco,"Andale Mono",Consolas,monospace;
 }
