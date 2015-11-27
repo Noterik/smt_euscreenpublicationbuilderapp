@@ -8,6 +8,10 @@ footer {
 	overflow-y: hidden;
 }
 
+.no-pd {
+	padding: 0;
+}
+
 .media_item {
 	margin-bottom: 25px;
 	height: 200px;
@@ -107,12 +111,6 @@ footer {
 	width: 100%;
 }
 
-.border {
-	border-bottom: 4px solid rgb(232, 73, 103);
-	width: 10%;
-	margin: 0 auto;
-}
-
 .removeVideo {
 	position: absolute;
 	width: 100%;
@@ -177,8 +175,4 @@ footer {
     bottom: 45px;
     right: 20px;
 	background-image: url("../../img/plus-i.png");
-}
-
-.no-pd {
-	padding: 0;
 }
