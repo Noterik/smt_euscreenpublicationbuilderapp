@@ -103,11 +103,16 @@ a:hover {
 }
 
 #right {
-	/*float: right;
-	width: 10%;
-	height: auto;*/
 	background-color: #FFF;
 }
+
+.top-option-wrap {
+    width: 100%;
+    height: 32px;
+    margin-top: 16px;
+}
+
+
 
 .tgl {
 	-ms-transform: rotate(135deg); 
@@ -225,7 +230,67 @@ a:hover {
 	color: white;
 	cursor: pointer;
 }
+
 .media_item .fullscreen{
 	top: 10px;
 	left: 10px;
+}
+
+#edit {
+    background-color: #afd779;
+    border-radius: 5px;
+    padding: 5px 35px;
+    width: 120px;
+    display: block;
+    float: right;
+    text-align: center;
+    display: block;
+    color: #FFF !important;
+}
+
+.top-option-wrap {
+	width: 100%;
+	height: 32px;
+}
+
+#preview {
+    border-radius: 5px;
+    padding: 5px 35px;
+    width: 120px;
+    display: block;
+    margin-left: 15px;
+    float: right;
+    color: #FFF !important;
+    background-color: #afd779;
+}
+
+#publish {
+    background-color: #afd779;
+    border-radius: 5px;
+    padding: 5px 35px;
+    margin-left: 15px;
+    width: 120px;
+    display: block;
+    float: right;
+    color: #FFF !important;
+}
+
+#layout-nav {
+    margin-top: 0px;
+    cursor: pointer;
+    float: left;
+    margin-right: 20px;
+}
+
+#color-schemes {
+    margin-top: 0px;
+    cursor: pointer;
+    float: left;
+    margin-right: 20px;
+}
+
+#build {
+	margin-top: 0px;
+    cursor: pointer;
+    float: left;
 }

@@ -9,9 +9,6 @@ footer {
 }
 
 .media_item {
-	/*position: relative;
-	border: 1px solid black;
-	box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);*/
 	margin-bottom: 25px;
 	height: 200px;
 	background-color: rgba(255, 255, 255, 0.5);
@@ -66,7 +63,8 @@ footer {
 }
 
 #bookmarklayout:hover { 
-	
+	background-color: #FFF;
+	color: #333;
 }
 
 .no-pd {
@@ -75,13 +73,14 @@ footer {
 
 #colectionslayout {
 	float: left;
-	color: white;
+	color: #FFF;
 	padding: 15px 49px;
     background-color: #afd779;
 }
 
 #colectionslayout:hover {
-	
+	background-color: #FFF;
+	color: #333;
 }
 
 

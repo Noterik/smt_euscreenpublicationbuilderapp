@@ -59,15 +59,10 @@ BuildContent.prototype.update = function(message){
 		
 		// icons toggle
 		 $('.additional-icon-3').click(function() {
+			 $(this).toggleClass('tgl');
 			 $('.additional-icon-1').toggle('slow');
 			 $('.additional-icon-2').toggle('slow');
-			
-			 $( '.additional-icon-3' ).click(function() {
-				  $(this).toggleClass('.tgl');
-			});
 		 });
-		 
-		
 		 
 		$('.media_item').droppable( {
 			accept: '.drag_bookmark',
