@@ -240,6 +240,12 @@ a:hover {
 	clear: both;
 }
 
+.tgl-rotate {
+	-ms-transform: rotate(135deg); 
+    -webkit-transform: rotate(135deg);
+    transform: rotate(135deg);
+}
+
 #context {
 	position: absolute;
 	width: 154px;

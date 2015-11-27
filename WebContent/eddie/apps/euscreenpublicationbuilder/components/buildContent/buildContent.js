@@ -59,7 +59,7 @@ BuildContent.prototype.update = function(message){
 		
 		// icons toggle
 		 $('.additional-icon-3').click(function() {
-			 $(this).toggleClass('tgl');
+			 $(this).toggleClass('tgl-rotate');
 			 $('.additional-icon-1').toggle('slow');
 			 $('.additional-icon-2').toggle('slow');
 		 });

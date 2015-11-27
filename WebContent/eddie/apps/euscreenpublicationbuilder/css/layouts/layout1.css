@@ -43,12 +43,6 @@ footer {
 	background-image: url("../../img/plus-i.png");
 }
 
-.tgl {
-	-ms-transform: rotate(135deg); 
-    -webkit-transform: rotate(135deg);
-    transform: rotate(135deg);
-}
-
 .side-box-wrapp-top {
     width: 100%;
     border-bottom: 4px solid #afd779; 
