@@ -37,6 +37,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     public Layout layouts;
     public Theme themes;
     public Bookmarks bookmarks;
+    public Collections collections;
     private FsNode currentLayout;
     private String currentLayoutStyle;
 	private FsNode currentTheme;
@@ -201,7 +202,9 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
  		bookmarkLayout += "<div id=\"toggle_0\" class=\"tgl\">";
  
  		String collectionsLayout = "<div class=\"right-header\" id=\"collections\">Collections</div>";
-
+ 		
+ 		System.out.println("=============================LOAD BOOKMARK===========================");
+ 		System.out.println(bookmarks.getBookmarklist().size());
      	int cnt_bookmark = 0;
      	for (Bookmark bmi : bookmarks.getBookmarklist()) {
      		System.out.println("BOOKMARK IS PUBLIC = " + bmi.getIsPublic());
@@ -218,14 +221,21 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
      	bookmarkLayout += "</div>";
      	
      	//Load collections
-     	Collections collections = new Collections(currentUser);    	
-     	int cnt_header = 1;
 
+        collections = new Collections(currentUser);   
+
+     	int cnt_header = 1;
+     	
+     	System.out.println(collections.getCollectionlist().size());
+     	
      	for (Collection col : collections.getCollectionlist()) {
+         	
      		String right_header_div_id = "right_header_" + cnt_header;
      		String right_toggle_div_id = "toggle_" + cnt_header;
      		collectionsLayout += "<div class=\"right-header collection-header\" id='" + right_header_div_id + "'>" + col.getName() + "</div>";
      		collectionsLayout += "<div id='" + right_toggle_div_id + "' class=\"tgl\">";
+     		
+     		System.out.println("================ COLLECTION: " + col.getName() + " ================");
      		for (Bookmark bk : col.getVideos()) {
          		System.out.println("BOOKMARK IS PUBLIC = " + bk.getIsPublic());
 
@@ -258,7 +268,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     	s.setContent("bookmarklayout", bookmarkLayout);
     	s.setContent("colectionslayout", collectionsLayout);
     	
-     	//s.putMsg("bookmarksContent", "", "closeAll(" + cnt_header + ")");
+     	s.putMsg("bookmarksContent", "", "closeAll(" + cnt_header + ")");
 	}
 	
 	

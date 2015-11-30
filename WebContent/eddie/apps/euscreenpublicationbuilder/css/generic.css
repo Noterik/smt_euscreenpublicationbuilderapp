@@ -16,6 +16,10 @@ a:hover {
 	text-decoration: none !important;
 }
 
+.no-pd {
+	padding: 0;
+}
+
 .layout_image {
 	/*width: 80%;
   	margin-left: 10%;
@@ -73,7 +77,6 @@ a:hover {
 	width: 15px;
     float: right;
     margin-top: 17px;
-    /*margin-right: 110px;*/
     height: 17px;
 	background-image: url("../img/x.png");
 	background: url("http://pb.euscreenxl.eu/eddie/apps/euscreenpublicationbuilder/img/ex-button.png");
@@ -84,6 +87,7 @@ a:hover {
 	width: 15px;
 	height: 17px;
 	background-image: url("../img/xblack.png");
+	background-repeat: no-repeat;
 	background: url("http://pb.euscreenxl.eu/eddie/apps/euscreenpublicationbuilder/img/ex-button.png");
 }
 
@@ -150,16 +154,6 @@ a:hover {
 #right video{
 	position: relative;
 	width: 100%;
-}
-
-.right-header {
-	background-color: #00AEEF;
-	padding: 5px;
-	/*margin-bottom: 10px;*/
-	text-align: center;
-	color: white;
-	border-bottom: 2px solid #F2F2F2;
-	font-family: "Titillium Web","DIN","Helvetica Neue",Monaco,"Andale Mono",Consolas,monospace;
 }
 
 #left-header-layout {
@@ -272,10 +266,6 @@ a:hover {
 #layouts ul {
 	padding-left: 0px;
 	list-style-type: none;
-}
-
-#bookmarklayout {
-	background-color: white;
 }
 
 .addVideoBox {
@@ -429,39 +419,38 @@ a:hover {
 }
 
 #bookmarklayout {
+	color: #FFF;
+	width: 49%;
 	float: left;
-	color: white;
-    padding: 15px 40px;
-    background-color: #afd779;
 }
-
-#bookmarklayout:hover { 
-	background-color: #FFF;
-	color: #333 !important;
-}
-
-
 
 #colectionslayout {
-	float: right;
 	color: #FFF;
-	padding: 15px 40px;
-    background-color: #afd779;
+	width: 49%;
+	float: right;
 }
-
-#colectionslayout:hover {
-	background-color: #FFF;
-	color: #333 !important;
-}
-
 
 .right-header {
-    background-color: transparent;
+    background-color: #afd779;
     padding: 0px;
     margin-bottom: 0px;
     text-align: center;
-    color: white;
+    color: #FFF;
     border-bottom: none;
     text-align: center;
     font-family: "Titillium Web","DIN","Helvetica Neue",Monaco,"Andale Mono",Consolas,monospace;
+}
+
+.right-header:hover { 
+	background-color: #FFF;
+	color: #333 !important;
+}
+
+.side-box-wrapp-top {
+    width: 100%;
+    border-bottom: 4px solid #afd779; 
+    height: 21px;
+}
+.drag_bookmark > video {
+	width: 100%;
 }

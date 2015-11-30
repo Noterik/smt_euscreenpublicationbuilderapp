@@ -113,6 +113,7 @@ public class Bookmarks {
 	
 	public static boolean checkIsPublic(String referId, List<String> blacklistProviders2) {
 		String user = URIParser.getUserIdFromUri(referId);
+		System.out.println("CheckIsPublic: " + user);
 		for (String blacklsit_entry : blacklistProviders2) {	
 			blacklsit_entry = blacklsit_entry.replaceAll("/domain/euscreenxl/user/", "");
 

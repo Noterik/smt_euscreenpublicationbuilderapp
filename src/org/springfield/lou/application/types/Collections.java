@@ -51,62 +51,69 @@ public class Collections {
 		this.blacklistProviders = new ArrayList<String>();
 		this.seedBlacklist();
 		address = address + user + "/publications/1/collection";
-		
+
 		this.xmlCallList = Fs.getNodes(this.address, 2);
 
+		
 		for (FsNode node : this.xmlCallList) {
 
 			String collectionId = node.getId();
-			
+
 			String currCollectionAddress = address + "/" + collectionId;
-			List<FsNode> collectionNodesList = Fs.getNodes(currCollectionAddress, 0);
-			
-			FsNode colNode = Fs.getNode(currCollectionAddress);
-			String collection_name = colNode.getProperty("name");
-			
-			List<Bookmark> videos = new ArrayList<Bookmark>();
-			
-			for (FsNode collection : collectionNodesList) {
-		 
-				if(!collection.getId().contentEquals("1")){
+			try {
+				List<FsNode> collectionNodesList = Fs.getNodes(currCollectionAddress, 0);
+				
+				FsNode colNode = Fs.getNode(currCollectionAddress);
+				String collection_name = colNode.getProperty("name");
+				
+				List<Bookmark> videos = new ArrayList<Bookmark>();
+				
+				for (FsNode collection : collectionNodesList) {
+			 
+					if(!collection.getId().contentEquals("1")){
 
-					String videoId = collection.getId();
-					String videoUrl = currCollectionAddress + "/video/" +videoId;
+						String videoId = collection.getId();
+						String videoUrl = currCollectionAddress + "/video/" +videoId;
 
-					FsNode videoNd = Fs.getNode(videoUrl);
-					String referId = videoNd.getReferid();
-					
-					String referUrl = referId + "/" + "rawvideo";
-					List<FsNode> referNodes = Fs.getNodes(referUrl, 1);
-					
-					String videoInfoUrl = currCollectionAddress + "/video/" + videoId;
-					FsNode videoInfo = Fs.getNode(videoInfoUrl);
-					String videoName = videoInfo.getProperty("TitleSet_TitleSetInEnglish_title");
-					String screenshot = videoInfo.getProperty("screenshot");
-					
-					String mount = "";
-					
-					for(FsNode referNode : referNodes){
-						if(referNode.getProperty("format").equals("MP4")){
-							String[] mounts = referNode.getProperty("mount").split(",");
-							for(String mnt : mounts){
-								if(mnt.contains("http://") && mnt.contains("/progressive/")){
-									mount = mnt;
-									break;
-								}else{
-									mount = "http://" + mnt + ".noterik.com/progressive/" + mnt + referNode.getPath() + "/raw.mp4";
-									break;
+						FsNode videoNd = Fs.getNode(videoUrl);
+						System.out.println("THROW EXCEPTION");
+						System.out.println(videoNd);
+						String referId = videoNd.getReferid();
+						
+						String referUrl = referId + "/" + "rawvideo";
+						List<FsNode> referNodes = Fs.getNodes(referUrl, 1);
+						
+						String videoInfoUrl = currCollectionAddress + "/video/" + videoId;
+						FsNode videoInfo = Fs.getNode(videoInfoUrl);
+						String videoName = videoInfo.getProperty("TitleSet_TitleSetInEnglish_title");
+						String screenshot = videoInfo.getProperty("screenshot");
+						
+						String mount = "";
+						
+						for(FsNode referNode : referNodes){
+							if(referNode.getProperty("format").equals("MP4")){
+								String[] mounts = referNode.getProperty("mount").split(",");
+								for(String mnt : mounts){
+									if(mnt.contains("http://") && mnt.contains("/progressive/")){
+										mount = mnt;
+										break;
+									}else{
+										mount = "http://" + mnt + ".noterik.com/progressive/" + mnt + referNode.getPath() + "/raw.mp4";
+										break;
+									}
 								}
-							}
-							break;
-						};
-					}
-					if(mount != null){
-						videos.add(new Bookmark(collectionId, videoId, videoName, mount, screenshot, Bookmarks.checkIsPublic(referId, blacklistProviders)));
-					}
-				}				
+								break;
+							};
+						}
+						if(mount != null){
+							videos.add(new Bookmark(collectionId, videoId, videoName, mount, screenshot, Bookmarks.checkIsPublic(referId, blacklistProviders)));
+						}
+					}				
+				}
+				collectionlist.add(new Collection(collection_name, videos));
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			collectionlist.add(new Collection(collection_name, videos));
 		}
 	}	
 	
