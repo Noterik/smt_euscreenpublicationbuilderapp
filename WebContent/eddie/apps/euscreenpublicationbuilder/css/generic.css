@@ -225,6 +225,9 @@ a:hover {
 
 .tgl {
     width: 360px;
+    margin-top: 25px;
+    padding-bottom: 15px;
+    border-bottom: 4px solid #afd779;
 }
 
 .tgl-rotate {
@@ -433,6 +436,7 @@ a:hover {
     text-align: center;
     border-bottom: none;
     text-align: center;
+    cursor: pointer;
     font-family: "Titillium Web","DIN","Helvetica Neue",Monaco,"Andale Mono",Consolas,monospace;
 }
 
@@ -451,7 +455,7 @@ a:hover {
 }
 
 #toggle_0 {
-    margin-top: 25px;
+   
 }
 
 .down-border {
