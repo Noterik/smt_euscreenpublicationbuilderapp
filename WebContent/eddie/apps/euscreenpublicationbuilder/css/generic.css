@@ -21,22 +21,11 @@ a:hover {
 }
 
 .layout_image {
-	/*width: 80%;
-  	margin-left: 10%;
-	border: 1px solid black;
-	background-color: gray;
-	margin-bottom: 20px;
-	margin: 0 auto;
-	display: block;*/
     width: 100%;
 }
 
 #header {
 	background-color: #FFF;
-	/*width: 100%;
-	height: 122px;
-	border-bottom: 5px solid #00AEEF;
-	margin-bottom: 5px;*/
 }
 
 .top-add-wrapp-1 {
@@ -234,6 +223,10 @@ a:hover {
 	clear: both;
 }
 
+.tgl {
+    width: 360px;
+}
+
 .tgl-rotate {
 	-ms-transform: rotate(135deg); 
     -webkit-transform: rotate(135deg);
@@ -420,40 +413,59 @@ a:hover {
 
 #bookmarklayout {
 	color: #FFF;
-	width: 49%;
+	width: 50%;
 	float: left;
 
 }
 
 #colectionslayout {
 	color: #FFF;
-	width: 49%;
+	width: 50%;
 	float: right;
 
 }
 
 .right-header {
-    background-color: #afd779;
-    padding: 0px;
+	background-color: #FFF;
+	color: #333 !important;
+    padding: 15px 0px;
     margin-bottom: 0px;
     text-align: center;
-    color: #FFF;
     border-bottom: none;
     text-align: center;
     font-family: "Titillium Web","DIN","Helvetica Neue",Monaco,"Andale Mono",Consolas,monospace;
 }
 
 .right-header:hover { 
-	background-color: #FFF;
-	color: #333 !important;
+	background-color: #afd779;
+	color: #FFF !important;
 }
 
 .side-box-wrapp-top {
     width: 100%;
-    border-bottom: 4px solid #afd779; 
-    height: 21px;
+    height: 54px;
+    border-bottom: 4px solid #afd779;
 }
 .drag_bookmark > video {
-	width: 100%;
+	width: 45%;
 }
 
+#toggle_0 {
+    margin-top: 25px;
+}
+
+.down-border {
+	
+}
+
+.arrow-wrap {
+	
+}
+
+.arrow-left {
+	
+}
+
+.arrow-right {
+	
+}
