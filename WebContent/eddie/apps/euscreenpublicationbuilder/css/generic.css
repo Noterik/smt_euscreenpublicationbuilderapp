@@ -422,12 +422,14 @@ a:hover {
 	color: #FFF;
 	width: 49%;
 	float: left;
+
 }
 
 #colectionslayout {
 	color: #FFF;
 	width: 49%;
 	float: right;
+
 }
 
 .right-header {
@@ -454,3 +456,4 @@ a:hover {
 .drag_bookmark > video {
 	width: 100%;
 }
+
