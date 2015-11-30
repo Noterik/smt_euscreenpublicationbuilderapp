@@ -81,6 +81,7 @@ BuildContent.prototype.bindToggleEvents = function() {
 			 
 			if($(this).attr("class").indexOf("additional-icon-3") !=-1){
 				$(this).toggleClass('tgl-rotate');
+				$(this).parent().find(".addVideoBox").remove();
 				
 			}else {
 			
@@ -253,6 +254,10 @@ BuildContent.prototype.bindContext = function() {
 	 		$(this).toggle();
 	 	});
 	 	
+	 	if ($(this).parent().find(".addVideoBox").length > 0){ 
+	 		$(this).parent().find(".addVideoBox").remove();
+	 	}
+	 	
 	 	if($icon_type != "vmeo-input"){
 	 		$(this).parent().append("<div class=\"addVideoBox\"><div id=\"youtube_id\" contentEditable=\"true\" style=\"border: 1px solid black\"></div><br /> <button class=\"submit_media_id\" data-type=\"YoutubeItem\">Submit Youtube item</button><div>");
 	 		BuildContent.prototype.bindEvent();
@@ -262,6 +267,6 @@ BuildContent.prototype.bindContext = function() {
 	 		BuildContent.prototype.bindEvent();
 	 		
 	 	}
-	 	
+
 	});
 }

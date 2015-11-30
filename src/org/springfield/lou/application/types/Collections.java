@@ -73,43 +73,50 @@ public class Collections {
 					if(!collection.getId().contentEquals("1")){
 
 						String videoId = collection.getId();
-						String videoUrl = currCollectionAddress + "/video/" +videoId;
-
+						
+						String videoUrl = currCollectionAddress + "/collectionitem/" +videoId+"/video/"+videoId;
+						
 						FsNode videoNd = Fs.getNode(videoUrl);
-						System.out.println("THROW EXCEPTION");
-						System.out.println(videoNd);
-						String referId = videoNd.getReferid();
 						
-						String referUrl = referId + "/" + "rawvideo";
-						List<FsNode> referNodes = Fs.getNodes(referUrl, 1);
-						
-						String videoInfoUrl = currCollectionAddress + "/video/" + videoId;
-						FsNode videoInfo = Fs.getNode(videoInfoUrl);
-						String videoName = videoInfo.getProperty("TitleSet_TitleSetInEnglish_title");
-						String screenshot = videoInfo.getProperty("screenshot");
-						
-						String mount = "";
-						
-						for(FsNode referNode : referNodes){
-							if(referNode.getProperty("format").equals("MP4")){
-								String[] mounts = referNode.getProperty("mount").split(",");
-								for(String mnt : mounts){
-									if(mnt.contains("http://") && mnt.contains("/progressive/")){
-										mount = mnt;
+						if(videoNd != null){
+							try {
+								String referId = videoNd.getReferid();
+								System.out.println("referId: " + referId);
+								String referUrl = referId + "/" + "rawvideo";
+								List<FsNode> referNodes = Fs.getNodes(referUrl, 1);
+								System.out.println("REFER NODES: " + referNodes.size());
+								String videoInfoUrl = currCollectionAddress + "/collectionitem/" +videoId+"/video/"+videoId;
+								FsNode videoInfo = Fs.getNode(videoInfoUrl);
+								String videoName = videoInfo.getProperty("TitleSet_TitleSetInEnglish_title");
+								String screenshot = videoInfo.getProperty("screenshot");
+								
+								String mount = "";
+								
+								for(FsNode referNode : referNodes){
+									if(referNode.getProperty("format").equals("MP4")){
+										String[] mounts = referNode.getProperty("mount").split(",");
+										for(String mnt : mounts){
+											if(mnt.contains("http://") && mnt.contains("/progressive/")){
+												mount = mnt;
+												break;
+											}else{
+												mount = "http://" + mnt + ".noterik.com/progressive/" + mnt + referNode.getPath() + "/raw.mp4";
+												break;
+											}
+										}
 										break;
-									}else{
-										mount = "http://" + mnt + ".noterik.com/progressive/" + mnt + referNode.getPath() + "/raw.mp4";
-										break;
-									}
+									};
 								}
-								break;
-							};
-						}
-						if(mount != null){
-							videos.add(new Bookmark(collectionId, videoId, videoName, mount, screenshot, Bookmarks.checkIsPublic(referId, blacklistProviders)));
+								if(mount != null){
+									videos.add(new Bookmark(collectionId, videoId, videoName, mount, screenshot, Bookmarks.checkIsPublic(referId, blacklistProviders)));
+								}	
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
 						}
 					}				
 				}
+				
 				collectionlist.add(new Collection(collection_name, videos));
 			} catch (Exception e) {
 				e.printStackTrace();

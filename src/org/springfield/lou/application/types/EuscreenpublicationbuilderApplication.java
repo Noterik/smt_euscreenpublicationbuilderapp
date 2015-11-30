@@ -102,8 +102,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
      	
         //Catch modes
         if(s.getParameter("status").equals("edit")){
-            String poster_url = s.getParameter("posterid");
-            
+            String poster_url = s.getParameter("posterid");     
             JSONArray arr = Publication.editPublication(poster_url);
             JSONObject idOb = (JSONObject) arr.get(0);
             this.oldPublicationID = idOb.get("id").toString();
@@ -204,7 +203,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
  		String collectionsLayout = "<div class=\"right-header\" id=\"collections\">Collections</div>";
  		
  		System.out.println("=============================LOAD BOOKMARK===========================");
- 		System.out.println(bookmarks.getBookmarklist().size());
      	int cnt_bookmark = 0;
      	for (Bookmark bmi : bookmarks.getBookmarklist()) {
      		System.out.println("BOOKMARK IS PUBLIC = " + bmi.getIsPublic());
@@ -225,15 +223,18 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
         collections = new Collections(currentUser);   
 
      	int cnt_header = 1;
-     	
+     	String colectionslayout_headers = "";
+     	String colectionslayout_items = "";
+
      	System.out.println(collections.getCollectionlist().size());
      	
      	for (Collection col : collections.getCollectionlist()) {
          	
      		String right_header_div_id = "right_header_" + cnt_header;
      		String right_toggle_div_id = "toggle_" + cnt_header;
-     		collectionsLayout += "<div class=\"right-header collection-header\" id='" + right_header_div_id + "'>" + col.getName() + "</div>";
-     		collectionsLayout += "<div id='" + right_toggle_div_id + "' class=\"tgl\">";
+     		colectionslayout_headers += "<div class=\"right-header collection-header\" id='" + right_header_div_id + "' childs_type='"+col.getName()+"'>" + col.getName() + "</div>";
+     		
+     		colectionslayout_items += "<div id='" + right_toggle_div_id + "' class=\"tgl\" collection='"+ col.getName()+"'>";
      		
      		System.out.println("================ COLLECTION: " + col.getName() + " ================");
      		for (Bookmark bk : col.getVideos()) {
@@ -243,8 +244,8 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	     			String id = "bookmark_" + cnt_bookmark;
 	     			String src = bk.getVideo();
 	     			if(src != null && src.contains("http://")){
-	     				collectionsLayout += "<div id=\"" + id + "\" class=\"drag_bookmark\"><video poster='"+bk.getScreenshot()+"' data-src='" + bk.getVideo() + "' controls></video></div>";
-	     				collectionsLayout += "<script type=\"text/javascript\">"
+	     				colectionslayout_items += "<div id=\"" + id + "\" class=\"drag_bookmark\"><video poster='"+bk.getScreenshot()+"' data-src='" + bk.getVideo() + "' controls></video></div>";
+	     				colectionslayout_items += "<script type=\"text/javascript\">"
 	            				+ "eddie.getComponent('embedlib').loaded().then(function(){"
 	            				+ "		EuScreen.getVideo({src: '" + src + "', poster: '" + bk.getScreenshot() + "', controls: true}, function(html){"
 	            				+ "			jQuery('#" + id + "').html(html);"
@@ -257,17 +258,17 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
      			}
         		
 			}
-     		collectionsLayout += "</div>";
-     		System.out.println(collectionsLayout);
+     		colectionslayout_items += "</div>";
      		cnt_header++;
 		}
    
      	collectionsLayout += "</div>"; 
      	collectionsLayout += "</div>"; 
-     	
     	s.setContent("bookmarklayout", bookmarkLayout);
-    	s.setContent("colectionslayout", collectionsLayout);
     	
+    	s.setContent("colectionslayout_headers", colectionslayout_headers);
+    	s.setContent("colectionslayout_items", colectionslayout_items);
+
      	s.putMsg("bookmarksContent", "", "closeAll(" + cnt_header + ")");
 	}
 	
