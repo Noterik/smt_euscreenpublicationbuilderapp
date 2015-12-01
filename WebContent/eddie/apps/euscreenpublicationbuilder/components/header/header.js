@@ -3,6 +3,10 @@ var Header = function(options){
 	$("#edit").hide();
 
 	var preview = true;
+	$('#x-icon').click(function(){
+		eddie.getComponent('iframesender').sendToParent('close');
+	});
+	
 	$('#preview').click(function(){
 		var textAreas = [];
 		$('.text_item').each(function(index) {
