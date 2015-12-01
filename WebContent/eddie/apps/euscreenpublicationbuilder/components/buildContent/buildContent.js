@@ -99,18 +99,42 @@ BuildContent.prototype.edit = function(message){
 		setTimeout(function(){
 			console.log("WE ARE AT EDIT FUNCTIONALITY");
 			$.each(data, function(key, value){
-				console.log(value);
-				console.log("-------------------------------------");
+
 					switch(value.type) {
 						case "media_item":
 							var self = this;
 									if(value.value) {
-										console.log("VAL");
-										console.log(value);
+
 										$elem = $("#" + value.id);
 										$elem.draggable({ disabled: true });
 										$elem.html(value.value).droppable("option", "disabled", true);
-										$elem.append("<div class=\"removeVideo\">Remove video</div>");
+//										var fullScreenIcon = $('<i class=\"fullscreen glyphicon glyphicon-resize-full\"></i>');
+										var removeIcon = $('<i class=\"remove glyphicon glyphicon-remove\"></i>');
+//										$elem.append(fullScreenIcon);
+										$elem.append(removeIcon);
+//										fullScreenIcon.on('click', function(){
+//											if (value.value.requestFullscreen) {
+//												value.value.requestFullscreen();
+//											} else if (value.value.mozRequestFullScreen) {
+//												value.value.mozRequestFullScreen();
+//											} else if (value.value.webkitRequestFullscreen) {
+//												value.value.webkitRequestFullscreen();
+//											}
+//										});
+										removeIcon.on('click', function(){
+//											$elem.droppable("option", "disabled", false);
+//											$elem.html("<div id=\"youtube-input\" class=\"additional-icon-1 additional-icon\"></div> <div id=\"vmeo-input\" class=\"additional-icon-2 additional-icon\"></div><div class=\"additional-icon-3\"></div>");
+//											BuildContent.prototype.bindToggleEvents();
+											var baseElement = $($(this).parent()[0]);
+											baseElement.droppable( "option", "disabled", false );
+											baseElement.draggable({ disabled: true });
+											$($(this).parent()[0]).children(0).remove();
+
+											baseElement.html("<div id=\"youtube-input\" class=\"additional-icon-1 additional-icon\"></div> <div id=\"vmeo-input\" class=\"additional-icon-2 additional-icon\"></div><div class=\"additional-icon-3\"></div>");
+											BuildContent.prototype.bindToggleEvents();
+										});
+										
+										//$elem.append("<div class=\"removeVideo\" style=\"position:absolute; bottom:0;\">Remove video</div>");
 										$elem.attr("aria-disabled", "true");
 
 										$(".removeVideo").click(function(){
