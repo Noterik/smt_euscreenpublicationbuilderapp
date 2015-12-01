@@ -149,12 +149,17 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 				this.actionSettheme(s, "5");
 
 			}
+			s.removeContent("layoutsContent");
+	    	s.putMsg("layoutsContent", "", "closeLayoutsTab()");
+			s.putMsg("buildContent", "", "edit(" + arr + ")");
+	    	s.putMsg("header", "", "modeEdit()");
 
-        	s.putMsg("layout", "", "edit(" + arr + ")");
         }else {
 	    	s.putMsg("header", "", "showbuttons(" + ")");
 	    	
         }
+        
+     
     }
     
 	public void actionSetlayout(Screen s, String c) {

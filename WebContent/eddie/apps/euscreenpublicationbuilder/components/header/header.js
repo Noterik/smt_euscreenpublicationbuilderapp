@@ -168,15 +168,14 @@ Header.prototype.success = function() {
 }
 
 Header.prototype.showbuttons = function () {
-	$('#preview').show();
-	$('#publish').show();
-	$("#edit").hide();
+
+	
 }
 
 Header.prototype.modeEdit = function () {
 	$('#publish').hide();
-	$("#edit").show();
-	$('#preview').show();
+	$('#edit').show();
+	
 }
 
 //nav menu arrow classs toogle

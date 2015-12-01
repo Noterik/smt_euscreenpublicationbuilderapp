@@ -95,13 +95,18 @@ BuildContent.prototype.edit = function(message){
 	var self = this;
 	var data = JSON.parse(message);
 	eddie.getComponent('readycheck').loaded().then(function(){
-
+		
 		setTimeout(function(){
+			console.log("WE ARE AT EDIT FUNCTIONALITY");
 			$.each(data, function(key, value){
+				console.log(value);
+				console.log("-------------------------------------");
 					switch(value.type) {
 						case "media_item":
 							var self = this;
 									if(value.value) {
+										console.log("VAL");
+										console.log(value);
 										$elem = $("#" + value.id);
 										$elem.draggable({ disabled: true });
 										$elem.html(value.value).droppable("option", "disabled", true);
