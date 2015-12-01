@@ -209,7 +209,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
      	
      		String id = "bookmark_"+ cnt_bookmark;
      		if(bmi.getIsPublic() == false){ 
-	    		bookmarkLayout += "<div class=\"not_public_video\">Unfortunately due to copyright agreements with the Content Provider this video cannot be used for making a video poster.<div id=\"" + id +"\" class=\"drag_bookmark\"><video  poster='"+bmi.getScreenshot()+"' src=\"" + bmi.getVideo() + "\" controls></video></div>";
+	    		bookmarkLayout += "<div class=\"not_public_video\"><p>Unfortunately due to copyright agreements with the Content Provider this video cannot be used for making a video poster.</p><div id=\"" + id +"\" class=\"drag_bookmark\"><video  poster='"+bmi.getScreenshot()+"' src=\"" + bmi.getVideo() + "\" controls></video></div>";
 	    		bookmarkLayout += "<script type=\"text/javascript\">"
 	    				+ "eddie.getComponent('embedlib').loaded().then(function(){"
 	    				+ "		EuScreen.getVideo({src: '" + bmi.getVideo() + "', poster: '" + bmi.getScreenshot() + "', controls: true}, function(html){"
@@ -257,7 +257,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	     			String src = bk.getVideo();
 	     			if(bk.getIsPublic() == false){
 	     			if(src != null && src.contains("http://")){
-	     				colectionslayout_items += "<div class=\"not_public_video\">Unfortunately due to copyright agreements with the Content Provider this video cannot be used for making a video poster.<div id=\"" + id + "\" class=\"drag_bookmark\"><video poster='"+bk.getScreenshot()+"' data-src='" + bk.getVideo() + "' controls></video></div>";
+	     				colectionslayout_items += "<div class=\"not_public_video\"><p>Unfortunately due to copyright agreements with the Content Provider this video cannot be used for making a video poster.</p><div id=\"" + id + "\" class=\"drag_bookmark\"><video poster='"+bk.getScreenshot()+"' data-src='" + bk.getVideo() + "' controls></video></div>";
 	     				colectionslayout_items += "<script type=\"text/javascript\">"
 	            				+ "eddie.getComponent('embedlib').loaded().then(function(){"
 	            				+ "		EuScreen.getVideo({src: '" + src + "', poster: '" + bk.getScreenshot() + "', controls: true}, function(html){"

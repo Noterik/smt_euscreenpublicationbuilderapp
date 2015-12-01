@@ -502,7 +502,6 @@ a:hover {
 .drag_bookmark > video {
 	width: 99%;
 	position: relative;
-	z-index: 9999;
 }
 
 .collection-header {
@@ -510,26 +509,21 @@ a:hover {
     position: absolute;
     border-bottom: 4px solid #afd779;
     width: 360px;
-    left: 15px;/
+    left: 15px;
 
 }
 
-#toggle_0 {
-   
+.not_public_video p{
+	display: none;
 }
 
-.down-border {
-	
-}
+.not_public_video:hover p {
+	display: block;
+	position: absolute;
+	z-index: 1;
+	width: 91%;
+	color: red;
+    font-size: 20px;
+    background-color: rgba(0, 0, 0, 0.25);
 
-.arrow-wrap {
-	
-}
-
-.arrow-left {
-	
-}
-
-.arrow-right {
-	
 }

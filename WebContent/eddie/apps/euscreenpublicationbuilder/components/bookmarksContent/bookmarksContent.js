@@ -160,33 +160,26 @@ BookmarksContent.prototype.closeAll = function(cnt_header) {
 
 	});
 	
-	var cnt_header_temp = 0;
-	for(var i = 1; i < cnt_header; i++) {
-		if(cnt_header_temp == 0){
-			$("#toggle_" + i).show();
 
-			$('#right_header_0').bind( "click", function() {
-				var toggle_id = $(this).attr('id').replace('right_header', 'toggle');
-				
-				$("#" + toggle_id).toggle("fast");
-				$("#right_header_0").addClass('right-header_active');
-				$("#collections").removeClass('right-header_active');
-				$('#' + 'colectionslayout_headers').each(function() {
-					$(this).hide();
-				});
+	$("#toggle_0").show();
 
-				$(".arrow-wrap").hide();
+	$('#right_header_0').bind( "click", function() {
+		var toggle_id = $(this).attr('id').replace('right_header', 'toggle');
+		
+		$("#" + toggle_id).show();
+		$("#right_header_0").addClass('right-header_active');
+		$("#collections").removeClass('right-header_active');
+		$('#' + 'colectionslayout_headers').each(function() {
+			$(this).hide();
+		});
 
-				$('#' + 'colectionslayout_items').each(function() {
-					$(this).hide();
-				});
+		$(".arrow-wrap").hide();
+
+		$('#' + 'colectionslayout_items').each(function() {
+			$(this).hide();
+		});
 
 
-			});
-			
-		}
-		cnt_header_temp++;
-	}
-	
+	});
 
 }
