@@ -200,8 +200,8 @@ a:hover  {
 
 .arrow-pinter  {
 	height:  34px;
-    background-repeat:  no-repeat;
-    background-position:  center bottom;
+    background-repeat: no-repeat !important;
+    background-position: center bottom !important;
     background:  url("http://pb.euscreenxl.eu/eddie/apps/euscreenpublicationbuilder/img/menu-arrow.png");
 }
 
