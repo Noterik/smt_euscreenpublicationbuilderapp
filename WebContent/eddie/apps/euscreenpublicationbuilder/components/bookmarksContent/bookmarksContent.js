@@ -10,12 +10,12 @@ var BookmarksContent = function(options){
 		      revertDuration: 0,
 		      zIndex: 10000,
 		      start: function(ui, event) {
-		    	  $(this).css("position", "absolute");
+//		    	  $(this).css("position", "absolute");
 
 		      },
 		      //helper: 'clone',
 		      stop: function(ui, event){
-		    	  $(this).css("position", "relative");
+//		    	  $(this).css("position", "relative");
 
 		      }
 		    });
