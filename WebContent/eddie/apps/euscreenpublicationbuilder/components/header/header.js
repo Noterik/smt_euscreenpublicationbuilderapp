@@ -7,6 +7,10 @@ var Header = function(options){
 		eddie.getComponent('iframesender').sendToParent('close');
 	});
 	
+	$('#color-schemes').click(function() {
+		$('#colorschemesContent').show();
+	});
+	
 	$('#preview').click(function(){
 		var textAreas = [];
 		$('.text_item').each(function(index) {
@@ -175,7 +179,8 @@ Header.prototype.showbuttons = function () {
 Header.prototype.modeEdit = function () {
 	$('#publish').hide();
 	$('#edit').show();
-	
+	console.log($('#colorschemesContent'));
+	$('#colorschemesContent').hide();
 }
 
 //nav menu arrow classs toogle

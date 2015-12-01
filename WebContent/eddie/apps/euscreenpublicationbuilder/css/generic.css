@@ -338,7 +338,6 @@ a:hover {
 	border: none;
     background-color: white;
     padding: 8px;
-    color: #afd779;
 }
 
 .top-option-wrap {
@@ -500,7 +499,7 @@ a:hover {
     border-bottom: 4px solid #afd779;
 }
 .drag_bookmark > video {
-	width: 51%;
+	width: 100%;
 	position: relative;
 }
 
@@ -523,7 +522,8 @@ a:hover {
 	z-index: 2;
 	font-size: 13px;
     padding: 14px;
-    width: 47%;
+    width: 92%;
+    height: 42%;
 	color: #FFF;
     font-size: 14px;
     background-color: rgba(175, 215, 121, 0.25);

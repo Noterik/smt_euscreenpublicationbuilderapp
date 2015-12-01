@@ -211,7 +211,7 @@ public class Publication extends VideoPoster{
 							media = "<video data-src=\"" + src + "\" data-poster=\"" + mediaItemList.get(i).getPoster() + "\"/>";
 						}
 
-						media_item.setText(media);
+							media_item.setText(media);
 						}
 					}
 				}

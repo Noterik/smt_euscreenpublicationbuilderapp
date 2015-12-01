@@ -148,10 +148,23 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 			}else if(colorSchema.equals("theme_5")) {
 				this.actionSettheme(s, "5");
 
+			}else if(colorSchema.equals("theme_6")) {
+				this.actionSettheme(s, "6");
+
+			}else if(colorSchema.equals("theme_7")) {
+				this.actionSettheme(s, "7");
+
+			}else if(colorSchema.equals("theme_8")) {
+				this.actionSettheme(s, "8");
+
+			}else if(colorSchema.equals("theme_9")) {
+				this.actionSettheme(s, "9");
+
 			}
 			s.removeContent("layoutsContent");
+			
 	    	s.putMsg("layoutsContent", "", "closeLayoutsTab()");
-			s.putMsg("buildContent", "", "edit(" + arr + ")");
+	    	s.putMsg("buildContent", "", "edit(" + arr + ")");
 	    	s.putMsg("header", "", "modeEdit()");
 
         }else {
@@ -348,6 +361,34 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	    	message.put("style", node.getProperty("css"));
 	    	s.putMsg("buildContent", "", "setTheme(" + message + ")");
 	    	
+		 }else if (c.equals("6")) {
+		    	FsNode node = themes.getLayoutBy(5);
+		    	setCurrentTheme(node);
+		    	JSONObject message = new JSONObject();
+		    	message.put("style", node.getProperty("css"));
+		    	s.putMsg("buildContent", "", "setTheme(" + message + ")");
+		    	
+		 }else if (c.equals("7")) {
+		    	FsNode node = themes.getLayoutBy(5);
+		    	setCurrentTheme(node);
+		    	JSONObject message = new JSONObject();
+		    	message.put("style", node.getProperty("css"));
+		    	s.putMsg("buildContent", "", "setTheme(" + message + ")");
+		    	
+		 }else if (c.equals("8")) {
+		    	FsNode node = themes.getLayoutBy(5);
+		    	setCurrentTheme(node);
+		    	JSONObject message = new JSONObject();
+		    	message.put("style", node.getProperty("css"));
+		    	s.putMsg("buildContent", "", "setTheme(" + message + ")");
+		    	
+		 }else if (c.equals("9")) {
+		    	FsNode node = themes.getLayoutBy(5);
+		    	setCurrentTheme(node);
+		    	JSONObject message = new JSONObject();
+		    	message.put("style", node.getProperty("css"));
+		    	s.putMsg("buildContent", "", "setTheme(" + message + ")");
+		    	
 		 }
 	 }
 	
