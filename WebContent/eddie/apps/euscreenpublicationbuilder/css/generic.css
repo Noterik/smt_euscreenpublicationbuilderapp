@@ -326,6 +326,21 @@ a:hover {
 	background: rgba(0, 0, 0, 0.2) none repeat scroll 0% 0%;
 }
 
+#vimeo_id {
+    width: 93%;
+    height: 22px;
+    overflow: hidden;
+    margin: 0px auto;
+    background: rgba(0, 0, 0, 0.2) none repeat scroll 0% 0%;
+}
+
+.submit_media_id {
+	border: none;
+    background-color: white;
+    padding: 8px;
+    color: #afd779;
+}
+
 .top-option-wrap {
 	width: 100%;
 	height: 32px;

@@ -18,5 +18,12 @@
 }
 
 .title {
-    color: #c079a3;
+    padding: 5px 0px;
+    color: #C079A3;
+    width: 87%;
+    margin-bottom: 20px;
+    background-color: #FFF;
+    -webkit-box-shadow: 0px 4px 14px 0px rgba(248,159,212, 0.75);
+    -moz-box-shadow: 0px 4px 14px 0px rgba(248,159,212, 0.75);
+    box-shadow: 0px 4px 14px 0px rgba(248,159,212, 0.75);
 }

@@ -259,11 +259,11 @@ BuildContent.prototype.bindContext = function() {
 	 	}
 	 	
 	 	if($icon_type != "vmeo-input"){
-	 		$(this).parent().append("<div class=\"addVideoBox\"><div id=\"youtube_id\" contentEditable=\"true\" style=\"border: 1px solid black\"></div><br /> <button class=\"submit_media_id\" data-type=\"YoutubeItem\">Submit Youtube item</button><div>");
+	 		$(this).parent().append("<div class=\"addVideoBox\"><div id=\"youtube_id\" contentEditable=\"true\"></div><br /> <button class=\"submit_media_id\" data-type=\"YoutubeItem\">Submit Youtube item</button><div>");
 	 		BuildContent.prototype.bindEvent();
 	 		
 	 	}else {
-	 		$(this).parent().append("<div class=\"addVideoBox\"><div id=\"vimeo_id\" contentEditable=\"true\" style=\"border: 1px solid black\"></div><br /> <button class=\"submit_media_id\" data-type=\"VimeoItem\">Submit Vimeo item</button><div>");
+	 		$(this).parent().append("<div class=\"addVideoBox\"><div id=\"vimeo_id\" contentEditable=\"true\"></div><br /> <button class=\"submit_media_id\" data-type=\"VimeoItem\">Submit Vimeo item</button><div>");
 	 		BuildContent.prototype.bindEvent();
 	 		
 	 	}
