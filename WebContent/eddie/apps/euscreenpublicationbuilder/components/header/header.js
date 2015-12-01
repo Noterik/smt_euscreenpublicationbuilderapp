@@ -178,6 +178,7 @@ Header.prototype.showbuttons = function () {
 	$colorSchemes.removeClass("arrow-pinter");
 	$colorSchemes.unbind('click');
 	
+	$layout = $("#layout-nav");
 	$layout.css("color", "lightgray");
 	$layout.unbind("click");
 	$layout.removeClass("arrow-pinter");
@@ -189,7 +190,17 @@ Header.prototype.showbuttons = function () {
 Header.prototype.modeEdit = function () {
 	$('#publish').hide();
 	$('#edit').show();
-	console.log($('#colorschemesContent'));
+	$colorSchemes = $("#color-schemes");
+	$colorSchemes.css("color", "lightgray");
+	$colorSchemes.removeClass("arrow-pinter");
+	$colorSchemes.unbind('click');
+	
+	$layout = $("#layout-nav");
+	$layout.css("color", "lightgray");
+	$layout.unbind("click");
+	$layout.removeClass("arrow-pinter");
+	
+	$("#build").addClass("arrow-pinter");	
 	$('#colorschemesContent').hide();
 }
 
