@@ -9,6 +9,7 @@ var Header = function(options){
 	
 	$('#color-schemes').click(function() {
 		$('#colorschemesContent').show();
+		$('#buildContent').show();
 	});
 	
 	$('#preview').click(function(){
