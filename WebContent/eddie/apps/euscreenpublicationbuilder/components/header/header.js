@@ -7,10 +7,10 @@ var Header = function(options){
 		eddie.getComponent('iframesender').sendToParent('close');
 	});
 	
-	$('#color-schemes').click(function() {
-		$('#colorschemesContent').show();
-		$('#buildContent').hide();
-	});
+//	$('#color-schemes').click(function() {
+//		$('#colorschemesContent').show();
+//		$('#buildContent').hide();
+//	});
 	
 	$('#preview').click(function(){
 		var textAreas = [];
@@ -173,7 +173,10 @@ Header.prototype.success = function() {
 }
 
 Header.prototype.showbuttons = function () {
-
+	$colorSchemes = $("#color-schemes");
+	$colorSchemes.removeClass("arrow-pinter");
+	$colorSchemes.unbind('click');
+	$("#build").addClass("arrow-pinter");	
 	
 }
 

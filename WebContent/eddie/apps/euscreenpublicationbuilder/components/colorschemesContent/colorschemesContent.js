@@ -31,9 +31,10 @@ ColorschemesContent.prototype.closeThemesTab = function () {
 	
 	$colorSchemes = $("#color-schemes");
 	$colorSchemes.removeClass("arrow-pinter");	
-	
+
 	
 	eddie.putLou("", "generatebuild()");
-	
+	$('#buildContent').show();
+
 	$("#build").addClass("arrow-pinter");	
 }

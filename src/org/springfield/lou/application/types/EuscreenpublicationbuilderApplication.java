@@ -123,6 +123,9 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 			}else if(layout.equals("layout_2")) {
 				this.actionSetlayout(s, "2");
 				
+			}else if(layout.equals("layout_3")) {
+				this.actionSetlayout(s, "3");
+				
 			}
 
 			//Set theme
@@ -164,9 +167,9 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 			s.removeContent("layoutsContent");
 			
 	    	s.putMsg("layoutsContent", "", "closeLayoutsTab()");
-	    	s.putMsg("colorschemesContent", "", "closeLayoutsTab()");
-
+//	    	s.putMsg("colorschemesContent", "", "closeLayoutsTab()");
 	    	s.putMsg("buildContent", "", "edit(" + arr + ")");
+	    	
 	    	s.putMsg("header", "", "modeEdit()");
 
         }else {
@@ -364,28 +367,28 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	    	s.putMsg("buildContent", "", "setTheme(" + message + ")");
 	    	
 		 }else if (c.equals("6")) {
-		    	FsNode node = themes.getLayoutBy(5);
+		    	FsNode node = themes.getLayoutBy(6);
 		    	setCurrentTheme(node);
 		    	JSONObject message = new JSONObject();
 		    	message.put("style", node.getProperty("css"));
 		    	s.putMsg("buildContent", "", "setTheme(" + message + ")");
 		    	
 		 }else if (c.equals("7")) {
-		    	FsNode node = themes.getLayoutBy(5);
+		    	FsNode node = themes.getLayoutBy(7);
 		    	setCurrentTheme(node);
 		    	JSONObject message = new JSONObject();
 		    	message.put("style", node.getProperty("css"));
 		    	s.putMsg("buildContent", "", "setTheme(" + message + ")");
 		    	
 		 }else if (c.equals("8")) {
-		    	FsNode node = themes.getLayoutBy(5);
+		    	FsNode node = themes.getLayoutBy(8);
 		    	setCurrentTheme(node);
 		    	JSONObject message = new JSONObject();
 		    	message.put("style", node.getProperty("css"));
 		    	s.putMsg("buildContent", "", "setTheme(" + message + ")");
 		    	
 		 }else if (c.equals("9")) {
-		    	FsNode node = themes.getLayoutBy(5);
+		    	FsNode node = themes.getLayoutBy(9);
 		    	setCurrentTheme(node);
 		    	JSONObject message = new JSONObject();
 		    	message.put("style", node.getProperty("css"));
