@@ -500,12 +500,12 @@ a:hover {
     border-bottom: 4px solid #afd779;
 }
 .drag_bookmark > video {
-	width: 99%;
+	width: 51%;
 	position: relative;
 }
 
 .collection-header {
- top: 54px;
+ 	top: 54px;
     position: absolute;
     border-bottom: 4px solid #afd779;
     width: 360px;
@@ -520,10 +520,29 @@ a:hover {
 .not_public_video:hover p {
 	display: block;
 	position: absolute;
-	z-index: 1;
-	width: 91%;
-	color: red;
+	z-index: 2;
+	font-size: 13px;
+    padding: 14px;
+    width: 47%;
+	color: #FFF;
     font-size: 20px;
-    background-color: rgba(0, 0, 0, 0.25);
+    background-color: rgba(175, 215, 121, 0.25);
 
+}
+
+.terms {
+	padding-left: 26px;
+  	font-weight: bold;
+	float: left;
+	margin-top: 22px;
+}
+
+.logoEU {
+	float: right;
+	width: 96px;
+	height: 33px;
+	margin-right: 27px;
+	margin-top: 20px;
+    background-repeat: no-repeat;
+    background-image: url("../../img/layouts/ic_euscreen.png");
 }

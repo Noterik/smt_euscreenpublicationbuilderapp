@@ -71,14 +71,6 @@ footer {
     background-color: black;
 }
 
-.text_item > p {
-	width: 93%;
-	margin: 0px auto;
-	overflow: hidden;
-	padding-bottom: 15px;
-	padding-top: 10px;
-}
-
 .top {
 	padding-top: 35px;
 	padding-bottom: 15px;
@@ -93,22 +85,6 @@ footer {
 	width: 96.2%;
 	padding-top: 20px;
 	margin: 0 auto;
-}
-
-.terms {
-	padding-left: 26px;
-  font-weight: bold;
-	float: left;
-	margin-top: 22px;
-}
-
-.logoEU {
-	background-image: url("../../img/layouts/ic_euscreen.png");
-	float: right;
-	width: 96px;
-	height: 33px;
-	margin-right: 27px;
-	margin-top: 15px;
 }
 
 #media_1.plus_icon {
