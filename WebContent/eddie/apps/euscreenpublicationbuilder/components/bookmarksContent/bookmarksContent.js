@@ -8,8 +8,15 @@ var BookmarksContent = function(options){
 		      cursor: 'move',
 		      revert: true,
 		      revertDuration: 0,
+		      zIndex: 10000,
+		      start: function(ui, event) {
+		    	  $(this).css("position", "absolute");
+
+		      },
 		      //helper: 'clone',
 		      stop: function(ui, event){
+		    	  $(this).css("position", "relative");
+
 		      }
 		    });
 		}());
@@ -123,7 +130,6 @@ BookmarksContent.prototype.closeAll = function(cnt_header) {
 				 $old_header_element.hide();
 				 $old_collection = $old_header_element.attr("childs_type");
 				 console.log($old_collection);
-//				 if($old_collection != undefined){
 					 $('#' + 'colectionslayout_items').children().each(function() {
 						 if($(this).attr('collection') == $old_collection){
 							 $(this).hide();
@@ -149,7 +155,6 @@ BookmarksContent.prototype.closeAll = function(cnt_header) {
 							 console.log($(this));
 						 }
 					 });
-//				 }
 			 }
 		 });
 

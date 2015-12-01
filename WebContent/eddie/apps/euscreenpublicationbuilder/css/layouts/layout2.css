@@ -19,8 +19,8 @@ footer {
 
 .media_item video{
 	position: absolute;
-	height: 102%;
-	width: 102%;
+	height: 100%;
+	width: 100%;
 	background-color: black;
 	margin: -1px;
 }
