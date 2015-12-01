@@ -165,8 +165,8 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 
 			}
 			s.removeContent("layoutsContent");
-			
-	    	s.putMsg("layoutsContent", "", "closeLayoutsTab()");
+			s.removeContent("colorschemesContent");
+//	    	s.putMsg("layoutsContent", "", "closeLayoutsTab()");
 //	    	s.putMsg("colorschemesContent", "", "closeLayoutsTab()");
 	    	s.putMsg("buildContent", "", "edit(" + arr + ")");
 	    	

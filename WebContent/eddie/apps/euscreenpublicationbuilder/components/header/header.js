@@ -174,8 +174,14 @@ Header.prototype.success = function() {
 
 Header.prototype.showbuttons = function () {
 	$colorSchemes = $("#color-schemes");
+	$colorSchemes.css("color", "lightgray");
 	$colorSchemes.removeClass("arrow-pinter");
 	$colorSchemes.unbind('click');
+	
+	$layout.css("color", "lightgray");
+	$layout.unbind("click");
+	$layout.removeClass("arrow-pinter");
+	
 	$("#build").addClass("arrow-pinter");	
 	
 }
