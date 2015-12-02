@@ -13,20 +13,9 @@ var BookmarksContent = function(options){
 		      zIndex: 1000,
 		      drag: function(event,ui) { 
 		    	  $(this).css("position", "absolute");
-//		    	  console.log(position.left);
-		    	  console.log(ui.position.left);
-		    	  console.log($(ui.helper).height());
-
 		    	  ui.position.left = ui.position.left - 40;
 		    	  ui.position.top = ui.position.top + ($(ui.helper).height() / 2);
-		    	  console.log(ui.position.top);
-		    	  console.log(event);
-//		    	  ui.position.left = event.clientX;
-//		    	  ui.position.top = event.clientY;
-		  
-		    	  
-		    	  console.log(ui.position.left);
-		    	  console.log(ui.position.top);
+
 		      },
 		      start: function(ui, event) {
 
@@ -34,8 +23,7 @@ var BookmarksContent = function(options){
 		      //helper: 'clone',
 		      stop: function(ui, event){
 		    	  $(this).css("position", "relative");
-//		    	  $(this).css("left", x + "px");
-//		    	  $(this).css("top", y + "px");
+
 
 		      }
 		    });
