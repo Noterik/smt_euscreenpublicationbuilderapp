@@ -13,22 +13,28 @@ footer {
 
 .media_item {
 	margin-bottom: 25px;
-	height: 200px;
+	height: 250px;
 	background-color: rgba(255, 255, 255, 0.5);
 }
 
+.drag_bookmark{
+    background-color: black;
+}
+
 .media_item video{
-	//position: absolute;
-	height: 102%;
-	width: 102%;
+	position: absolute;
+	height: 100%;
+	width: 100%;
 	background-color: black;
 	margin: -1px;
 }
+
 .media_item i{
 	cursor: pointer;
 	color: white;
 	position: absolute;
 }
+
 .media_item .fullscreen{
 	top: 10px;
 	left: 10px;
