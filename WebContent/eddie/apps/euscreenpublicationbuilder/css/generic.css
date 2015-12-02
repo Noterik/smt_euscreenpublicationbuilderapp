@@ -519,6 +519,7 @@ a:hover  {
     font-weight:  bold;
     float:  left;
     margin-top:  22px;
+    margin-left: 32px;
 }
 
 .terms > a:focus {
