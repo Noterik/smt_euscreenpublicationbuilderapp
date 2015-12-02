@@ -294,3 +294,23 @@ a:hover {
     cursor: pointer;
     float: left;
 }
+
+.terms  {
+    font-weight:  bold;
+    float:  left;
+    margin-top:  22px;
+    margin-left: 32px;
+}
+
+.terms > a:focus {
+    text-decoration: none;
+}
+
+.logoEU  {
+    float:  right;
+    width:  96px;
+    height:  33px;
+    margin-top:  20px;
+    background-repeat:  no-repeat;
+    background-image:  url("/eddie/apps/euscreenpublicationbuilder/img/layouts/ic_euscreen.png");
+}
