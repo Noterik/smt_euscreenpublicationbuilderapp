@@ -5,7 +5,7 @@
 }
 
 .border {
-    border-bottom: 4px solid #e8e8e8;
+    border-bottom: 4px solid #A2A2A2;
     width: 75px;
     margin: 0 auto;
 	margin-bottom: 20px;
@@ -36,7 +36,7 @@
 }
 
 .submit_media_id {
-    color: #e8e8e8;
+    color: #A2A2A2;
 }
 
 .removeVideo {

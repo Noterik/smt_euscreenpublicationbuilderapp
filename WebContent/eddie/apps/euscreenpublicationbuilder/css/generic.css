@@ -1,548 +1,531 @@
-body {
-	background-color:#F2F2F2 !important;
-	-webkit-background-size: 1024px 768px;
-	-moz-background-size: 1024px 768px;
-	-o-background-size: 1024px 768px;
-	background-size: 1024px 768px;
-	color: #444; 
+body  {
+    background-color: #F2F2F2 !important;
+    -webkit-background-size:  1024px 768px;
+    -moz-background-size:  1024px 768px;
+    -o-background-size:  1024px 768px;
+    background-size:  1024px 768px;
+    color:  #444;
 }
 
-a {
-	color: #808080!important;
+a  {
+    color:  #808080!important;
 }
 
-a:hover {
-	color: #00AEEF !important;
-	text-decoration: none !important;
+a:hover  {
+    color:  #00AEEF !important;
+    text-decoration:  none !important;
 }
 
-.no-pd {
-	padding: 0;
+.no-pd  {
+    padding:  0;
 }
 
-.layout_image {
-    width: 100%;
+.layout_image  {
+    width:  100%;
 }
 
-#header {
-	background-color: #FFF;
+#header  {
+    background-color:  #FFF;
 }
 
-.top-add-wrapp-1 {
-    height: 51px;
+.top-add-wrapp-1  {
+    height:  51px;
 }
 
-.top-add-wrapp-2 {
-    height: 51px;
-    background-color: #F2F2F2;
-    border-bottom: 1px solid #e8e8e8;
-    border-top: 1px solid #e8e8e8
+.top-add-wrapp-2  {
+    height:  51px;
+    background-color:  #F2F2F2;
+    border-bottom:  1px solid #e8e8e8;
+    border-top:  1px solid #e8e8e8;
 }
 
-#header-title {
-	margin-top: 12px;
-	/*float: left;
-	margin-left: 111px;*/
-	font-size: 1.291em;
-	font-family: "Titillium Web","DIN","Helvetica Neue",Monaco,"Andale Mono",Consolas,monospace;
+#header-title  {
+    margin-top:  12px;
+	font-size:  1.291em;
+    font-family:  "Titillium Web", "DIN", "Helvetica Neue", Monaco, "Andale Mono", Consolas, monospace;
 }
 
-#header-options {
-	float: right;
-	margin-top: 20px;
-	margin-right: 15px;
-	font-size: 1.291em;
-	font-family: "Titillium Web","DIN","Helvetica Neue",Monaco,"Andale Mono",Consolas,monospace;
+#header-options  {
+    float:  right;
+    margin-top:  20px;
+    margin-right:  15px;
+    font-size:  1.291em;
+    font-family:  "Titillium Web", "DIN", "Helvetica Neue", Monaco, "Andale Mono", Consolas, monospace;
 }
 
-#header-options {
-	width: 230px;
-	float: right;
-	margin-top: 24px;
-	margin-right: 111px;
+#header-options  {
+    width:  230px;
+    float:  right;
+    margin-top:  24px;
+    margin-right:  111px;
 }
 
-#x-icon {
-	width: 15px;
-    float: right;
-    margin-top: 17px;
-    height: 17px;
-	background-image: url("../img/x.png");
-	background: url("http://pb.euscreenxl.eu/eddie/apps/euscreenpublicationbuilder/img/ex-button.png");
-	background-repeat: no-repeat;
+#x-icon  {
+    width:  14px;
+    float:  right;
+    margin-top:  17px;
+    height:  14px;
+    /*background-image:  url("../img/x.png");*/
+    background-repeat:  no-repeat;
+    background:  url("http://pb.euscreenxl.eu/eddie/apps/euscreenpublicationbuilder/img/ex-button.png");
 }
 
-#x-icon:hover {
-	width: 15px;
-	height: 17px;
-	background-image: url("../img/xblack.png");
-	background-repeat: no-repeat;
-	background: url("http://pb.euscreenxl.eu/eddie/apps/euscreenpublicationbuilder/img/ex-button.png");
+#layoutsContent  {
+    background-color:  #fff;
+    padding-bottom:  130px;
 }
 
-#layoutsContent {
-	background-color: #fff;
-	padding-bottom: 130px;
+#colorschemesContent  {
+    background-color:  #fff;
+    padding-bottom:  130px;
 }
 
-#colorschemesContent {
-	background-color: #fff;
-	padding-bottom: 130px;
+#buildContent  {
+    background-color:  #fff;
 }
 
-#buildContent {
-	background-color: #fff;
+#left  {
+    background-color:  #FFF;
 }
 
-#left {
-	/*float: left;
-	width: 10%;
-	height: auto;*/
-	background-color: #FFF;
+.themeNavi  {
+    list-style-type:  none;
+    background-color:  white;
+    padding-left:  0;
 }
 
-.themeNavi {
-	list-style-type: none;
-    background-color: white;
-    padding-left: 0;
+.theme_name  {
+    text-align:  center;
+    margin-top:  0;
+    font-size:  20px;
+    margin-top:  15px;
 }
 
-.theme_name {
-	text-align: center;
-	margin-top: 0;
-    font-size: 20px;
-	margin-top: 15px;
+.scheme_image  {
+    width:  100%;
+    /*margin-left:  10%;
+    margin-bottom:  20px;*/
+    background-color:  transparent;
+    border:  none;
+    margin-top:  30px;
 }
 
-.scheme_image {
-	width: 100%;
-  	/*margin-left: 10%;
-	margin-bottom: 20px;*/
-	background-color: transparent;
-	border: none;
-	margin-top: 30px;
+#middle  {
+   /* width:  80%;
+    height:  300px;
+    float:  left;*/
 }
 
-/*#middle {
-	width: 80%;
-	height: 300px;
-	float: left;
-}*/
-
-.inner-div-scheme {
-	width: 360px;
+.inner-div-scheme  {
+    width:  360px;
 }
 
-#right {
-	/*float: right;
-	width: 10%;
-	height: auto;*/
-	background-color: #FFF;
+#right  {
+    /*float:  right;
+    width:  10%;
+    height:  auto;*/
+    background-color:  #FFF;
 }
 
-#right video{
-	position: relative;
-	width: 100%;
+#right video {
+    position:  relative;
+    width:  100%;
 }
 
-#left-header-layout {
-	background-color: #00AEEF;
-	padding: 5px;
-	/*margin-bottom: 10px;*/
-	text-align: center;
-	color: white;
-	border-bottom: 2px solid #F2F2F2;
-	font-family: "Titillium Web","DIN","Helvetica Neue",Monaco,"Andale Mono",Consolas,monospace;
+#left-header-layout  {
+    background-color:  #00AEEF;
+    padding:  5px;
+    /*margin-bottom:  10px;*/
+    text-align:  center;
+    color:  white;
+    border-bottom:  2px solid #F2F2F2;
+    font-family:  "Titillium Web", "DIN", "Helvetica Neue", Monaco, "Andale Mono", Consolas, monospace;
 }
 
-#left-header-theme {
-	background-color: #00AEEF;
-	padding: 5px;
-	/*margin-bottom: 10px;*/
-	text-align: center;
-	color: white;
-	border-bottom: 2px solid #F2F2F2;
-	font-family: "Titillium Web","DIN","Helvetica Neue",Monaco,"Andale Mono",Consolas,monospace;
+#left-header-theme  {
+    background-color:  #00AEEF;
+    padding:  5px;
+    /*margin-bottom:  10px;*/
+    text-align:  center;
+    color:  white;
+    border-bottom:  2px solid #F2F2F2;
+    font-family:  "Titillium Web", "DIN", "Helvetica Neue", Monaco, "Andale Mono", Consolas, monospace;
 }
 
-#left-header-background {
-	background-color: #00AEEF;
-	padding: 5px;
-	/*margin-bottom: 10px;*/
-	text-align: center;
-	color: white;
-	border-bottom: 2px solid #F2F2F2;
-	font-family: "Titillium Web","DIN","Helvetica Neue",Monaco,"Andale Mono",Consolas,monospace;
+#left-header-background  {
+    background-color:  #00AEEF;
+    padding:  5px;
+    /*margin-bottom:  10px;*/
+    text-align:  center;
+    color:  white;
+    border-bottom:  2px solid #F2F2F2;
+    font-family:  "Titillium Web", "DIN", "Helvetica Neue", Monaco, "Andale Mono", Consolas, monospace;
 }
 
-#layout {
-  	/*background-color: rgb(232, 232, 232);
-  	background-color: #FFF;
- 	overflow: hidden;
- 	width: 100%;
-	margin: 0 auto;
-	padding: 3%;
-	background-color: #FFF;*/
-	
+#layout  {
+    /*background-color:  rgb(232,  232,  232);
+    background-color:  #FFF;
+    overflow:  hidden;
+    width:  100%;
+    margin:  0 auto;
+    padding:  3%;
+    background-color:  #FFF;*/
 }
 
-#layout-nav {
-	margin-top: 0px;
+#layout-nav  {
+    margin-top:  0px;
+    cursor:  pointer;
+    float:  left;
+    margin-right:  20px;
+}
+
+#color-schemes  {
+    margin-top:  0px;
+    cursor:  pointer;
+    float:  left;
+    margin-right:  20px;
+}
+
+#build  {
+    margin-top:  0px;
+    cursor:  pointer;
+    float:  left;
+}
+
+.theme-desc  {
+    font-size:  13px;
+    color:  #8d8d8d;
+    text-align:  center;
+}
+
+.arrow-pinter  {
+	height:  34px;
+    background-repeat: no-repeat !important;
+    background-position: center bottom !important;
+    background:  url("http://pb.euscreenxl.eu/eddie/apps/euscreenpublicationbuilder/img/menu-arrow.png");
+}
+
+#mceu_13  {
+    clear:  both;
+}
+
+.tgl  {
+    width:  360px;
+    margin-top:  25px;
+    padding-bottom:  15px;
+    /* border-bottom:  4px solid #afd779;*/
+}
+.tgl-rotate  {
+    -ms-transform:  rotate(135deg);
+    -webkit-transform:  rotate(135deg);
+    transform:  rotate(135deg);
+}
+
+#context  {
+    position:  absolute;
+    width:  154px;
+    background-color:  white;
+    opacity:  0.9;
+    height:  102px;
+}
+
+#context ul  {
+    height:  100%;
+    list-style-type:  none;
+    padding-left:  34px;
+}
+
+#synctime  {
+    display:  none;
+}
+
+#layouts  {
+    padding-top:  15px;
+    background-color:  white;
+}
+
+#layouts ul  {
+    padding-left:  0px;
+    list-style-type:  none;
+}
+
+.addVideoBox  {
+    padding-top:  10%;
+    text-align:  center;
+}
+
+.videoAfterDrop  {
+    width:  100%;
+    height:  100%;
+    border:  0;
+    background-color:  black;
+}
+
+#overlaydialog {
+    position:  fixed;
+    width:  100%;
+    height:  100%;
+    top:  0;
+    left:  0;
+    padding:  20px;
+    z-index:  9995;
+    display:  none;
+    background-color:  rgba(0,  0,  0,  0.99);
+}
+
+#overlaydialog .action {
+    position:  relative;
+    top:  10px;
+    right:  20px;
+    color:  white;
+    font-size:  2em;
+    opacity:  1 !important;
+    z-index:  9997;
+}
+
+#overlaydialog .action span {
+    cursor:  pointer;
+}
+
+#overlaydialog .contents {
+    position:  relative;
+    padding:  50px;
+    height:  100%;
+    width:  100%;
+    z-index:  9996;
+}
+
+#overlaydialog iframe {
+    position:  relative;
+    border:  none;
+    height:  100%;
+    width:  100%;
+}
+
+#youtube_id  {
+    width:  93%;
+    height:  22px;
+    overflow:  hidden;
+    margin:  0px auto;
+    background:  rgba(0,  0,  0,  0.2) none repeat scroll 0% 0%;
+}
+
+#vimeo_id  {
+    width:  93%;
+    height:  22px;
+    overflow:  hidden;
+    margin:  0px auto;
+    background:  rgba(0,  0,  0,  0.2) none repeat scroll 0% 0%;
+}
+
+.submit_media_id  {
+    border:  none;
+    background-color:  white;
+    padding:  8px;
+}
+
+.top-option-wrap  {
+    width:  100%;
+    height:  32px;
+    margin-top:  16px;
+}
+
+.top-option-wrap-2  {
+    width:  100%;
+    height:  32px;
+    margin-top:  10px;
+}
+
+#edit  {
+    background-color:  #afd779;
+    border-radius:  5px;
+    padding:  5px 35px;
+    width:  120px;
+    float:  right;
+    text-align:  center;
+    display:  block;
+    color:  #FFF !important;
+}
+
+#preview  {
+    border-radius:  5px;
+    padding:  5px 35px;
+    width:  120px;
+    display:  block;
+    margin-left:  15px;
+    float:  right;
+    color:  #FFF !important;
+    background-color:  #afd779;
+}
+
+#publish  {
+    background-color:  #afd779;
+    border-radius:  5px;
+    padding:  5px 35px;
+    margin-left:  15px;
+    width:  120px;
+    display:  block;
+    float:  right;
+    color:  #FFF !important;
+}
+
+.layouts-title  {
+    /*width:  83%;*/
+    font-size:  16px;
+    margin:  0 auto;
+    margin-top:  30px;
+    margin-bottom:  30px;
+}
+
+#left-header-layout  {
     cursor: pointer;
+}
+
+#left-header-theme  {
+    cursor: pointer;
+}
+
+#right_header_0  {
+    cursor: pointer;
+}
+
+.media_item i {
+    cursor:  pointer;
+    color:  white;
+    position:  absolute;
+}
+
+.media_item .fullscreen {
+    top:  10px;
+    left:  10px;
+}
+
+.media_item .remove {
+    top:  10px;
+    right:  10px;
+}
+
+.media_item .drag_bookmark .removeVideo {
+    position:  absolute;
+    width:  100%;
+    text-align:  center;
+    bottom:  -25px;
+}
+
+#bookmarklayout  {
+    color:  #FFF;
+    width:  50%;
+    float:  left;
+}
+
+#colectionslayout  {
+    color:  #FFF;
+    width:  100%;
+    padding-top:  100px;
+}
+
+#colectionslayout > div > video {
+    width:  98% !important;
+    margin 0 auto;
+}
+
+#colectionslayout_items {
+    height:  403px;
+    overflow-y:  scroll;
+    overflow-x:  hidden;
+    border-bottom:  4px solid #afd779;
+}
+
+.arrow-wrap  {
+    width:  100%;
+    height:  30px;
+    margin:  0 auto;
+    margin-top:  20px;
+}
+
+.arrow-left  {
+    width:  30px;
+    height:  30px;
     float: left;
-    margin-right: 20px;
+    cursor:  pointer;
+    background-repeat:  no-repeat;
+    background-image:  url("http://pb.euscreenxl.eu/eddie/apps/euscreenpublicationbuilder/img/arrow-left.png");
 }
 
-#color-schemes {
-	margin-top: 0px;
-    cursor: pointer;
+.arrow-right  {
+    width:  30px;
+    height:  30px;
     float: left;
-    margin-right: 20px;
+    cursor:  pointer;
+    background-repeat:  no-repeat;
+    background-image:  url("http://pb.euscreenxl.eu/eddie/apps/euscreenpublicationbuilder/img/arrow-right.png");
 }
 
-#build {
-	margin-top: 0px;
-    cursor: pointer;
-    float: left;
+.right-header  {
+    background-color:  #FFF;
+    color:  #333 !important;
+    padding:  15px 0px;
+    margin-bottom:  0px;
+    text-align:  center;
+    border-bottom:  none;
+    text-align:  center;
+    cursor:  pointer;
+    font-family:  "Titillium Web", "DIN", "Helvetica Neue", Monaco, "Andale Mono", Consolas, monospace;
 }
 
-.theme-desc {
-	font-size: 13px;
-    color: #8d8d8d;
-    text-align: center;
+.right-header_active  {
+    background-color:  #afd779;
+    color:  #FFF !important;
 }
 
-.arrow-pinter {
-	background: url("http://pb.euscreenxl.eu/eddie/apps/euscreenpublicationbuilder/img/menu-arrow.png");
-	background-repeat: no-repeat;
-    background-position: center bottom;
-    height: 34px;
+.side-box-wrapp-top  {
+    width:  100%;
+    height:  54px;
+    border-bottom:  4px solid #afd779;
 }
 
-#mceu_13 {
-	clear: both;
+.drag_bookmark > video  {
+    width:  100%;
+    position:  relative;
 }
 
-.tgl {
-    width: 360px;
-    margin-top: 25px;
-    padding-bottom: 15px;
-    /* border-bottom: 4px solid #afd779; */
+.collection-header  {
+    top:  54px;
+    position:  absolute;
+    border-bottom:  4px solid #afd779;
+    width:  360px;
+    left:  15px;
 }
 
-.tgl-rotate {
-	-ms-transform: rotate(135deg); 
-    -webkit-transform: rotate(135deg);
-    transform: rotate(135deg);
+.not_public_video p {
+    display:  none;
 }
 
-#context {
-	position: absolute;
-	width: 154px;
-  	background-color: white;
-  	opacity: 0.9;
-  	height: 102px;
+.not_public_video:hover p  {
+    display:  block;
+    position:  absolute;
+    z-index:  2;
+    font-size:  13px;
+    padding:  14px;
+    width:  92%;
+    height:  30%;
+    margin:  0;
+    color:  #FFF;
+    font-size:  14px;
+    background-color:  rgba(175,  215,  121,  0.25);
 }
 
-#context ul {
-	height: 100%;
-	list-style-type: none;
-	padding-left: 34px;
+.terms  {
+    font-weight:  bold;
+    float:  left;
+    margin-top:  22px;
 }
 
-#synctime {
-	display: none;
-}
-
-#layouts {
-	padding-top: 15px;
-	background-color: white;
-}
-
-#layouts ul {
-	padding-left: 0px;
-	list-style-type: none;
-}
-
-.addVideoBox {
-	padding-top: 10%;
-    text-align: center;
-}
-
-.videoAfterDrop {
-	width: 100%;
-	height: 100%;
-    border: 0;
-    background-color: black;
-}
-
-#overlaydialog{
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-	background-color: rgba(0, 0, 0, 0.99);
-	padding: 20px;
-	z-index: 9995;
-	display: none;
-}
-
-#overlaydialog .action{
-	position: relative;
-	top: 10px;
-	right: 20px;
-	color: white;
-	font-size: 2em;
-	opacity: 1 !important;
-	z-index: 9997;
-}
-
-
-#overlaydialog .action span{
-	cursor: pointer;
-}
-
-#overlaydialog .contents{
-	position: relative;
-	padding: 50px;
-	height: 100%;
-	width: 100%;
-	z-index: 9996;
-}
-
-#overlaydialog iframe{
-	position: relative;
-	border: none;
-	height: 100%;
-	width: 100%;
-}
-
-#youtube_id {
-	width: 93%;
-	height: 22px;
-	overflow: hidden;
-	margin: 0px auto;
-	background: rgba(0, 0, 0, 0.2) none repeat scroll 0% 0%;
-}
-
-#vimeo_id {
-    width: 93%;
-    height: 22px;
-    overflow: hidden;
-    margin: 0px auto;
-    background: rgba(0, 0, 0, 0.2) none repeat scroll 0% 0%;
-}
-
-.submit_media_id {
-	border: none;
-    background-color: white;
-    padding: 8px;
-}
-
-.top-option-wrap {
-	width: 100%;
-	height: 32px;
-   	margin-top: 16px;
-}
-
-.top-option-wrap-2 {
-	width: 100%;
-	height: 32px;
-   	margin-top: 10px;
-}
-
-#edit {
-    background-color: #afd779;
-    border-radius: 5px;
-    padding: 5px 35px;
-    width: 120px;
-    float: right;
-    text-align: center;
-    display: block;
-    color: #FFF !important;
-}
-
-#preview {
-	border-radius: 5px;
-    padding: 5px 35px;
-    width: 120px;
-    display: block;
-    margin-left: 15px;
-    float: right;
-    color: #FFF !important;
-    background-color: #afd779;
-}
-
-#publish {
-   	background-color: #afd779;
-    border-radius: 5px;
-    padding: 5px 35px;
-    margin-left: 15px;
-    width: 120px;
-    display: block;
-    float: right;
-    color: #FFF !important;
-}
-
-.layouts-title {
-	/*width: 83%;*/
-    font-size: 16px;
-    margin: 0 auto;
-    margin-top: 30px;
-    margin-bottom: 30px;
-}
-
-#left-header-layout {
- cursor:pointer; 
-}
-
-#left-header-theme {
- cursor:pointer; 
-}
-
-#right_header_0 {
- cursor:pointer;
-}
-
-.media_item i{
-	cursor: pointer;
-	color: white;
-	position: absolute;
-}
-
-.media_item .fullscreen{
-	top: 10px;
-	left: 10px;
-}
-
-.media_item .remove{
-	top: 10px;
-	right: 10px;
-}
-
-.media_item .drag_bookmark .removeVideo{
-	position: absolute;
-	width: 100%;
-	text-align: center;
-	bottom: -25px;
-}
-
-#bookmarklayout {
-	color: #FFF;
-	width: 50%;
-	float: left;
-
-}
-
-#colectionslayout {
-	color: #FFF;
-	width: 100%;
-    padding-top: 100px;
-}
-#colectionslayout > div > video{
-	width: 98% !important;
-	margin 0 auto;
-}
-
-#colectionslayout_items{
-	height: 403px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    border-bottom: 4px solid #afd779;
-}
-
-.arrow-wrap {
-	width: 100%;
-	height: 30px;
-	margin: 0 auto;
-	margin-top: 20px;
-}
-.arrow-left {
-	width: 30px;
-	height: 30px;
-	float:left;
-	background-image: url("http://pb.euscreenxl.eu/eddie/apps/euscreenpublicationbuilder/img/arrow-left.png");
-	background-repeat: no-repeat;
-	cursor: pointer;
-}
-
-.arrow-right {
-	width: 30px;
-	height: 30px;
-	float:left;
-	background-image: url("http://pb.euscreenxl.eu/eddie/apps/euscreenpublicationbuilder/img/arrow-right.png");
-	background-repeat: no-repeat;
-	cursor: pointer;
-}
-
-.right-header {
-	background-color: #FFF;
-	color: #333 !important;
-    padding: 15px 0px;
-    margin-bottom: 0px;
-    text-align: center;
-    border-bottom: none;
-    text-align: center;
-    cursor: pointer;
-    font-family: "Titillium Web","DIN","Helvetica Neue",Monaco,"Andale Mono",Consolas,monospace;
-}
-
-.right-header_active { 
-	background-color: #afd779;
-	color: #FFF !important;
-}
-
-.side-box-wrapp-top {
-    width: 100%;
-    height: 54px;
-    border-bottom: 4px solid #afd779;
-}
-.drag_bookmark > video {
-	width: 100%;
-	position: relative;
-}
-
-.collection-header {
- 	top: 54px;
-    position: absolute;
-    border-bottom: 4px solid #afd779;
-    width: 360px;
-    left: 15px;
-
-}
-
-.not_public_video p{
-	display: none;
-}
-
-.not_public_video:hover p {
-	display: block;
-	position: absolute;
-	z-index: 2;
-	font-size: 13px;
-    padding: 14px;
-    width: 92%;
-    height: 42%;
-	color: #FFF;
-    font-size: 14px;
-    background-color: rgba(175, 215, 121, 0.25);
-
-}
-
-.terms {
-	padding-left: 26px;
-  	font-weight: bold;
-	float: left;
-	margin-top: 22px;
-}
-
-.logoEU {
-	float: right;
-	width: 96px;
-	height: 33px;
-	margin-right: 27px;
-	margin-top: 20px;
-    background-repeat: no-repeat;
-    background-image: url("../../img/layouts/ic_euscreen.png");
+.logoEU  {
+    float:  right;
+    width:  96px;
+    height:  33px;
+    margin-top:  20px;
+    background-repeat:  no-repeat;
+    background-image:  url("http://pb.euscreenxl.eu/eddie/apps/euscreenpublicationbuilder/img/layouts/ic_euscreen.png");
 }

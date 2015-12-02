@@ -173,7 +173,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	    	s.putMsg("header", "", "modeEdit()");
 
         }else {
-	    	s.putMsg("header", "", "showbuttons(" + ")");
+//	    	s.putMsg("header", "", "showbuttons(" + ")");
 	    	
         }
         
