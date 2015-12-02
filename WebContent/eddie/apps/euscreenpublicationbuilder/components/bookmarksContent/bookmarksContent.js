@@ -12,9 +12,7 @@ var BookmarksContent = function(options){
 		      revertDuration: 0,
 		      zIndex: 1000,
 		      drag: function(event,ui) { 
-		    	  $(this).css("position", "absolute");
-		    	  ui.position.left = ui.position.left - 40;
-		    	  ui.position.top = ui.position.top + ($(ui.helper).height() / 2);
+		    	  
 
 		      },
 		      start: function(ui, event) {
