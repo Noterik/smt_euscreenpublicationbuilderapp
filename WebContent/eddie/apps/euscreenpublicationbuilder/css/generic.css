@@ -67,7 +67,7 @@ a:hover  {
     height:  14px;
     /*background-image:  url("../img/x.png");*/
     background-repeat:  no-repeat;
-    background:  url("http://pb.euscreenxl.eu/eddie/apps/euscreenpublicationbuilder/img/ex-button.png");
+    background:  url("../img/ex-button.png");
 }
 
 #layoutsContent  {
@@ -202,7 +202,7 @@ a:hover  {
 	height:  34px;
     background-repeat: no-repeat !important;
     background-position: center bottom !important;
-    background:  url("http://pb.euscreenxl.eu/eddie/apps/euscreenpublicationbuilder/img/menu-arrow.png");
+    background:  url("../img/menu-arrow.png");
 }
 
 #mceu_13  {
@@ -449,7 +449,7 @@ a:hover  {
     float: left;
     cursor:  pointer;
     background-repeat:  no-repeat;
-    background-image:  url("http://pb.euscreenxl.eu/eddie/apps/euscreenpublicationbuilder/img/arrow-left.png");
+    background-image:  url("../img/arrow-left.png");
 }
 
 .arrow-right  {
@@ -458,7 +458,7 @@ a:hover  {
     float: left;
     cursor:  pointer;
     background-repeat:  no-repeat;
-    background-image:  url("http://pb.euscreenxl.eu/eddie/apps/euscreenpublicationbuilder/img/arrow-right.png");
+    background-image:  url("../img/arrow-right.png");
 }
 
 .right-header  {
@@ -527,5 +527,34 @@ a:hover  {
     height:  33px;
     margin-top:  20px;
     background-repeat:  no-repeat;
-    background-image:  url("http://pb.euscreenxl.eu/eddie/apps/euscreenpublicationbuilder/img/layouts/ic_euscreen.png");
+    background-image:  url("../img/layouts/ic_euscreen.png");
+}
+
+.additional-icon-1 {
+	width: 33px;
+	height: 24px;
+    position: absolute;
+    bottom: 55px;
+    right: 71px;
+    display: none;
+	background-image: url("../img/youtube-i.png");
+}
+
+.additional-icon-2 {
+	width: 27px;
+	height: 23px;
+	position: absolute;
+    bottom: 91px;
+    right: 40px;
+    display: none;
+	background-image: url("../img/vmeo-i.png");
+}
+
+.additional-icon-3 {
+	width: 30px;
+	height: 30px;
+    position: absolute;
+    bottom: 45px;
+    right: 20px;
+	background-image: url("../img/plus-i.png");
 }
