@@ -67,7 +67,11 @@ a:hover  {
     height:  14px;
     /*background-image:  url("../img/x.png");*/
     background-repeat:  no-repeat;
+<<<<<<< HEAD
     background:  url("http://pb.euscreenxl.eu/eddie/apps/euscreenpublicationbuilder/img/ex-button.png");
+=======
+    background:  url("../img/ex-button.png");
+>>>>>>> ec09b117d94444c3471a959a4abc434ef7351af6
 }
 
 #layoutsContent  {
@@ -118,6 +122,23 @@ a:hover  {
 
 .inner-div-scheme  {
     width:  360px;
+<<<<<<< HEAD
+}
+
+#right  {
+    /*float:  right;
+    width:  10%;
+    height:  auto;*/
+    background-color:  #FFF;
+}
+
+#right video {
+    position:  relative;
+    width:  100%;
+}
+
+#left-header-layout  {
+=======
 }
 
 #right  {
@@ -143,6 +164,7 @@ a:hover  {
 }
 
 #left-header-theme  {
+>>>>>>> ec09b117d94444c3471a959a4abc434ef7351af6
     background-color:  #00AEEF;
     padding:  5px;
     /*margin-bottom:  10px;*/
@@ -152,6 +174,21 @@ a:hover  {
     font-family:  "Titillium Web", "DIN", "Helvetica Neue", Monaco, "Andale Mono", Consolas, monospace;
 }
 
+<<<<<<< HEAD
+#left-header-theme  {
+=======
+#left-header-background  {
+>>>>>>> ec09b117d94444c3471a959a4abc434ef7351af6
+    background-color:  #00AEEF;
+    padding:  5px;
+    /*margin-bottom:  10px;*/
+    text-align:  center;
+    color:  white;
+    border-bottom:  2px solid #F2F2F2;
+    font-family:  "Titillium Web", "DIN", "Helvetica Neue", Monaco, "Andale Mono", Consolas, monospace;
+}
+
+<<<<<<< HEAD
 #left-header-background  {
     background-color:  #00AEEF;
     padding:  5px;
@@ -172,7 +209,25 @@ a:hover  {
     background-color:  #FFF;*/
 }
 
+
+#layout  {
+    /*background-color:  rgb(232,  232,  232);
+    background-color:  #FFF;
+    overflow:  hidden;
+    width:  100%;
+    margin:  0 auto;
+    padding:  3%;
+    background-color:  #FFF;*/
+}
+
 #layout-nav  {
+    margin-top:  0px;
+    cursor:  pointer;
+    float:  left;
+    margin-right:  20px;
+}
+
+#color-schemes  {
     margin-top:  0px;
     cursor:  pointer;
     float:  left;
@@ -528,4 +583,376 @@ a:hover  {
     margin-top:  20px;
     background-repeat:  no-repeat;
     background-image:  url("http://pb.euscreenxl.eu/eddie/apps/euscreenpublicationbuilder/img/layouts/ic_euscreen.png");
+=======
+#build  {
+    margin-top:  0px;
+    cursor:  pointer;
+    float:  left;
+}
+
+.theme-desc  {
+    font-size:  13px;
+    color:  #8d8d8d;
+    text-align:  center;
+}
+
+.arrow-pinter  {
+	height:  34px;
+    background-repeat: no-repeat !important;
+    background-position: center bottom !important;
+    background:  url("../img/menu-arrow.png");
+}
+
+#mceu_13  {
+    clear:  both;
+}
+
+.tgl  {
+    width:  360px;
+    margin-top:  25px;
+    padding-bottom:  15px;
+    /* border-bottom:  4px solid #afd779;*/
+}
+.tgl-rotate  {
+    -ms-transform:  rotate(135deg);
+    -webkit-transform:  rotate(135deg);
+    transform:  rotate(135deg);
+}
+
+#context  {
+    position:  absolute;
+    width:  154px;
+    background-color:  white;
+    opacity:  0.9;
+    height:  102px;
+}
+
+#context ul  {
+    height:  100%;
+    list-style-type:  none;
+    padding-left:  34px;
+}
+
+#synctime  {
+    display:  none;
+}
+
+#layouts  {
+    padding-top:  15px;
+    background-color:  white;
+}
+
+#layouts ul  {
+    padding-left:  0px;
+    list-style-type:  none;
+}
+
+.addVideoBox  {
+    padding-top:  10%;
+    text-align:  center;
+}
+
+.videoAfterDrop  {
+    width:  100%;
+    height:  100%;
+    border:  0;
+    background-color:  black;
+}
+
+#overlaydialog {
+    position:  fixed;
+    width:  100%;
+    height:  100%;
+    top:  0;
+    left:  0;
+    padding:  20px;
+    z-index:  9995;
+    display:  none;
+    background-color:  rgba(0,  0,  0,  0.99);
+}
+
+#overlaydialog .action {
+    position:  relative;
+    top:  10px;
+    right:  20px;
+    color:  white;
+    font-size:  2em;
+    opacity:  1 !important;
+    z-index:  9997;
+}
+
+#overlaydialog .action span {
+    cursor:  pointer;
+}
+
+#overlaydialog .contents {
+    position:  relative;
+    padding:  50px;
+    height:  100%;
+    width:  100%;
+    z-index:  9996;
+}
+
+#overlaydialog iframe {
+    position:  relative;
+    border:  none;
+    height:  100%;
+    width:  100%;
+}
+
+#youtube_id  {
+    width:  93%;
+    height:  22px;
+    overflow:  hidden;
+    margin:  0px auto;
+    background:  rgba(0,  0,  0,  0.2) none repeat scroll 0% 0%;
+}
+
+#vimeo_id  {
+    width:  93%;
+    height:  22px;
+    overflow:  hidden;
+    margin:  0px auto;
+    background:  rgba(0,  0,  0,  0.2) none repeat scroll 0% 0%;
+}
+
+.submit_media_id  {
+    border:  none;
+    background-color:  white;
+    padding:  8px;
+}
+
+.top-option-wrap  {
+    width:  100%;
+    height:  32px;
+    margin-top:  16px;
+}
+
+.top-option-wrap-2  {
+    width:  100%;
+    height:  32px;
+    margin-top:  10px;
+}
+
+#edit  {
+    background-color:  #afd779;
+    border-radius:  5px;
+    padding:  5px 35px;
+    width:  120px;
+    float:  right;
+    text-align:  center;
+    display:  block;
+    color:  #FFF !important;
+}
+
+#preview  {
+    border-radius:  5px;
+    padding:  5px 35px;
+    width:  120px;
+    display:  block;
+    margin-left:  15px;
+    float:  right;
+    color:  #FFF !important;
+    background-color:  #afd779;
+}
+
+#publish  {
+    background-color:  #afd779;
+    border-radius:  5px;
+    padding:  5px 35px;
+    margin-left:  15px;
+    width:  120px;
+    display:  block;
+    float:  right;
+    color:  #FFF !important;
+}
+
+.layouts-title  {
+    /*width:  83%;*/
+    font-size:  16px;
+    margin:  0 auto;
+    margin-top:  30px;
+    margin-bottom:  30px;
+}
+
+#left-header-layout  {
+    cursor: pointer;
+}
+
+#left-header-theme  {
+    cursor: pointer;
+}
+
+#right_header_0  {
+    cursor: pointer;
+}
+
+.media_item i {
+    cursor:  pointer;
+    color:  white;
+    position:  absolute;
+}
+
+.media_item .fullscreen {
+    top:  10px;
+    left:  10px;
+}
+
+.media_item .remove {
+    top:  10px;
+    right:  10px;
+}
+
+.media_item .drag_bookmark .removeVideo {
+    position:  absolute;
+    width:  100%;
+    text-align:  center;
+    bottom:  -25px;
+}
+
+#bookmarklayout  {
+    color:  #FFF;
+    width:  50%;
+    float:  left;
+}
+
+#colectionslayout  {
+    color:  #FFF;
+    width:  100%;
+    padding-top:  100px;
+}
+
+#colectionslayout > div > video {
+    width:  98% !important;
+    margin 0 auto;
+}
+
+#colectionslayout_items {
+    height:  403px;
+    overflow-y:  scroll;
+    overflow-x:  hidden;
+    border-bottom:  4px solid #afd779;
+}
+
+.arrow-wrap  {
+    width:  100%;
+    height:  30px;
+    margin:  0 auto;
+    margin-top:  20px;
+}
+
+.arrow-left  {
+    width:  30px;
+    height:  30px;
+    float: left;
+    cursor:  pointer;
+    background-repeat:  no-repeat;
+    background-image:  url("../img/arrow-left.png");
+}
+
+.arrow-right  {
+    width:  30px;
+    height:  30px;
+    float: left;
+    cursor:  pointer;
+    background-repeat:  no-repeat;
+    background-image:  url("../img/arrow-right.png");
+}
+
+.right-header  {
+    background-color:  #FFF;
+    color:  #333 !important;
+    padding:  15px 0px;
+    margin-bottom:  0px;
+    text-align:  center;
+    border-bottom:  none;
+    text-align:  center;
+    cursor:  pointer;
+    font-family:  "Titillium Web", "DIN", "Helvetica Neue", Monaco, "Andale Mono", Consolas, monospace;
+}
+
+.right-header_active  {
+    background-color:  #afd779;
+    color:  #FFF !important;
+}
+
+.side-box-wrapp-top  {
+    width:  100%;
+    height:  54px;
+    border-bottom:  4px solid #afd779;
+}
+
+.drag_bookmark > video  {
+    width:  100%;
+    position:  relative;
+}
+
+.collection-header  {
+    top:  54px;
+    position:  absolute;
+    border-bottom:  4px solid #afd779;
+    width:  360px;
+    left:  15px;
+}
+
+.not_public_video p {
+    display:  none;
+}
+
+.not_public_video:hover p  {
+    display:  block;
+    position:  absolute;
+    z-index:  2;
+    font-size:  13px;
+    padding:  14px;
+    width:  92%;
+    height:  30%;
+    margin:  0;
+    color:  #FFF;
+    font-size:  14px;
+    background-color:  rgba(175,  215,  121,  0.25);
+}
+
+.terms  {
+    font-weight:  bold;
+    float:  left;
+    margin-top:  22px;
+}
+
+.logoEU  {
+    float:  right;
+    width:  96px;
+    height:  33px;
+    margin-top:  20px;
+    background-repeat:  no-repeat;
+    background-image:  url("../img/layouts/ic_euscreen.png");
+}
+
+.additional-icon-1 {
+	width: 33px;
+	height: 24px;
+    position: absolute;
+    bottom: 55px;
+    right: 71px;
+    display: none;
+	background-image: url("../img/youtube-i.png");
+}
+
+.additional-icon-2 {
+	width: 27px;
+	height: 23px;
+	position: absolute;
+    bottom: 91px;
+    right: 40px;
+    display: none;
+	background-image: url("../img/vmeo-i.png");
+}
+
+.additional-icon-3 {
+	width: 30px;
+	height: 30px;
+    position: absolute;
+    bottom: 45px;
+    right: 20px;
+	background-image: url("../img/plus-i.png");
 }
