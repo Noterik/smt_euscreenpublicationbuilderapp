@@ -11,6 +11,14 @@ footer {
 	padding: 0;
 }
 
+.right-pd {
+	padding-right: 1px;
+}
+
+.left-pd {
+	padding-left: 1px;
+}
+
 .media_item {
 	margin-bottom: 25px;
 	height: 250px;
