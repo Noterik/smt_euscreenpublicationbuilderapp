@@ -34,6 +34,13 @@ public class Publication extends VideoPoster{
 	public Publication() {
 		super();
 	}
+	
+	/**
+	 * TODO: String poster_url should be String posterUrl <- this is correct camelcasing, keep underscores in PHP. 
+	 * TODO: This function to me is a bit weird. It returns an object that tells the editor how to use it. But you're not really 
+	 * editing the publication in the method itsself. So really the name "editPublication" to me isn't very clear. There's more things
+	 * that need to change here, but I'll go into the function itsself. 
+	 */
 	public static JSONArray editPublication(String poster_url){
 		System.out.println("Publication.editPublication(" + poster_url + ")");
         FsNode poster_node = Fs.getNode(poster_url);
@@ -43,10 +50,6 @@ public class Publication extends VideoPoster{
         Oldid.put("id", poster_node.getId());
         jsarr.add(Oldid);
         
-        System.out.println("HI!");
-        
-        System.out.println("Oldid: " + Oldid);
-
         Document d = null;
 
         try {
@@ -58,12 +61,31 @@ public class Publication extends VideoPoster{
 		}
         
         try{
-			Node title = d.selectSingleNode("//h1[@class=\"title\"]");
+        	//TODO: Change the layout so that h1[@class=\"title\"] is like [@data-section-type], <h1 class="title" data-section-type="title"></h1>
+			Node title = d.selectSingleNode("//h1[@class=\"title\"]");			 
+			
+			//TODO: Again get rid of underscores, this should be refactored to mediaItem, also again, get rid of selecting media_item nodes by using the class.
+			//Should be like: d.selectNodes("//[@data-section-type=\"media_item\"]"), also for the text_items;
 			List<Node> media_item = d.selectNodes("//div[@class=\"media_item\"]");
 			List<Node> text_item = d.selectNodes("//div[@class=\"text_item\"]");
 			List<Node> links = d.selectNodes("//link");
 	
 			//Get styles
+			//TODO: Extracting this from the HTML is brittle. Let's try to get a reference to this in the actual XML of the video poster. 
+			//Like this: 
+			/*
+			 * <videoposter id="EUS_7AC117E7E4D4B622E4D4B622E4D4B622">
+				<properties>
+					<author>David Ammeraal</author>
+					<creationDate>Wed Dec 02 15:15:54 CET 2015</creationDate>
+					<name>LORUM IPSUM</name>
+					<layout>layout1.css</layout>
+					<theme>theme1.css</theme>
+					<image/>
+				</properties>
+			 */
+			
+			//In that way we can get rid of a whole lot of code here, and make this function a bit more robust. 
 			Element layoutStyleURL = (Element)links.get(1);
 			Element colorShemaURL = (Element)links.get(2);
 	
@@ -123,6 +145,7 @@ public class Publication extends VideoPoster{
 		return jsarr;
 	}
 
+	
 	public static JSONObject createXML(Publication publication, String user, String id){
 		FsNode layout = publication.template.layout.getCurrentLayout();
 		String layoutStyle = publication.template.layout.getCurrentLayoutStyle();

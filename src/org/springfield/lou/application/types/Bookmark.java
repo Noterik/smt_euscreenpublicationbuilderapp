@@ -1,15 +1,9 @@
 package org.springfield.lou.application.types;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springfield.fs.Fs;
-import org.springfield.fs.FsNode;
-
 public class Bookmark {
 	
 	private String id;
-	private String video_id;
+	private String videoId;
 	private String name;
 	private String video;
 	private String screenshot;
@@ -27,11 +21,11 @@ public class Bookmark {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getVideo_id() {
-		return video_id;
+	public String getVideoId() {
+		return videoId;
 	}
 	public void setVideo_id(String video_id) {
-		this.video_id = video_id;
+		this.videoId = video_id;
 	}
 	public String getName() {
 		return name;

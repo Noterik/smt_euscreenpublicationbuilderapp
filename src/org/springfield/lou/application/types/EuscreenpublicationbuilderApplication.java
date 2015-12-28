@@ -101,19 +101,31 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
         
      	
         //Catch modes
+        
+        /*
+         * TODO: If a method gets really long, try splitting it up in multiple functions. It keeps your code clear and more readable. It also 
+         * promotes reusability. So for example, this could be moved to a function called handleEditStatus(Screen s) or something. 
+         */
         if(s.getParameter("status").equals("edit")){
             String poster_url = s.getParameter("posterid");     
+            
             JSONArray arr = Publication.editPublication(poster_url);
             JSONObject idOb = (JSONObject) arr.get(0);
             this.oldPublicationID = idOb.get("id").toString();
+            
             
             s.putMsg("header", "", "modeEdit()");
 
 			//Set layout
             JSONObject layout_json = (JSONObject)arr.get(1);
 			String layout = (String) layout_json.get("layout_type");
+			
 
-
+			/*
+			 * TODO: This needs to be changed. A layout should use a single identifier across the whole application, like either layout_0 or 0. This is if statement shouldn't 
+			 * be here. It should just be this.actionSetLayout(s, layout), try and get the camelcasing right as well. So actionSetLayout instead of 
+			 * actionSetlayout
+			*/
 			if(layout.equals("layout_0")) {
 				this.actionSetlayout(s, "0");
 				
@@ -133,6 +145,9 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
             String colorSchema = (String) colorSchema_json.get("colorSchema");
             System.out.println("COLOR SCHEMA: " + colorSchema);
             
+            /*
+             * TODO: Again this "if{}else if{}...." block should not be here. It should just be this.actionSetTheme(s, colorSchema). 
+             */
 			if(colorSchema == null || colorSchema.equals("theme_0")) {
 				this.actionSettheme(s, "0");
 				
@@ -164,6 +179,8 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 				this.actionSettheme(s, "9");
 
 			}
+			
+			//TODO: Why do we remove stuff when loading a new screen, nothing should be there. 
 			s.removeContent("layoutsContent");
 			s.removeContent("colorschemesContent");
 //	    	s.putMsg("layoutsContent", "", "closeLayoutsTab()");
@@ -172,6 +189,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	    	
 	    	s.putMsg("header", "", "modeEdit()");
 
+	    //TODO: If you're not using it, get rid of it. 
         }else {
 //	    	s.putMsg("header", "", "showbuttons(" + ")");
 	    	
@@ -187,6 +205,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
         
         this.loadBookmarks(s);
 
+        //TODO: This is bad ;) Please clean this up. Use only one block of code, they're all identical apart from one int.
 		if(c.equals("0")){
 			FsNode node = layouts.getLayoutBy(0);
 			setCurrentLayout(node);
@@ -218,6 +237,10 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	}
 	
     //Load bookmarks
+	/*
+	 * TODO: Get rid of all HTML in the Java. This shouldn't be here. This should be rendered in the client side using a template. Try using _.template(). 
+	 * So instead of sending HTML to the client, send JSON, and render it on the client with a template. The listeners should all be defined in the client as well. 
+	 */
 	public void loadBookmarks(Screen s) {
     	bookmarks = new Bookmarks(currentUser);
     	//String bookmarkLayout = "<div class=\"right-header\" id=\"right_header_0\">Bookmarks</div>" + "<div class=\"right-header\" id=\"collections\">Collections</div>";
@@ -321,6 +344,9 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	
 	
 	//Set theme actions
+	/*
+	 * TODO: Again, this needs to be cleaned up badly. It's all the same code except for one number. 
+	 */
 	 public void actionSettheme(Screen s, String c) {
 		 System.out.println("======== actionSettheme(" + c + ") ========");
 	
@@ -398,6 +424,9 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	 }
 	
 	//Generate layout
+	/*
+	 * TODO: Get rid of all HTML in Java.
+	 */
 	public void actionGeneratelayout(Screen s, String c) {
 		System.out.println("actionGenerateLayout()");
         this.loadContent(s, "layoutsContent");
@@ -459,6 +488,9 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	}
 	
 	//Generate color schemes
+	/*
+	 * TODO: Get rid of all HTML in Java
+	 */
 	public void actionGeneratecolorschemes(Screen s, String c) {
 		System.out.println("actionGeneratecolorschemes()");
 		this.removeContent(s, "layoutsContent");
@@ -571,6 +603,9 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	}
 	
 	//Add media item external identifier
+	/*
+	 * TODO: Fix spelling mistake.
+	 */
 	public void actionAddexternalidentifire(Screen s, String c){
 		try {
 			JSONObject json = (JSONObject)new JSONParser().parse(c);
