@@ -1,5 +1,9 @@
 var LayoutsContent = function(options){
 	Component.apply(this, arguments);
+	this.element = jQuery("#layoutsContent");
+	this.layoutListTemplate = _.template(this.element.find('#layout_listing_template').text());
+
+
 }
 
 LayoutsContent.prototype = Object.create(Component.prototype);
@@ -22,6 +26,12 @@ LayoutsContent.prototype.bindLayoutClick = function(i) {
 		LayoutsContent.prototype.closeLayoutsTab();
 		eddie.putLou("", "setlayout"+"(" + i + ")");
 	});
+};
+
+LayoutsContent.prototype.listLayouts = function(data) {
+	var html = jQuery(this.layoutListTemplate({data: JSON.parse(data)}));
+	this.element.append(html);
+	this.setLayoutClick(data.length);
 };
 
 LayoutsContent.prototype.closeLayoutsTab = function () {

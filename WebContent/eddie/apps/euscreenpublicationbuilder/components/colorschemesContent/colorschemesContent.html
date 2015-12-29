@@ -1,0 +1,62 @@
+<script type="text/template" id="theme_listing_template">
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+			<h1 class="layouts-title">
+				Please select the color scheme for your Video Poster below, alternatively you can edit the font color in the build section.
+			</h1>
+		</div>
+	</div>
+</div>
+
+	<div class="container">
+	<%
+		var cntRow = 0;
+		var cntLayout = 0;
+		var isRow = false;
+		_.each(data, function(item, i) {
+			if (i % 3 == 0) {
+				isRow = true;
+	%>
+		<div class="row">
+	<%	
+			}
+	%>
+			<div class="col-sm-4 col-md-4 col-lg-4">
+				<div class="inner-div-scheme">
+					<img  class="scheme_image" id="<%= item.id %>" src="<%= item.icon %>"/>
+					<h3 class="theme_name">
+				 		<%= item.name %>
+					</h3>
+				</div>
+			</div>
+	<%
+	cntRow++;
+	cntLayout++;
+	
+	if(isRow == true) {
+		if(data.length > 3){
+    		if(cntRow == 3){
+	%>
+		</div>
+	<% 
+    			isRow = false;
+    			cntRow = 0;
+    			
+    		}
+    		
+		}else {
+			if(cntRow == data.length){
+	%>
+		</div>
+	<% 
+    			isRow = false;
+    			cntRow = 0;		
+    		}
+			
+		}
+	}
+		});
+	%>
+</div>
+</script>

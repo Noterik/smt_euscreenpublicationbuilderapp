@@ -1,0 +1,63 @@
+<script type="text/template" id="layout_listing_template">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12 col-md-12 col-lg-12">
+				<h1 class="layouts-title">
+					Please select the available video poster layout below. Remember that this is one-time only, once you select a layout there is no coming back
+				</h1>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+	<%
+		var cntRow = 0;
+		var cntLayout = 0;
+		var isRow = false;
+		_.each(data, function(item, i) {
+			if (i % 3 == 0) {
+				isRow = true;
+	%>
+		<div class="row">
+	<%	
+			}
+	%>
+	
+			<div class="col-sm-4 col-md-4 col-lg-4">
+				<img  class="layout_image" id="<%= item.id %>" src="<%= item.icon %>"/>
+				<h4 class="theme_name">
+				 <%= item.name %>
+				</h4>
+				<p class="theme-desc">
+				<%= item.description %>
+				</p>
+			</div>
+	<%
+	cntRow++;
+	cntLayout++;
+	
+	if(isRow == true) {
+		if(data.length > 3){
+    		if(cntRow == 3){
+	%>
+		</div>
+	<% 
+    			isRow = false;
+    			cntRow = 0;
+    			
+    		}
+    		
+		}else {
+			if(cntRow == data.length){
+	%>
+		</div>
+	<% 
+    			isRow = false;
+    			cntRow = 0;		
+    		}
+			
+		}
+	}
+		});
+	%>
+</div>
+</script>

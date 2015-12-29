@@ -1,0 +1,89 @@
+<script type="text/template" id="bookmarks_layout_template">
+    <div id="toggle_0" class="tgl">
+    	<%
+			_.each(bookmarks, function(acs) {
+				if(acs.ispublic == false){
+		%>
+	    			<div class="not_public_video">
+						<p>Unfortunately due to copyright agreements with the Content Provider this video cannot be used for making a video poster.</p>
+						<div id="<%= acs.id %>" class="drag_bookmark">
+							<video  poster="<%= acs.screenshot %>" src="<%= acs.video %>" controls></video>
+						</div>
+	   	 			</div>	
+		<% 
+	            	eddie.getComponent('embedlib').loaded().then(function(){
+	            		EuScreen.getVideo({src: acs.video, poster: acs.screenshot, controls: true}, function(html){
+	            			jQuery('#' + acs.id).html(html);
+	            		});
+	            	});
+		%>
+		<%
+				}else {
+		%>
+					<div id="<%= acs.id %>" class="drag_bookmark">
+						<video  poster="<%= acs.screenshot %>" src="<%= acs.video %>" controls></video>
+					</div>
+		<% 
+	            	eddie.getComponent('embedlib').loaded().then(function(){
+	            		EuScreen.getVideo({src: acs.video, poster: acs.screenshot, controls: true}, function(html){
+	            			jQuery('#' + acs.id).html(html);
+	            		});
+	            	});
+		%>
+
+		<%
+		}
+	});
+	%>
+</script>
+
+<script type="text/template" id="colectionslayout_headers_template">
+	
+	<div class="right-header collection-header" id="<%= data.right_header_id %>" childs_type="<%= data.collection_name %>"> <%= data.collection_name %> </div>
+</script>
+
+<script type="text/template" id="colectionslayout_bookmarks_template">
+	<div id="<%= data.right_toggle_id %> " class="tgl" collection="<%= data.collection_name %>">
+		<% 
+			_.each(data.bookmarks, function(item) {
+
+	    		if(item.ispublic == false){
+					console.log(item.video);
+					var itemVideo = item.video;
+					console.log(itemVideo);
+		     		if(item.video != null){
+		%>
+			     		<div class="not_public_video">
+							<p>Unfortunately due to copyright agreements with the Content Provider this video cannot be used for making a video poster.</p>
+							<div id="<%= item.id %>" class="drag_bookmark">
+								<video poster="<%= item.screenshot %>" data-src="<%= item.video %>" controls></video>
+							</div>
+	    	 			</div>
+
+		<% 
+	            		eddie.getComponent('embedlib').loaded().then(function(){
+	            			EuScreen.getVideo({src: item.video, poster: item.screenshot, controls: true}, function(html){
+	            				jQuery('#' + item.id).html(html);
+	            			});
+	            		});
+		%>
+		<%
+			     	}
+	     		}else {
+		%>
+	    	 		<div id="<%= item.id %>" class="drag_bookmark">
+						<video poster="<%= item.screenshots %>" data-src="<%= item.video %>" controls></video>
+					</div>
+		<% 
+	            	eddie.getComponent('embedlib').loaded().then(function(){
+	            		EuScreen.getVideo({src: item.video, poster: item.screenshot, controls: true}, function(html){
+	            			jQuery('#' + item.id).html(html);
+	            		});
+	            	});
+		%>
+		<%  
+			   	}
+			});
+		%>
+	</div>
+</script>

@@ -1,5 +1,8 @@
 var ColorschemesContent = function(options){
 	Component.apply(this, arguments);
+	
+	this.element = jQuery("#colorschemesContent");
+	this.themeListTemplate = _.template(this.element.find('#theme_listing_template').text());
 }
 
 ColorschemesContent.prototype = Object.create(Component.prototype);
@@ -24,6 +27,13 @@ ColorschemesContent.prototype.bindThemeClick = function(i) {
 		eddie.putLou("", "settheme"+"(" + i + ")");
 	});
 };
+
+ColorschemesContent.prototype.listThemes = function(data) {
+	var html = jQuery(this.themeListTemplate({data: JSON.parse(data)}));
+	this.element.append(html);
+	this.setThemeClick(data.length);
+};
+
 
 ColorschemesContent.prototype.closeThemesTab = function () {
 	$("#colorschemesContent").hide();

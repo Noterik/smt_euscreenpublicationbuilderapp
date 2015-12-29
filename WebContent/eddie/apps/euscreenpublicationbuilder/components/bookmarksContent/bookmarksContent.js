@@ -1,6 +1,16 @@
 var BookmarksContent = function(options){
 	Component.apply(this, arguments);
 	var self = this;
+	this.element = jQuery("#bookmarksContent");
+	this.bookmarkContent = $('#bookmarklayout');
+	this.collectionContent = $('#colectionslayout');
+	this.collectionHeaders = $('#colectionslayout_headers');
+	this.collectionItems = $('#colectionslayout_items');
+	
+	this.bookmarksTemplate = _.template(this.element.find('#bookmarks_layout_template').text());
+	this.colectionsLayoutHeadersTemplate = _.template(this.element.find('#colectionslayout_headers_template').text());
+	this.colectionsLayoutBookmarksTemplate = _.template(this.element.find('#colectionslayout_bookmarks_template').text());
+	
 	setInterval(function(){
 		var x = 0;
 		var y = 0;
@@ -31,6 +41,27 @@ var BookmarksContent = function(options){
 }
 
 BookmarksContent.prototype = Object.create(Component.prototype);
+
+BookmarksContent.prototype.displayBookmarks = function(data) {
+	var self = this;
+	var html = jQuery(this.bookmarksTemplate({bookmarks: JSON.parse(data)}));
+	this.bookmarkContent.append(html);
+}
+
+BookmarksContent.prototype.displayCollections = function(data) {
+	var self = this;
+	var dt = JSON.parse(data);
+
+	$.each(dt, function(){
+		var header_html = jQuery(self.colectionsLayoutHeadersTemplate({data: $(this)[0]}));
+		self.collectionHeaders.append(header_html);
+		
+		var collection_bookmakrs_html = jQuery(self.colectionsLayoutBookmarksTemplate({data: $(this)[0]}));
+		self.collectionItems.append(collection_bookmakrs_html);
+	});
+
+}
+
 
 BookmarksContent.prototype.closeAll = function(cnt_header) {
 	//$(".collection-header").toggle();

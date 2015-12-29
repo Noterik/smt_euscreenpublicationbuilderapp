@@ -21,8 +21,9 @@
 */
 package org.springfield.lou.application.types;
 import java.util.HashMap;
-
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.plaf.synth.SynthSpinnerUI;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -91,18 +92,18 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
         loadContent(s, "comparison");
         loadContent(s, "header");
         loadContent(s, "iframesender");
+       
         actionGeneratelayout(s, "");
 
-        //loadContent(s, "left");     
-        //loadContent(s, "right");
-        
         //Get Current user
         this.getCurrentUser(s);
         
+        this.handleEditStatus(s);
      	
-        //Catch modes
-        
-        /*
+     }
+    
+    public void handleEditStatus(Screen s) {
+    	 /*
          * TODO: If a method gets really long, try splitting it up in multiple functions. It keeps your code clear and more readable. It also 
          * promotes reusability. So for example, this could be moved to a function called handleEditStatus(Screen s) or something. 
          */
@@ -118,84 +119,28 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 
 			//Set layout
             JSONObject layout_json = (JSONObject)arr.get(1);
-			String layout = (String) layout_json.get("layout_type");
-			
-
-			/*
-			 * TODO: This needs to be changed. A layout should use a single identifier across the whole application, like either layout_0 or 0. This is if statement shouldn't 
-			 * be here. It should just be this.actionSetLayout(s, layout), try and get the camelcasing right as well. So actionSetLayout instead of 
-			 * actionSetlayout
-			*/
-			if(layout.equals("layout_0")) {
-				this.actionSetlayout(s, "0");
-				
-			}else if(layout.equals("layout_1")) {
-				this.actionSetlayout(s, "1");
-			
-			}else if(layout.equals("layout_2")) {
-				this.actionSetlayout(s, "2");
-				
-			}else if(layout.equals("layout_3")) {
-				this.actionSetlayout(s, "3");
-				
-			}
+			String[] layout =  ((String) layout_json.get("layout_type")).split("_");
+			this.actionSetlayout(s, layout[1]);
 
 			//Set theme
 			JSONObject colorSchema_json = (JSONObject)arr.get(2);
-            String colorSchema = (String) colorSchema_json.get("colorSchema");
-            System.out.println("COLOR SCHEMA: " + colorSchema);
-            
-            /*
-             * TODO: Again this "if{}else if{}...." block should not be here. It should just be this.actionSetTheme(s, colorSchema). 
-             */
-			if(colorSchema == null || colorSchema.equals("theme_0")) {
-				this.actionSettheme(s, "0");
-				
-			}else if(colorSchema.equals("theme_1")) {
-				this.actionSettheme(s, "1");
-
-			}else if(colorSchema.equals("theme_2")) {
-				this.actionSettheme(s, "2");
-
-			}else if(colorSchema.equals("theme_3")) {
-				this.actionSettheme(s, "3");
-				
-			}else if(colorSchema.equals("theme_4")) {
-				this.actionSettheme(s, "4");
-				
-			}else if(colorSchema.equals("theme_5")) {
-				this.actionSettheme(s, "5");
-
-			}else if(colorSchema.equals("theme_6")) {
-				this.actionSettheme(s, "6");
-
-			}else if(colorSchema.equals("theme_7")) {
-				this.actionSettheme(s, "7");
-
-			}else if(colorSchema.equals("theme_8")) {
-				this.actionSettheme(s, "8");
-
-			}else if(colorSchema.equals("theme_9")) {
-				this.actionSettheme(s, "9");
-
-			}
+			String[] colorSchema = ((String) colorSchema_json.get("colorSchema")).split("_");
+            this.actionSettheme(s, colorSchema[1]);
 			
-			//TODO: Why do we remove stuff when loading a new screen, nothing should be there. 
+			//TODO: Why do we remove stuff when loading a new screen, nothing should be there.
+            /*
+             * We just remove layout and colorschemas tab when we are in edit mode
+             * I will check again
+             * [SHUKRI]
+             */
 			s.removeContent("layoutsContent");
 			s.removeContent("colorschemesContent");
-//	    	s.putMsg("layoutsContent", "", "closeLayoutsTab()");
-//	    	s.putMsg("colorschemesContent", "", "closeLayoutsTab()");
-	    	s.putMsg("buildContent", "", "edit(" + arr + ")");
 	    	
+			s.putMsg("buildContent", "", "edit(" + arr + ")");
 	    	s.putMsg("header", "", "modeEdit()");
 
-	    //TODO: If you're not using it, get rid of it. 
-        }else {
-//	    	s.putMsg("header", "", "showbuttons(" + ")");
-	    	
         }
-        
-     
+
     }
     
 	public void actionSetlayout(Screen s, String c) {
@@ -205,123 +150,67 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
         
         this.loadBookmarks(s);
 
-        //TODO: This is bad ;) Please clean this up. Use only one block of code, they're all identical apart from one int.
-		if(c.equals("0")){
-			FsNode node = layouts.getLayoutBy(0);
-			setCurrentLayout(node);
-			setCurrentLayoutStyle(node.getProperty("css"));
-			JSONObject message = new JSONObject();
-			message.put("html", node.getProperty("template"));
-			message.put("style", node.getProperty("css"));
-			s.putMsg("buildContent", "", "update(" + message + ")");
-		
-		}else if(c.equals("1")) {
-			FsNode node = layouts.getLayoutBy(1);
-	    	setCurrentLayout(node);
-	    	setCurrentLayoutStyle(node.getProperty("css"));
-	    	JSONObject message = new JSONObject();
-	    	message.put("html", node.getProperty("template"));
-	    	message.put("style", node.getProperty("css"));
-	    	s.putMsg("buildContent", "", "update(" + message + ")");
-		
-		}else if(c.equals("2")) {
-	    	FsNode node = layouts.getLayoutBy(2);
-	    	setCurrentLayout(node);
-	    	setCurrentLayoutStyle(node.getProperty("css"));
-	    	JSONObject message = new JSONObject();
-	    	message.put("html", node.getProperty("template"));
-	    	message.put("style", node.getProperty("css"));
-	    	s.putMsg("buildContent", "", "update(" + message + ")");
-		}
-
+        FsNode node = layouts.getLayoutBy(Integer.parseInt(c));
+		setCurrentLayout(node);
+		setCurrentLayoutStyle(node.getProperty("css"));
+		JSONObject message = new JSONObject();
+		message.put("html", node.getProperty("template"));
+		message.put("style", node.getProperty("css"));
+		s.putMsg("buildContent", "", "update(" + message + ")");
 	}
 	
     //Load bookmarks
-	/*
-	 * TODO: Get rid of all HTML in the Java. This shouldn't be here. This should be rendered in the client side using a template. Try using _.template(). 
-	 * So instead of sending HTML to the client, send JSON, and render it on the client with a template. The listeners should all be defined in the client as well. 
-	 */
 	public void loadBookmarks(Screen s) {
     	bookmarks = new Bookmarks(currentUser);
-    	//String bookmarkLayout = "<div class=\"right-header\" id=\"right_header_0\">Bookmarks</div>" + "<div class=\"right-header\" id=\"collections\">Collections</div>";
-    	String bookmarkLayout = "";
-    	bookmarkLayout += "<div id=\"toggle_0\" class=\"tgl\">";
- 
- 		
- 		System.out.println("=============================LOAD BOOKMARK===========================");
  		
      	int cnt_bookmark = 0;
-     	for (Bookmark bmi : bookmarks.getBookmarklist()) {
+
+     	JSONArray bookmarkJsonArray = new JSONArray();
      	
+     	for (Bookmark bmi : bookmarks.getBookmarklist()) {
+     		JSONObject bookmarkJson = new JSONObject();
      		String id = "bookmark_"+ cnt_bookmark;
-     		if(bmi.getIsPublic() == false){ 
-	    		bookmarkLayout += "<div class=\"not_public_video\"><p>Unfortunately due to copyright agreements with the Content Provider this video cannot be used for making a video poster.</p><div id=\"" + id +"\" class=\"drag_bookmark\"><video  poster='"+bmi.getScreenshot()+"' src=\"" + bmi.getVideo() + "\" controls></video></div>";
-	    		bookmarkLayout += "<script type=\"text/javascript\">"
-	    				+ "eddie.getComponent('embedlib').loaded().then(function(){"
-	    				+ "		EuScreen.getVideo({src: '" + bmi.getVideo() + "', poster: '" + bmi.getScreenshot() + "', controls: true}, function(html){"
-	    				+ "			jQuery('#" + id + "').html(html);"
-	    				+ "		});"
-	    				+ "});</script>";
-	    		bookmarkLayout += "</div>";
-     		}else {
-	    		bookmarkLayout += "<div id=\"" + id +"\" class=\"drag_bookmark\"><video  poster='"+bmi.getScreenshot()+"' src=\"" + bmi.getVideo() + "\" controls></video></div>";
-	    		bookmarkLayout += "<script type=\"text/javascript\">"
-	    				+ "eddie.getComponent('embedlib').loaded().then(function(){"
-	    				+ "		EuScreen.getVideo({src: '" + bmi.getVideo() + "', poster: '" + bmi.getScreenshot() + "', controls: true}, function(html){"
-	    				+ "			jQuery('#" + id + "').html(html);"
-	    				+ "		});"
-	    				+ "});</script>";
-     		}
+     		
+     		bookmarkJson.put("id", id);
+     		bookmarkJson.put("screenshot", bmi.getScreenshot());
+     		bookmarkJson.put("video", bmi.getVideo());
+     		bookmarkJson.put("ispublic", bmi.getIsPublic());
+     		bookmarkJsonArray.add(bookmarkJson);
+     		
 			cnt_bookmark++;
 		}
-     	bookmarkLayout += "</div>";
-     	
+
      	//Load collections
-
         collections = new Collections(currentUser);   
-
+        JSONArray  collectionsArray = new JSONArray();
+        
      	int cnt_header = 1;
-     	String colectionslayout_headers = "";
-     	String colectionslayout_items = "";
-
-     	System.out.println(collections.getCollectionlist().size());
      	
      	for (Collection col : collections.getCollectionlist()) {
          	
      		String right_header_div_id = "right_header_" + cnt_header;
      		String right_toggle_div_id = "toggle_" + cnt_header;
-     		colectionslayout_headers += "<div class=\"right-header collection-header\" id='" + right_header_div_id + "' childs_type='"+col.getName()+"'>" + col.getName() + "</div>";
      		
-     		colectionslayout_items += "<div id='" + right_toggle_div_id + "' class=\"tgl\" collection='"+ col.getName()+"'>";
+     		JSONObject collection = new JSONObject();
+     		collection.put("right_header_id", right_header_div_id);
+     		collection.put("right_toggle_id", right_toggle_div_id);
+     		collection.put("collection_name", col.getName());
      		
-     		System.out.println("================ COLLECTION: " + col.getName() + " ================");
+     		JSONArray collectionBookmarksArray = new JSONArray();
+     		
      		for (Bookmark bk : col.getVideos()) {
-         		System.out.println("BOOKMARK IS PUBLIC = " + bk.getIsPublic());
-
+         		
      			try{
-	     			String id = "bookmark_" + cnt_bookmark;
-	     			String src = bk.getVideo();
-	     			if(bk.getIsPublic() == false){
-	     			if(src != null && src.contains("http://")){
-	     				colectionslayout_items += "<div class=\"not_public_video\"><p>Unfortunately due to copyright agreements with the Content Provider this video cannot be used for making a video poster.</p><div id=\"" + id + "\" class=\"drag_bookmark\"><video poster='"+bk.getScreenshot()+"' data-src='" + bk.getVideo() + "' controls></video></div>";
-	     				colectionslayout_items += "<script type=\"text/javascript\">"
-	            				+ "eddie.getComponent('embedlib').loaded().then(function(){"
-	            				+ "		EuScreen.getVideo({src: '" + src + "', poster: '" + bk.getScreenshot() + "', controls: true}, function(html){"
-	            				+ "			jQuery('#" + id + "').html(html);"
-	            				+ "		});"
-	            				+ "});</script>";
-	     	     		colectionslayout_items += "</div>";
-
-	     			}
-	     			}else {
-	     				colectionslayout_items += "<div id=\"" + id + "\" class=\"drag_bookmark\"><video poster='"+bk.getScreenshot()+"' data-src='" + bk.getVideo() + "' controls></video></div>";
-	     				colectionslayout_items += "<script type=\"text/javascript\">"
-	            				+ "eddie.getComponent('embedlib').loaded().then(function(){"
-	            				+ "		EuScreen.getVideo({src: '" + src + "', poster: '" + bk.getScreenshot() + "', controls: true}, function(html){"
-	            				+ "			jQuery('#" + id + "').html(html);"
-	            				+ "		});"
-	            				+ "});</script>";
-	     			}
+     				JSONObject collectionBookmarkJson = new JSONObject();
+     				String id = "bookmark_" + cnt_bookmark;		
+     				
+     				collectionBookmarkJson.put("id", id);
+     				collectionBookmarkJson.put("screenshot", bk.getScreenshot());
+     				collectionBookmarkJson.put("video", bk.getVideo());
+     				collectionBookmarkJson.put("ispublic", bk.getIsPublic());
+     				
+     				collectionBookmarksArray.add(collectionBookmarkJson);
+	     			
             		cnt_bookmark++;
 
      			}catch(Exception e){
@@ -329,168 +218,64 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
      			}
         		
 			}
-     		colectionslayout_items += "</div>";
-     		cnt_header++;
+     		
+     		collection.put("bookmarks", collectionBookmarksArray);
+ 			collectionsArray.add(collection);
+
+ 			cnt_header++;
 		}
    
-
-    	s.setContent("bookmarklayout", bookmarkLayout);
-    	
-    	s.setContent("colectionslayout_headers", colectionslayout_headers);
-    	s.setContent("colectionslayout_items", colectionslayout_items);
-    	
-     	s.putMsg("bookmarksContent", "", "closeAll(" + cnt_header + ")");
+    	s.putMsg("bookmarksContent", "", "displayBookmarks(" + bookmarkJsonArray + ")");
+    	s.putMsg("bookmarksContent", "", "displayCollections(" + collectionsArray + ")");
+    	s.putMsg("bookmarksContent", "", "closeAll(" + cnt_header + ")");
 	}
 	
 	
 	//Set theme actions
-	/*
-	 * TODO: Again, this needs to be cleaned up badly. It's all the same code except for one number. 
-	 */
 	 public void actionSettheme(Screen s, String c) {
 		 System.out.println("======== actionSettheme(" + c + ") ========");
-	
-		 if(c.equals("0")) {
-	    	FsNode node = themes.getLayoutBy(0);
+
+	    	FsNode node = themes.getLayoutBy(Integer.parseInt(c));
 	    	setCurrentTheme(node);
 	    	JSONObject message = new JSONObject();
 	    	message.put("style", node.getProperty("css"));
 	    	s.putMsg("buildContent", "", "setTheme(" + message + ")");
-	    	
-		 } else if (c.equals("1")) {
-	    	FsNode node = themes.getLayoutBy(1);
-	    	setCurrentTheme(node);
-	    	JSONObject message = new JSONObject();
-	    	message.put("style", node.getProperty("css"));
-	    	s.putMsg("buildContent", "", "setTheme(" + message + ")");
-		    	
-		 }else if (c.equals("2")) {
-	    	FsNode node = themes.getLayoutBy(2);
-	    	setCurrentTheme(node);
-	    	JSONObject message = new JSONObject();
-	    	message.put("style", node.getProperty("css"));
-	    	s.putMsg("buildContent", "", "setTheme(" + message + ")");
-	    	
-		 }else if (c.equals("3")) {
-	    	FsNode node = themes.getLayoutBy(3);
-	    	setCurrentTheme(node);
-	    	JSONObject message = new JSONObject();
-	    	message.put("style", node.getProperty("css"));
-	    	s.putMsg("buildContent", "", "setTheme(" + message + ")");
-	    	
-		 }else if (c.equals("4")) {
-	    	FsNode node = themes.getLayoutBy(4);
-	    	setCurrentTheme(node);
-	    	JSONObject message = new JSONObject();
-	    	message.put("style", node.getProperty("css"));
-	    	s.putMsg("buildContent", "", "setTheme(" + message + ")");
-	    	
-		 }else if (c.equals("5")) {
-	    	FsNode node = themes.getLayoutBy(5);
-	    	setCurrentTheme(node);
-	    	JSONObject message = new JSONObject();
-	    	message.put("style", node.getProperty("css"));
-	    	s.putMsg("buildContent", "", "setTheme(" + message + ")");
-	    	
-		 }else if (c.equals("6")) {
-		    	FsNode node = themes.getLayoutBy(6);
-		    	setCurrentTheme(node);
-		    	JSONObject message = new JSONObject();
-		    	message.put("style", node.getProperty("css"));
-		    	s.putMsg("buildContent", "", "setTheme(" + message + ")");
-		    	
-		 }else if (c.equals("7")) {
-		    	FsNode node = themes.getLayoutBy(7);
-		    	setCurrentTheme(node);
-		    	JSONObject message = new JSONObject();
-		    	message.put("style", node.getProperty("css"));
-		    	s.putMsg("buildContent", "", "setTheme(" + message + ")");
-		    	
-		 }else if (c.equals("8")) {
-		    	FsNode node = themes.getLayoutBy(8);
-		    	setCurrentTheme(node);
-		    	JSONObject message = new JSONObject();
-		    	message.put("style", node.getProperty("css"));
-		    	s.putMsg("buildContent", "", "setTheme(" + message + ")");
-		    	
-		 }else if (c.equals("9")) {
-		    	FsNode node = themes.getLayoutBy(9);
-		    	setCurrentTheme(node);
-		    	JSONObject message = new JSONObject();
-		    	message.put("style", node.getProperty("css"));
-		    	s.putMsg("buildContent", "", "setTheme(" + message + ")");
-		    	
-		 }
 	 }
 	
-	//Generate layout
-	/*
-	 * TODO: Get rid of all HTML in Java.
-	 */
+
 	public void actionGeneratelayout(Screen s, String c) {
 		System.out.println("actionGenerateLayout()");
         this.loadContent(s, "layoutsContent");
-
-
+        
         //Load layouts
         layouts = new Layout();
-    	String layoutBody = "<div class=\"container\"><div class=\"row\"><div class=\"col-sm-12 col-md-12 col-lg-12\"><h1 class=\"layouts-title\">Please select the available video poster layout below. Remember that this is one-time only, once you select a layout there is no coming back</h1></div></div></div>";
-		int cntRow = 0;
-		int cntLayout = 0;
-		boolean isRow = false;
 		
-		layoutBody += "<div class=\"container\">";
+		JSONArray jsonlayoutsarray = new JSONArray();
+		
 		
     	for(int i = 0; i < layouts.getLayouts().size(); i++) {
-			if (i % 3 == 0) {
-    			isRow = true;
-    			layoutBody += "<div class=\"row\">";
-				
-			}
-    		
-    		layoutBody += "<div class=\"col-sm-4 col-md-4 col-lg-4\"><img  class=\"layout_image\" id=\"layout_"+ i +"\" src='" + layouts.getLayouts().get(i).getProperty("icon") + "'/><h4 class=\"theme_name\">" + layouts.getLayouts().get(i).getProperty("name") + "</h4><p class=\"theme-desc\">" + layouts.getLayouts().get(i).getProperty("description") + "</p></div>";
-    		
-    		cntRow++;
-    		cntLayout++;
     		
     		String layoutStr = layouts.getLayouts().get(i).getProperty("css");
     		String[] splits = layoutStr.split("/");
     		String lo = splits[splits.length -1];
     		lo = lo.trim();
+    		
     		layoutWithStyle.put(lo, "layout_"+ i);
     		
+    		JSONObject jsonlayoutobject = new JSONObject();
+    		jsonlayoutobject.put("id", "layout_"+ i);
+    		jsonlayoutobject.put("name", layouts.getLayouts().get(i).getProperty("name"));
+    		jsonlayoutobject.put("icon", layouts.getLayouts().get(i).getProperty("icon"));
+    		jsonlayoutobject.put("description", layouts.getLayouts().get(i).getProperty("description"));
     		
-    		if(isRow == true) {
-	    		if(layouts.getLayouts().size() > 3){
-		    		if(cntRow == 3){
-		    			layoutBody += "</div>"; 
-		    			isRow = false;
-		    			cntRow = 0;
-		    			
-		    		}
-		    		
-	    		}else {
-	    			if(cntRow == layouts.getLayouts().size() - 1){
-	    				layoutBody += "</div>"; 
-		    			isRow = false;
-		    			cntRow = 0;
-		    			
-		    		}
-	    			
-	    		}
-	    	}
+    		jsonlayoutsarray.add(jsonlayoutobject);
+    		
     	}
-    	layoutBody += "</div>";
-
-    	s.setContent("layoutsContent", layoutBody);
-    	s.putMsg("layoutsContent", "", "setLayoutClick(" + cntLayout + ")");
+    	
+    	s.putMsg("layoutsContent", "", "listLayouts(" + jsonlayoutsarray + ")");
     	
 	}
 	
-	//Generate color schemes
-	/*
-	 * TODO: Get rid of all HTML in Java
-	 */
 	public void actionGeneratecolorschemes(Screen s, String c) {
 		System.out.println("actionGeneratecolorschemes()");
 		this.removeContent(s, "layoutsContent");
@@ -499,48 +284,24 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
                 
         //Load color schemes
         themes = new Theme();
-    	String colorSchemesBody = "<div class=\"container\"><div class=\"row\"><div class=\"col-sm-12 col-md-12 col-lg-12\"><h1 class=\"layouts-title\">Please select the color scheme for your Video Poster below, alternatively you can edit the font color in the build section.</h1></div></div></div>";
-    	colorSchemesBody += "<div class=\"container\">";
-		int cntRow = 0;
-		int cntTheme = 0;
-		boolean isRow = false;
+		
+		JSONArray jsonThemeArray = new JSONArray();
+		
+		
     	for(int i = 0; i < themes.getThemes().size(); i++) {
-			
-			if (i % 3 == 0) {
-    			isRow = true;
-				colorSchemesBody += "<div class=\"row\">";
-				
-			}
-    
-    		colorSchemesBody += "<div class=\"col-sm-4 col-md-4 col-lg-4\"><div class=\"inner-div-scheme\"><img  class=\"scheme_image\" id=\"theme_"+ i +"\" src='" + themes.getThemes().get(i).getProperty("icon") + "'/><h3 class=\"theme_name\">" + themes.getThemes().get(i).getProperty("name") + "</h3></div></div>";    
-   
-    		cntRow++;
-    		cntTheme++;
-  
     		styleWithId.put(themes.getThemes().get(i).getProperty("css").trim(), "theme_"+ i);
 
-    		if(isRow == true) {
-	    		if(themes.getThemes().size() > 3){
-		    		if(cntRow == 3){
-		    			colorSchemesBody += "</div>"; 
-		    			isRow = false;
-		    			cntRow = 0;
-		    			
-		    		}
-	    		}else {
-	    			if(cntRow == themes.getThemes().size() - 1){
-		    			colorSchemesBody += "</div>"; 
-		    			isRow = false;
-		    			cntRow = 0;
-		    			
-		    		}
-	    		}
-	    	}
+    		JSONObject jsonThemeObject = new JSONObject();
+    		jsonThemeObject.put("id", "theme_"+ i);
+    		jsonThemeObject.put("name", themes.getThemes().get(i).getProperty("name"));
+    		jsonThemeObject.put("icon", themes.getThemes().get(i).getProperty("icon"));
+    		
+    		jsonThemeArray.add(jsonThemeObject);
+    		
     	}
-    	
-		colorSchemesBody += "</div>";    		
-    	s.setContent("colorschemesContent", colorSchemesBody);
-        s.putMsg("colorschemesContent", "", "setThemeClick(" + cntTheme + ")");
+		
+    	s.putMsg("colorschemesContent", "", "listThemes(" + jsonThemeArray + ")");
+
 	}
 	
 	
@@ -603,10 +364,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	}
 	
 	//Add media item external identifier
-	/*
-	 * TODO: Fix spelling mistake.
-	 */
-	public void actionAddexternalidentifire(Screen s, String c){
+	public void actionAddexternalidentifier(Screen s, String c){
 		try {
 			JSONObject json = (JSONObject)new JSONParser().parse(c);
 			String data_type = json.get("dataType").toString().toLowerCase();

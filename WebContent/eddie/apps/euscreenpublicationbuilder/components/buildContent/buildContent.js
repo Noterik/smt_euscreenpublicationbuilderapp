@@ -1,10 +1,12 @@
 var BuildContent = function(options){
 	 this.element = jQuery("#buildCont");
 	 Component.apply(this, arguments);
-	 
+
 	 jQuery("#buildContent").hide();
 }
 BuildContent.prototype = Object.create(Component.prototype);
+
+
 
 BuildContent.prototype.initTinyMce = function(){
 	console.log("BuildContent.initTinyMce()");
@@ -259,7 +261,7 @@ BuildContent.prototype.bindEvent = function() {
 		var identifier = $($(v).first().get(0).currentTarget.parentElement.firstChild).html()
 		var container = $($(v).first().get(0).currentTarget.parentElement.parentElement).attr("id");
 		var result = JSON.stringify({dataType: data_type, identifier: identifier, container: container});
-		eddie.putLou("", "addexternalidentifire(" + result + ")");
+		eddie.putLou("", "addexternalidentifier(" + result + ")");
 				
 	});
 }
