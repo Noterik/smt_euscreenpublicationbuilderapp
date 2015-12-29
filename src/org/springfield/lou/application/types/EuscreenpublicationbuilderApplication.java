@@ -23,7 +23,6 @@ package org.springfield.lou.application.types;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
-import javax.swing.plaf.synth.SynthSpinnerUI;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

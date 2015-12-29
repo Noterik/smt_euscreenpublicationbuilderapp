@@ -16,13 +16,17 @@ import org.springfield.fs.Fs;
 import org.springfield.fs.FsNode;
 
 public class Collections {
+	/*
+	 * TODO: Does this really need to be public, I'd prefer a Getter and Setter for this.
+	 */
 	public List<Collection> collectionlist = new ArrayList<Collection>();
 	private List<FsNode> xmlCallList;
 	private String address = "/domain/euscreenxl/user/"; 
 	
+	/*
+	 * TODO: Read my comments in Bookmarks.java about this. 
+	 */
 	public static List<String> blacklistProviders;
-	private static String ipAddress = "";
-	private static boolean isAndroid = false;
 	
 	public List<Collection> getCollectionlist() {
 		return collectionlist;
@@ -122,43 +126,5 @@ public class Collections {
 				e.printStackTrace();
 			}
 		}
-	}	
-	
-	private static void sendTicket(String videoFile, String ipAddress, String ticket) throws IOException {
-		URL serverUrl = new URL("http://82.94.187.227:8001/acl/ticket");
-		HttpURLConnection urlConnection = (HttpURLConnection)serverUrl.openConnection();
-	
-		Long Sytime = System.currentTimeMillis();
-		Sytime = Sytime / 1000;
-		String expiry = Long.toString(Sytime+(15*60));
-		
-		// Indicate that we want to write to the HTTP request body
-		
-		urlConnection.setDoOutput(true);
-		urlConnection.setRequestMethod("POST");
-		videoFile=videoFile.substring(1);
-		
-		// Writing the post data to the HTTP request body
-		BufferedWriter httpRequestBodyWriter = 
-		new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream()));
-		String content="";
-		if (isAndroid){
-			content = "<fsxml><properties><ticket>"+ticket+"</ticket>"
-			+ "<uri>/"+videoFile+"</uri><ip>"+ipAddress+"</ip> "
-			+ "<role>user</role>"
-			+ "<expiry>"+expiry+"</expiry><maxRequests>10</maxRequests></properties></fsxml>";
-			isAndroid=false;
-			//System.out.println("Android ticket!");
-		}
-		else {
-			content = "<fsxml><properties><ticket>"+ticket+"</ticket>"
-			+ "<uri>/"+videoFile+"</uri><ip>"+ipAddress+"</ip> "
-			+ "<role>user</role>"
-			+ "<expiry>"+expiry+"</expiry><maxRequests>10</maxRequests></properties></fsxml>";
-		}
-
-		httpRequestBodyWriter.write(content);
-		httpRequestBodyWriter.close();
-		
 	}	
 }

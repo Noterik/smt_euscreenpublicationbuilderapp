@@ -1,10 +1,6 @@
 package org.springfield.lou.application.types;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import org.springfield.fs.Fs;
-import org.springfield.fs.FsNode;
 
 public class Collection {
 	

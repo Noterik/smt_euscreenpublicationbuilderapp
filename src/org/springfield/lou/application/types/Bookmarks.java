@@ -1,14 +1,7 @@
 package org.springfield.lou.application.types;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
 
 import org.springfield.fs.FSList;
 import org.springfield.fs.FSListManager;
@@ -20,10 +13,8 @@ public class Bookmarks {
 	public List<Bookmark> bookmarklist = new ArrayList<Bookmark>();
 	private List<FsNode> xmlCallList;
 	private static String domain = "/domain/euscreenxl";
-	public static List<String> blacklistProviders;
+	public static List<String> blacklistProviders = new ArrayList();
 	private String address = domain + "/user/";
-	private static String ipAddress = "";
-	private static boolean isAndroid = false;
 
 	public List<Bookmark> getBookmarklist() {
 		return bookmarklist;
@@ -111,10 +102,10 @@ public class Bookmarks {
 		
 	}
 	
-	public static boolean checkIsPublic(String referId, List<String> blacklistProviders2) {
+	public static boolean checkIsPublic(String referId, List<String> blacklistProviders) {
 		String user = URIParser.getUserIdFromUri(referId);
 		System.out.println("CheckIsPublic: " + user);
-		for (String blacklsit_entry : blacklistProviders2) {	
+		for (String blacklsit_entry : blacklistProviders) {	
 			blacklsit_entry = blacklsit_entry.replaceAll("/domain/euscreenxl/user/", "");
 
 			if(blacklsit_entry.equals(user)){
@@ -137,41 +128,4 @@ public class Bookmarks {
 		return link;
 	}
 	
-	private static void sendTicket(String videoFile, String ipAddress, String ticket) throws IOException {
-		URL serverUrl = new URL("http://82.94.187.227:8001/acl/ticket");
-		HttpURLConnection urlConnection = (HttpURLConnection)serverUrl.openConnection();
-	
-		Long Sytime = System.currentTimeMillis();
-		Sytime = Sytime / 1000;
-		String expiry = Long.toString(Sytime+(15*60));
-		
-		// Indicate that we want to write to the HTTP request body
-		
-		urlConnection.setDoOutput(true);
-		urlConnection.setRequestMethod("POST");
-		videoFile=videoFile.substring(1);
-		
-		// Writing the post data to the HTTP request body
-		BufferedWriter httpRequestBodyWriter = 
-		new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream()));
-		String content="";
-		if (isAndroid){
-			content = "<fsxml><properties><ticket>"+ticket+"</ticket>"
-			+ "<uri>/"+videoFile+"</uri><ip>"+ipAddress+"</ip> "
-			+ "<role>user</role>"
-			+ "<expiry>"+expiry+"</expiry><maxRequests>10</maxRequests></properties></fsxml>";
-			isAndroid=false;
-			//System.out.println("Android ticket!");
-		}
-		else {
-			content = "<fsxml><properties><ticket>"+ticket+"</ticket>"
-			+ "<uri>/"+videoFile+"</uri><ip>"+ipAddress+"</ip> "
-			+ "<role>user</role>"
-			+ "<expiry>"+expiry+"</expiry><maxRequests>10</maxRequests></properties></fsxml>";
-		}
-
-		httpRequestBodyWriter.write(content);
-		httpRequestBodyWriter.close();
-	
-	}	
 }

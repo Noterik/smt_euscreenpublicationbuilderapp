@@ -1,10 +1,8 @@
 package org.springfield.lou.application.types.DTO;
 
 import interfaces.BookmarkItem;
-import interfaces.VimeoItem;
-import interfaces.YouTubeItem;
 
-public class MediaItem implements BookmarkItem, VimeoItem, YouTubeItem{
+public class MediaItem implements BookmarkItem{
 	private String id;
 	private String value;
 	private String poster;

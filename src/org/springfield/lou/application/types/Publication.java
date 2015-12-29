@@ -17,7 +17,7 @@ import org.springfield.lou.application.types.DTO.MediaItem;
 import org.springfield.lou.application.types.DTO.TextContent;
 import org.springfield.lou.application.util.PublicationHTMLWriter;
 
-/* TODO
+/* TODO:
  * Why are there three functions that almost do the same? avoid code duplication... 
  * Put generic code in a single functions and the small subtleties/difference can be put in 
  * other functions. 
@@ -25,6 +25,7 @@ import org.springfield.lou.application.util.PublicationHTMLWriter;
  * Not efficient/scalable and very prone to errors. 
  */
 
+//TODO: A VideoPoster extends a Publication, not the other way around 
 public class Publication extends VideoPoster{
 
 	//Should really be put in a Config object that should be injected into every class that needs it, no time for this so quick and dirty way.
