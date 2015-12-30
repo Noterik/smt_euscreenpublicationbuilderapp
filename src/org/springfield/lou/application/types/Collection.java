@@ -2,19 +2,32 @@ package org.springfield.lou.application.types;
 
 import java.util.List;
 
-public class Collection {
+import org.springfield.lou.json.JSONField;
+import org.springfield.lou.json.JSONSerializable;
+
+public class Collection extends JSONSerializable{
 	
+	private String id;
 	private String name;
 	private List<Bookmark> videos;
 	
 	
-	public Collection(String name, List<Bookmark> videos) {
+	public Collection(String id, String name, List<Bookmark> videos) {
+		setId(id);
 		setName(name);
 		setVideos(videos);
 	}
 
+	@JSONField(field = "id")
+	public String getId(){
+		return id;
+	}
+	
+	public void setId(String id){
+		this.id = id;
+	}
 
-
+	@JSONField(field = "videos")
 	public List<Bookmark> getVideos() {
 		return videos;
 	}
@@ -24,7 +37,7 @@ public class Collection {
 		this.videos = videos;
 	}
 
-
+	@JSONField(field = "name")
 	public String getName() {
 		return name;
 	}

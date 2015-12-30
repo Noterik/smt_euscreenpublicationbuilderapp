@@ -12,5 +12,6 @@
 	<classpathentry kind="lib" path="/smt_myeuscreen/libs/servlet-api.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/uter/WebContent/WEB-INF/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="deps/screen_component.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

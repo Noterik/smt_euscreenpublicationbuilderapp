@@ -110,7 +110,7 @@ var Header = function(options){
 		
 		var result = JSON.stringify({textItem: textAreas, mediaItem: mediaArray});
 		if(publish == true){
-			eddie.putLou("", "proccesspublication(" + result + ")");
+			eddie.putLou("", "proccessPublication(" + result + ")");
 			$('#publish').hide();
 			$('#header').notify("Your Poster has been saved", { className:"success", autoHideDelay: 3400});
 		}
@@ -159,7 +159,7 @@ var Header = function(options){
 		
 		var result = JSON.stringify({textItem: textAreas, mediaItem: mediaArray, mode: "edit"});
 		if(publish == true){
-			eddie.putLou("", "proccesspublication(" + result + ")");
+			eddie.putLou("", "proccessPublication(" + result + ")");
 			$('#publish').hide();
 			$('#header').notify("Your Poster has been saved",   { className:"success", autoHideDelay: 3400});
 		}
@@ -216,13 +216,13 @@ $( ".nav-arrow-togle" ).click(function() {
 	
 	switch($(this).attr("type")) {
     case "layout":
-        	eddie.putLou("", "generatelayout()");
+        	eddie.putLou("", "generateLayout()");
         break;
     case "colorShemes":
-        	eddie.putLou("", "generatecolorschemes()");
+        	eddie.putLou("", "generateColorSchemes()");
         break;
     case "build" :
-    		eddie.putLou("", "generatebuild()");
+    		eddie.putLou("", "generateBuild()");
     	break;
     default:
 		break;

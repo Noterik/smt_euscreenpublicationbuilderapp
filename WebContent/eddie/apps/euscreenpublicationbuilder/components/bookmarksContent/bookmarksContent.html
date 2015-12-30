@@ -2,11 +2,11 @@
     <div id="toggle_0" class="tgl">
     	<%
 			_.each(bookmarks, function(acs) {
-				if(acs.ispublic == false){
+				if(!acs.isPublic){
 		%>
 	    			<div class="not_public_video">
 						<p>Unfortunately due to copyright agreements with the Content Provider this video cannot be used for making a video poster.</p>
-						<div id="<%= acs.id %>" class="drag_bookmark">
+						<div id="<%= acs.id %>" class="drag_bookmark" data-public="false">
 							<video  poster="<%= acs.screenshot %>" src="<%= acs.video %>" controls></video>
 						</div>
 	   	 			</div>	
@@ -38,24 +38,62 @@
 </script>
 
 <script type="text/template" id="colectionslayout_headers_template">
-	
-	<div class="right-header collection-header" id="<%= data.right_header_id %>" childs_type="<%= data.collection_name %>"> <%= data.collection_name %> </div>
+	<div class="right-header collection-header" id="<%= data.id %>" childs_type="<%= data.name %>"> <%= data.name %> </div>
+</script>
+
+<script type="text/template" id="bookmarksContent_collections_template">
+	<div class="panel-group" id="collectionsAccordion" role="tablist" aria-multiselectable="true">
+		<% for(var i = 0; i < collections.length; i++){ %>
+			<% var collection = collections[i]; %>
+			<% if(i == 0){ %><div class="panel panel-default"><% }else{ %><div class="panel panel-default"><% } %>
+
+			<div class="panel-heading" role="tab" id="#collapsibleCol_<%= collection.id %>">
+				<h4 class="panel-title">
+					<a role="button" data-toggle="collapse" data-parent="#collectionsAccordion" href="#collapsibleCol_<%= collection.id %>" aria-expanded="true" aria-controls="collapseOne">
+						<%= collection.name %>
+					</a>
+				</h4>
+			</div>
+			<div id="collapsibleCol_<%= collection.id %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapsibleCol_<%= collection.id %>">
+				<div class="panel-body">
+					<% for(var c = 0; c < collection.videos.length; c++){ %>
+						<% var item = collection.videos[c]; %>
+						<% if(item.video != null){ %>
+							<div class="video">
+								<% if(!item.isPublic) { %>
+									<p>Unfortunately due to copyright agreements with the Content Provider this video cannot be used for making a video poster.</p>
+								<% } %>
+								<div id="<%= item.id %>" class="drag_bookmark" data-public="<%= item.isPublic %>">
+									<video poster="<%= item.screenshot %>" data-src="<%= item.video %>" controls></video>
+								</div>
+	    	 				</div>
+							<%
+								eddie.getComponent('embedlib').loaded().then(function(){
+	            					EuScreen.getVideo({src: item.video, poster: item.screenshot, controls: true}, function(html){
+	            						jQuery('#' + item.id).html(html);
+	            					});
+	            				}); 
+							%>
+						<% } %>
+					<% } %>
+				</div>
+			</div>
+		<% } %>
+	</div>
 </script>
 
 <script type="text/template" id="colectionslayout_bookmarks_template">
-	<div id="<%= data.right_toggle_id %> " class="tgl" collection="<%= data.collection_name %>">
+	<div id="<%= data.right_toggle_id %> " class="tgl" collection="<%= data.name %>">
 		<% 
-			_.each(data.bookmarks, function(item) {
+			_.each(data.videos, function(item) {
 
-	    		if(item.ispublic == false){
-					console.log(item.video);
+	    		if(item.isPublic == false){
 					var itemVideo = item.video;
-					console.log(itemVideo);
 		     		if(item.video != null){
 		%>
 			     		<div class="not_public_video">
 							<p>Unfortunately due to copyright agreements with the Content Provider this video cannot be used for making a video poster.</p>
-							<div id="<%= item.id %>" class="drag_bookmark">
+							<div id="<%= item.id %>" class="drag_bookmark" data-public="false">
 								<video poster="<%= item.screenshot %>" data-src="<%= item.video %>" controls></video>
 							</div>
 	    	 			</div>
@@ -87,3 +125,31 @@
 		%>
 	</div>
 </script>
+
+<div class="side-box-wrapp-top bookmark-tabs">
+
+	<ul class="nav nav-tabs" role="tablist">
+		<li role="presentation" class="active"><a href="#bookmarksTab" aria-controls="home" role="tab" data-toggle="tab">Bookmarks</a></li>
+   	 	<li role="presentation"><a href="#collectionsTab" aria-controls="profile" role="tab" data-toggle="tab">Collections</a></li>
+	</ul>
+
+	<div class="tab-content">
+		<div class="tabpanel" class="tab-pane active" id="bookmarksTab"></div>
+		<div class="tabpanel" class="tab-pane" id="collectionsTab"></div>
+	</div>
+	
+	<div style="display: none">
+		<div class="right-header right-header_active" id="right_header_0" style="float:left; width: 50%;">Bookmarks</div>
+		<div class="right-header" id="collections" style="float:right; width: 50%;">Collections</div> 
+		<div id="bookmarklayout"></div>
+		<div id="colectionslayout">		
+			<div id="colectionslayout_headers"></div>
+			<div id="colectionslayout_items"></div>
+			<div class="arrow-wrap">
+				<div class="arrow-left"></div>
+				<div class="arrow-right"></div>
+			</div>
+		</div>
+	</div>
+	
+</div>

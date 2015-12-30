@@ -40,7 +40,8 @@ public class Publication extends VideoPoster{
 		System.out.println("Publication.editPublication(" + posterUrl + ")");
         FsNode posterNode = Fs.getNode(posterUrl);
         JSONArray jsArr = new JSONArray();
-
+        
+        /*
         JSONObject oldId = new JSONObject();
         oldId.put("id", posterNode.getId());
         jsArr.add(oldId);
@@ -62,7 +63,6 @@ public class Publication extends VideoPoster{
 	
 			String layoutHref = posterNode.getProperty("layout").trim();
 			String colorHref = posterNode.getProperty("theme").trim();
-
 			
 			String[] splits = layoutHref.split("/");
 			String layoutStr = splits[splits.length - 1];
@@ -114,6 +114,7 @@ public class Publication extends VideoPoster{
         	e.printStackTrace();
         }
         System.out.println("FINISHED Publication.editPublication()");
+        */
 		return jsArr;
 	}
 
@@ -214,7 +215,8 @@ public class Publication extends VideoPoster{
 
 		List<TextContent> textContentList = publication.template.sections.textSection.getTextContents();
 		List<MediaItem> mediaItemList = publication.template.sections.mediaSection.getMediaItems();
-
+		
+		/*
 		Bookmarks bookmarks = new Bookmarks(user);
 		for (Node mediaItem : mediaItems) {
 			for(int i = 0; i < mediaItemList.size(); i++) {
@@ -300,9 +302,7 @@ public class Publication extends VideoPoster{
         object.put("theme", theme);
         PublicationHTMLWriter writer = new PublicationHTMLWriter();
         object.put("xml", writer.getHTML(d));
-        
-        System.out.println("========== BUILD XML =========");
-        System.out.println(object.toJSONString());
+        */
 		return object;
 	}
 	
@@ -357,7 +357,7 @@ public class Publication extends VideoPoster{
 		result.append("</script>");
 		result.append("</body>");
 		result.append("</html>");
-
+	
 		return result.toString();
 	}
 }

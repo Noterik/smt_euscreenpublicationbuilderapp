@@ -42,7 +42,7 @@ var Overlaydialog = function(){
 		self.element.hide();
 		var result = JSON.stringify({textItem: ""});
 
-		eddie.putLou('', 'closepreview(' + result + ')');
+		eddie.putLou('', 'closePreview(' + result + ')');
 		
 	});
 	

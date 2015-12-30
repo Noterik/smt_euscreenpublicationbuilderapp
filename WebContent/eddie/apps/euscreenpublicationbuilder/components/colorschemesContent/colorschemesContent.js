@@ -19,12 +19,13 @@ ColorschemesContent.prototype.setThemeClick = function(count) {
 
 ColorschemesContent.prototype.bindThemeClick = function(i) {
 	var result = JSON.stringify({none: "none"});
-	var function_name ="settheme"+i+"(" + result + ")"; 
 	
 	$('#theme_' + i).click(function(){
 		ColorschemesContent.prototype.closeThemesTab();
-
-		eddie.putLou("", "settheme"+"(" + i + ")");
+		var message = {
+			themeId: "" + i
+		};
+		eddie.putLou("", "setTheme(" + JSON.stringify(message) + ")");
 	});
 };
 
@@ -47,7 +48,6 @@ ColorschemesContent.prototype.closeThemesTab = function () {
 	$layout.unbind("click");
 	$layout.removeClass("arrow-pinter");
 	
-	eddie.putLou("", "generatebuild()");
 	$('#buildContent').show();
 	
 	$colorSchemes = $("#color-schemes");

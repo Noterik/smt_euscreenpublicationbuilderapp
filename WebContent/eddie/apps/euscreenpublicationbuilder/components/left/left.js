@@ -34,7 +34,6 @@ Left.prototype.accordion = function () {
 }
 
 Left.prototype.setLayoutClick = function(count) {
-	console.log("test");
 	var self = this;
 
 	for(var i = 0; i < count; i++)
@@ -45,11 +44,13 @@ Left.prototype.setLayoutClick = function(count) {
 
 Left.prototype.bindLayoutClick = function(i) {
 	var result = JSON.stringify({none: "none"});
-	var function_name ="setlayout"+i+"(" + result + ")"; 
 	
 	$('#layout_' + i).click(function(){
 		console.log("setLayout");
-		eddie.putLou("", "setlayout"+"(" + i + ")");
+		var message = {
+			layoutId: "" + i
+		};
+		eddie.putLou("", "setLayout(" + JSON.stringify(message) + ")");
 	});
 };
 
@@ -63,18 +64,18 @@ Left.prototype.setThemeClick = function(count) {
 	}
 };
 
-Left.prototype.bindThemeClick = function(i) {
-	var result = JSON.stringify({none: "none"});
-	var function_name ="settheme"+i+"(" + result + ")"; 
-	
+Left.prototype.bindThemeClick = function(i) {	
 	$('#theme_' + i).click(function(){
-		eddie.putLou("", "settheme"+"(" + i + ")");
+		var message = {
+			themeId: "" + i
+		};
+		eddie.putLou("", "setTheme(" + JSON.stringify(message) + ")");
 	});
 };
 
 Left.prototype.approveTheme = function() {
 	$('#left-header-theme').click(function(){
-		eddie.putLou("", "approvetheme()");
+		eddie.putLou("", "approveTheme()");
 	});
 };
 

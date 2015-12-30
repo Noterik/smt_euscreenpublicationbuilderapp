@@ -20,66 +20,119 @@
 * along with Screenevents app.  If not, see <http://www.gnu.org/licenses/>.
 */
 package org.springfield.lou.application.types;
-import java.util.HashMap;
-import java.util.Map;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import javax.servlet.http.HttpServletRequest;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.springfield.fs.FsNode;
+import org.json.simple.JSONValue;
 import org.springfield.lou.application.Html5Application;
-import org.springfield.lou.application.types.DTO.MediaItem;
-import org.springfield.lou.application.types.DTO.TextContent;
+import org.springfield.lou.application.session.PublicationbuilderSessionContext;
 import org.springfield.lou.screen.Screen;
+import org.springfield.lou.session.ISession;
+import org.springfield.lou.session.ISessionContext;
 
 public class EuscreenpublicationbuilderApplication extends Html5Application{
-    public Layout layouts;
-    public Theme themes;
-    public Bookmarks bookmarks;
-    public Collections collections;
-    private FsNode currentLayout;
-    private String currentLayoutStyle;
-	private FsNode currentTheme;
-	private String currentUser;
+	
+	//The session context that is responsible for keeping track of all the current sessions. 
+	private ISessionContext context;
+	
+	//Are these neccesary?
 	public static String ipAddress = "";
 	public static boolean isAndroid;
-	private Overlaydialog overlayDialog = null;
-	private String oldPublicationID = "";
-	public static HashMap<String, String> layoutWithStyle = new HashMap<String, String>();
-	public static HashMap<String, String> styleWithId = new HashMap<String, String>(); 
-
-    public String getCurrentLayoutStyle() {
-		return currentLayoutStyle;
-	}
-    
-	public void setCurrentLayoutStyle(String currentLayoutStyle) {
-		this.currentLayoutStyle = currentLayoutStyle;
-	}
-    public FsNode getCurrentTheme() {
-		return currentTheme;
-	}
-
-	public void setCurrentTheme(FsNode currentTheme) {
-		this.currentTheme = currentTheme;
+	
+	public EuscreenpublicationbuilderApplication(String id) {
+		super(id); 	
+		System.out.println("publicationbuilder()");
+		context = new PublicationbuilderSessionContext(this);
+		this.setSessionRecovery(true);
 	}
 	
- 	public FsNode getCurrentLayout() {
-		return currentLayout;
+	//Shows the favicon in the browser
+	public String getFavicon() {
+        return "/eddie/apps/euscreenxlelements/img/favicon.png";
+    }
+	
+	//Get meta headers
+	public String getMetaHeaders(HttpServletRequest request) {
+		ipAddress=getClientIpAddress(request);
+				
+		String browserType = request.getHeader("User-Agent");
+		if(browserType.indexOf("Mobile") != -1) {
+			String ua = request.getHeader("User-Agent").toLowerCase();
+			isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");	
+		}	
+		return "";
 	}
-
-	public void setCurrentLayout(FsNode currentLayout) {
-		this.currentLayout = currentLayout;
+	
+	//This function delegates a screen to the correct session. It might be that a screen already belongs to a session. 
+	@Override
+	public void onNewScreen(Screen s) {
+		//super.onNewScreen(s);
+		System.out.println("publicationbuilder onNewScreen()");
+		try{
+			ISession session = context.getSession(s);
+			if(session == null){
+				session = context.createSession(s);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
+	
+	//This function delegates a call on a screen to the correct session and automatically calls the function based on name. 
+	//With this you can actually CamelCase properly, there's no need for an action prefix. 
+	@Override
+	public void putOnScreen(Screen s, String from, String msg) {
+		ISession session = this.context.getSession(s);
+        int pos = msg.indexOf("(");
+        if (pos!=-1) {
+            String command = msg.substring(0,pos);
+            String content = msg.substring(pos+1,msg.length()-1);
+            JSONObject params = (JSONObject) JSONValue.parse(content);
+            try {
+            	Method method;
+            	if(params != null){
+            		method = session.getClass().getMethod(command, Screen.class, JSONObject.class);
+            		method.invoke(session, s, params);
+            	}else{
+            		method = session.getClass().getMethod(command, Screen.class);
+            		method.invoke(session, s);
+            	}
+            	
+        	} catch (SecurityException e) {
+        		e.printStackTrace();
+        	} catch (NoSuchMethodException e) {
+        		e.printStackTrace();
+        	} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+ 	}
+	
+	
+	/*
+    
 
 	public EuscreenpublicationbuilderApplication(String id) {
 		super(id); 
 	}
 	
+	*/
+	
  	/*
  	 * This method is called when a browser window opens the application
  	 * @see org.springfield.lou.application.Html5Application#onNewScreen(org.springfield.lou.screen.Screen)
  	 */
+	/*
     public void onNewScreen(Screen s) {
         loadStyleSheet(s, "generic"); //Loading the genereic style from css folder
         loadStyleSheet(s, "bootstrap");
@@ -100,343 +153,8 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
         this.handleEditStatus(s);
      	
      }
-    
-    public void handleEditStatus(Screen s) {
-        if(s.getParameter("status").equals("edit")){
-            String posterUrl = s.getParameter("posterid");     
-            
-            JSONArray arr = Publication.getPublication(posterUrl);
-            JSONObject idOb = (JSONObject) arr.get(0);
-            this.oldPublicationID = idOb.get("id").toString();
-            
-            s.putMsg("header", "", "modeEdit()");
+     */
 
-			//Set layout
-            JSONObject layoutJson = (JSONObject)arr.get(1);
-			String[] layout =  ((String) layoutJson.get("layout_type")).split("_");
-			this.actionSetlayout(s, layout[1]);
-
-			//Set theme
-			JSONObject colorSchemaJson = (JSONObject)arr.get(2);
-			String[] colorSchema = ((String) colorSchemaJson.get("colorSchema")).split("_");
-            this.actionSettheme(s, colorSchema[1]);
-			
-			//TODO: Why do we remove stuff when loading a new screen, nothing should be there.
-            /*
-             * We just remove layout and colorschemas tab when we are in edit mode
-             * I will check again
-             * [SHUKRI]
-             */
-			s.removeContent("layoutsContent");
-			s.removeContent("colorschemesContent");
-	    	
-			s.putMsg("buildContent", "", "edit(" + arr + ")");
-	    	s.putMsg("header", "", "modeEdit()");
-
-        }
-
-    }
-    
-	public void actionSetlayout(Screen s, String c) {
-		System.out.println("======== actionSetlayout(" + c + ") ========");
-        loadContent(s, "buildContent");
-        loadContent(s, "bookmarksContent");
-        
-        this.loadBookmarks(s);
-
-        FsNode node = layouts.getLayoutBy(Integer.parseInt(c));
-		setCurrentLayout(node);
-		setCurrentLayoutStyle(node.getProperty("css"));
-		JSONObject message = new JSONObject();
-		message.put("html", node.getProperty("template"));
-		message.put("style", node.getProperty("css"));
-		
-		s.putMsg("buildContent", "", "update(" + message + ")");
-	}
-	
-    //Load bookmarks
-	public void loadBookmarks(Screen s) {
-    	bookmarks = new Bookmarks(currentUser);
- 		
-     	int cntBookmark = 0;
-
-     	JSONArray bookmarkJsonArray = new JSONArray();
-     	
-     	for (Bookmark bmi : bookmarks.getBookmarklist()) {
-     		JSONObject bookmarkJson = new JSONObject();
-     		String id = "bookmark_"+ cntBookmark;
-     		
-     		bookmarkJson.put("id", id);
-     		bookmarkJson.put("screenshot", bmi.getScreenshot());
-     		bookmarkJson.put("video", bmi.getVideo());
-     		bookmarkJson.put("ispublic", bmi.getIsPublic());
-     		bookmarkJsonArray.add(bookmarkJson);
-     		
-     		cntBookmark++;
-		}
-
-     	//Load collections
-        collections = new Collections(currentUser);   
-        JSONArray  collectionsArray = new JSONArray();
-        
-     	int cntHeader = 1;
-     	
-     	for (Collection col : collections.getCollectionlist()) {
-         	
-     		String rightHeaderDivId = "right_header_" + cntHeader;
-     		String rightToggleDivId = "toggle_" + cntHeader;
-     		
-     		JSONObject collection = new JSONObject();
-     		collection.put("right_header_id", rightHeaderDivId);
-     		collection.put("right_toggle_id", rightToggleDivId);
-     		collection.put("collection_name", col.getName());
-     		
-     		JSONArray collectionBookmarksArray = new JSONArray();
-     		
-     		for (Bookmark bk : col.getVideos()) {
-         		
-     			try{
-     				JSONObject collectionBookmarkJson = new JSONObject();
-     				String id = "bookmark_" + cntHeader;		
-     				
-     				collectionBookmarkJson.put("id", id);
-     				collectionBookmarkJson.put("screenshot", bk.getScreenshot());
-     				collectionBookmarkJson.put("video", bk.getVideo());
-     				collectionBookmarkJson.put("ispublic", bk.getIsPublic());
-     				
-     				collectionBookmarksArray.add(collectionBookmarkJson);
-	     			
-     				cntHeader++;
-
-     			}catch(Exception e){
-     				e.printStackTrace();
-     			}
-        		
-			}
-     		
-     		collection.put("bookmarks", collectionBookmarksArray);
- 			collectionsArray.add(collection);
-
- 			cntHeader++;
-		}
-   
-    	s.putMsg("bookmarksContent", "", "displayBookmarks(" + bookmarkJsonArray + ")");
-    	s.putMsg("bookmarksContent", "", "displayCollections(" + collectionsArray + ")");
-    	s.putMsg("bookmarksContent", "", "closeAll(" + cntHeader + ")");
-	}
-	
-	
-	//Set theme actions
-	 public void actionSettheme(Screen s, String c) {
-		 System.out.println("======== actionSettheme(" + c + ") ========");
-
-	    	FsNode node = themes.getLayoutBy(Integer.parseInt(c));
-	    	setCurrentTheme(node);
-	    	JSONObject message = new JSONObject();
-	    	message.put("style", node.getProperty("css"));
-	    	s.putMsg("buildContent", "", "setTheme(" + message + ")");
-	 }
-	
-
-	public void actionGeneratelayout(Screen s, String c) {
-		System.out.println("actionGenerateLayout()");
-        this.loadContent(s, "layoutsContent");
-        
-        //Load layouts
-        layouts = new Layout();
-		
-		JSONArray jsonlayoutsarray = new JSONArray();
-		
-		
-    	for(int i = 0; i < layouts.getLayouts().size(); i++) {
-    		
-    		String layoutStr = layouts.getLayouts().get(i).getProperty("css");
-    		String[] splits = layoutStr.split("/");
-    		String lo = splits[splits.length -1];
-    		lo = lo.trim();
-    		
-    		layoutWithStyle.put(lo, "layout_"+ i);
-    		
-    		JSONObject jsonlayoutobject = new JSONObject();
-    		jsonlayoutobject.put("id", "layout_"+ i);
-    		jsonlayoutobject.put("name", layouts.getLayouts().get(i).getProperty("name"));
-    		jsonlayoutobject.put("icon", layouts.getLayouts().get(i).getProperty("icon"));
-    		jsonlayoutobject.put("description", layouts.getLayouts().get(i).getProperty("description"));
-    		
-    		jsonlayoutsarray.add(jsonlayoutobject);
-    		
-    	}
-    	
-    	s.putMsg("layoutsContent", "", "listLayouts(" + jsonlayoutsarray + ")");
-    	
-	}
-	
-	public void actionGeneratecolorschemes(Screen s, String c) {
-		System.out.println("actionGeneratecolorschemes()");
-		this.removeContent(s, "layoutsContent");
-		this.removeContentAllScreens("layoutsContent");
-        this.loadContent(s, "colorschemesContent");
-                
-        //Load color schemes
-        themes = new Theme();
-		
-		JSONArray jsonThemeArray = new JSONArray();
-		
-		
-    	for(int i = 0; i < themes.getThemes().size(); i++) {
-    		styleWithId.put(themes.getThemes().get(i).getProperty("css").trim(), "theme_"+ i);
-
-    		JSONObject jsonThemeObject = new JSONObject();
-    		jsonThemeObject.put("id", "theme_"+ i);
-    		jsonThemeObject.put("name", themes.getThemes().get(i).getProperty("name"));
-    		jsonThemeObject.put("icon", themes.getThemes().get(i).getProperty("icon"));
-    		
-    		jsonThemeArray.add(jsonThemeObject);
-    	}
-		
-    	s.putMsg("colorschemesContent", "", "listThemes(" + jsonThemeArray + ")");
-	}
-	
-	//Action Preview
-	public void actionPreview(Screen s, String c) {
-
-		try {
-			this.overlayDialog = new Overlaydialog(s);
-			this.overlayDialog.render();
-			
-			JSONObject json = null;
-			if(c != null) json = (JSONObject)new JSONParser().parse(c);
-			Publication publication = new Publication();
-			if(getCurrentTheme() != null) publication.theme.setCurrentTheme(getCurrentTheme());
-			publication.template.layout.setCurrentLayout(getCurrentLayout());
-			publication.template.layout.setCurrentLayoutStyle(getCurrentLayoutStyle());
-			
-			if(json.get("mediaItem") != null){
-				JSONArray mediaArray = (JSONArray)json.get("mediaItem");
-				for(int i = 0; i < mediaArray.size(); i++){
-					JSONObject ob = (JSONObject)mediaArray.get(i);
-					String mediaId = (String)ob.get("id");
-					String mediaValue = (String)ob.get("value");
-					String mediaPoster = (String)ob.get("poster");
-					publication.template.sections.mediaSection.setMediaItems(new MediaItem(mediaId, mediaValue, mediaPoster));
-				}
-			}
-			
-			if(json.get("textItem") != null){
-				JSONArray textArray = (JSONArray)json.get("textItem");
-
-				for(int i = 0; i < textArray.size(); i++){
-					JSONObject ob = (JSONObject)textArray.get(i);
-					String textId = (String)ob.get("id");
-					String textValue = (String)ob.get("value");
-					
-					publication.template.sections.textSection.setTextContents(new TextContent(textId, textValue));
-				}
-			}
-			
-			JSONObject publicationJSON = Publication.createPreviewXML(publication, this.currentUser);
-			this.overlayDialog.setHTML(publicationJSON.get("xml").toString());
-			this.overlayDialog.setVisible(true);
-			this.overlayDialog.update();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}	
-	}
-	
-	public void actionClosepreview(Screen s, String c){
-		this.overlayDialog.setURL("");
-		this.overlayDialog.setVisible(false);
-		this.overlayDialog.update();
-	}
-	
-	//Add media item external identifier
-	public void actionAddexternalidentifier(Screen s, String c){
-		try {
-			JSONObject json = (JSONObject)new JSONParser().parse(c);
-			String data_type = json.get("dataType").toString().toLowerCase();
-			String identifier = json.get("identifier").toString();
-			
-			String container = "#" + json.get("container").toString();
-	    	JSONObject message = new JSONObject();
-	    	
-			if(data_type.equals("youtubeitem")) {
-				String[] youtubeId = identifier.split("=");
-//				https://www.youtube.com/watch?v=A4Tme1q2iew
-				String video = "<iframe class=\"videoAfterDrop ui-draggable\" src='" + "http://www.youtube.com/embed/" + youtubeId[1] + "' frameborder=\"0\" allowfullscreen></iframe>";
-		    	message.put("video", video);
-			}else if (data_type.equals("vimeoitem")) {
-				String[] vimeoId = identifier.split("/");
-				String video = "<iframe class=\"videoAfterDrop\" src='" + "https://player.vimeo.com/video/" + vimeoId[3] + "' frameborder=\"0\" allowfullscreen></iframe>";
-		    	message.put("video", video);
-			}
-			
-			message.put("container", container);
-	    	
-			s.putMsg("buildContent", "", "setmediaitem(" + message + ")");
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-	}	
-	
-	//Create publication XML
-	public void actionProccesspublication(Screen s, String c){
-		try {
-			JSONObject json = (JSONObject)new JSONParser().parse(c);
-			Publication publication = new Publication();
-			
-			publication.theme.setCurrentTheme(getCurrentTheme());
-			publication.template.layout.setCurrentLayout(getCurrentLayout());
-			publication.template.layout.setCurrentLayoutStyle(getCurrentLayoutStyle());
-			
-			JSONArray mediaArray = (JSONArray)json.get("mediaItem");
-			JSONArray textArray = (JSONArray)json.get("textItem");
-
-			for(int i = 0; i < mediaArray.size(); i++){
-				JSONObject ob = (JSONObject)mediaArray.get(i);
-				String mediaId = (String)ob.get("id");
-				String mediaValue = (String)ob.get("value");
-				String mediaPoster = (String)ob.get("poster");
-				publication.template.sections.mediaSection.setMediaItems(new MediaItem(mediaId, mediaValue, mediaPoster));
-			}
-			
-			for(int i = 0; i < textArray.size(); i++){
-				JSONObject ob = (JSONObject)textArray.get(i);
-				String textId = (String)ob.get("id");
-				String textValue = (String)ob.get("value");
-				
-				publication.template.sections.textSection.setTextContents(new TextContent(textId, textValue));
-			}
-			if(json.get("mode") != null){
-				if(json.get("mode").toString().trim().equals("edit")){
-					JSONObject publicationJSON = Publication.editXml(publication, this.currentUser, s.getId(), this.oldPublicationID);
-					s.putMsg("iframesender", "", "sendToParent(" + publicationJSON + ")");
-				}
-			}else{
-				JSONObject publicationJSON = Publication.createXML(publication, this.currentUser, s.getId());
-				s.putMsg("iframesender", "", "sendToParent(" + publicationJSON + ")");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void getCurrentUser(Screen s){
-		String[] arr = s.getId().split("/");
-    	this.currentUser = arr[4];
-	}
-
-	//Get meta headers
-	public String getMetaHeaders(HttpServletRequest request) {
-		ipAddress=getClientIpAddress(request);
-				
-		String browserType = request.getHeader("User-Agent");
-		if(browserType.indexOf("Mobile") != -1) {
-			String ua = request.getHeader("User-Agent").toLowerCase();
-			isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");	
-		}	
-		return "";
-	}
-	
 	private static final String[] HEADERS_TO_TRY = { 
 		"X-Forwarded-For",
 		"Proxy-Client-IP",

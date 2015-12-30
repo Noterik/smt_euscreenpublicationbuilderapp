@@ -1,18 +1,21 @@
 var Observable = function(){
-	
+	this.listeners = {};
+	this.vars = {};
 };
 Observable.prototype.get = function(varName){
-	return this.vars[varName];
+	if(this.vars[varName])
+		return this.vars[varName];
+	return null;
 };
 Observable.prototype.on = function(eventName, fn){
-	if(!this.listeners){
-		this.listeners = {};
-	}
-	
 	if(!this.listeners[eventName]){
 		this.listeners[eventName] = [];
 	}
 	this.listeners[eventName].push(fn);
+};
+Observable.prototype.destroy = function(){
+	console.log("OBSERVABLE DESTROY()!!");
+	this.vars = null;
 };
 Observable.prototype.off = function(eventName, fn){
 	if(this.listeners[eventName]){
@@ -33,9 +36,6 @@ Observable.prototype.update = function(message){
 	console.log("Observable.prototype.update()");
 	var self = this;
 	var data = JSON.parse(message);
-		
-	if(!self.vars)
-		self.vars = {};
 	
 	var changed = false;
 		
@@ -68,7 +68,7 @@ Observable.prototype.set = function(key, val){
 var Component = function(){
 	this.waitingMessages = [];
 	this._bindEvents();
-	console.log(this);
+	Observable.apply(this, arguments);
 };
 
 Component.prototype = Object.create(Observable.prototype);
@@ -81,8 +81,18 @@ Component.prototype.putMsg = function(command){
 	}
 };
 Component.prototype.destroy = function(){
-	if(!this.element){
+	if(this.element){
 		this.element.html('');
+	}
+};
+Component.prototype.hide = function(){
+	if(this.element){
+		this.element.hide();
+	}
+};
+Component.prototype.show = function(){
+	if(this.element){
+		this.element.show();
 	}
 };
 Component.prototype._bindEvents = function () {

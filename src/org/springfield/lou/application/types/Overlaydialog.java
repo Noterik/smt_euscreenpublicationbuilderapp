@@ -2,6 +2,7 @@ package org.springfield.lou.application.types;
 
 import org.springfield.lou.json.JSONField;
 import org.springfield.lou.screen.Screen;
+import org.springfield.lou.screencomponent.component.ScreenComponent;
 
 public class Overlaydialog extends ScreenComponent {
 	

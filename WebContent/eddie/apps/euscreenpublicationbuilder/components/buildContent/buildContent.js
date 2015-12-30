@@ -261,7 +261,7 @@ BuildContent.prototype.bindEvent = function() {
 		var identifier = $($(v).first().get(0).currentTarget.parentElement.firstChild).html()
 		var container = $($(v).first().get(0).currentTarget.parentElement.parentElement).attr("id");
 		var result = JSON.stringify({dataType: data_type, identifier: identifier, container: container});
-		eddie.putLou("", "addexternalidentifier(" + result + ")");
+		eddie.putLou("", "addExternalIdentifier(" + result + ")");
 				
 	});
 }

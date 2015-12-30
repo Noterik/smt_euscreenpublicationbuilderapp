@@ -1,36 +1,39 @@
 package org.springfield.lou.application.types;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
 
-import org.springfield.fs.FSList;
-import org.springfield.fs.FSListManager;
 import org.springfield.fs.Fs;
 import org.springfield.fs.FsNode;
+import org.springfield.lou.json.JSONField;
+import org.springfield.lou.screen.Screen;
+import org.springfield.lou.screencomponent.component.ScreenComponent;
 
-public class Collections {
+public class Collections extends ScreenComponent {
 	/*
-	 * TODO: Does this really need to be public, I'd prefer a Getter and Setter for this.
+	 * TODO: Does this really need to be public, I'd prefer a Getter and Setter
+	 * for this.
 	 */
-	public List<Collection> collectionlist = new ArrayList<Collection>();
+	private List<Collection> collectionlist = new ArrayList<Collection>();
 	private List<FsNode> xmlCallList;
-	private String address = "/domain/euscreenxl/user/"; 
+	private String address = "/domain/euscreenxl/user/";
+	private Blacklist blacklist;
+
 	
+	public Collections(Screen s, String user) {
+		super(s);
+		blacklist = new Blacklist();
+		populateCollections(user);
+	}
+		
+
+
+	@JSONField(field = "collections")
 	public List<Collection> getCollectionlist() {
 		return collectionlist;
 	}
-	
-	public Collections(String user) {
-		super();
-		Blacklist blacklist = new Blacklist();
-		
+
+	private void populateCollections(String user) {
 		address = address + user + "/publications/1/collection";
 		this.xmlCallList = Fs.getNodes(this.address, 2);
 
@@ -40,52 +43,72 @@ public class Collections {
 
 			String currCollectionAddress = address + "/" + collectionId;
 			try {
-				List<FsNode> collectionNodesList = Fs.getNodes(currCollectionAddress, 0);
-				
+				List<FsNode> collectionNodesList = Fs.getNodes(
+						currCollectionAddress, 0);
+
 				FsNode colNode = Fs.getNode(currCollectionAddress);
 				String collection_name = colNode.getProperty("name");
-				
+
 				List<Bookmark> videos = new ArrayList<Bookmark>();
-				
+
 				for (FsNode collection : collectionNodesList) {
-			 
-					if(!collection.getId().contentEquals("1")){
+
+					if (!collection.getId().contentEquals("1")) {
 
 						String videoId = collection.getId();
-						
-						String videoUrl = currCollectionAddress + "/collectionitem/" +videoId+"/video/"+videoId;
-						
+
+						String videoUrl = currCollectionAddress
+								+ "/collectionitem/" + videoId + "/video/"
+								+ videoId;
+
 						FsNode videoNd = Fs.getNode(videoUrl);
-						
-						if(videoNd != null){
+
+						if (videoNd != null) {
 							try {
 								String referId = videoNd.getReferid();
 								System.out.println("referId: " + referId);
 								String referUrl = referId + "/" + "rawvideo";
-								List<FsNode> referNodes = Fs.getNodes(referUrl, 1);
-								System.out.println("REFER NODES: " + referNodes.size());
-								String videoInfoUrl = currCollectionAddress + "/collectionitem/" +videoId+"/video/"+videoId;
+								List<FsNode> referNodes = Fs.getNodes(referUrl,
+										1);
+								System.out.println("REFER NODES: "
+										+ referNodes.size());
+								String videoInfoUrl = currCollectionAddress
+										+ "/collectionitem/" + videoId
+										+ "/video/" + videoId;
 								FsNode videoInfo = Fs.getNode(videoInfoUrl);
-								String videoName = videoInfo.getProperty("TitleSet_TitleSetInEnglish_title");
-								String screenshot = videoInfo.getProperty("screenshot");
-								
+								String videoName = videoInfo
+										.getProperty("TitleSet_TitleSetInEnglish_title");
+								String screenshot = videoInfo
+										.getProperty("screenshot");
+
 								String mount = "";
-								
-								for(FsNode referNode : referNodes){
-									if(referNode.getProperty("format").equals("MP4")){
-										String[] mounts = referNode.getProperty("mount").split(",");
-										for(String mnt : mounts){
-											if(mnt.contains("http://") && mnt.contains("/progressive/")){
+
+								for (FsNode referNode : referNodes) {
+									if (referNode.getProperty("format").equals(
+											"MP4")) {
+										String[] mounts = referNode
+												.getProperty("mount")
+												.split(",");
+										for (String mnt : mounts) {
+											if (mnt.contains("http://")
+													&& mnt.contains("/progressive/")) {
 												mount = mnt;
 												break;
-											}else{
-												mount = "http://" + mnt + ".noterik.com/progressive/" + mnt + referNode.getPath() + "/raw.mp4";
+											} else {
+												mount = "http://"
+														+ mnt
+														+ ".noterik.com/progressive/"
+														+ mnt
+														+ referNode.getPath()
+														+ "/raw.mp4";
 												break;
 											}
 										}
 										break;
-									};
+									}
+									;
 								}
+								
 								if(mount != null){
 									videos.add(new Bookmark(collectionId, videoId, videoName, mount, screenshot, blacklist.checkIsPublic(referId)));
 								}	
@@ -93,13 +116,13 @@ public class Collections {
 								e.printStackTrace();
 							}
 						}
-					}				
+					}
 				}
-				
-				collectionlist.add(new Collection(collection_name, videos));
+
+				collectionlist.add(new Collection(colNode.getId(), collection_name, videos));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-	}	
+	}
 }

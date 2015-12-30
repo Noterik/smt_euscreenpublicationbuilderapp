@@ -20,11 +20,13 @@ LayoutsContent.prototype.setLayoutClick = function(count) {
 
 LayoutsContent.prototype.bindLayoutClick = function(i) {
 	var result = JSON.stringify({none: "none"});
-	var function_name ="setlayout"+i+"(" + result + ")"; 
 	
 	$('#layout_' + i).click(function(){
 		LayoutsContent.prototype.closeLayoutsTab();
-		eddie.putLou("", "setlayout"+"(" + i + ")");
+		var message = {
+			layoutId: "" + i
+		};
+		eddie.putLou("", "setLayout(" + JSON.stringify(message) + ")");
 	});
 };
 
@@ -40,7 +42,7 @@ LayoutsContent.prototype.closeLayoutsTab = function () {
 	$layout.unbind("click");
 	$layout.removeClass("arrow-pinter");
 	
-	eddie.putLou("", "generatecolorschemes()");
+	eddie.putLou("", "generateColorSchemes()");
 	
 	$("#color-schemes").addClass("arrow-pinter");	
 }

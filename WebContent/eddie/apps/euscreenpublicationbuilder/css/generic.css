@@ -487,6 +487,7 @@ a:hover  {
 .drag_bookmark > video  {
     width:  100%;
     position:  relative;
+    background-color: black;
 }
 
 .collection-header  {
@@ -508,7 +509,6 @@ a:hover  {
     font-size:  13px;
     padding:  14px;
     width:  92%;
-    height:  30%;
     margin:  0;
     color:  #FFF;
     font-size:  14px;
@@ -561,4 +561,12 @@ a:hover  {
     bottom: 45px;
     right: 20px;
 	background-image: url("/eddie/apps/euscreenpublicationbuilder/img/plus-i.png");
+}
+
+.tab-content .tabpanel{
+	display: none;
+}
+
+.tab-content .tabpanel.active{
+	display: block;	
 }
