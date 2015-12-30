@@ -23,42 +23,17 @@ public class Collections {
 	private List<FsNode> xmlCallList;
 	private String address = "/domain/euscreenxl/user/"; 
 	
-	/*
-	 * TODO: Read my comments in Bookmarks.java about this. 
-	 */
-	public static List<String> blacklistProviders;
-	
 	public List<Collection> getCollectionlist() {
 		return collectionlist;
 	}
 	
-	public void seedBlacklist() {
-		String blacklistEntryUrl = "/domain/euscreenxl/config/blacklist/";
-		FSList blacklist = FSListManager.get(blacklistEntryUrl);
-		
-		for (FsNode node : blacklist.getNodes()) {
-			boolean videoposter = Boolean.parseBoolean(node.getProperty("videoposter"));
-			if(videoposter == false){
-				String blacklistVideoNode = "/domain/euscreenxl/config/blacklist/entry/"+node.getId()+"/user";
-				List<FsNode> blacklistUserNodes = Fs.getNodes(blacklistVideoNode,1);
-				FsNode blacklistUserNode = blacklistUserNodes.get(0);
-				blacklistProviders.add(blacklistUserNode.getReferid());
-			}
-		}
-		
-	}
-
-	
 	public Collections(String user) {
 		super();
+		Blacklist blacklist = new Blacklist();
 		
-		this.blacklistProviders = new ArrayList<String>();
-		this.seedBlacklist();
 		address = address + user + "/publications/1/collection";
-
 		this.xmlCallList = Fs.getNodes(this.address, 2);
 
-		
 		for (FsNode node : this.xmlCallList) {
 
 			String collectionId = node.getId();
@@ -112,7 +87,7 @@ public class Collections {
 									};
 								}
 								if(mount != null){
-									videos.add(new Bookmark(collectionId, videoId, videoName, mount, screenshot, Bookmarks.checkIsPublic(referId, blacklistProviders)));
+									videos.add(new Bookmark(collectionId, videoId, videoName, mount, screenshot, blacklist.checkIsPublic(referId)));
 								}	
 							} catch (Exception e) {
 								e.printStackTrace();

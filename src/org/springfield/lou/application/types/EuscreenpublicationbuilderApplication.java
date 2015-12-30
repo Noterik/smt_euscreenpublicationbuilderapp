@@ -409,14 +409,10 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 			if(json.get("mode") != null){
 				if(json.get("mode").toString().trim().equals("edit")){
 					JSONObject publicationJSON = Publication.editXml(publication, this.currentUser, s.getId(), this.oldPublicationID);
-					System.out.println("======================PUBLICATION JSON========================");
-					System.out.println(publicationJSON);
 					s.putMsg("iframesender", "", "sendToParent(" + publicationJSON + ")");
 				}
 			}else{
 				JSONObject publicationJSON = Publication.createXML(publication, this.currentUser, s.getId());
-				System.out.println("======================PUBLICATION JSON========================");
-				System.out.println(publicationJSON);
 				s.putMsg("iframesender", "", "sendToParent(" + publicationJSON + ")");
 			}
 		} catch (Exception e) {
