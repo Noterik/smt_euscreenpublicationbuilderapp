@@ -102,28 +102,23 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
      }
     
     public void handleEditStatus(Screen s) {
-    	 /*
-         * TODO: If a method gets really long, try splitting it up in multiple functions. It keeps your code clear and more readable. It also 
-         * promotes reusability. So for example, this could be moved to a function called handleEditStatus(Screen s) or something. 
-         */
         if(s.getParameter("status").equals("edit")){
-            String poster_url = s.getParameter("posterid");     
+            String posterUrl = s.getParameter("posterid");     
             
-            JSONArray arr = Publication.editPublication(poster_url);
+            JSONArray arr = Publication.getPublication(posterUrl);
             JSONObject idOb = (JSONObject) arr.get(0);
             this.oldPublicationID = idOb.get("id").toString();
-            
             
             s.putMsg("header", "", "modeEdit()");
 
 			//Set layout
-            JSONObject layout_json = (JSONObject)arr.get(1);
-			String[] layout =  ((String) layout_json.get("layout_type")).split("_");
+            JSONObject layoutJson = (JSONObject)arr.get(1);
+			String[] layout =  ((String) layoutJson.get("layout_type")).split("_");
 			this.actionSetlayout(s, layout[1]);
 
 			//Set theme
-			JSONObject colorSchema_json = (JSONObject)arr.get(2);
-			String[] colorSchema = ((String) colorSchema_json.get("colorSchema")).split("_");
+			JSONObject colorSchemaJson = (JSONObject)arr.get(2);
+			String[] colorSchema = ((String) colorSchemaJson.get("colorSchema")).split("_");
             this.actionSettheme(s, colorSchema[1]);
 			
 			//TODO: Why do we remove stuff when loading a new screen, nothing should be there.
@@ -155,6 +150,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 		JSONObject message = new JSONObject();
 		message.put("html", node.getProperty("template"));
 		message.put("style", node.getProperty("css"));
+		
 		s.putMsg("buildContent", "", "update(" + message + ")");
 	}
 	
@@ -162,13 +158,13 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	public void loadBookmarks(Screen s) {
     	bookmarks = new Bookmarks(currentUser);
  		
-     	int cnt_bookmark = 0;
+     	int cntBookmark = 0;
 
      	JSONArray bookmarkJsonArray = new JSONArray();
      	
      	for (Bookmark bmi : bookmarks.getBookmarklist()) {
      		JSONObject bookmarkJson = new JSONObject();
-     		String id = "bookmark_"+ cnt_bookmark;
+     		String id = "bookmark_"+ cntBookmark;
      		
      		bookmarkJson.put("id", id);
      		bookmarkJson.put("screenshot", bmi.getScreenshot());
@@ -176,23 +172,23 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
      		bookmarkJson.put("ispublic", bmi.getIsPublic());
      		bookmarkJsonArray.add(bookmarkJson);
      		
-			cnt_bookmark++;
+     		cntBookmark++;
 		}
 
      	//Load collections
         collections = new Collections(currentUser);   
         JSONArray  collectionsArray = new JSONArray();
         
-     	int cnt_header = 1;
+     	int cntHeader = 1;
      	
      	for (Collection col : collections.getCollectionlist()) {
          	
-     		String right_header_div_id = "right_header_" + cnt_header;
-     		String right_toggle_div_id = "toggle_" + cnt_header;
+     		String rightHeaderDivId = "right_header_" + cntHeader;
+     		String rightToggleDivId = "toggle_" + cntHeader;
      		
      		JSONObject collection = new JSONObject();
-     		collection.put("right_header_id", right_header_div_id);
-     		collection.put("right_toggle_id", right_toggle_div_id);
+     		collection.put("right_header_id", rightHeaderDivId);
+     		collection.put("right_toggle_id", rightToggleDivId);
      		collection.put("collection_name", col.getName());
      		
      		JSONArray collectionBookmarksArray = new JSONArray();
@@ -201,7 +197,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
          		
      			try{
      				JSONObject collectionBookmarkJson = new JSONObject();
-     				String id = "bookmark_" + cnt_bookmark;		
+     				String id = "bookmark_" + cntHeader;		
      				
      				collectionBookmarkJson.put("id", id);
      				collectionBookmarkJson.put("screenshot", bk.getScreenshot());
@@ -210,7 +206,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
      				
      				collectionBookmarksArray.add(collectionBookmarkJson);
 	     			
-            		cnt_bookmark++;
+     				cntHeader++;
 
      			}catch(Exception e){
      				e.printStackTrace();
@@ -221,12 +217,12 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
      		collection.put("bookmarks", collectionBookmarksArray);
  			collectionsArray.add(collection);
 
- 			cnt_header++;
+ 			cntHeader++;
 		}
    
     	s.putMsg("bookmarksContent", "", "displayBookmarks(" + bookmarkJsonArray + ")");
     	s.putMsg("bookmarksContent", "", "displayCollections(" + collectionsArray + ")");
-    	s.putMsg("bookmarksContent", "", "closeAll(" + cnt_header + ")");
+    	s.putMsg("bookmarksContent", "", "closeAll(" + cntHeader + ")");
 	}
 	
 	
@@ -296,18 +292,9 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
     		jsonThemeObject.put("icon", themes.getThemes().get(i).getProperty("icon"));
     		
     		jsonThemeArray.add(jsonThemeObject);
-    		
     	}
 		
     	s.putMsg("colorschemesContent", "", "listThemes(" + jsonThemeArray + ")");
-
-	}
-	
-	
-	//Generate build
-	public void actionGeneratebuild(Screen s, String c) {
-		System.out.println("========GENERATE BUILD======");
-    	
 	}
 	
 	//Action Preview
@@ -316,6 +303,7 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 		try {
 			this.overlayDialog = new Overlaydialog(s);
 			this.overlayDialog.render();
+			
 			JSONObject json = null;
 			if(c != null) json = (JSONObject)new JSONParser().parse(c);
 			Publication publication = new Publication();
@@ -345,7 +333,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 					publication.template.sections.textSection.setTextContents(new TextContent(textId, textValue));
 				}
 			}
-
 			
 			JSONObject publicationJSON = Publication.createPreviewXML(publication, this.currentUser);
 			this.overlayDialog.setHTML(publicationJSON.get("xml").toString());
@@ -422,10 +409,14 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 			if(json.get("mode") != null){
 				if(json.get("mode").toString().trim().equals("edit")){
 					JSONObject publicationJSON = Publication.editXml(publication, this.currentUser, s.getId(), this.oldPublicationID);
+					System.out.println("======================PUBLICATION JSON========================");
+					System.out.println(publicationJSON);
 					s.putMsg("iframesender", "", "sendToParent(" + publicationJSON + ")");
 				}
 			}else{
 				JSONObject publicationJSON = Publication.createXML(publication, this.currentUser, s.getId());
+				System.out.println("======================PUBLICATION JSON========================");
+				System.out.println(publicationJSON);
 				s.putMsg("iframesender", "", "sendToParent(" + publicationJSON + ")");
 			}
 		} catch (Exception e) {
@@ -434,7 +425,6 @@ public class EuscreenpublicationbuilderApplication extends Html5Application{
 	}
 	
 	public void getCurrentUser(Screen s){
-
 		String[] arr = s.getId().split("/");
     	this.currentUser = arr[4];
 	}

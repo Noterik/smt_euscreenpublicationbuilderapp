@@ -32,24 +32,23 @@ public class Publication extends VideoPoster{
 	}
 	
 	/**
-	 * TODO: String poster_url should be String posterUrl <- this is correct camelcasing, keep underscores in PHP. 
 	 * TODO: This function to me is a bit weird. It returns an object that tells the editor how to use it. But you're not really 
 	 * editing the publication in the method itsself. So really the name "editPublication" to me isn't very clear. There's more things
 	 * that need to change here, but I'll go into the function itsself. 
 	 */
-	public static JSONArray editPublication(String poster_url){
-		System.out.println("Publication.editPublication(" + poster_url + ")");
-        FsNode poster_node = Fs.getNode(poster_url);
-        JSONArray jsarr = new JSONArray();
+	public static JSONArray getPublication(String posterUrl){
+		System.out.println("Publication.editPublication(" + posterUrl + ")");
+        FsNode posterNode = Fs.getNode(posterUrl);
+        JSONArray jsArr = new JSONArray();
 
-        JSONObject Oldid = new JSONObject();
-        Oldid.put("id", poster_node.getId());
-        jsarr.add(Oldid);
+        JSONObject oldId = new JSONObject();
+        oldId.put("id", posterNode.getId());
+        jsArr.add(oldId);
         
         Document d = null;
 
         try {
-			d = DocumentHelper.parseText(poster_node.getProperty("html"));
+			d = DocumentHelper.parseText(posterNode.getProperty("html"));
 
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
@@ -57,37 +56,14 @@ public class Publication extends VideoPoster{
 		}
         
         try{
-        	//TODO: Change the layout so that h1[@class=\"title\"] is like [@data-section-type], <h1 class="title" data-section-type="title"></h1>
-			Node title = d.selectSingleNode("//div[@class=\"title\"]");			 
+			Node title = d.selectSingleNode("//h1[@class=\"title\"]");			 
+			List<Node> mediaItem = d.selectNodes("//div[@data-section-type=\"media\"]");
+			List<Node> textItem = d.selectNodes("//div[@data-section-type=\"text_big\"]");			
+	
+			String layoutHref = posterNode.getProperty("layout").trim();
+			String colorHref = posterNode.getProperty("theme").trim();
+
 			
-			//TODO: Again get rid of underscores, this should be refactored to mediaItem, also again, get rid of selecting media_item nodes by using the class.
-			//Should be like: d.selectNodes("//[@data-section-type=\"media_item\"]"), also for the text_items;
-			List<Node> media_item = d.selectNodes("//div[@data-section-type=\"media\"]");
-			List<Node> text_item = d.selectNodes("//div[@data-section-type=\"text_big\"]");
-			List<Node> links = d.selectNodes("//link");
-	
-			//Get styles
-			//TODO: Extracting this from the HTML is brittle. Let's try to get a reference to this in the actual XML of the video poster. 
-			//Like this: 
-			/*
-			 * <videoposter id="EUS_7AC117E7E4D4B622E4D4B622E4D4B622">
-				<properties>
-					<author>David Ammeraal</author>
-					<creationDate>Wed Dec 02 15:15:54 CET 2015</creationDate>
-					<name>LORUM IPSUM</name>
-					<layout>layout1.css</layout>
-					<theme>theme1.css</theme>
-					<image/>
-				</properties>
-			 */
-			
-			//In that way we can get rid of a whole lot of code here, and make this function a bit more robust. 
-			Element layoutStyleURL = (Element)links.get(1);
-			Element colorShemaURL = (Element)links.get(2);
-	
-			String layoutHref = layoutStyleURL.attributeValue("href").trim();
-			String colorHref = colorShemaURL.attributeValue("href").trim();
-	
 			String[] splits = layoutHref.split("/");
 			String layoutStr = splits[splits.length - 1];
 			layoutStr = layoutStr.trim();
@@ -96,49 +72,49 @@ public class Publication extends VideoPoster{
 			JSONObject layout = new JSONObject();
 			layout.put("type", "layout");
 			layout.put("layout_type", layoutt);
-			jsarr.add(layout);
+			jsArr.add(layout);
 	
 			JSONObject styles = new JSONObject();
 			styles.put("type", "styles");
 			styles.put("layout", layoutHref);
 			String style = EuscreenpublicationbuilderApplication.styleWithId.get(colorHref);
 			styles.put("colorSchema", style);
-			jsarr.add(styles);
-	
+			jsArr.add(styles);
+			
 			//Get title object
-			Element title_el = (Element) title;
+			Element titleElement = (Element) title;
 			JSONObject titleObject = new JSONObject();
 			titleObject.put("type", "title");
-			titleObject.put("id", title_el.attributeValue("id"));
+			titleObject.put("id", titleElement.attributeValue("id"));
 			titleObject.put("value", title.getStringValue());
-			jsarr.add(titleObject);
+			jsArr.add(titleObject);
 	
 			//Get media items objects
-			for (Node node : media_item) {
+			for (Node node : mediaItem) {
 				Element el = (Element) node;
 	
 				JSONObject mediaObject = new JSONObject();
 				mediaObject.put("type", "media_item");
 				mediaObject.put("id", el.attributeValue("id"));
 				mediaObject.put("value", node.getStringValue());
-				jsarr.add(mediaObject);
+				jsArr.add(mediaObject);
 			}
 	
 	
 			//Get text item objects
-			for (Node node : text_item) {
+			for (Node node : textItem) {
 				Element el = (Element) node;
 				JSONObject textObject = new JSONObject();
 				textObject.put("type", "text_item");
 				textObject.put("id", el.attributeValue("id"));
 				textObject.put("value", node.getStringValue());
-				jsarr.add(textObject);
+				jsArr.add(textObject);
 			}
         }catch(Exception e){
         	e.printStackTrace();
         }
         System.out.println("FINISHED Publication.editPublication()");
-		return jsarr;
+		return jsArr;
 	}
 
 	
@@ -154,18 +130,18 @@ public class Publication extends VideoPoster{
 			}
 		}
 		
-		String html_layout = buildHtml(layoutTemplate, layoutStyle, theme);
+		String htmlLayout = buildHtml(layoutTemplate, layoutStyle, theme);
 
 		Document d = null;
 		try {
-			d = DocumentHelper.parseText(html_layout);
+			d = DocumentHelper.parseText(htmlLayout);
 
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-        JSONObject object = buildXml(d, publication, user, null, id);
+        JSONObject object = buildXml(d, publication, user, null, id, layoutStyle, theme);
 
         return object;
 	}
@@ -183,18 +159,18 @@ public class Publication extends VideoPoster{
 			}
 		}
 
-		String html_layout = buildHtml(layoutTemplate, layoutStyle, theme);
+		String htmlLayout = buildHtml(layoutTemplate, layoutStyle, theme);
 		
 		Document d = null;
 		try {
-			d = DocumentHelper.parseText(html_layout);
+			d = DocumentHelper.parseText(htmlLayout);
 
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		JSONObject object = buildXml(d, publication, user, oldId, null);
+		JSONObject object = buildXml(d, publication, user, oldId, null, layoutStyle, theme);
 
         return object;
 	}
@@ -213,36 +189,36 @@ public class Publication extends VideoPoster{
 
 
 		String layoutTemplate = layout.getProperty("template").trim();
-		String html_layout = buildHtml(layoutTemplate, layoutStyle, theme); 
+		String htmlLayout = buildHtml(layoutTemplate, layoutStyle, theme); 
 		
 
 		Document d = null;
 		try {
-			d = DocumentHelper.parseText(html_layout);
+			d = DocumentHelper.parseText(htmlLayout);
 
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		JSONObject object = buildXml(d, publication, user, null, null);
+		JSONObject object = buildXml(d, publication, user, null, null, layoutStyle, theme);
 
         return object;
 	}
 	
-	public static JSONObject buildXml (Document d, Publication publication, String user, String oldId, String id) {
+	public static JSONObject buildXml(Document d, Publication publication, String user, String oldId, String id, String layoutStyle, String theme) {
 		JSONObject object = new JSONObject();
-		List<Node> media_items = d.selectNodes("//div[@data-section-type=\"media\"]");
-		List<Node> text_items = d.selectNodes("//div[@data-section-type=\"text_big\"]");
-		List<Node> title_items = d.selectNodes("//h1[@class=\"title\"]");
+		List<Node> mediaItems = d.selectNodes("//div[@data-section-type=\"media\"]");
+		List<Node> textItems = d.selectNodes("//div[@data-section-type=\"text_big\"]");
+		List<Node> titleItems = d.selectNodes("//h1[@class=\"title\"]");
 
 		List<TextContent> textContentList = publication.template.sections.textSection.getTextContents();
 		List<MediaItem> mediaItemList = publication.template.sections.mediaSection.getMediaItems();
 
 		Bookmarks bookmarks = new Bookmarks(user);
-		for (Node media_item : media_items) {
+		for (Node mediaItem : mediaItems) {
 			for(int i = 0; i < mediaItemList.size(); i++) {
-				Element element = (Element) media_item;
+				Element element = (Element) mediaItem;
 				if (element != null && mediaItemList.get(i).getId() != null) {
 					if (mediaItemList.get(i).getId().trim().equals(element.attributeValue("id").trim())) {
 						element.clearContent();
@@ -256,19 +232,19 @@ public class Publication extends VideoPoster{
 								media = "<video data-src=\"" + src + "\" data-poster=\"" + mediaItemList.get(i).getPoster() + "\"/>";
 							}
 
-							media_item.setText(media);
+							mediaItem.setText(media);
 						}
 					}
 				}
 			}
 		}
 
-		for (Node text_item : text_items) {
+		for (Node textItem : textItems) {
 			for(int i = 0; i < textContentList.size(); i++) {
-				Element element = (Element) text_item;
+				Element element = (Element) textItem;
 				if (element != null && textContentList.get(i).getId() != null) {
 					if (textContentList.get(i).getId().trim().equals(element.attributeValue("id").trim())) {
-						text_item.setText(textContentList.get(i).getValue().toString());
+						textItem.setText(textContentList.get(i).getValue().toString());
 
 					}
 				}
@@ -276,7 +252,7 @@ public class Publication extends VideoPoster{
 		}
 
 		String xmlTitle = null;
-		for (Node title : title_items) {
+		for (Node title : titleItems) {
 			for(int i = 0; i < textContentList.size(); i++) {
 				Element element = (Element) title;
 
@@ -320,10 +296,13 @@ public class Publication extends VideoPoster{
             
         }
         object.put("title", xmlTitle);
-        
+        object.put("layout", layoutStyle);
+        object.put("theme", theme);
         PublicationHTMLWriter writer = new PublicationHTMLWriter();
         object.put("xml", writer.getHTML(d));
         
+        System.out.println("========== BUILD XML =========");
+        System.out.println(object.toJSONString());
 		return object;
 	}
 	
