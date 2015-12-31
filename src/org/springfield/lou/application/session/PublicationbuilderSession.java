@@ -62,6 +62,8 @@ public class PublicationbuilderSession extends Session {
 		app.loadContent(s, "header");
 		app.loadContent(s, "iframesender");
 
+		this.overlayDialog = new Overlaydialog(s);
+		this.overlayDialog.render();
 		generateLayout(s);
 		this.handleEditStatus(s);
 	}
@@ -283,8 +285,6 @@ public class PublicationbuilderSession extends Session {
 				}
 
 				JSONObject publicationJSON = Publication.createPreviewXML(publication, this.currentUser);
-				this.overlayDialog = new Overlaydialog(s);
-				this.overlayDialog.render();
 				this.overlayDialog.setHTML(publicationJSON.get("xml").toString());
 				this.overlayDialog.setVisible(true); 
 				this.overlayDialog.update(); 

@@ -1,4 +1,6 @@
 var Overlaydialog = function(){
+	console.log("OVERLAY DIALOG!");
+	Component.apply(this, arguments);
 	var self = this;
 	this.element = jQuery("#overlaydialog");
 	this.template = _.template(this.element.find('#overlaydialogcontents_template').text());
