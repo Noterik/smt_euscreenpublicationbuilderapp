@@ -110,7 +110,7 @@ public class Collections extends ScreenComponent {
 								}
 								
 								if(mount != null){
-									videos.add(new Bookmark(collectionId, videoId, videoName, mount, screenshot, blacklist.checkIsPublic(referId)));
+									videos.add(new Bookmark(videoId, videoId, videoName, mount, screenshot, blacklist.checkIsPublic(referId)));
 								}	
 							} catch (Exception e) {
 								e.printStackTrace();

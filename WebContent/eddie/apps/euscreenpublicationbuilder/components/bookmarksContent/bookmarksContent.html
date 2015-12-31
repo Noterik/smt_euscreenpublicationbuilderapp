@@ -1,40 +1,24 @@
 <script type="text/template" id="bookmarks_layout_template">
-    <div id="toggle_0" class="tgl">
     	<%
 			_.each(bookmarks, function(acs) {
-				if(!acs.isPublic){
 		%>
-	    			<div class="not_public_video">
-						<p>Unfortunately due to copyright agreements with the Content Provider this video cannot be used for making a video poster.</p>
-						<div id="<%= acs.id %>" class="drag_bookmark" data-public="false">
-							<video  poster="<%= acs.screenshot %>" src="<%= acs.video %>" controls></video>
+					  <div class="media-item" id="bookmarkItem_<%= acs.id %>" data-itemId="<%= acs.id %>" data-public="false">
+							<% if(!acs.isPublic) { %><p>Unfortunately due to copyright agreements with the Content Provider this video cannot be used for making a video poster.</p><% } %>
+							<p class="loading">Loading...</p>
+							<div class="media-container">
+							</div>
 						</div>
-	   	 			</div>	
 		<% 
 	            	eddie.getComponent('embedlib').loaded().then(function(){
 	            		EuScreen.getVideo({src: acs.video, poster: acs.screenshot, controls: true}, function(html){
-	            			jQuery('#' + acs.id).html(html);
+							jQuery('#bookmarkItem_' + acs.id + ' p.loading').remove(); 
+	            			jQuery('#bookmarkItem_' + acs.id + ' .media-container').html(html);
 	            		});
 	            	});
 		%>
 		<%
-				}else {
-		%>
-					<div id="<%= acs.id %>" class="drag_bookmark">
-						<video  poster="<%= acs.screenshot %>" src="<%= acs.video %>" controls></video>
-					</div>
-		<% 
-	            	eddie.getComponent('embedlib').loaded().then(function(){
-	            		EuScreen.getVideo({src: acs.video, poster: acs.screenshot, controls: true}, function(html){
-	            			jQuery('#' + acs.id).html(html);
-	            		});
-	            	});
-		%>
-
-		<%
-		}
-	});
-	%>
+			});
+ 		%>
 </script>
 
 <script type="text/template" id="colectionslayout_headers_template">
@@ -45,84 +29,44 @@
 	<div class="panel-group" id="collectionsAccordion" role="tablist" aria-multiselectable="true">
 		<% for(var i = 0; i < collections.length; i++){ %>
 			<% var collection = collections[i]; %>
-			<% if(i == 0){ %><div class="panel panel-default"><% }else{ %><div class="panel panel-default"><% } %>
-
-			<div class="panel-heading" role="tab" id="#collapsibleCol_<%= collection.id %>">
-				<h4 class="panel-title">
-					<a role="button" data-toggle="collapse" data-parent="#collectionsAccordion" href="#collapsibleCol_<%= collection.id %>" aria-expanded="true" aria-controls="collapseOne">
-						<%= collection.name %>
-					</a>
-				</h4>
-			</div>
-			<div id="collapsibleCol_<%= collection.id %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapsibleCol_<%= collection.id %>">
-				<div class="panel-body">
-					<% for(var c = 0; c < collection.videos.length; c++){ %>
-						<% var item = collection.videos[c]; %>
-						<% if(item.video != null){ %>
-							<div class="video">
-								<% if(!item.isPublic) { %>
-									<p>Unfortunately due to copyright agreements with the Content Provider this video cannot be used for making a video poster.</p>
-								<% } %>
-								<div id="<%= item.id %>" class="drag_bookmark" data-public="<%= item.isPublic %>">
-									<video poster="<%= item.screenshot %>" data-src="<%= item.video %>" controls></video>
-								</div>
-	    	 				</div>
-							<%
-								eddie.getComponent('embedlib').loaded().then(function(){
-	            					EuScreen.getVideo({src: item.video, poster: item.screenshot, controls: true}, function(html){
-	            						jQuery('#' + item.id).html(html);
-	            					});
-	            				}); 
-							%>
+			<div class="panel panel-default">
+				<div class="panel-heading" role="tab" id="#collapsibleCol_<%= collection.id %>">
+					<h4 class="panel-title">
+						<a role="button" data-toggle="collapse" data-parent="#collectionsAccordion" href="#collapsibleCol_<%= collection.id %>" aria-expanded="true" aria-controls="collapseOne">
+							<%= collection.name %>
+						</a>
+					</h4>
+				</div>
+				<div id="collapsibleCol_<%= collection.id %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapsibleCol_<%= collection.id %>">
+					<div class="panel-body">
+						<% for(var c = 0; c < collection.videos.length; c++){ %>
+							<% var item = collection.videos[c]; %>
+							<% console.log("ITEM: " , item ); %>
+							<% if(item.video != null){ %>
+									<div class="media-item" id="colItem_<%= item.id %>" class="drag_bookmark" data-public="<%= item.isPublic %>">
+										<% if(!item.isPublic) { %><p>Unfortunately due to copyright agreements with the Content Provider this video cannot be used for making a video poster.</p><% } %>
+										<p class="loading">Loading...</p>
+										<div class="media-container">
+										</div>
+										<%
+											eddie.getComponent('embedlib').loaded().then((function(video){
+												return function(){
+													EuScreen.getVideo({src: video.video, poster: video.screenshot, controls: true}, function(html){
+	            										jQuery('#colItem_' + video.id + ' p.loading').remove();
+														jQuery('#colItem_' + video.id + ' .media-container').html(html);
+	            									});
+												}
+											})(item));
+	         							%>
+										
+									</div>
+								
+							<% } %>
 						<% } %>
-					<% } %>
+					</div>
 				</div>
 			</div>
 		<% } %>
-	</div>
-</script>
-
-<script type="text/template" id="colectionslayout_bookmarks_template">
-	<div id="<%= data.right_toggle_id %> " class="tgl" collection="<%= data.name %>">
-		<% 
-			_.each(data.videos, function(item) {
-
-	    		if(item.isPublic == false){
-					var itemVideo = item.video;
-		     		if(item.video != null){
-		%>
-			     		<div class="not_public_video">
-							<p>Unfortunately due to copyright agreements with the Content Provider this video cannot be used for making a video poster.</p>
-							<div id="<%= item.id %>" class="drag_bookmark" data-public="false">
-								<video poster="<%= item.screenshot %>" data-src="<%= item.video %>" controls></video>
-							</div>
-	    	 			</div>
-
-		<% 
-	            		eddie.getComponent('embedlib').loaded().then(function(){
-	            			EuScreen.getVideo({src: item.video, poster: item.screenshot, controls: true}, function(html){
-	            				jQuery('#' + item.id).html(html);
-	            			});
-	            		});
-		%>
-		<%
-			     	}
-	     		}else {
-		%>
-	    	 		<div id="<%= item.id %>" class="drag_bookmark">
-						<video poster="<%= item.screenshots %>" data-src="<%= item.video %>" controls></video>
-					</div>
-		<% 
-	            	eddie.getComponent('embedlib').loaded().then(function(){
-	            		EuScreen.getVideo({src: item.video, poster: item.screenshot, controls: true}, function(html){
-	            			jQuery('#' + item.id).html(html);
-	            		});
-	            	});
-		%>
-		<%  
-			   	}
-			});
-		%>
 	</div>
 </script>
 
@@ -134,8 +78,8 @@
 	</ul>
 
 	<div class="tab-content">
-		<div class="tabpanel" class="tab-pane active" id="bookmarksTab"></div>
-		<div class="tabpanel" class="tab-pane" id="collectionsTab"></div>
+		<div class="tab-pane active" id="bookmarksTab"></div>
+		<div class="tab-pane" id="collectionsTab"></div>
 	</div>
 	
 	<div style="display: none">

@@ -17,13 +17,6 @@ import org.springfield.lou.application.types.DTO.MediaItem;
 import org.springfield.lou.application.types.DTO.TextContent;
 import org.springfield.lou.application.util.PublicationHTMLWriter;
 
-/* TODO
- * Why are there three functions that almost do the same? avoid code duplication... 
- * Put generic code in a single functions and the small subtleties/difference can be put in 
- * other functions. 
- * Now everytime I change something I have to change it in all three functions. 
- * Not efficient/scalable and very prone to errors. 
- */
 
 public class Publication extends VideoPoster{
 
