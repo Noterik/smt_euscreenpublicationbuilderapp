@@ -52,6 +52,7 @@ public class PublicationbuilderSession extends Session {
 		app.loadStyleSheet(s, "font-awesome");
 		app.loadStyleSheet(s, "font-awesome.min");
 		app.loadStyleSheet(s, "tinycolorpicker");
+		app.loadContent(s,  "fontawesomeloader");
 		app.loadContent(s, "readycheck");
 		app.loadContent(s, "embedlib");
 		app.loadContent(s, "comparison");

@@ -310,6 +310,7 @@ public class Publication extends VideoPoster{
 		result.append("<link rel=\"stylesheet\" type=\"text/css\" href='" + layoutStyle + "'></link>");
 		result.append("<link rel=\"stylesheet\" type=\"text/css\" href='" + theme + "'></link>");
 		result.append("<link rel=\"stylesheet\" type=\"text/css\" href='" + Configuration.getServer() + "/euscreenpublicationbuilder/css/layouts/comparison_after.css'></link>");
+		result.append("<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css\">");
 		result.append("</head>");
 		result.append("<body style=\"background-color: rgba(0, 0, 0, 0); overflow-y: hidden; height: 100%\"><div id=\"layout\" style=\"width: 50%;margin: 0 auto; height: 100%; overflow-y: auto;\">");
 		result.append(layoutTemplate);
@@ -328,7 +329,7 @@ public class Publication extends VideoPoster{
 		result.append("return function(html){");
 		result.append("var $video = $(html);");
 		result.append("$(video).replaceWith($video);");
-		result.append("$fullScreenIcon = $('<i class=\"fullscreen glyphicon glyphicon-resize-full\"></i>');");
+		result.append("$fullScreenIcon = $('<i class=\"fullscreen fa fa-resize-full\"></i>');");
 		result.append("$video.parent().append($fullScreenIcon);");
 		result.append("$fullScreenIcon.on('click', function(){");
 		result.append("var elem = $video[0];");

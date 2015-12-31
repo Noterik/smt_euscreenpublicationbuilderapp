@@ -161,8 +161,8 @@ Layout.prototype.handleCardDrop = function ( event, ui ) {
 			var video = $(html)[0];
 			var $target = $(event.target);
 			$target.html(video);
-			var fullScreenIcon = $('<i class=\"fullscreen glyphicon glyphicon-resize-full\"></i>');
-			var removeIcon = $('<i class=\"remove glyphicon glyphicon-remove\"></i>');
+			var fullScreenIcon = $('<i class=\"fullscreen fa fa-expand\"></i>');
+			var removeIcon = $('<i class=\"remove fa fa-remove\"></i>');
 			$target.append(fullScreenIcon);
 			$target.append(removeIcon);
 			fullScreenIcon.on('click', function(){

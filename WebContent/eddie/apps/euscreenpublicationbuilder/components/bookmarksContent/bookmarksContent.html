@@ -2,7 +2,7 @@
     	<%
 			_.each(bookmarks, function(acs) {
 		%>
-					  <div class="media-item" id="bookmarkItem_<%= acs.id %>" data-itemId="<%= acs.id %>" data-public="false">
+					  <div class="media-item" id="bookmarkItem_<%= acs.id %>" data-itemId="<%= acs.id %>" data-public="<%= acs.isPublic %>">
 							<% if(!acs.isPublic) { %><p>Unfortunately due to copyright agreements with the Content Provider this video cannot be used for making a video poster.</p><% } %>
 							<p class="loading">Loading...</p>
 							<div class="media-container">

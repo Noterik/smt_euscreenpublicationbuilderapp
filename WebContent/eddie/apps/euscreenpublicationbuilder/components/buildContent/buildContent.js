@@ -62,7 +62,7 @@ BuildContent.prototype.update = function(message){
 		self.bindToggleEvents(); 
 		
 		$('.media_item').droppable({
-			accept: 'div.drag_bookmark',
+			accept: 'div.media-item',
 			drop: self.handleCardDrop
 		});
 
@@ -111,7 +111,7 @@ BuildContent.prototype.edit = function(message){
 										$elem.draggable({ disabled: true });
 										$elem.html(value.value).droppable("option", "disabled", true);
 //										var fullScreenIcon = $('<i class=\"fullscreen glyphicon glyphicon-resize-full\"></i>');
-										var removeIcon = $('<i class=\"remove glyphicon glyphicon-remove\"></i>');
+										var removeIcon = $('<i class=\"remove fa fa-remove\"></i>');
 //										$elem.append(fullScreenIcon);
 										$elem.append(removeIcon);
 //										fullScreenIcon.on('click', function(){
@@ -230,8 +230,8 @@ BuildContent.prototype.handleCardDrop = function ( event, ui ) {
 			var $target = $(event.target);
 			$target.html(video);
 			
-			var fullScreenIcon = $('<i class=\"fullscreen glyphicon glyphicon-resize-full\"></i>');
-			var removeIcon = $('<i class=\"remove glyphicon glyphicon-remove\"></i>');
+			var fullScreenIcon = $('<i class=\"fullscreen fa fa-expand\"></i>');
+			var removeIcon = $('<i class=\"remove fa fa-remove\"></i>');
 			$target.append(fullScreenIcon);
 			$target.append(removeIcon);
 			fullScreenIcon.on('click', function(){
