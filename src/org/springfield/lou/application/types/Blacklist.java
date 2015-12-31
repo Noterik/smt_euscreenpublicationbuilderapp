@@ -10,7 +10,7 @@ import org.springfield.fs.FsNode;
 import org.springfield.mojo.ftp.URIParser;
 
 public class Blacklist {
-	private static List<String> blacklistProviders = new ArrayList();
+	private static List<String> blacklistProviders;
 
 	public static List<String> getBlacklistProviders() {
 		return blacklistProviders;
@@ -22,11 +22,12 @@ public class Blacklist {
 
 	public Blacklist() {
 		super();
-		seedBlacklist();
+		this.blacklistProviders = new ArrayList();
+		populateBlacklist();
 		
 	}
 	
-	public void seedBlacklist() {
+	public void populateBlacklist() {
 		String blacklistEntryUrl = Configuration.getDomain() + "/config/blacklist/";
 		FSList blacklist = FSListManager.get(blacklistEntryUrl);
 		

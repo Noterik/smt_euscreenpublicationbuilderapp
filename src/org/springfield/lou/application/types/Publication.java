@@ -17,18 +17,14 @@ import org.springfield.lou.application.types.DTO.MediaItem;
 import org.springfield.lou.application.types.DTO.TextContent;
 import org.springfield.lou.application.util.PublicationHTMLWriter;
 
-
 public class Publication extends VideoPoster{
 
 	public Publication() {
 		super();
 	}
 	
-	/**
-	 * TODO: This function to me is a bit weird. It returns an object that tells the editor how to use it. But you're not really 
-	 * editing the publication in the method itsself. So really the name "editPublication" to me isn't very clear. There's more things
-	 * that need to change here, but I'll go into the function itsself. 
-	 */
+	
+
 	public static JSONArray getPublication(String posterUrl){
 		System.out.println("Publication.editPublication(" + posterUrl + ")");
         FsNode posterNode = Fs.getNode(posterUrl);

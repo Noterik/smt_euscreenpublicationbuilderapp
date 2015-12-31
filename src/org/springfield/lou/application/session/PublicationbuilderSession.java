@@ -39,6 +39,7 @@ public class PublicationbuilderSession extends Session {
 		System.out.println("PublicationbuilderSession()");
 
 		// Get Current user (bit hacky)
+		//I know then you can give your idea :)
 		String[] arr = s.getId().split("/");
 		this.currentUser = arr[4];
 
@@ -124,12 +125,7 @@ public class PublicationbuilderSession extends Session {
 	}
 
 	public void handleEditStatus(Screen s) {
-		/*
-		 * TODO: If a method gets really long, try splitting it up in multiple
-		 * functions. It keeps your code clear and more readable. It also
-		 * promotes reusability. So for example, this could be moved to a
-		 * function called handleEditStatus(Screen s) or something.
-		 */
+	
 		if (s.getParameter("status").equals("edit")) {
 			String poster_url = s.getParameter("posterid");
 
@@ -151,12 +147,6 @@ public class PublicationbuilderSession extends Session {
 					.get("colorSchema")).split("_");
 			this.setTheme(s, colorSchema[1]);
 
-			// TODO: Why do we remove stuff when loading a new screen, nothing
-			// should be there.
-			/*
-			 * We just remove layout and colorschemas tab when we are in edit
-			 * mode I will check again [SHUKRI]
-			 */
 			s.removeContent("layoutsContent");
 			s.removeContent("colorschemesContent");
 
@@ -324,53 +314,5 @@ public class PublicationbuilderSession extends Session {
 		app.loadContent(s, "bookmarksContent");
 		bookmarks.sync();
 		collections.sync();
-
-		/*
-		 * // Load collections collections = new Collections(currentUser);
-		 * JSONArray collectionsArray = new JSONArray();
-		 * 
-		 * int cnt_header = 1;
-		 * 
-		 * for (Collection col : collections.getCollectionlist()) {
-		 * 
-		 * String right_header_div_id = "right_header_" + cnt_header; String
-		 * right_toggle_div_id = "toggle_" + cnt_header;
-		 * 
-		 * JSONObject collection = new JSONObject();
-		 * collection.put("right_header_id", right_header_div_id);
-		 * collection.put("right_toggle_id", right_toggle_div_id);
-		 * collection.put("collection_name", col.getName());
-		 * 
-		 * JSONArray collectionBookmarksArray = new JSONArray();
-		 * 
-		 * for (Bookmark bk : col.getVideos()) {
-		 * 
-		 * try { JSONObject collectionBookmarkJson = new JSONObject(); String id
-		 * = "bookmark_" + cnt_bookmark;
-		 * 
-		 * collectionBookmarkJson.put("id", id); collectionBookmarkJson
-		 * .put("screenshot", bk.getScreenshot());
-		 * collectionBookmarkJson.put("video", bk.getVideo());
-		 * collectionBookmarkJson.put("ispublic", bk.getIsPublic());
-		 * 
-		 * collectionBookmarksArray.add(collectionBookmarkJson);
-		 * 
-		 * cnt_bookmark++;
-		 * 
-		 * } catch (Exception e) { e.printStackTrace(); }
-		 * 
-		 * }
-		 * 
-		 * collection.put("bookmarks", collectionBookmarksArray);
-		 * collectionsArray.add(collection);
-		 * 
-		 * cnt_header++; }
-		 * 
-		 * 
-		 * s.putMsg("bookmarksContent", "", "renderBookmarks(" +
-		 * bookmarkJsonArray + ")"); s.putMsg("bookmarksContent", "",
-		 * "renderCollections(" + collectionsArray + ")");
-		 * s.putMsg("bookmarksContent", "", "closeAll(" + cnt_header + ")");
-		 */
 	}
 }

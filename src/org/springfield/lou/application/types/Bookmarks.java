@@ -12,14 +12,12 @@ import org.springfield.lou.screen.Screen;
 import org.springfield.lou.screencomponent.component.ScreenComponent;
 import org.springfield.mojo.ftp.URIParser;
 
+import sun.security.krb5.Config;
+
 public class Bookmarks extends ScreenComponent{
 	private List<Bookmark> bookmarklist = new ArrayList<Bookmark>();	
-	/*
-	 * TODO: Get rid of these statics, check comments in Bookmarks()
-	 */
-	private static String domain = "/domain/euscreenxl";
 	public static List<String> blacklistProviders;
-	private String address = domain + "/user/";
+	private String address = Configuration.getDomain() + "/user/";
 	private Blacklist blacklist;
 	
 	public Bookmarks(Screen s, String user) {
@@ -33,43 +31,6 @@ public class Bookmarks extends ScreenComponent{
 	public List<Bookmark> getBookmarklist() {
 		return bookmarklist;
 	}
-	
-	/*
-	 * TODO: So also move this. seedBlacklist() sounds a bit vague, call it populateBlacklist() instead. 
-	 */
-	public void seedBlacklist() {
-		String blacklistEntryUrl = domain + "/config/blacklist/";
-		FSList blacklist = FSListManager.get(blacklistEntryUrl);
-		
-		for (FsNode node : blacklist.getNodes()) {
-			boolean videoposter = Boolean.parseBoolean(node.getProperty("videoposter"));
-			if(videoposter == false){
-				String blacklistVideoNode = domain + "/config/blacklist/entry/"+node.getId()+"/user";
-				List<FsNode> blacklistUserNodes = Fs.getNodes(blacklistVideoNode,1);
-				FsNode blacklistUserNode = blacklistUserNodes.get(0);
-				blacklistProviders.add(blacklistUserNode.getReferid());
-			}
-		}
-		
-	}
-	
-	/*TODO:
-	 * This can also be moved to Blacklist.java
-	 */
-	public static boolean checkIsPublic(String referId, List<String> blacklistProviders) {
-		String user = URIParser.getUserIdFromUri(referId);
-		System.out.println("CheckIsPublic: " + user);
-		for (String blacklsit_entry : blacklistProviders) {	
-			blacklsit_entry = blacklsit_entry.replaceAll("/domain/euscreenxl/user/", "");
-
-			if(blacklsit_entry.equals(user)){
-				System.out.println("CHECK IS PUBLIC : " + "No");
-				return false;
-			}
-		}
-		return true;
-	}
-	
 	
 	public String getBookmarkLinkById(String id){
 		String link = null;

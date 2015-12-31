@@ -4,9 +4,11 @@ import java.util.List;
 import org.springfield.fs.Fs;
 import org.springfield.fs.FsNode;
 
+import sun.security.krb5.Config;
+
 public class Layout {
 	private List<FsNode> layouts;
-	private String address = "/domain/euscreenxl/user/admin/config/publicationbuilder/layout"; 
+
 	public FsNode currentLayout;
 	public String currentLayoutStyle;
 
@@ -39,6 +41,6 @@ public class Layout {
 	}
 	
 	public Layout() {
-		setLayouts(Fs.getNodes(this.address, 1));
+		setLayouts(Fs.getNodes(Configuration.getLayoutUrl(), 1));
 	}
 }
