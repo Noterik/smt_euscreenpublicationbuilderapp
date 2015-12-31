@@ -13,9 +13,11 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springfield.fs.Fs;
 import org.springfield.fs.FsNode;
+import org.springfield.lou.application.session.PublicationbuilderSession;
 import org.springfield.lou.application.types.DTO.MediaItem;
 import org.springfield.lou.application.types.DTO.TextContent;
 import org.springfield.lou.application.util.PublicationHTMLWriter;
+import org.springfield.lou.screen.Screen;
 
 public class Publication extends VideoPoster{
 
@@ -30,7 +32,6 @@ public class Publication extends VideoPoster{
         FsNode posterNode = Fs.getNode(posterUrl);
         JSONArray jsArr = new JSONArray();
         
-        /*
         JSONObject oldId = new JSONObject();
         oldId.put("id", posterNode.getId());
         jsArr.add(oldId);
@@ -56,7 +57,7 @@ public class Publication extends VideoPoster{
 			String[] splits = layoutHref.split("/");
 			String layoutStr = splits[splits.length - 1];
 			layoutStr = layoutStr.trim();
-			String layoutt = EuscreenpublicationbuilderApplication.layoutWithStyle.get(layoutStr);
+			String layoutt = PublicationbuilderSession.layoutWithStyle.get(layoutStr);
 			
 			JSONObject layout = new JSONObject();
 			layout.put("type", "layout");
@@ -66,7 +67,7 @@ public class Publication extends VideoPoster{
 			JSONObject styles = new JSONObject();
 			styles.put("type", "styles");
 			styles.put("layout", layoutHref);
-			String style = EuscreenpublicationbuilderApplication.styleWithId.get(colorHref);
+			String style = PublicationbuilderSession.styleWithId.get(colorHref);
 			styles.put("colorSchema", style);
 			jsArr.add(styles);
 			
@@ -103,10 +104,11 @@ public class Publication extends VideoPoster{
         	e.printStackTrace();
         }
         System.out.println("FINISHED Publication.editPublication()");
-        */
+        
 		return jsArr;
 	}
 
+	
 	
 	public static JSONObject createXML(Publication publication, String user, String id){
 		FsNode layout = publication.template.layout.getCurrentLayout();
@@ -205,8 +207,7 @@ public class Publication extends VideoPoster{
 		List<TextContent> textContentList = publication.template.sections.textSection.getTextContents();
 		List<MediaItem> mediaItemList = publication.template.sections.mediaSection.getMediaItems();
 		
-		/*
-		Bookmarks bookmarks = new Bookmarks(user);
+		
 		for (Node mediaItem : mediaItems) {
 			for(int i = 0; i < mediaItemList.size(); i++) {
 				Element element = (Element) mediaItem;
@@ -291,7 +292,8 @@ public class Publication extends VideoPoster{
         object.put("theme", theme);
         PublicationHTMLWriter writer = new PublicationHTMLWriter();
         object.put("xml", writer.getHTML(d));
-        */
+        System.out.println("=========== BUILD XML() ==========");
+        System.out.println(object.toJSONString());
 		return object;
 	}
 	
@@ -306,7 +308,7 @@ public class Publication extends VideoPoster{
 		result.append("<link rel=\"stylesheet\" type=\"text/css\" href='" + layoutStyle + "'></link>");
 		result.append("<link rel=\"stylesheet\" type=\"text/css\" href='" + theme + "'></link>");
 		result.append("<link rel=\"stylesheet\" type=\"text/css\" href='" + Configuration.getServer() + "/euscreenpublicationbuilder/css/layouts/comparison_after.css'></link>");
-		result.append("<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css\">");
+		result.append("<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css\"></link>");
 		result.append("</head>");
 		result.append("<body style=\"background-color: rgba(0, 0, 0, 0); overflow-y: hidden; height: 100%\"><div id=\"layout\" style=\"width: 50%;margin: 0 auto; height: 100%; overflow-y: auto;\">");
 		result.append(layoutTemplate);

@@ -14,6 +14,8 @@ import org.springfield.lou.application.types.Layout;
 import org.springfield.lou.application.types.Overlaydialog;
 import org.springfield.lou.application.types.Publication;
 import org.springfield.lou.application.types.Theme;
+import org.springfield.lou.application.types.DTO.MediaItem;
+import org.springfield.lou.application.types.DTO.TextContent;
 import org.springfield.lou.screen.Screen;
 import org.springfield.lou.session.Session;
 
@@ -127,27 +129,41 @@ public class PublicationbuilderSession extends Session {
 	public void handleEditStatus(Screen s) {
 	
 		if (s.getParameter("status").equals("edit")) {
-			String poster_url = s.getParameter("posterid");
+			generateColorSchemes(s);
 
+			String poster_url = s.getParameter("posterid");
+			System.out.println("===== HANDLE EDIT STATUS ( " + poster_url + " )");
 			JSONArray arr = Publication.getPublication(poster_url);
+			
 			JSONObject idOb = (JSONObject) arr.get(0);
 			this.oldPublicationID = idOb.get("id").toString();
 
+			
+			System.out.println("ID OF OBJECT: " + idOb);
+
 			s.putMsg("header", "", "modeEdit()");
-
-			// Set layout
-			JSONObject layout_json = (JSONObject) arr.get(1);
-			String[] layout = ((String) layout_json.get("layout_type"))
+// Set layout
+			JSONObject layoutJson = (JSONObject) arr.get(1);
+			System.out.println("LAYOUT JSON: " + layoutJson.toJSONString());
+			String[] layout = ((String) layoutJson.get("layout_type"))
 					.split("_");
+			
 			this.setLayout(s, layout[1]);
+			s.removeContent("layoutsContent");
 
-			// Set theme
-			JSONObject colorSchema_json = (JSONObject) arr.get(2);
-			String[] colorSchema = ((String) colorSchema_json
+			
+			
+		
+			
+// Set theme
+
+			JSONObject colorSchemaJson = (JSONObject) arr.get(2);
+			System.out.println("COLOR SCHEMA OF JESON: " + colorSchemaJson);
+			String[] colorSchema = ((String) colorSchemaJson
 					.get("colorSchema")).split("_");
+		
 			this.setTheme(s, colorSchema[1]);
 
-			s.removeContent("layoutsContent");
 			s.removeContent("colorschemesContent");
 
 			s.putMsg("buildContent", "", "edit(" + arr + ")");
@@ -156,7 +172,10 @@ public class PublicationbuilderSession extends Session {
 		}
 
 	}
-
+	
+	public void generateBuild(Screen s) {
+		System.out.println("=== Empty generateBuild() method ===");
+	}
 	public void setTheme(Screen s, JSONObject data) {
 		String themeId = (String) data.get("themeId");
 		this.setTheme(s, themeId);
@@ -179,8 +198,10 @@ public class PublicationbuilderSession extends Session {
 	}
 	
 	private void setLayout(Screen s, String layoutId){
+		System.out.println("========= setLayout() ==========");
 		Html5Application app = this.getApp();
 		
+		System.out.println(layoutId);
 		app.loadContent(s, "buildContent");
 		this.loadBookmarks(s);
 
@@ -230,44 +251,46 @@ public class PublicationbuilderSession extends Session {
 		this.overlayDialog.setVisible(false);
 		this.overlayDialog.update();
 	}
-
+	
 	public void preview(Screen s, JSONObject data) {
-		/*
-		 * try { this.overlayDialog = new Overlaydialog(s);
-		 * this.overlayDialog.render(); JSONObject json = null; if(c != null)
-		 * json = (JSONObject)new JSONParser().parse(c); Publication publication
-		 * = new Publication(); if(getCurrentTheme() != null)
-		 * publication.theme.setCurrentTheme(getCurrentTheme());
-		 * publication.template.layout.setCurrentLayout(getCurrentLayout());
-		 * publication
-		 * .template.layout.setCurrentLayoutStyle(getCurrentLayoutStyle());
-		 * 
-		 * if(json.get("mediaItem") != null){ JSONArray mediaArray =
-		 * (JSONArray)json.get("mediaItem"); for(int i = 0; i <
-		 * mediaArray.size(); i++){ JSONObject ob =
-		 * (JSONObject)mediaArray.get(i); String mediaId = (String)ob.get("id");
-		 * String mediaValue = (String)ob.get("value"); String mediaPoster =
-		 * (String)ob.get("poster");
-		 * publication.template.sections.mediaSection.setMediaItems(new
-		 * MediaItem(mediaId, mediaValue, mediaPoster)); } }
-		 * 
-		 * if(json.get("textItem") != null){ JSONArray textArray =
-		 * (JSONArray)json.get("textItem");
-		 * 
-		 * for(int i = 0; i < textArray.size(); i++){ JSONObject ob =
-		 * (JSONObject)textArray.get(i); String textId = (String)ob.get("id");
-		 * String textValue = (String)ob.get("value");
-		 * 
-		 * publication.template.sections.textSection.setTextContents(new
-		 * TextContent(textId, textValue)); } }
-		 * 
-		 * 
-		 * JSONObject publicationJSON =
-		 * Publication.createPreviewXML(publication, this.currentUser);
-		 * this.overlayDialog.setHTML(publicationJSON.get("xml").toString());
-		 * this.overlayDialog.setVisible(true); this.overlayDialog.update(); }
-		 * catch (Exception e) { e.printStackTrace(); }
-		 */
+		
+		try { 
+				Publication publication = new Publication(); 
+				if(getCurrentTheme() != null) publication.theme.setCurrentTheme(getCurrentTheme());
+				publication.template.getLayout().setCurrentLayout(getCurrentLayout());
+				publication.template.getLayout().setCurrentLayoutStyle(getCurrentLayoutStyle());
+  
+				if(data.get("mediaItem") != null){ 
+					JSONArray mediaArray = (JSONArray)data.get("mediaItem"); 
+					for(int i = 0; i < mediaArray.size(); i++){ 
+						JSONObject ob = (JSONObject)mediaArray.get(i); 
+						String mediaId = (String)ob.get("id");
+						String mediaValue = (String)ob.get("value");
+						String mediaPoster = (String)ob.get("poster");
+						publication.template.getSections().mediaSection.setMediaItems(new MediaItem(mediaId, mediaValue, mediaPoster));
+					}
+				}
+  
+				if(data.get("textItem") != null) {
+					JSONArray textArray = (JSONArray)data.get("textItem");
+  
+					for(int i = 0; i < textArray.size(); i++){
+						JSONObject ob = (JSONObject)textArray.get(i);
+						String textId = (String)ob.get("id");
+						String textValue = (String)ob.get("value");
+						publication.template.getSections().textSection.setTextContents(new TextContent(textId, textValue)); 
+					} 
+				}
+
+				JSONObject publicationJSON = Publication.createPreviewXML(publication, this.currentUser);
+				this.overlayDialog = new Overlaydialog(s);
+				this.overlayDialog.render();
+				this.overlayDialog.setHTML(publicationJSON.get("xml").toString());
+				this.overlayDialog.setVisible(true); 
+				this.overlayDialog.update(); 
+			} catch (Exception e) { 
+				e.printStackTrace(); 
+			}
 	}
 
 	// Add media item external identifier
@@ -303,6 +326,52 @@ public class PublicationbuilderSession extends Session {
 			e.printStackTrace();
 		}
 	}
+	
+	
+
+	public void proccessPublication(Screen s, JSONObject c){
+		System.out.println("======== Process Publication() ==========");
+		System.out.println(c.toJSONString());
+		try {
+			Publication publication = new Publication();
+
+			publication.theme.setCurrentTheme(getCurrentTheme());
+			publication.template.getLayout().setCurrentLayout(getCurrentLayout());
+			publication.template.getLayout().setCurrentLayoutStyle(getCurrentLayoutStyle());
+			
+			JSONArray mediaArray = (JSONArray)c.get("mediaItem");
+			JSONArray textArray = (JSONArray)c.get("textItem");
+
+			for(int i = 0; i < mediaArray.size(); i++){
+				JSONObject ob = (JSONObject)mediaArray.get(i);
+				String mediaId = (String)ob.get("id");
+				String mediaValue = (String)ob.get("value");
+				String mediaPoster = (String)ob.get("poster");
+				publication.template.getSections().mediaSection.setMediaItems(new MediaItem(mediaId, mediaValue, mediaPoster));
+			}
+			
+			for(int i = 0; i < textArray.size(); i++){
+				JSONObject ob = (JSONObject)textArray.get(i);
+				String textId = (String)ob.get("id");
+				String textValue = (String)ob.get("value");
+				
+				publication.template.getSections().textSection.setTextContents(new TextContent(textId, textValue));
+			}
+			
+			if(c.get("mode") != null){
+				if(c.get("mode").toString().trim().equals("edit")){
+					JSONObject publicationJSON = Publication.editXml(publication, this.currentUser, s.getId(), this.oldPublicationID);
+					s.putMsg("iframesender", "", "sendToParent(" + publicationJSON + ")");
+				}
+			}else{
+				JSONObject publicationJSON = Publication.createXML(publication, this.currentUser, s.getId());
+				s.putMsg("iframesender", "", "sendToParent(" + publicationJSON + ")");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	
 	// Load bookmarks
 	public void loadBookmarks(Screen s) {

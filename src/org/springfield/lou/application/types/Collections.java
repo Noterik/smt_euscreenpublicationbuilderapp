@@ -3,6 +3,8 @@ package org.springfield.lou.application.types;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.text.ViewFactory;
+
 import org.springfield.fs.Fs;
 import org.springfield.fs.FsNode;
 import org.springfield.lou.json.JSONField;
@@ -118,9 +120,11 @@ public class Collections extends ScreenComponent {
 						}
 					}
 				}
-
+				System.out.println("COLLECTIONS");
+				System.out.println("Collection: " + collection_name + " -> VideoList size: " +  videos.size());
 				collectionlist.add(new Collection(colNode.getId(), collection_name, videos));
 			} catch (Exception e) {
+				System.out.println("COLLECTION EXCEPTION");
 				e.printStackTrace();
 			}
 		}

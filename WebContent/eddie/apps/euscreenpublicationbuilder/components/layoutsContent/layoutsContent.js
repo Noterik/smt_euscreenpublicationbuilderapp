@@ -27,6 +27,7 @@ LayoutsContent.prototype.bindLayoutClick = function(i) {
 			layoutId: "" + i
 		};
 		eddie.putLou("", "setLayout(" + JSON.stringify(message) + ")");
+		
 	});
 };
 
