@@ -50,8 +50,8 @@ public class PublicationbuilderSession extends Session {
 
 	private void initScreen(Screen s) {
 		Html5Application app = this.getApp();
-		app.loadStyleSheet(s, "generic");
 		app.loadStyleSheet(s, "bootstrap");
+		app.loadStyleSheet(s, "generic");
 		app.loadStyleSheet(s, "font-awesome");
 		app.loadStyleSheet(s, "font-awesome.min");
 		app.loadStyleSheet(s, "tinycolorpicker");
