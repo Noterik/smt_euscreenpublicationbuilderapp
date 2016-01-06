@@ -654,3 +654,7 @@ a:hover  {
 .nav.nav-tabs li:nth-child(2) {
 	margin-left: 2.5px;
 }
+
+.tab-content {
+	margin-top: 5px;
+}
