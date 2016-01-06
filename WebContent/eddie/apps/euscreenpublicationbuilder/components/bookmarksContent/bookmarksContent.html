@@ -2,23 +2,36 @@
     	<%
 			_.each(bookmarks, function(acs) {
 		%>
-					  <div class="media-item" id="bookmarkItem_<%= acs.id %>" data-itemId="<%= acs.id %>" data-public="<%= acs.isPublic %>">
-							<% if(!acs.isPublic) { %><p>Unfortunately due to copyright agreements with the Content Provider this video cannot be used for making a video poster.</p><% } %>
-							<p class="loading">Loading...</p>
-							<div class="media-container">
+					  <div class="media-item row" id="bookmarkItem_<%= acs.id %>" data-itemId="<%= acs.id %>" data-public="<%= acs.isPublic %>">
+							<div class="media-container col-md-12">
+								<div class="media-thumb col-md-6">
+									<% if(!acs.isPublic) { %><p>Unfortunately due to copyright agreements with the Content Provider this video cannot be used for making a video poster.</p><% } %>
+									<p class="loading">Loading...</p>
+									<div class="media-thumb-image">
+									</div>
+								</div>
+								<div class="media-info col-md-6">
+									<h4><%= acs.title %></h4>
+									<span class="provider">By <%= acs.provider %></span> 
+								</div>
 							</div>
+							
 						</div>
 		<% 
 	            	eddie.getComponent('embedlib').loaded().then(function(){
 	            		EuScreen.getVideo({src: acs.video, poster: acs.screenshot, controls: true}, function(html){
-							jQuery('#bookmarkItem_' + acs.id + ' p.loading').remove(); 
-	            			jQuery('#bookmarkItem_' + acs.id + ' .media-container').html(html);
+							jQuery('#bookmarkItem_' + acs.id + ' .media-container .media-thumb p.loading').remove(); 
+	            			jQuery('#bookmarkItem_' + acs.id + ' .media-container .media-thumb .media-thumb-image').html(html);
 	            		});
 	            	});
 		%>
 		<%
 			});
  		%>
+		<div class="arrow-wrap">
+			<div class="arrow-left"></div>
+			<div class="arrow-right"></div>
+		</div>
 </script>
 
 <script type="text/template" id="colectionslayout_headers_template">
@@ -43,24 +56,31 @@
 							<% var item = collection.videos[c]; %>
 							<% console.log("ITEM: " , item ); %>
 							<% if(item.video != null){ %>
-									<div class="media-item" id="colItem_<%= item.id %>" class="drag_bookmark" data-public="<%= item.isPublic %>">
-										<% if(!item.isPublic) { %><p>Unfortunately due to copyright agreements with the Content Provider this video cannot be used for making a video poster.</p><% } %>
-										<p class="loading">Loading...</p>
-										<div class="media-container">
+								<div class="media-item row" id="colItem_<%= item.id %>" class="drag_bookmark" data-public="<%= item.isPublic %>">
+									<div class="media-container col-md-12">
+										<div class="media-thumb col-md-6">
+											<% if(!item.isPublic) { %><p>Unfortunately due to copyright agreements with the Content Provider this video cannot be used for making a video poster.</p><% } %>
+											<p class="loading">Loading...</p>
+											<div class="media-thumb-image">
+											</div>
 										</div>
-										<%
-											eddie.getComponent('embedlib').loaded().then((function(video){
-												return function(){
-													EuScreen.getVideo({src: video.video, poster: video.screenshot, controls: true}, function(html){
-	            										jQuery('#colItem_' + video.id + ' p.loading').remove();
-														jQuery('#colItem_' + video.id + ' .media-container').html(html);
-	            									});
-												}
-											})(item));
-	         							%>
-										
+										<div class="media-info col-md-6">
+											<h4><%= item.title %></h4>
+											<span class="provider">By <%= item.provider %></span> 
+										</div>
 									</div>
-								
+								</div>
+								<% 
+									(function(item){
+	            						eddie.getComponent('embedlib').loaded().then(function(){
+	            							EuScreen.getVideo({src: item.video, poster: item.screenshot, controls: true}, function(html){
+												console.log("HTML: " + html);
+												jQuery('#colItem_' + item.id + ' .media-container .media-thumb p.loading').remove(); 
+	            								jQuery('#colItem_' + item.id + ' .media-container .media-thumb .media-thumb-image').html(html);
+	            							});
+	            						});
+									})(item);
+								%>
 							<% } %>
 						<% } %>
 					</div>
@@ -89,10 +109,6 @@
 		<div id="colectionslayout">		
 			<div id="colectionslayout_headers"></div>
 			<div id="colectionslayout_items"></div>
-			<div class="arrow-wrap">
-				<div class="arrow-left"></div>
-				<div class="arrow-right"></div>
-			</div>
 		</div>
 	</div>
 	

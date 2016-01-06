@@ -3,22 +3,20 @@ package org.springfield.lou.application.types;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springfield.fs.FSList;
-import org.springfield.fs.FSListManager;
 import org.springfield.fs.Fs;
 import org.springfield.fs.FsNode;
 import org.springfield.lou.json.JSONField;
 import org.springfield.lou.screen.Screen;
 import org.springfield.lou.screencomponent.component.ScreenComponent;
-import org.springfield.mojo.ftp.URIParser;
-
-import sun.security.krb5.Config;
 
 public class Bookmarks extends ScreenComponent{
 	private List<Bookmark> bookmarklist = new ArrayList<Bookmark>();	
 	public static List<String> blacklistProviders;
 	private String address = Configuration.getDomain() + "/user/";
 	private Blacklist blacklist;
+	private int page = 0;
+	private int itemsPerPage = 4;
+	private int pages;
 	
 	public Bookmarks(Screen s, String user) {
 		super(s);
@@ -27,9 +25,27 @@ public class Bookmarks extends ScreenComponent{
 		this.populateBookmarks(user);
 	}
 	
+	@JSONField(field = "page")
+	public int getPage(){
+		return this.page;
+	}
+	
+	public void setPage(int page){
+		System.out.println("setPage( " + page + " )");
+		this.page = page;
+	}
+	
+	@JSONField(field = "pages")
+	public int getPages(){
+		return this.pages;
+	}
+		
 	@JSONField(field = "bookmarks")
 	public List<Bookmark> getBookmarklist() {
-		return bookmarklist;
+		System.out.println("getBookmarkList()");
+		int start = page * itemsPerPage;
+		int end = (start + itemsPerPage) < bookmarklist.size() ? start + itemsPerPage : bookmarklist.size();  
+		return bookmarklist.subList(start, end);
 	}
 	
 	public String getBookmarkLinkById(String id){
@@ -65,7 +81,8 @@ public class Bookmarks extends ScreenComponent{
 			String videoInfoUrl = videoUrl + "/" + videoId;
 		
 			FsNode videoInfo = Fs.getNode(videoInfoUrl);
-			String videoName = videoInfo.getProperty("TitleSet_TitleSetInEnglish_title");
+			String videoTitle = videoInfo.getProperty("TitleSet_TitleSetInEnglish_title");
+			String provider = videoInfo.getProperty("publisherbroadcaster");
 			String screenshot = videoInfo.getProperty("screenshot");
 
 			String mount = "";
@@ -87,10 +104,12 @@ public class Bookmarks extends ScreenComponent{
 			}
 			
 			if(mount != null){				
-				Bookmark bookmark = new Bookmark(bookmarkId, videoId, videoName, mount, screenshot, blacklist.checkIsPublic(referId));
+				Bookmark bookmark = new Bookmark(bookmarkId, videoId, mount, screenshot, videoTitle, provider, blacklist.checkIsPublic(referId));
 				bookmarklist.add(bookmark);
 			}
 		}
+		Double pages = ((double)bookmarklist.size()) / itemsPerPage;
+		this.pages = (int) Math.ceil(pages);
 	}	
 	
 	

@@ -3,7 +3,7 @@ var Observable = function(){
 	this.vars = {};
 };
 Observable.prototype.get = function(varName){
-	if(this.vars[varName])
+	if(this.vars[varName] || this.vars[varName] == 0)
 		return this.vars[varName];
 	return null;
 };
@@ -34,6 +34,7 @@ Observable.prototype.trigger = function(eventName, args){
 };
 Observable.prototype.update = function(message){
 	console.log("Observable.prototype.update()");
+	console.log("MESSAGE: " + message);
 	var self = this;
 	var data = JSON.parse(message);
 	
@@ -45,7 +46,7 @@ Observable.prototype.update = function(message){
 			if(!_.isEqual(self.vars[key], data[key])){
 				diff = true;
 			}
-		}else if(self.vars[key] != data[key]){
+		}else if(self.vars[key] !== data[key]){
 			diff = true;
 		}
 		

@@ -384,4 +384,14 @@ public class PublicationbuilderSession extends Session {
 		bookmarks.sync();
 		collections.sync();
 	}
+	
+	public void getNextBookmarkPage(Screen s){
+		bookmarks.setPage(bookmarks.getPage() + 1);
+		bookmarks.sync();
+	}
+	
+	public void getPrevBookmarkPage(Screen s){
+		bookmarks.setPage(bookmarks.getPage() - 1);
+		bookmarks.sync();
+	}
 }

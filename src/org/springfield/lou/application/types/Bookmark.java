@@ -7,7 +7,8 @@ public class Bookmark extends JSONSerializable{
 	
 	private String id;
 	private String videoId;
-	private String name;
+	private String title;
+	private String provider;
 	private String video;
 	private String screenshot;
 	private boolean isPublic;
@@ -36,14 +37,6 @@ public class Bookmark extends JSONSerializable{
 		this.videoId = videoId;
 	}
 	
-	@JSONField(field = "name")
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	
 	@JSONField(field = "video")
 	public String getVideo() {
 		return video;
@@ -60,13 +53,32 @@ public class Bookmark extends JSONSerializable{
 		this.isPublic = isPublic;
 	}
 	
-	public Bookmark(String id, String video_id, String name, String video, String screenshot, boolean isPublic) {
+	@JSONField(field = "title")
+	public String getTitle(){
+		return this.title;
+	}
+	
+	public void setTitle(String title){
+		this.title = title;
+	}
+	
+	@JSONField(field = "provider")
+	public String getProvider(){
+		return this.provider;
+	}
+	
+	public void setProvider(String provider){
+		this.provider = provider;
+	}
+	
+	public Bookmark(String id, String video_id, String video, String screenshot, String title, String provider, boolean isPublic) {
 		setId(id);
 		setVideoId(videoId);
-		setName(name);
 		setVideo(video);
 		setScreenshot(screenshot);
 		setIsPublic(isPublic);
+		setTitle(title);
+		setProvider(provider);
 	}
 	
 }

@@ -78,8 +78,10 @@ public class Collections extends ScreenComponent {
 										+ "/collectionitem/" + videoId
 										+ "/video/" + videoId;
 								FsNode videoInfo = Fs.getNode(videoInfoUrl);
-								String videoName = videoInfo
+								String videoTitle = videoInfo
 										.getProperty("TitleSet_TitleSetInEnglish_title");
+								String videoProvider = videoInfo
+										.getProperty("publisherbroadcaster");
 								String screenshot = videoInfo
 										.getProperty("screenshot");
 
@@ -112,7 +114,7 @@ public class Collections extends ScreenComponent {
 								}
 								
 								if(mount != null){
-									videos.add(new Bookmark(videoId, videoId, videoName, mount, screenshot, blacklist.checkIsPublic(referId)));
+									videos.add(new Bookmark(videoId, videoId, mount, screenshot, videoTitle, videoProvider, blacklist.checkIsPublic(referId)));
 								}	
 							} catch (Exception e) {
 								e.printStackTrace();
