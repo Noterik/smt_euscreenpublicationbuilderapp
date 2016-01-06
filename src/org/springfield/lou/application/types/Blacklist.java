@@ -29,12 +29,13 @@ public class Blacklist {
 	
 	public void populateBlacklist() {
 		String blacklistEntryUrl = Configuration.getDomain() + "/config/blacklist/";
-		FSList blacklist = FSListManager.get(blacklistEntryUrl);
+		FSList blacklist = FSListManager.get(blacklistEntryUrl, false);
 		
 		for (FsNode node : blacklist.getNodes()) {
 			boolean videoposter = Boolean.parseBoolean(node.getProperty("videoposter"));
 			if(videoposter == false){
 				String blacklistVideoNode = Configuration.getDomain() + "/config/blacklist/entry/"+node.getId()+"/user";
+				System.out.println("blacklistVideoNode: " + blacklistVideoNode);
 				List<FsNode> blacklistUserNodes = Fs.getNodes(blacklistVideoNode,1);
 				FsNode blacklistUserNode = blacklistUserNodes.get(0);
 				this.setBlacklistProviders(blacklistUserNode.getReferid());
