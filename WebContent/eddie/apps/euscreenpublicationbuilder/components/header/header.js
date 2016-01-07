@@ -58,6 +58,8 @@ var Header = function(options){
 		console.log("preview()");
 	});
 	
+	$published = false;
+	
 	$('#publish').click(function(){
 		var textAreas = [];
 		var publish = true;
@@ -86,18 +88,14 @@ var Header = function(options){
 		var mediaArray = [];
 
 		$('.media_item').each(function(index, element){
-			//Let's cache this element, doing $() over and over again kills performance, try to learn this and do it next time, I've already said it a couple of times.
 			var $element = $(element);
 			var obj = {
 				id: $element.attr('id')
 			};
 			
-			//Doing stuff like $($().children()) makes your code completely unreadable. We know we want to get the src/poster of a video, so also reflect this in your code. 
-			//When we encounter a simple video
 			if($element.find('video')[0]){
 				var $video = $element.find('video');
 				
-				//Why are you calling the src a "value" and the poster a "poster"? Stay consistent. 
 				obj['value'] = $video.attr('src');
 				obj['poster'] = $video.attr('poster');
 				
@@ -108,10 +106,17 @@ var Header = function(options){
 			mediaArray.push(obj);
 		});
 		
-		var result = JSON.stringify({textItem: textAreas, mediaItem: mediaArray});
 		if(publish == true){
-			eddie.putLou("", "proccessPublication(" + result + ")");
-			$('#publish').hide();
+			if($published == false){
+				var result = JSON.stringify({textItem: textAreas, mediaItem: mediaArray});
+				eddie.putLou("", "proccessPublication(" + result + ")");
+				$published = true;
+				console.log('publish -> publish');
+			}else {
+				var result = JSON.stringify({textItem: textAreas, mediaItem: mediaArray, mode: "edit"});
+				eddie.putLou("", "proccessPublication(" + result + ")");
+				console.log('publish -> edit');
+			}
 			$('#header').notify("Your Poster has been saved", { className:"success", autoHideDelay: 3400});
 		}
 	});
