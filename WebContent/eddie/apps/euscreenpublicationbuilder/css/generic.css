@@ -340,6 +340,18 @@ a:hover  {
     margin-top:  10px;
 }
 
+.header-button{
+	background-color:  #afd779;
+    border-radius:  5px;
+    padding:  5px 35px;
+    margin-left: 15px;
+    width:  120px;
+    float:  right;
+    text-align:  center;
+    display:  block;
+    color:  #FFF !important;
+}
+/*
 #edit  {
     background-color:  #afd779;
     border-radius:  5px;
@@ -372,6 +384,7 @@ a:hover  {
     float:  right;
     color:  #FFF !important;
 }
+*/
 
 .layouts-title  {
     /*width:  83%;*/
