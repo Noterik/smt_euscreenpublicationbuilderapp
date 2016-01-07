@@ -259,7 +259,7 @@ public class Publication extends VideoPoster{
 
         object.put("type", "videoposter");
         
-        if(id != "" && id != null){
+      if(id != "" && id != null){
         	 long time = new Date().getTime();
      		int hash = (user + ":poster_"+id+"t"+time).hashCode();
 

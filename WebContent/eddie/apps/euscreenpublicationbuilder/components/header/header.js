@@ -58,7 +58,7 @@ var Header = function(options){
 		console.log("preview()");
 	});
 	
-	$published = false;
+
 	
 	$('#publish').click(function(){
 		var textAreas = [];
@@ -107,16 +107,11 @@ var Header = function(options){
 		});
 		
 		if(publish == true){
-			if($published == false){
 				var result = JSON.stringify({textItem: textAreas, mediaItem: mediaArray});
 				eddie.putLou("", "proccessPublication(" + result + ")");
-				$published = true;
-				console.log('publish -> publish');
-			}else {
-				var result = JSON.stringify({textItem: textAreas, mediaItem: mediaArray, mode: "edit"});
-				eddie.putLou("", "proccessPublication(" + result + ")");
-				console.log('publish -> edit');
-			}
+				$('#edit').show();
+				$('#publish').hide();
+				
 			$('#header').notify("Your Poster has been saved", { className:"success", autoHideDelay: 3400});
 		}
 	});

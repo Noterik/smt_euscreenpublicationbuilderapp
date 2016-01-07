@@ -33,6 +33,7 @@ public class PublicationbuilderSession extends Session {
 	public static boolean isAndroid;
 	private Overlaydialog overlayDialog = null;
 	private String oldPublicationID = "";
+	private String createPosterID = "";
 	public static Map<String, String> layoutWithStyle = new HashMap<String, String>();
 	public static Map<String, String> styleWithId = new HashMap<String, String>();
 
@@ -152,13 +153,7 @@ public class PublicationbuilderSession extends Session {
 			
 			this.setLayout(s, layout[1]);
 			s.removeContent("layoutsContent");
-
-			
-			
-		
-			
 // Set theme
-
 			JSONObject colorSchemaJson = (JSONObject) arr.get(2);
 			System.out.println("COLOR SCHEMA OF JESON: " + colorSchemaJson);
 			String[] colorSchema = ((String) colorSchemaJson
@@ -360,11 +355,20 @@ public class PublicationbuilderSession extends Session {
 			
 			if(c.get("mode") != null){
 				if(c.get("mode").toString().trim().equals("edit")){
+					
+					if(this.oldPublicationID == ""){
+						this.oldPublicationID = this.createPosterID;
+					}
+					
 					JSONObject publicationJSON = Publication.editXml(publication, this.currentUser, s.getId(), this.oldPublicationID);
 					s.putMsg("iframesender", "", "sendToParent(" + publicationJSON + ")");
 				}
 			}else{
 				JSONObject publicationJSON = Publication.createXML(publication, this.currentUser, s.getId());
+				
+				//In case of edit after immediately create an poster we save old id
+				this.createPosterID = (String)publicationJSON.get("id");
+				
 				s.putMsg("iframesender", "", "sendToParent(" + publicationJSON + ")");
 			}
 		} catch (Exception e) {
