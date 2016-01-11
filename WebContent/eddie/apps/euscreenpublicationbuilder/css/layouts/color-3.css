@@ -12,7 +12,7 @@
 }
 
 .media_item {
-    background-color: #f89fd4;
+    background-color: #f89fd4 !important;
 }
 
 .title {
