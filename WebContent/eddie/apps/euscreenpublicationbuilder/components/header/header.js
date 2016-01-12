@@ -12,6 +12,12 @@ var Header = function(options){
 //		$('#buildContent').hide();
 //	});
 	
+	$colorSchemes = $("#color-schemes");
+	$colorSchemes.css("color", "lightgray");
+	
+	$build = $("#build");
+	$build.css("color", "lightgray");
+	
 	$('#preview').click(function(){
 		var textAreas = [];
 		$('.text_item').each(function(index) {
@@ -201,6 +207,8 @@ Header.prototype.modeEdit = function () {
 	$layout.removeClass("arrow-pinter");
 	
 	$("#build").addClass("arrow-pinter");	
+	$("#build").css("color", "black");	
+
 	$('#colorschemesContent').hide();
 }
 

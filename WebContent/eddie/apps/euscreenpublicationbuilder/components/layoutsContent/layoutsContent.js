@@ -45,5 +45,6 @@ LayoutsContent.prototype.closeLayoutsTab = function () {
 	
 	eddie.putLou("", "generateColorSchemes()");
 	
-	$("#color-schemes").addClass("arrow-pinter");	
+	$("#color-schemes").addClass("arrow-pinter");
+	$("#color-schemes").css("color", "black");
 }

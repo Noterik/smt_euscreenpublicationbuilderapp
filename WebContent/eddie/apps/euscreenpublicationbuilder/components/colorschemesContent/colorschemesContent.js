@@ -49,7 +49,6 @@ ColorschemesContent.prototype.closeThemesTab = function () {
 	$layout.removeClass("arrow-pinter");
 	
 	$('#buildContent').show();
-	
 	$colorSchemes = $("#color-schemes");
 	$colorSchemes.css("color", "lightgray");
 	$colorSchemes.removeClass("arrow-pinter");
@@ -57,4 +56,5 @@ ColorschemesContent.prototype.closeThemesTab = function () {
 	
 	
 	$("#build").addClass("arrow-pinter");	
+	$("#build").css("color", "black");	
 }
