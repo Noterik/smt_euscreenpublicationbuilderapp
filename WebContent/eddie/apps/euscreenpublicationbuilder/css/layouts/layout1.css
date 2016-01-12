@@ -37,7 +37,7 @@ footer {
 
 .comparison_page {
 	overflow-y: scroll;
-	background-image: url("../../img/layouts/green-bg.jpg");
+	/*background-image: url("../../img/layouts/green-bg.jpg");*/
 	background-repeat: no-repeat;
 	overflow: hidden;
 }
@@ -47,12 +47,11 @@ footer {
 }
 
 .title {
-	color: black;
+	/*color: black;*/
 	text-align: center;
 	font-family: Verdana, Geneva, sans-serif;
 	margin: 0 auto;
-	padding-top: 15px;
-	padding-bottom: 10px;
+	margin-bottom: 20px;
 }
 
 .videoAfterDrop {
