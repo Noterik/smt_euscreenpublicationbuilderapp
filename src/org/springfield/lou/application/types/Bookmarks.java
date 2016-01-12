@@ -61,7 +61,7 @@ public class Bookmarks extends ScreenComponent{
 	private void populateBookmarks(String user){
 		address = address + user + "/publications/1/bookmark";
 		List<FsNode> xmlCallList = Fs.getNodes(this.address, 2);
-
+		
 		for (FsNode node : xmlCallList) {
 			
 			String bookmarkId = node.getId();
