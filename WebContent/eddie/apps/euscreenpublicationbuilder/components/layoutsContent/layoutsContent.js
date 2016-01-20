@@ -1,40 +1,32 @@
 var LayoutsContent = function(options){
 	Component.apply(this, arguments);
+	var self = this;
 	this.element = jQuery("#layoutsContent");
 	this.layoutListTemplate = _.template(this.element.find('#layout_listing_template').text());
-
-
+	this.layouts = eddie.getComponent('layouts');
+	
+	this.layouts.on('layouts-changed', function(layouts){
+		self.renderLayouts()
+	});
+	
 }
 
 LayoutsContent.prototype = Object.create(Component.prototype);
 
-LayoutsContent.prototype.setLayoutClick = function(count) {
-	console.log("test");
-	var self = this;
-
-	for(var i = 0; i < count; i++)
-	{
-		this.bindLayoutClick(i);
-	}
-};
-
-LayoutsContent.prototype.bindLayoutClick = function(i) {
-	var result = JSON.stringify({none: "none"});
+LayoutsContent.prototype.renderLayouts = function(data) {
+	console.log('LayoutsContent.renderLayouts(' + data + ')');
+	var layouts = this.layouts.get('layouts');
+	var html = jQuery(this.layoutListTemplate({data: layouts}));
+	this.element.append(html);
 	
-	$('#layout_' + i).click(function(){
+	this.element.find('[data-layout-id]').on('click', function(){
 		LayoutsContent.prototype.closeLayoutsTab();
+		var id = jQuery(this).data('layout-id');
 		var message = {
-			layoutId: "" + i
+			layoutId: id
 		};
 		eddie.putLou("", "setLayout(" + JSON.stringify(message) + ")");
-		
 	});
-};
-
-LayoutsContent.prototype.listLayouts = function(data) {
-	var html = jQuery(this.layoutListTemplate({data: JSON.parse(data)}));
-	this.element.append(html);
-	this.setLayoutClick(data.length);
 };
 
 LayoutsContent.prototype.closeLayoutsTab = function () {
@@ -42,9 +34,7 @@ LayoutsContent.prototype.closeLayoutsTab = function () {
 	$layout.css("color", "lightgray");
 	$layout.unbind("click");
 	$layout.removeClass("arrow-pinter");
-	
-	eddie.putLou("", "generateColorSchemes()");
-	
+		
 	$("#color-schemes").addClass("arrow-pinter");
 	$("#color-schemes").css("color", "black");
 }

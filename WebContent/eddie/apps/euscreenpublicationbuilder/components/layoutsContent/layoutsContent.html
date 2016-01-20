@@ -9,55 +9,28 @@
 		</div>
 	</div>
 	<div class="container">
-	<%
-		var cntRow = 0;
-		var cntLayout = 0;
-		var isRow = false;
-		_.each(data, function(item, i) {
-			if (i % 3 == 0) {
-				isRow = true;
-	%>
-		<div class="row">
-	<%	
-			}
-	%>
-	
+		<% var data = _.sortBy(data, function(item){ return item.order; }); %>
+		<% console.log("DATA", data); %>
+		<% for(var i = 0; i < data.length; i++){ %>
+			<% if(i % 3 === 0){ %>
+				<div class="row">
+			<% } %>
+			<% var layout = data[i]; %>
 			<div class="col-sm-4 col-md-4 col-lg-4">
-				<img  class="layout_image" id="<%= item.id %>" src="<%= item.icon %>"/>
+				<div class="layout_image" data-layout-id="<%= layout.id %>">
+					<%= layout.icon %>
+				</div>
 				<h4 class="theme_name">
-				 <%= item.name %>
+					<%= layout.name %>
 				</h4>
 				<p class="theme-desc">
-				<%= item.description %>
+					<%= layout.description %>
 				</p>
 			</div>
-	<%
-	cntRow++;
-	cntLayout++;
-	
-	if(isRow == true) {
-		if(data.length > 3){
-    		if(cntRow == 3){
-	%>
-		</div>
-	<% 
-    			isRow = false;
-    			cntRow = 0;
-    			
-    		}
-    		
-		}else {
-			if(cntRow == data.length){
-	%>
-		</div>
-	<% 
-    			isRow = false;
-    			cntRow = 0;		
-    		}
-			
-		}
-	}
-		});
-	%>
+			<% if(i % 3 === 2 || i === (data.length - 1)){ %>
+				</div>
+			<% } %>
+		<% } %>
+	</div>
 </div>
 </script>

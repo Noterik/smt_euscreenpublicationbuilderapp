@@ -3,6 +3,12 @@ package org.springfield.lou.application.session;
 import java.util.HashMap;
 import java.util.Map;
 
+import models.Layout;
+import models.LayoutThemes;
+import models.Layouts;
+import models.Themes;
+import models.Theme;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -10,10 +16,8 @@ import org.springfield.fs.FsNode;
 import org.springfield.lou.application.Html5Application;
 import org.springfield.lou.application.types.Bookmarks;
 import org.springfield.lou.application.types.Collections;
-import org.springfield.lou.application.types.Layout;
 import org.springfield.lou.application.types.Overlaydialog;
 import org.springfield.lou.application.types.Publication;
-import org.springfield.lou.application.types.Theme;
 import org.springfield.lou.application.types.DTO.MediaItem;
 import org.springfield.lou.application.types.DTO.TextContent;
 import org.springfield.lou.screen.Screen;
@@ -21,13 +25,14 @@ import org.springfield.lou.session.Session;
 
 public class PublicationbuilderSession extends Session {
 
-	public Layout layouts;
-	public Theme themes;
 	public Bookmarks bookmarks;
 	public Collections collections;
-	private FsNode currentLayout;
-	private String currentLayoutStyle;
-	private FsNode currentTheme;
+	public Layouts layouts;
+	private Themes themes;
+	private Layout currentLayout;
+	private Theme currentTheme;
+ 	private String currentLayoutStyle;
+	
 	private String currentUser;
 	public static String ipAddress = "";
 	public static boolean isAndroid;
@@ -45,7 +50,7 @@ public class PublicationbuilderSession extends Session {
 		//I know then you can give your idea :)
 		String[] arr = s.getId().split("/");
 		this.currentUser = arr[4];
-
+		themes = new Themes();
 		initScreen(s);
 	}
 
@@ -65,7 +70,9 @@ public class PublicationbuilderSession extends Session {
 
 		this.overlayDialog = new Overlaydialog(s);
 		this.overlayDialog.render();
-		generateLayout(s);
+		
+		this.renderLayouts(s);
+		
 		this.handleEditStatus(s);
 	}
 
@@ -76,63 +83,17 @@ public class PublicationbuilderSession extends Session {
 	public void setCurrentLayoutStyle(String currentLayoutStyle) {
 		this.currentLayoutStyle = currentLayoutStyle;
 	}
-
-	public FsNode getCurrentTheme() {
-		return currentTheme;
-	}
-
-	public void setCurrentTheme(FsNode currentTheme) {
-		this.currentTheme = currentTheme;
-	}
-
-	public FsNode getCurrentLayout() {
-		return currentLayout;
-	}
-
-	public void setCurrentLayout(FsNode currentLayout) {
-		this.currentLayout = currentLayout;
-	}
-
-	public void generateLayout(Screen s) {
-		System.out.println("actionGenerateLayout()");
-		Html5Application app = this.getApp();
-		app.loadContent(s, "layoutsContent");
-
-		// Load layouts
-		layouts = new Layout();
-
-		JSONArray jsonlayoutsarray = new JSONArray();
-
-		for (int i = 0; i < layouts.getLayouts().size(); i++) {
-
-			String layoutStr = layouts.getLayouts().get(i).getProperty("css");
-			String[] splits = layoutStr.split("/");
-			String lo = splits[splits.length - 1];
-			lo = lo.trim();
-
-			layoutWithStyle.put(lo, "layout_" + i);
-
-			JSONObject jsonlayoutobject = new JSONObject();
-			jsonlayoutobject.put("id", "layout_" + i);
-			jsonlayoutobject.put("name", layouts.getLayouts().get(i)
-					.getProperty("name"));
-			jsonlayoutobject.put("icon", layouts.getLayouts().get(i)
-					.getProperty("icon"));
-			jsonlayoutobject.put("description", layouts.getLayouts().get(i)
-					.getProperty("description"));
-
-			jsonlayoutsarray.add(jsonlayoutobject);
-
-		}
-
-		s.putMsg("layoutsContent", "", "listLayouts(" + jsonlayoutsarray + ")");
-
+	
+	public void renderLayouts(Screen s){
+		this.layouts = new Layouts(s);
+		this.layouts.render();
+		this.getApp().loadContent(s, "layoutsContent");
+		this.layouts.sync();
 	}
 
 	public void handleEditStatus(Screen s) {
 	
 		if (s.getParameter("status").equals("edit")) {
-			generateColorSchemes(s);
 
 			String poster_url = s.getParameter("posterid");
 			System.out.println("===== HANDLE EDIT STATUS ( " + poster_url + " )");
@@ -180,17 +141,21 @@ public class PublicationbuilderSession extends Session {
 	
 	public void setTheme(Screen s, String themeId){
 		System.out.println("======== setTheme(" + themeId + ") ========");
-
+		currentTheme = themes.getThemeById(themeId);
+		JSONObject message = new JSONObject();
+		message.put("style", currentTheme.getCSSURI());
+		s.putMsg("buildContent", "", "setTheme(" + message + ")");
+		/*
 		FsNode node = themes.getLayoutBy(Integer.parseInt(themeId));
 		setCurrentTheme(node);
 		JSONObject message = new JSONObject();
 		message.put("style", node.getProperty("css"));
-		s.putMsg("buildContent", "", "setTheme(" + message + ")");
+		
+		*/
 	}
 
 	public void setLayout(Screen s, JSONObject data) {
 		String layoutId = (String) data.get("layoutId");
-		
 		this.setLayout(s, layoutId);
 	}
 	
@@ -198,49 +163,21 @@ public class PublicationbuilderSession extends Session {
 		System.out.println("========= setLayout() ==========");
 		Html5Application app = this.getApp();
 		
+		this.currentLayout = layouts.getById(layoutId);
+		
 		System.out.println(layoutId);
 		app.loadContent(s, "buildContent");
 		this.loadBookmarks(s);
-
-		FsNode node = layouts.getLayoutBy(Integer.parseInt(layoutId));
-		setCurrentLayout(node);
-		setCurrentLayoutStyle(node.getProperty("css"));
-		JSONObject message = new JSONObject();
-		message.put("html", node.getProperty("template"));
-		message.put("style", node.getProperty("css"));
-		s.putMsg("buildContent", "", "update(" + message + ")");
+		this.renderColorSchemes(s);
 	}
 
-	public void generateColorSchemes(Screen s) {
+	public void renderColorSchemes(Screen s) {
 		System.out.println("actionGeneratecolorschemes()");
-		Html5Application app = this.getApp();
-		app.removeContent(s, "layoutsContent");
-		app.removeContentAllScreens("layoutsContent");
-		app.loadContent(s, "colorschemesContent");
-
-		// Load color schemes
-		themes = new Theme();
-
-		JSONArray jsonThemeArray = new JSONArray();
-
-		for (int i = 0; i < themes.getThemes().size(); i++) {
-			styleWithId.put(
-					themes.getThemes().get(i).getProperty("css").trim(),
-					"theme_" + i);
-
-			JSONObject jsonThemeObject = new JSONObject();
-			jsonThemeObject.put("id", "theme_" + i);
-			jsonThemeObject.put("name",
-					themes.getThemes().get(i).getProperty("name"));
-			jsonThemeObject.put("icon",
-					themes.getThemes().get(i).getProperty("icon"));
-
-			jsonThemeArray.add(jsonThemeObject);
-
-		}
-
-		s.putMsg("colorschemesContent", "", "listThemes(" + jsonThemeArray
-				+ ")");
+		LayoutThemes layoutThemes = new LayoutThemes(s, this.currentLayout, themes);
+		layoutThemes.render();
+		this.getApp().removeContent(s, "layoutsContent");
+		this.getApp().loadContent(s, "colorschemesContent");
+		layoutThemes.sync();
 	}
 
 	public void closePreview(Screen s, String c) {
@@ -254,7 +191,7 @@ public class PublicationbuilderSession extends Session {
 		try { 
 				Publication publication = new Publication(); 
 				if(getCurrentTheme() != null) publication.theme.setCurrentTheme(getCurrentTheme());
-				publication.template.getLayout().setCurrentLayout(getCurrentLayout());
+				//publication.template.getLayout().setCurrentLayout(getCurrentLayout());
 				publication.template.getLayout().setCurrentLayoutStyle(getCurrentLayoutStyle());
   
 				if(data.get("mediaItem") != null){ 
@@ -331,7 +268,7 @@ public class PublicationbuilderSession extends Session {
 			Publication publication = new Publication();
 
 			publication.theme.setCurrentTheme(getCurrentTheme());
-			publication.template.getLayout().setCurrentLayout(getCurrentLayout());
+			//publication.template.getLayout().setCurrentLayout(getCurrentLayout());
 			publication.template.getLayout().setCurrentLayoutStyle(getCurrentLayoutStyle());
 			
 			JSONArray mediaArray = (JSONArray)c.get("mediaItem");

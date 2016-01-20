@@ -1,12 +1,36 @@
 var ColorschemesContent = function(options){
 	Component.apply(this, arguments);
+	var self = this;
+	var element = jQuery("#colorschemesContent");
+	var themeListTemplate = _.template(element.find('#theme_listing_template').text());
+	var themes = eddie.getComponent('layoutthemes');
 	
-	this.element = jQuery("#colorschemesContent");
-	this.themeListTemplate = _.template(this.element.find('#theme_listing_template').text());
+	function renderThemes(){
+		var data = themes.get('layoutThemes');
+		var html = jQuery(themeListTemplate({data: data}));
+		element.html(html);
+		
+		element.find('[data-theme-id]').on('click', function(){
+			var $this = jQuery(this);
+			var message = {
+				'themeId': $this.data('theme-id')
+			};
+			eddie.putLou('', 'setTheme(' + JSON.stringify(message) + ')');
+		});
+	};
+	
+	console.log("THEMES OBJECT", themes);
+	themes.on('layoutThemes-changed', function(){
+		renderThemes();
+	});
+	renderThemes();
+	
+	
 }
 
 ColorschemesContent.prototype = Object.create(Component.prototype);
 
+/*
 ColorschemesContent.prototype.setThemeClick = function(count) {
 	console.log("test");
 	var self = this;
@@ -16,7 +40,9 @@ ColorschemesContent.prototype.setThemeClick = function(count) {
 		this.bindThemeClick(i);
 	}
 };
+*/
 
+/*
 ColorschemesContent.prototype.bindThemeClick = function(i) {
 	var result = JSON.stringify({none: "none"});
 	
@@ -28,12 +54,7 @@ ColorschemesContent.prototype.bindThemeClick = function(i) {
 		eddie.putLou("", "setTheme(" + JSON.stringify(message) + ")");
 	});
 };
-
-ColorschemesContent.prototype.listThemes = function(data) {
-	var html = jQuery(this.themeListTemplate({data: JSON.parse(data)}));
-	this.element.append(html);
-	this.setThemeClick(data.length);
-};
+*/
 
 
 ColorschemesContent.prototype.closeThemesTab = function () {

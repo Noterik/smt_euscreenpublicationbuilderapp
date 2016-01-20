@@ -1,0 +1,17 @@
+.layout-icon{
+	
+}
+	.layout-icon .layout-icon-bg{
+		fill: #afd779;
+	}
+	
+	.layout-icon .layout-icon-text{
+		fill: #000000;
+		opacity: 0.4;
+	}
+	
+	.layout-icon .layout-icon-body{
+		fill: #FFFFFF;
+		opacity: 0.8;
+	}
+	
