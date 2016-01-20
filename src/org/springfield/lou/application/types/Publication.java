@@ -216,7 +216,7 @@ public class Publication extends VideoPoster{
 						element.clearContent();
 						String media = null;
 						if(mediaItemList.get(i).getValue() != null){
-							if (mediaItemList.get(i).getValue().toString().contains("http://www.youtube.com") || mediaItemList.get(i).getValue().toString().contains("https://player.vimeo")) {
+							if (mediaItemList.get(i).getValue().toString().contains("http://www.youtube.com") || mediaItemList.get(i).getValue().toString().contains("https://player.vimeo") || mediaItemList.get(i).getValue().toString().contains("http://americanarchive.org")) {
 								media = "<iframe class=\"videoAfterDrop\" src='" + mediaItemList.get(i).getValue().toString() + "' frameborder=\"0\" allowfullscreen></iframe>";
 							}else {
 								String src = mediaItemList.get(i).getValue().toString();

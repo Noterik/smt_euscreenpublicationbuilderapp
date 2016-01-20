@@ -14,9 +14,11 @@ var Header = function(options){
 	
 	$colorSchemes = $("#color-schemes");
 	$colorSchemes.css("color", "lightgray");
-	
+	$colorSchemes.unbind("click");
+
 	$build = $("#build");
 	$build.css("color", "lightgray");
+	$build.unbind("click");
 	
 	$('#preview').click(function(){
 		var textAreas = [];

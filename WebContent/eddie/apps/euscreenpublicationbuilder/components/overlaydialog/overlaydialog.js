@@ -20,14 +20,16 @@ var Overlaydialog = function(){
 	
 	this.on('url-changed', function(){
 		console.log("THIS URL CHANGED!");
-		self.target.html(self.template({data:self.vars}));
+		//I comment this line cuz it breaks preview part of publications in future if we need to show overlay with url we can fix it.
+//		self.target.html(self.template({data:self.vars}));
 	});
 	
 	this.on('html-changed', function(){
 		var html = self.vars.html;
 		html = html.decodeHTML();
 		html = html.replace(new RegExp("&lt;", "g"), '<')
-		console.log(html);
+		self.target.html();
+		console.log(self.target);
 		self.target.html(html);
 	});
 	

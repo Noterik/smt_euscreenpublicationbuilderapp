@@ -178,21 +178,21 @@ a:hover  {
 
 #layout-nav  {
     margin-top:  0px;
-    cursor:  pointer;
+    cursor:  default;
     float:  left;
     margin-right:  20px;
 }
 
 #color-schemes  {
     margin-top:  0px;
-    cursor:  pointer;
+    cursor:  default;
     float:  left;
     margin-right:  20px;
 }
 
 #build  {
     margin-top:  0px;
-    cursor:  pointer;
+    cursor:  default;
     float:  left;
 }
 

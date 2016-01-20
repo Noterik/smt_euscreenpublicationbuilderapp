@@ -14,10 +14,19 @@ BuildContent.prototype.initTinyMce = function(){
 		 tinymce.init({
 			 mode: "exact",
 			 menubar: false,
-			 plugins: 'link',
+			 plugins: 'link, paste',
 			 toolbar: "fontselect | fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
 			 elements: this.id,
-			 height: 256
+			 height: 256,
+			 elementpath: false,
+			 statusbar: false,
+		     paste_auto_cleanup_on_paste : true,
+			 paste_preprocess : function(pl, o) {
+		            o.content =  o.content;
+		        },
+		        paste_postprocess : function(pl, o) {
+		            o.node.innerHTML = o.node.innerHTML;
+		        }
 		 });
 	 });
 
@@ -26,8 +35,18 @@ BuildContent.prototype.initTinyMce = function(){
 			 mode: "exact",
 			 elements: this.id,
 			 menubar: false,
-			 plugins: 'link',
-			 toolbar: "fontselect fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+			 plugins: 'link, paste',
+			 elementpath: false,
+			 statusbar: false,
+			 toolbar: "fontselect fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+		     paste_auto_cleanup_on_paste : true,
+			 paste_preprocess : function(pl, o) {
+		            o.content = o.content;
+		        },
+		        paste_postprocess : function(pl, o) {
+
+		            o.node.innerHTML = o.node.innerHTML;
+		        }
 		 });
 	 });
 

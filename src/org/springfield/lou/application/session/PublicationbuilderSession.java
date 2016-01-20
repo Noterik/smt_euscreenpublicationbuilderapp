@@ -243,7 +243,7 @@ public class PublicationbuilderSession extends Session {
 				+ ")");
 	}
 
-	public void closePreview(Screen s, String c) {
+	public void closePreview(Screen s, JSONObject c) {
 		this.overlayDialog.setURL("");
 		this.overlayDialog.setVisible(false);
 		this.overlayDialog.update();
@@ -281,7 +281,7 @@ public class PublicationbuilderSession extends Session {
 
 				JSONObject publicationJSON = Publication.createPreviewXML(publication, this.currentUser);
 				this.overlayDialog.setHTML(publicationJSON.get("xml").toString());
-				this.overlayDialog.setVisible(true); 
+				this.overlayDialog.setVisible(true); 			
 				this.overlayDialog.update(); 
 			} catch (Exception e) { 
 				e.printStackTrace(); 
@@ -306,7 +306,14 @@ public class PublicationbuilderSession extends Session {
 						+ youtubeId[1]
 						+ "' frameborder=\"0\" allowfullscreen></iframe>";
 				message.put("video", video);
+			} else if (data_type.equals("vimeoitem") && identifier.contains("americanarchive.org")) {
+				String video = "<iframe class=\"videoAfterDrop\" src='"
+						+ identifier
+						+ "' frameborder=\"0\" allowfullscreen></iframe>";
+				message.put("video", video);
 			} else if (data_type.equals("vimeoitem")) {
+				System.out.println("================== SET EXTERNAL IDENTIFIRE =================");
+				System.out.println(identifier);
 				String[] vimeoId = identifier.split("/");
 				String video = "<iframe class=\"videoAfterDrop\" src='"
 						+ "https://player.vimeo.com/video/" + vimeoId[3]
