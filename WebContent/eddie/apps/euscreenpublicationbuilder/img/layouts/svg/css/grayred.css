@@ -1,17 +1,19 @@
-.layout-icon{
+.theme-grayred{
 	
 }
-	.layout-icon .layout-icon-bg{
-		fill: #afd779;
+	.theme-grayred .layout-icon{
+		
 	}
-	
-	.layout-icon .layout-icon-text{
-		fill: #000000;
-		opacity: 0.4;
-	}
-	
-	.layout-icon .layout-icon-body{
-		fill: #FFFFFF;
-		opacity: 0.8;
-	}
-	
+		.theme-grayred .layout-icon .layout-icon-bg{
+			fill: #e8e8e8;
+		}
+		
+		.theme-grayred .layout-icon .layout-icon-text{
+			fill: #ff6a6a;
+			opacity: 0.4;
+		}
+		
+		.theme-grayred .layout-icon .layout-icon-body{
+			fill: #FFFFFF;
+			opacity: 0.8;
+		}
