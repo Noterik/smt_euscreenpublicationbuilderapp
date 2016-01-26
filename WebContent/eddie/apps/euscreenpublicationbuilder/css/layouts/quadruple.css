@@ -3,6 +3,13 @@ footer {
 	height: 60px;
 }
 
+.media-wrapper:first-child{
+	padding-right: 3px;
+}
+.media-wrapper:last-child{
+	padding-left: 3px;
+}
+
 .media-item {
 	margin-bottom: 25px;
 	height: 250px;
