@@ -1,0 +1,139 @@
+footer {
+	width: 100%;
+	height: 60px;
+}
+
+#layout {
+	padding: 0;
+}
+
+.no-pd {
+	padding: 0;
+}
+
+.right-pd {
+	padding-right: 1px;
+}
+
+.left-pd {
+	padding-left: 1px;
+}
+
+.media-item {
+	margin-bottom: 25px;
+	height: 250px;
+	background-color: rgba(255, 255, 255, 0.5);
+}
+
+.media-item video{
+	position: absolute;
+	height: 89%;
+	width: 100%;
+	background-color: black;
+	margin: -1px;
+}
+.media-item i{
+	cursor: pointer;
+	color: white;
+	position: absolute;
+}
+.media-item .fullscreen{
+	top: 10px;
+	left: 10px;
+}
+
+.comparison_page {
+	overflow-y: scroll;
+	/*background-image: url("../../img/layouts/background.jpg");*/
+	background-repeat: no-repeat;
+	overflow: hidden;
+}
+
+.text {
+	border: 1px solid black;
+}
+
+.title {
+	/*color: black;*/
+	text-align: center;
+	font-family: Verdana, Geneva, sans-serif;
+	margin: 0 auto;
+}
+
+.videoAfterDrop {
+	width: 100%;
+	height: 100%;
+    border: 0;
+    background-color: black;
+}
+
+.top {
+	padding-top: 35px;
+	padding-bottom: 15px;
+}
+
+.bottom{
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+#txt_0 {
+	width: 96.2%;
+	padding-top: 20px;
+	margin: 0 auto;
+}
+
+#media_1.plus_icon {
+	margin-top: 50%;
+}
+
+.titleHolder {
+	width: 100%;
+}
+
+.removeVideo {
+	text-align: center;
+	cursor: pointer;
+}
+
+#context {
+  	padding-top: 9px;
+  	z-index: 1;
+}
+
+#context ul {
+	padding-left: 0px;
+}
+
+#context ul li {
+  	cursor: pointer;
+	text-align: center;
+    margin-bottom: 9px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+#context ul li:hover {
+  	background: rgba(0, 0, 0, 0.2) none repeat scroll 0% 0%;
+	color: white;
+}
+
+.terms  {
+    font-weight:  bold;
+    float:  left;
+    margin-top:  22px;
+    margin-left: 32px;
+}
+
+.terms > a:focus {
+    text-decoration: none;
+}
+
+.logoEU  {
+    float:  right;
+    width:  96px;
+    height:  33px;
+    margin-top:  20px;
+    background-repeat:  no-repeat;
+    background-image:  url("/eddie/apps/euscreenpublicationbuilder/img/layouts/ic_euscreen.png");
+}
