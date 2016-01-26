@@ -4,10 +4,10 @@ footer {
 }
 
 .media-wrapper:first-child{
-	padding-right: 3px;
+	padding-right: 2px;
 }
 .media-wrapper:last-child{
-	padding-left: 3px;
+	padding-left: 2px;
 }
 
 .media-item {
@@ -48,6 +48,9 @@ footer {
 	text-align: center;
 	font-family: Verdana, Geneva, sans-serif;
 	margin: 0 auto;
+	font-size: 20px;
+	margin-bottom: 20px;
+	padding: 5px 20px;
 }
 
 .top {

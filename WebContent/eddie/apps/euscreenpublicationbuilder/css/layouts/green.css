@@ -6,7 +6,7 @@
 
 .border {
     border-bottom: 4px solid #afd779;
-    width: 75px;
+    width: 60px;
     margin: 0 auto;
 	margin-bottom: 20px;
     border-radius: 2px;
@@ -21,7 +21,7 @@
     color: #87a85b;
     width: 87%;
     margin-bottom: 20px;
-    background-color: #FFF;
+    /*background-color: #FFF;*/
     -webkit-box-shadow: 0px 1px 5px 0px rgba(175, 215, 121, 0.75);
     -moz-box-shadow: 0px 1px 5px 0px rgba(175, 215, 121, 0.75);
     box-shadow: 0px 1px 5px 0px rgba(175, 215, 121, 0.75);

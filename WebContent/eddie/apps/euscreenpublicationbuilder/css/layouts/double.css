@@ -4,10 +4,10 @@ footer {
 }
 
 .media-wrapper:first-child{
-	padding-right: 3px;
+	padding-right: 2px;
 }
 .media-wrapper:last-child{
-	padding-left: 3px;
+	padding-left: 2px;
 }
 
 .media-item {
@@ -50,6 +50,7 @@ footer {
 	margin: 0 auto;
     margin-bottom: 20px;
 	font-size: 20px;
+	padding: 5px 20px;
 }
 
 .title:focus {
