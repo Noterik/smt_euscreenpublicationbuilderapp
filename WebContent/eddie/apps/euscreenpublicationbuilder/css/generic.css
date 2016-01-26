@@ -437,6 +437,7 @@ a:hover  {
 	padding-left: 15px;
 	padding-right: 15px;
 	position: absolute;
+	z-index:501;
 }
 
 .media-item .widget-controls i{
@@ -451,6 +452,7 @@ a:hover  {
 	padding-right: 15px;
 	height: 100%;
 	width: 100%;
+	background-color: black;
 }
 
 #bookmarklayout  {

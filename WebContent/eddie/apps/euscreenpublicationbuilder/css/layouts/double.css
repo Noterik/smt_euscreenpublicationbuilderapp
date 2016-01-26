@@ -3,6 +3,12 @@ footer {
 	height: 60px;
 }
 
+.media-item {
+	margin-bottom: 25px;
+	height: 250px;
+	background-color: rgba(255, 255, 255, 0.5);
+}
+
 #layout {
 	padding: 0;
 }
@@ -17,29 +23,6 @@ footer {
 
 .left-pd {
 	padding-left: 1px;
-}
-
-.media-item {
-	margin-bottom: 25px;
-	height: 250px;
-	background-color: rgba(255, 255, 255, 0.5);
-}
-
-.media-item video{
-	position: absolute;
-	height: 89%;
-	width: 100%;
-	background-color: black;
-	margin: -1px;
-}
-.media-item i{
-	cursor: pointer;
-	color: white;
-	position: absolute;
-}
-.media-item .fullscreen{
-	top: 10px;
-	left: 10px;
 }
 
 .comparison_page {
@@ -60,13 +43,6 @@ footer {
 	margin: 0 auto;
 }
 
-.videoAfterDrop {
-	width: 100%;
-	height: 100%;
-    border: 0;
-    background-color: black;
-}
-
 .top {
 	padding-top: 35px;
 	padding-bottom: 15px;
@@ -83,17 +59,8 @@ footer {
 	margin: 0 auto;
 }
 
-#media_1.plus_icon {
-	margin-top: 50%;
-}
-
 .titleHolder {
 	width: 100%;
-}
-
-.removeVideo {
-	text-align: center;
-	cursor: pointer;
 }
 
 #context {
