@@ -1,6 +1,7 @@
 package models;
 
 import org.springfield.fs.FsNode;
+import org.springfield.lou.application.types.Configuration;
 import org.springfield.lou.json.JSONField;
 import org.springfield.lou.json.JSONSerializable;
 
@@ -10,6 +11,7 @@ public class Layout extends JSONSerializable{
 	private String id;
 	private String name;
 	private String description;
+	private String template;
 	private int order;
 	private LayoutIcon icon;
 	
@@ -47,12 +49,23 @@ public class Layout extends JSONSerializable{
 		return this.order;
 	}
 	
+	@JSONField(field = "template")
+	public String getTemplate(){
+		return this.template;
+	}
+	
+	@JSONField(field = "cssuri")
+	public String getCSSURI(){
+		return Configuration.getServer() + "/eddie/apps/euscreenpublicationbuilder/css/layouts/" + this.id + ".css";
+	}
+	
 	private void populate(){
 		this.id = node.getId();
 		this.name = node.getProperty("name");
 		this.description = node.getProperty("description");
 		this.icon = new LayoutIcon(node.getId());
 		this.order = Integer.parseInt(node.getProperty("order"));
+		this.template = node.getProperty("template");
 	}
 
 }

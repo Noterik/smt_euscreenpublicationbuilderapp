@@ -19,25 +19,25 @@ footer {
 	padding-left: 1px;
 }
 
-.media_item {
+.media-item {
 	margin-bottom: 25px;
 	height: 250px;
 	background-color: rgba(255, 255, 255, 0.5);
 }
 
-.media_item video{
+.media-item video{
 	position: absolute;
 	height: 89%;
 	width: 100%;
 	background-color: black;
 	margin: -1px;
 }
-.media_item i{
+.media-item i{
 	cursor: pointer;
 	color: white;
 	position: absolute;
 }
-.media_item .fullscreen{
+.media-item .fullscreen{
 	top: 10px;
 	left: 10px;
 }

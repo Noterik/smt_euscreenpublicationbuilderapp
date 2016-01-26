@@ -41,6 +41,7 @@ public class Theme extends JSONSerializable{
 		return description;
 	}
 	
+	@JSONField(field = "cssuri")
 	public String getCSSURI(){
 		return Configuration.getServer() + "/eddie/apps/euscreenpublicationbuilder/css/layouts/" + this.id + ".css";
 	}

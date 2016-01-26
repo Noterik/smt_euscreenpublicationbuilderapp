@@ -46,7 +46,7 @@ BookmarksContent.prototype.renderBookmarks = function() {
 		console.log(self.bookmarkContent[0]);
 		self.bookmarkContent.html(html);
 		var bookmarks = self.bookmarkContent
-				.find('.media-item[data-public="true"]');
+				.find('.list-media-item[data-public="true"]');
 
 		bookmarks.draggable({
 			cursor : 'move',
@@ -109,7 +109,7 @@ BookmarksContent.prototype.renderCollections = function() {
 		this.collectionContent.html(html);
 		
 		var items = self.collectionContent
-			.find('.media-item[data-public="true"]');
+			.find('.list-media-item[data-public="true"]');
 		
 		items.draggable({
 			cursor : 'move',

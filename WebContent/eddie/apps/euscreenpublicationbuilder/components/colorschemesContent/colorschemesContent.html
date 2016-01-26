@@ -17,17 +17,15 @@
 		<% } %>
 				
 		<div class="col-sm-4 col-md-4 col-lg-4">
-			<div class="inner-div-scheme">
-				<div class="theme_image" data-theme-id="<%= item.theme.id %>">
-					<%= item.icon %>
-				</div>
-				<h4 class="theme_name">
-			 		<%= item.theme.name %>
-				</h4>
-				<p class="theme-desc">
-					<%= item.theme.description %>
-				</p>
+			<div class="theme_image" data-theme-id="<%= item.theme.id %>">
+				<%= item.icon %>
 			</div>
+			<h4 class="theme_name">
+				<%= item.theme.name %>
+			</h4>
+			<p class="theme-desc">
+				<%= item.theme.description %>
+			</p>
 		</div>
 
 		<% if(i % 3 === 2 || i === (data.length - 1)){ %>

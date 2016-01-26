@@ -7,28 +7,18 @@ var Overlaydialog = function(){
 	this.closeButton = this.element.find('.action.close');
 	this.target = this.element.find(".contents");
 	
-	String.prototype.decodeHTML = function() {
-	    var map = {"gt":">" /* , … */};
-	    return this.replace(/&(#(?:x[0-9a-f]+|\d+)|[a-z]+);?/gi, function($0, $1) {
-	        if ($1[0] === "#") {
-	            return String.fromCharCode($1[1].toLowerCase() === "x" ? parseInt($1.substr(2), 16)  : parseInt($1.substr(1), 10));
-	        } else {
-	            return map.hasOwnProperty($1) ? map[$1] : $0;
-	        }
-	    });
-	};
-	
+	/*
 	this.on('url-changed', function(){
-		console.log("THIS URL CHANGED!");
 		self.target.html(self.template({data:self.vars}));
-	});
+	});*/
 	
 	this.on('html-changed', function(){
 		var html = self.vars.html;
-		html = html.decodeHTML();
-		html = html.replace(new RegExp("&lt;", "g"), '<')
-		console.log(html);
-		self.target.html(html);
+		console.log("TARGET", self.target);
+		console.log("HTML: " + html);
+		var iframeHTML = self.template({data: { url : 'data:text/html;charset=utf-8,' + encodeURI(html) }});
+		console.log(iframeHTML);
+		self.target.html(iframeHTML);
 	});
 	
 	this.on('visible-changed', function(){
@@ -44,7 +34,7 @@ var Overlaydialog = function(){
 		self.element.hide();
 		var result = JSON.stringify({textItem: ""});
 
-		eddie.putLou('', 'closePreview(' + result + ')');
+		eddie.putLou('', 'closePreview()');
 		
 	});
 	

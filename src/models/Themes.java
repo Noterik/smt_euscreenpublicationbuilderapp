@@ -25,6 +25,18 @@ public class Themes extends JSONSerializable {
 		}
 		return null;
 	}
+	
+	public Theme getByCSSPath(String path){
+		String relativePath = path.substring(path.indexOf("/eddie/"));
+			
+		for (Theme theme : themes){
+			String currentRelativePath = theme.getCSSURI().substring(theme.getCSSURI().indexOf("/eddie/"));
+			if(relativePath.equals(currentRelativePath)){
+				return theme;
+			}
+		}
+		return null;
+	}
 		
 	public List<Theme> getThemes(){
 		return themes;

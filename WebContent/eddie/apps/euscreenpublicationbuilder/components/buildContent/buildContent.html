@@ -1,3 +1,70 @@
+<script type="text/template" id="embed-template">
+</script>
+
+<script type="text/template" id="video-template">
+	<div class="col-md-12 video-wrapper">
+	</div>
+</script>
+
+<script type="text/template" id="widget-controls-template">
+	<div class="widget-controls">
+    	<i class="remove fa fa-remove pull-right"></i>
+	</div>
+</script>
+
+<script type="text/template" id="video-controls-template">
+	<div class="widget-controls">
+		<i class="fullscreen fa fa-expand pull-left"></i>
+    	<i class="remove fa fa-remove pull-right"></i>
+	</div>
+</script>
+
+<script type="text/template" id="external-videos-template">
+	<div class="add-youtube-button additional-icon">
+	</div>
+	<div class="add-vimeo-button additional-icon">
+	</div>
+	<div class="add-external-button">
+	</div>
+</script>
+
+<script type="text/template" id="embed-form-controls-template">
+</script>
+
+<script type="text/template" id="embed-form-template">
+	<div class="embed-form-wrapper col-md-12">	
+		<div class="col-md-2">
+			&nbsp;
+		</div>
+		<div class="col-md-8">	
+			<form class="form-horizontal embed-form">
+				<div class="form-group" id="external-id-input-group">
+    				<div class="col-md-10">
+      					<input type="text" class="form-control" id="external-id-input" aria-describedby="external-id-input-status" placeholder="Valid <%= external.type %> URL">
+      					<span class="fa fa-check form-control-feedback correct-youtube-id" aria-hidden="true"></span>
+						<span class="fa fa-warning form-control-feedback incorrect-youtube-id" aria-hidden="true"></span>
+      					<span id="external-id-input-status" class="help-block incorrect-youtube-id">Please provide a valid YouTube URL.</span>
+    				</div>
+					<div class="col-md-2">
+						<input type="submit" class="btn btn-default" value="Submit" />
+					</div>
+  				</div>
+			</form>
+		</div>
+		<div class="col-md-2">
+			&nbsp;
+		</div>
+	</div>
+</script>
+
+<script type="text/template" id="youtube-embed">
+	<iframe src="https://www.youtube.com/embed/<%= external.id %>?wmode=opaque&amp;rel=0&amp;autohide=1&amp;showinfo=0&amp;wmode=transparent" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</script>
+
+<script type="text/template" id="vimeo-embed">
+	<iframe src="https://player.vimeo.com/video/<%= external.id %>?color=ffffff&title=0&byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</script>
+
 <div class="container">
 <div class="row">
 	<div class="col-sm-12 col-md-12 col-lg-12">

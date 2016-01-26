@@ -28,6 +28,10 @@ a:hover  {
     width:  100%;
 }
 
+.inactive{
+	color: lightgray;
+}
+
 #header  {
     background-color:  #FFF;
 }
@@ -202,7 +206,7 @@ a:hover  {
     text-align:  center;
 }
 
-.arrow-pinter  {
+.arrow-pointer  {
 	height:  34px;
     background-repeat: no-repeat !important;
     background-position: center bottom !important;
@@ -406,27 +410,47 @@ a:hover  {
     cursor: pointer;
 }
 
-.media_item i {
-    cursor:  pointer;
-    color:  white;
-    position:  absolute;
+.media-item {
+	position: relative;
+	margin-bottom: 25px;
+	height: 422px;
+	background-color: rgba(255, 255, 255, 0.5);
 }
 
-.media_item .fullscreen {
-    top:  10px;
-    left:  10px;
+.media-item .video-wrapper{
+	position: relative;
+	height: 100%;
+	background-color: black;
 }
 
-.media_item .remove {
-    top:  10px;
-    right:  10px;
+.media-item .video-wrapper video{
+	position: relative;
+	height: 100%;
+	width: 100%;
+	background-color: black;
+	margin: 0 auto;
 }
 
-.media_item .drag_bookmark .removeVideo {
-    position:  absolute;
-    width:  100%;
-    text-align:  center;
-    bottom:  -25px;
+.media-item .widget-controls{
+	top: 0;
+	width: 100%;
+	padding-left: 15px;
+	padding-right: 15px;
+	position: absolute;
+}
+
+.media-item .widget-controls i{
+	cursor: pointer;
+	color: white;
+	margin: 5px;
+}
+
+.media-item iframe{
+	position: relative;
+	padding-left: 15px;
+	padding-right: 15px;
+	height: 100%;
+	width: 100%;
 }
 
 #bookmarklayout  {
@@ -533,7 +557,7 @@ a:hover  {
     background-image:  url("/eddie/apps/euscreenpublicationbuilder/img/layouts/ic_euscreen.png");
 }
 
-.additional-icon-1 {
+.add-youtube-button {
 	width: 33px;
 	height: 24px;
     position: absolute;
@@ -543,7 +567,7 @@ a:hover  {
 	background-image: url("/eddie/apps/euscreenpublicationbuilder/img/youtube-i.png");
 }
 
-.additional-icon-2 {
+.add-vimeo-button {
 	width: 27px;
 	height: 23px;
 	position: absolute;
@@ -553,12 +577,12 @@ a:hover  {
 	background-image: url("/eddie/apps/euscreenpublicationbuilder/img/vmeo-i.png");
 }
 
-.additional-icon-3 {
+.add-external-button {
 	width: 30px;
 	height: 30px;
     position: absolute;
-    bottom: 45px;
-    right: 20px;
+    bottom: 30px;
+    right: 30px;
 	background-image: url("/eddie/apps/euscreenpublicationbuilder/img/plus-i.png");
 }
 
@@ -570,34 +594,34 @@ a:hover  {
 	display: block;	
 }
 
-.media-item{
+.list-media-item{
 	background-color: rgba(255, 255, 255, 0.7);
 	padding: 8px 0 8px;
 }
 
-.media-item .media-info h4{
+.list-media-item .media-info h4{
 	margin-top: 0;
 	font-size: 1em;
 }
 
-.media-item .media-thumb{
+.list-media-item .media-thumb{
 	position: relative;
 	background-color: black;
 }
 
-.media-item .media-thumb .media-thumb-image{
+.list-media-item .media-thumb .media-thumb-image{
 	position: relative;
 	width: 100%;
 	padding-bottom: 75%;
 }
 
-.media-item .media-thumb .media-thumb-image video{
+.list-media-item .media-thumb .media-thumb-image video{
 	position: absolute;
 	width: 100%;
 	height: 100%;
 }
 
-.media-item .media-thumb p{
+.list-media-item .media-thumb p{
 	position: absolute;
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.8);
@@ -609,11 +633,29 @@ a:hover  {
 	padding: 15px 20px;
 }
 
-.media-item:hover p{
+.list-media-item:hover p{
 	display: block;
 }
 
+.embed-form{
+	margin-top: 50px;
+}
 
+.embed-form .form-control{
+	color: black;
+}
+
+.embed-form .form-control-feedback{
+	top: 10px;
+}
+
+.embed-form .incorrect-youtube-id, .embed-form .correct-youtube-id{
+	display: none;
+}
+
+.embed-form .has-feedback.has-success .correct-youtube-id, .embed-form .has-feedback.has-warning .incorrect-youtube-id{
+	display: block;
+}
 
 .nav-tabs {
     border-bottom: none;

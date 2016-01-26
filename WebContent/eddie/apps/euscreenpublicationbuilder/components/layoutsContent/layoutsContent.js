@@ -20,7 +20,6 @@ LayoutsContent.prototype.renderLayouts = function(data) {
 	this.element.append(html);
 	
 	this.element.find('[data-layout-id]').on('click', function(){
-		LayoutsContent.prototype.closeLayoutsTab();
 		var id = jQuery(this).data('layout-id');
 		var message = {
 			layoutId: id
@@ -28,13 +27,3 @@ LayoutsContent.prototype.renderLayouts = function(data) {
 		eddie.putLou("", "setLayout(" + JSON.stringify(message) + ")");
 	});
 };
-
-LayoutsContent.prototype.closeLayoutsTab = function () {
-	$layout = $("#layout-nav");
-	$layout.css("color", "lightgray");
-	$layout.unbind("click");
-	$layout.removeClass("arrow-pinter");
-		
-	$("#color-schemes").addClass("arrow-pinter");
-	$("#color-schemes").css("color", "black");
-}

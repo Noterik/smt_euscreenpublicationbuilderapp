@@ -3,6 +3,7 @@ var Layout = function(options){
 	 Component.apply(this, arguments);
 }
 Layout.prototype = Object.create(Component.prototype);
+/*
 
 Layout.prototype.initTinyMce = function(){
 	console.log("Layout.initTinyMce()");
@@ -248,3 +249,4 @@ Layout.prototype.bindContext = function() {
 		});
 	});
 }
+*/

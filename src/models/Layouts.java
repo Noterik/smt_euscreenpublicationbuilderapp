@@ -36,6 +36,20 @@ public class Layouts extends ScreenComponent {
 	public Layout getById(String id){
 		return layouts.get(id);
 	}
+	
+	public Layout getByCSSPath(String cssPath){
+		String relativePath = cssPath.substring(cssPath.indexOf("/eddie/"));
+		System.out.println("RELATIVE PATH = " + cssPath);
+		for(Layout layout : layouts.values()){
+			String currentRelativePath = layout.getCSSURI().substring(layout.getCSSURI().indexOf("/eddie/"));
+			System.out.println("CURRENT RELATIVE PATH = " + currentRelativePath);
+			if(relativePath.equals(currentRelativePath)){
+				System.out.println("IS EQUAL!");
+				return layout;
+			}
+		}
+		return null;
+	}
 
 	private void populate(){
 		layouts = new HashMap<String, Layout>();

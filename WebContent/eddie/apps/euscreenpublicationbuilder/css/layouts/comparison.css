@@ -11,7 +11,7 @@ footer {
 	padding: 0;
 }
 
-.media_item {
+.media-item {
 	margin-bottom: 25px;
 	height: 250px;
 	background-color: rgba(255, 255, 255, 0.5);
@@ -21,7 +21,7 @@ footer {
     background-color: black;
 }
 
-.media_item video{
+.media-item video{
 	position: absolute;
 	height: 100%;
 	width: 100%;
