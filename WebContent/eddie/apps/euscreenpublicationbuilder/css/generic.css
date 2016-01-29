@@ -375,6 +375,10 @@ a:hover  {
     display:  block;
     color:  #FFF !important;
 }
+
+.header-button:hover {
+    color:  #FFF !important;
+}
 /*
 #edit  {
     background-color:  #afd779;
