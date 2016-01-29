@@ -1,0 +1,26 @@
+body{
+	background: none !important;	
+}
+
+.title{
+	box-shadow: none !important;
+	webkit-box-shadow: none !important;
+	moz-box-shadow: none !important;
+}
+
+.comparison_page{
+	max-width: 800px ! important;
+	max-height: 100% !important;
+	margin: 0 auto !important;
+}
+
+.media-item{
+	
+}
+	.media-item video{
+		
+		width: 100%;
+		height: 100%;
+		background-color: black;
+	
+	}

@@ -441,6 +441,25 @@ a:hover  {
 	margin: 0 auto;
 }
 
+.media-item.dragging{
+	-webkit-animation: blink 1s infinite; /* Chrome, Safari, Opera */
+    animation: blink 1s infinite;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes blink {
+    0%   {opacity:1;}
+    50%  {opacity:0;}
+    100%  {opacity:1;}
+}
+
+/* Standard syntax */
+@keyframes blink {
+     0%   {opacity:1;}
+    50%  {opacity:.0;}
+    100%  {opacity:1;}
+}
+
 .media-item .widget-controls{
 	top: 0;
 	width: 100%;

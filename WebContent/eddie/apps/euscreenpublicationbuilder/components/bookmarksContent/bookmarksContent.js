@@ -54,9 +54,16 @@ BookmarksContent.prototype.renderBookmarks = function() {
 			revertDuration : 0,
 			zIndex : 1000,
 			// helper: 'clone',
+			start: function(ui, event){
+				if(eddie.getComponent('buildContent')){
+					eddie.getComponent('buildContent').draggingStarted();
+				}
+			},
 			stop : function(ui, event) {
 				$(this).css("position", "relative");
-
+				if(eddie.getComponent('buildContent')){
+					eddie.getComponent('buildContent').draggingStopped();
+				}
 			}
 		});
 		

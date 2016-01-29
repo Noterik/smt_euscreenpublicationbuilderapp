@@ -119,8 +119,8 @@ public class VideoPoster extends ScreenComponent{
 		html.head().append("<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"></link>");
 		html.head().append("<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\">&#xA0;</script>");
 		html.head().append("<script src=\"" + Configuration.getLibServer() + "\">&#xA0;</script>");
+		html.head().append("<link rel=\"stylesheet\" type=\"text/css\" href='" + Configuration.getServer() + "/eddie/apps/euscreenpublicationbuilder/css/layouts/shared.css'></link>");
 		html.head().append("<link rel=\"stylesheet\" type=\"text/css\" href='" + layout.getCSSURI() + "'></link>");
-		//html.head().append("<link rel=\"stylesheet\" type=\"text/css\" href='" + Configuration.getServer() + "/euscreenpublicationbuilder/css/layouts/comparison_after.css'></link>");
 		html.head().append("<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css\"></link>");
 	}
 	

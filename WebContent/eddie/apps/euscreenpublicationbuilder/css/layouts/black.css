@@ -20,6 +20,8 @@
 .title {
     padding: 5px 0px;
     color: #FFFFFF;
+    width: 87%;
+    
     /*background-color: #FFF;*/
     -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 174, 239, 0.75);
     -moz-box-shadow: 0px 1px 5px 0px rgba(0, 174, 239, 0.75);

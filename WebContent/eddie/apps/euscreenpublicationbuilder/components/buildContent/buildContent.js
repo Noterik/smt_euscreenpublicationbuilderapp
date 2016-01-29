@@ -516,5 +516,13 @@ BuildContent.prototype.serializeContents = function(){
 		object[id] = fieldObj;
 	});
 	eddie.putLou('', 'savePoster(' + JSON.stringify(object) + ')');
-}
+};
+
+BuildContent.prototype.draggingStarted = function(){
+	 this.element.find('[data-section-type="media"]').toggleClass('dragging', true);
+};
+
+BuildContent.prototype.draggingStopped = function(){
+	this.element.find('[data-section-type="media"]').toggleClass('dragging', false);
+};
 
