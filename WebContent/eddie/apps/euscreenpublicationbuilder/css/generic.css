@@ -64,6 +64,11 @@ a:hover  {
     margin-right:  111px;
 }
 
+.title {
+    padding: 5px 0px;
+    width: 87%;
+}
+
 #x-icon  {
     width:  14px;
     float:  right;
