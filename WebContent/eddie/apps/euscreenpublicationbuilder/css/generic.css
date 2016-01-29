@@ -114,6 +114,13 @@ a:hover  {
     margin-top:  30px;
 }
 
+.preview-close-btn {
+	background-image:  url("/eddie/apps/euscreenpublicationbuilder/img/preview-close.png");
+	width: 20px;
+	height: 21px;
+	display: block;
+}
+
 #middle  {
    /* width:  80%;
     height:  300px;
