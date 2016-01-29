@@ -7,10 +7,10 @@
 
 .border {
     border-bottom: 4px solid #f06dd6;
-    width: 75px;
+    width: 60px;
     margin: 0 auto;
 	margin-bottom: 20px;
-	margin-bottom: 20px;
+	border-radius: 2px;
 }
 
 .media-item {
