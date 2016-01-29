@@ -1,0 +1,43 @@
+.comparison_page {
+    overflow-y: auto;
+    background-image: url("../../img/layouts/black-bg.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.border {
+    border-bottom: 4px solid #4d4d4d;
+    width: 75px;
+    margin: 0 auto;
+	margin-bottom: 20px;
+}
+
+.media-item {
+    background-color: #4d4d4d !important;
+}
+
+.title {
+    padding: 5px 0px;
+    color: #333;
+    width: 87%;
+    margin-bottom: 20px;
+    background-color: #FFF;
+    -webkit-box-shadow: 0px 1px 5px 0px rgba(77,77,77, 0.75);
+    -moz-box-shadow: 0px 1px 5px 0px rgba(77,77,77, 0.75);
+    box-shadow: 0px 1px 5px 0px rgba(77,77,77, 0.75);
+}
+
+.text_item > p {
+    color: #333;
+    overflow: hidden;
+    padding-bottom: 15px;
+    padding-top: 10px;
+}
+
+.submit_media_id {
+    color: #4d4d4d;
+}
+
+.removeVideo {
+	color: #FFF;
+}

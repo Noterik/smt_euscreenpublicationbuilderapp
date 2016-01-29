@@ -1,12 +1,12 @@
 .comparison_page {
     overflow-y: auto;
-    background-image: url("../../img/layouts/blue-bg.png");
+    background-image: url("../../img/layouts/black-bg.png");
     background-size: 100% 100%;
     background-repeat: no -repeat;
 }
 
 .border {
-    border-bottom: 4px solid #00aeef;
+    border-bottom: 4px solid #FFFFFF;
     width: 60px;
     margin: 0 auto;
 	margin-bottom: 20px;
@@ -14,14 +14,12 @@
 }
 
 .media-item {
-    background-color: #00aeef !important;
+    background-color: #4d4d4d !important;
 }
 
 .title {
     padding: 5px 0px;
-    color: #007FAF;
-    width: 87%;
-    margin-bottom: 20px;
+    color: #FFFFFF;
     /*background-color: #FFF;*/
     -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 174, 239, 0.75);
     -moz-box-shadow: 0px 1px 5px 0px rgba(0, 174, 239, 0.75);
@@ -29,7 +27,7 @@
 }
 
 .text_item > p {
-    color: #007FAF;
+    color: #FFFFFF;
     overflow: hidden;
     padding-bottom: 15px;
     padding-top: 10px;
