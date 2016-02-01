@@ -4,6 +4,7 @@ var ColorschemesContent = function(options){
 	var element = jQuery("#colorschemesContent");
 	var themeListTemplate = _.template(element.find('#theme_listing_template').text());
 	var themes = eddie.getComponent('layoutthemes');
+	var parent = eddie.getComponent('iframesender');
 	
 	function renderThemes(){
 		var data = themes.get('layoutThemes');
@@ -25,6 +26,13 @@ var ColorschemesContent = function(options){
 	});
 	renderThemes();
 	
+	setTimeout(function(){
+		var message = {
+			height: jQuery('body').height()
+		}
+		
+		parent.sendToParent(JSON.stringify(message));
+	}, 500);
 	
 }
 

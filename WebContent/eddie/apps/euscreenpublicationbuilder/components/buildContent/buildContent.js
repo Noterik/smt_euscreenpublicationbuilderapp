@@ -11,6 +11,7 @@ var BuildContent = function(options) {
     this.widgetControlsTemplate = _.template(jQuery('#widget-controls-template').text());
     this.additionalMediaButtonHTML = _.template(jQuery('#external-videos-template').text());
     this.embedFormTemplate = _.template(jQuery('#embed-form-template').text());
+    this.parent = eddie.getComponent('iframesender');
     this.blockUpdates = false;
     
     /**
@@ -100,6 +101,14 @@ var BuildContent = function(options) {
         
         //Initializes tinymce on the text inputs 
         self.initTinyMce();
+        
+        setTimeout(function(){
+    		var message = {
+    			height: jQuery('body').height()
+    		}
+    		
+    		self.parent.sendToParent(JSON.stringify(message));
+    	}, 500);
         
     }
     

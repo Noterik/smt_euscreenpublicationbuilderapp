@@ -4,6 +4,7 @@ var LayoutsContent = function(options){
 	this.element = jQuery("#layoutsContent");
 	this.layoutListTemplate = _.template(this.element.find('#layout_listing_template').text());
 	this.layouts = eddie.getComponent('layouts');
+	this.parent = eddie.getComponent('iframesender');
 	
 	this.layouts.on('layouts-changed', function(layouts){
 		self.renderLayouts()
@@ -26,4 +27,12 @@ LayoutsContent.prototype.renderLayouts = function(data) {
 		};
 		eddie.putLou("", "setLayout(" + JSON.stringify(message) + ")");
 	});
+	
+	setTimeout(function(){
+		var message = {
+			height: jQuery('body').height()
+		}
+		
+		self.parent.sendToParent(JSON.stringify(message));
+	}, 500);
 };
