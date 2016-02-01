@@ -6,6 +6,7 @@ var Header = function(options){
 		eddie.getComponent('iframesender').sendToParent('close');
 	});
 
+
 	$('#preview').on('click', function(){
 		eddie.putLou('', 'preview()');
 	});
@@ -15,14 +16,10 @@ Header.prototype = Object.create(Component.prototype);
 
 Header.prototype.success = function() {
 	$('#header').notify("Your Poster has been saved",   { className:"success", autoHideDelay: 3400});
-}
-
-Header.prototype.modeEdit = function () {
-
-}
+};
 
 Header.prototype.setStep = function(message){
-	var message = JSON.parse(message);
+	message = JSON.parse(message);
 	var steps = {
 		'layouts': $('#layout-nav'),
 		'themes': $('#color-schemes'),
@@ -32,7 +29,7 @@ Header.prototype.setStep = function(message){
 	if(message['step']){
 		var step = message.step;
 
-		for(cStep in steps){
+		for(var cStep in steps){
 			steps[cStep].addClass('inactive');
 			steps[cStep].removeClass('arrow-pointer');
 		}
@@ -41,3 +38,4 @@ Header.prototype.setStep = function(message){
 		steps[step].addClass('arrow-pointer');
 	}
 }
+});

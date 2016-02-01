@@ -61,17 +61,17 @@ public class PublicationbuilderSession extends Session {
 
 		this.overlayDialog = new Overlaydialog(s);
 		this.overlayDialog.render();
-		
+
 		this.layouts = new Layouts(s);
 		this.themes = new Themes();
-		
+
 		if(s.getParameter("path") != null){
 			System.out.println("Publicationbuilder.initScreen() THE PATH = " + s.getParameter("path"));
 			this.populateVideoPoster(s);
 		}else{
 			this.renderLayouts(s);
 		}
-		
+
 	}
 
 	public String getCurrentLayoutStyle() {
@@ -93,16 +93,16 @@ public class PublicationbuilderSession extends Session {
 		System.out.println("Publicationbuilder.populateVideoPoster()");
 		String path = s.getParameter("path");
 		FsNode node = Fs.getNode(path);
-		
+
 		String id = node.getId();
 		Layout layout = layouts.getByCSSPath(node.getProperty("layout"));
 		Theme theme = themes.getByCSSPath(node.getProperty("theme"));
 		String html = node.getProperty("html");
-		
+
 		poster = new VideoPoster(s, id, html, layout, theme);
 		this.initEditingGUI(s);
 	}
-	
+
 	private void setStep(Screen s, String step){
 		JSONObject message = new JSONObject();
 		message.put("step", step);
@@ -122,31 +122,31 @@ public class PublicationbuilderSession extends Session {
 		System.out.println("======== setTheme(" + themeId + ") ========");
 		Theme theme = themes.getThemeById(themeId);
 		Layout layout = this.currentLayout;
-		
+
 		s.removeContent("colorschemesContent");
 		this.setStep(s, "build");
-		poster = new VideoPoster(s, layout, theme);	
+		poster = new VideoPoster(s, layout, theme);
 		this.initEditingGUI(s);
 	}
-	
+
 	public void initEditingGUI(Screen s){
 		poster.render();
 		this.getApp().loadContent(s, "buildContent");
 		this.loadBookmarks(s);
-		
+
 		poster.sync();
 	}
-	
+
 	public void savePoster(Screen s, JSONObject data){
 		poster.processUpdate(data);
 		poster.sync();
-		
+
 		if(poster.getId() == null){
 			long time = new Date().getTime();
      		int hash = (this.currentUser + ":poster_12345t"+time).hashCode();
 			String eusId = "EUS_"+Integer.toHexString(hash).toUpperCase()+Integer.toHexString((""+new Date().getTime()).hashCode()).toUpperCase()+Integer.toHexString((""+new Date().getTime()).hashCode()).toUpperCase()+Integer.toHexString((""+new Date().getTime()).hashCode()).toUpperCase();
 			poster.setId(eusId);
-			
+
 		}
 		s.putMsg("header", "", "success()");
 		s.putMsg("iframesender", "", "sendToParent(" + poster.toJSON() + ")");
@@ -185,112 +185,6 @@ public class PublicationbuilderSession extends Session {
 		overlayDialog.setHTML(poster.getHTML());
 		overlayDialog.setVisible(true);
 		overlayDialog.sync();
-	}
-
-	// Add media item external identifier
-	public void addExternalIdentifier(Screen s, JSONObject data) {
-		try {
-			JSONObject json = data;
-			String data_type = json.get("dataType").toString().toLowerCase();
-			String identifier = json.get("identifier").toString();
-
-			String container = "#" + json.get("container").toString();
-			JSONObject message = new JSONObject();
-
-			if (data_type.equals("youtubeitem")) {
-				String[] youtubeId = identifier.split("=");
-				// https://www.youtube.com/watch?v=A4Tme1q2iew
-				String video = "<iframe class=\"videoAfterDrop ui-draggable\" src='"
-						+ "http://www.youtube.com/embed/"
-						+ youtubeId[1]
-						+ "' frameborder=\"0\" allowfullscreen></iframe>";
-				message.put("video", video);
-			} else if (data_type.equals("vimeoitem") && identifier.contains("americanarchive.org")) {
-				String video = "<iframe class=\"videoAfterDrop\" src='"
-						+ identifier
-						+ "' frameborder=\"0\" allowfullscreen></iframe>";
-				message.put("video", video);
-			} else if (data_type.equals("vimeoitem")) {
-				System.out.println("================== SET EXTERNAL IDENTIFIRE =================");
-				System.out.println(identifier);
-				String[] vimeoId = identifier.split("/");
-				String video = "<iframe class=\"videoAfterDrop\" src='"
-						+ "https://player.vimeo.com/video/" + vimeoId[3]
-						+ "' frameborder=\"0\" allowfullscreen></iframe>";
-				message.put("video", video);
-			}
-
-			message.put("container", container);
-
-			s.putMsg("buildContent", "", "setmediaitem(" + message + ")");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void proccessPublication(Screen s, JSONObject c) {
-		
-		/*
-		System.out.println("======== Process Publication() ==========");
-		System.out.println(c.toJSONString());
-		try {
-			Publication publication = new Publication();
-
-			publication.theme.setCurrentTheme(getCurrentTheme());
-			// publication.template.getLayout().setCurrentLayout(getCurrentLayout());
-			publication.template.getLayout().setCurrentLayoutStyle(
-					getCurrentLayoutStyle());
-
-			JSONArray mediaArray = (JSONArray) c.get("mediaItem");
-			JSONArray textArray = (JSONArray) c.get("textItem");
-
-			for (int i = 0; i < mediaArray.size(); i++) {
-				JSONObject ob = (JSONObject) mediaArray.get(i);
-				String mediaId = (String) ob.get("id");
-				String mediaValue = (String) ob.get("value");
-				String mediaPoster = (String) ob.get("poster");
-				publication.template.getSections().mediaSection
-						.setMediaItems(new MediaItem(mediaId, mediaValue,
-								mediaPoster));
-			}
-
-			for (int i = 0; i < textArray.size(); i++) {
-				JSONObject ob = (JSONObject) textArray.get(i);
-				String textId = (String) ob.get("id");
-				String textValue = (String) ob.get("value");
-
-				publication.template.getSections().textSection
-						.setTextContents(new TextContent(textId, textValue));
-			}
-
-			if (c.get("mode") != null) {
-				if (c.get("mode").toString().trim().equals("edit")) {
-
-					if (this.oldPublicationID == "") {
-						this.oldPublicationID = this.createPosterID;
-					}
-
-					JSONObject publicationJSON = Publication.editXml(
-							publication, this.currentUser, s.getId(),
-							this.oldPublicationID);
-					s.putMsg("iframesender", "", "sendToParent("
-							+ publicationJSON + ")");
-				}
-			} else {
-				JSONObject publicationJSON = Publication.createXML(publication,
-						this.currentUser, s.getId());
-
-				// In case of edit after immediately create an poster we save
-				// old id
-				this.createPosterID = (String) publicationJSON.get("id");
-
-				s.putMsg("iframesender", "", "sendToParent(" + publicationJSON
-						+ ")");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		*/
 	}
 
 	// Load bookmarks

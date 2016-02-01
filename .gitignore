@@ -25,3 +25,5 @@ WebContent/WEB-INF/lib/smt_euscreenpublicationbuilderapp.jar
 build/classes/org/springfield/lou/application/session/PublicationbuilderSession.class
 
 build/classes/org/springfield/lou/application/types/Publication.class
+
+WebContent/WEB-INF/lib/smt_euscreenpublicationbuilderapp.jar
