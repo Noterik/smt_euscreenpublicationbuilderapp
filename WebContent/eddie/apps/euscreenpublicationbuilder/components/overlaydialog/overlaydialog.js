@@ -7,37 +7,15 @@ var Overlaydialog = function(){
 	this.closeButton = this.element.find('.action.close');
 	this.target = this.element.find(".contents");
 	
-	/*
-	this.on('url-changed', function(){
-<<<<<<< HEAD
-		console.log("THIS URL CHANGED!");
-		//I comment this line cuz it breaks preview part of publications in future if we need to show overlay with url we can fix it.
-//		self.target.html(self.template({data:self.vars}));
-	});
-	
 	this.on('html-changed', function(){
 		var html = self.vars.html;
-		html = html.decodeHTML();
-		html = html.replace(new RegExp("&lt;", "g"), '<')
-		self.target.html();
-		console.log(self.target);
-		self.target.html(html);
-=======
-		self.target.html(self.template({data:self.vars}));
-	});*/
-	
-	this.on('html-changed', function(){
-		var html = self.vars.html;
-		console.log("TARGET", self.target);
-		console.log("HTML: " + html);
 		var iframeHTML = self.template({data: { url : 'data:text/html;charset=utf-8,' + encodeURI(html) }});
-		console.log(iframeHTML);
+		console.log(self.target[0]);
+		console.log("HTML: " + iframeHTML);
 		self.target.html(iframeHTML);
->>>>>>> svg-icons
 	});
 	
 	this.on('visible-changed', function(){
-		console.log("Overlaydialog::visible-changed!");
 		if(self.vars.visible){
 			self.element.fadeIn();
 		}else{

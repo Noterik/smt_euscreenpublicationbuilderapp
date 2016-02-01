@@ -175,11 +175,7 @@ public class PublicationbuilderSession extends Session {
 		layoutThemes.sync();
 	}
 
-<<<<<<< HEAD
-	public void closePreview(Screen s, JSONObject c) {
-=======
 	public void closePreview(Screen s) {
->>>>>>> svg-icons
 		this.overlayDialog.setURL("");
 		this.overlayDialog.setVisible(false);
 		this.overlayDialog.update();
@@ -189,58 +185,6 @@ public class PublicationbuilderSession extends Session {
 		overlayDialog.setHTML(poster.getHTML());
 		overlayDialog.setVisible(true);
 		overlayDialog.sync();
-		/*
-		try {
-			Publication publication = new Publication();
-			if (getCurrentTheme() != null)
-				publication.theme.setCurrentTheme(getCurrentTheme());
-			// publication.template.getLayout().setCurrentLayout(getCurrentLayout());
-			publication.template.getLayout().setCurrentLayoutStyle(
-					getCurrentLayoutStyle());
-
-			if (data.get("mediaItem") != null) {
-				JSONArray mediaArray = (JSONArray) data.get("mediaItem");
-				for (int i = 0; i < mediaArray.size(); i++) {
-					JSONObject ob = (JSONObject) mediaArray.get(i);
-					String mediaId = (String) ob.get("id");
-					String mediaValue = (String) ob.get("value");
-					String mediaPoster = (String) ob.get("poster");
-					publication.template.getSections().mediaSection
-							.setMediaItems(new MediaItem(mediaId, mediaValue,
-									mediaPoster));
-				}
-			}
-
-			if (data.get("textItem") != null) {
-				JSONArray textArray = (JSONArray) data.get("textItem");
-
-<<<<<<< HEAD
-				JSONObject publicationJSON = Publication.createPreviewXML(publication, this.currentUser);
-				this.overlayDialog.setHTML(publicationJSON.get("xml").toString());
-				this.overlayDialog.setVisible(true); 			
-				this.overlayDialog.update(); 
-			} catch (Exception e) { 
-				e.printStackTrace(); 
-=======
-				for (int i = 0; i < textArray.size(); i++) {
-					JSONObject ob = (JSONObject) textArray.get(i);
-					String textId = (String) ob.get("id");
-					String textValue = (String) ob.get("value");
-					publication.template.getSections().textSection
-							.setTextContents(new TextContent(textId, textValue));
-				}
->>>>>>> svg-icons
-			}
-
-			JSONObject publicationJSON = Publication.createPreviewXML(
-					publication, this.currentUser);
-			this.overlayDialog.setHTML(publicationJSON.get("xml").toString());
-			this.overlayDialog.setVisible(true);
-			this.overlayDialog.update();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		*/
 	}
 
 	// Add media item external identifier

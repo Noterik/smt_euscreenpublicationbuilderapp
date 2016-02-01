@@ -164,52 +164,6 @@ var BuildContent = function(options) {
 }
 BuildContent.prototype = Object.create(Component.prototype);
 
-<<<<<<< HEAD
-
-
-BuildContent.prototype.initTinyMce = function(){
-	console.log("BuildContent.initTinyMce()");
-	 this.element.find('.text_item[data-section-type="text"]').each(function(){
-		 tinymce.init({
-			 mode: "exact",
-			 menubar: false,
-			 plugins: 'link, paste',
-			 toolbar: "fontselect | fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-			 elements: this.id,
-			 height: 256,
-			 elementpath: false,
-			 statusbar: false,
-		     paste_auto_cleanup_on_paste : true,
-			 paste_preprocess : function(pl, o) {
-		            o.content =  o.content;
-		        },
-		        paste_postprocess : function(pl, o) {
-		            o.node.innerHTML = o.node.innerHTML;
-		        }
-		 });
-	 });
-
-	 this.element.find('.text_item[data-section-type="text_big"]').each(function(){
-		 tinymce.init({
-			 mode: "exact",
-			 elements: this.id,
-			 menubar: false,
-			 plugins: 'link, paste',
-			 elementpath: false,
-			 statusbar: false,
-			 toolbar: "fontselect fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-		     paste_auto_cleanup_on_paste : true,
-			 paste_preprocess : function(pl, o) {
-		            o.content = o.content;
-		        },
-		        paste_postprocess : function(pl, o) {
-
-		            o.node.innerHTML = o.node.innerHTML;
-		        }
-		 });
-	 });
-
-=======
 BuildContent.prototype.setupDelayedSaving = function($target){
 	var self = this;
 	var id = $target.data('section-id');
@@ -225,31 +179,7 @@ BuildContent.prototype.setupDelayedSaving = function($target){
     		}
     	}, self.timeoutTime);
     });
->>>>>>> svg-icons
 };
-
-/*
-BuildContent.prototype.populateBuildGUI = function(){
-	console.log("populateBuildGUI()");
-	var self = this;
-	var contents = eddie.getComponent('videoposter').get('contents');
-	console.info("CONTENTS", contents);
-	for(key in contents){
-		var fieldObj = contents[key];
-		var type = fieldObj.type;
-		var $element = self.element.find('[data-section-id="' + key + '"]');
-		
-		switch(type){
-			case "media":
-				console.info("VIDEO: " + fieldObj.contents);
-				self.setVideo($element, fieldObj.contents, fieldObj.thumb);
-				break;
-			default: 
-				console.log("CONTENTS: " + fieldObj.contents);
-				$element.html(fieldObj.contents);
-		}
-	}
-};*/
 
 /**
  * Sets up a media item input in the current template. Defines listeners to a drop event from the end user. Also defines listeners for when a 
@@ -301,10 +231,9 @@ BuildContent.prototype.setupMediaItem = function(target) {
 BuildContent.prototype.handleCardDrop = function(event, ui) {
     console.log("BuildContent.handleCardDrop(event, event)");
     var self = this;
-    var video = ui.helper.find('video');
-    var src = video.attr('src');
-    var poster = video.attr('poster');
-    src = src.substring(0, src.lastIndexOf("?"));
+    var video = ui.helper.find('img');
+    var src = video.attr('data-video-src');
+    var poster = video.attr('data-video-poster');
 
     var $target = $(event.target);
 
@@ -364,10 +293,8 @@ BuildContent.prototype.setLocalVideo = function($mediaItem, src, poster){
                          controls: true
                      },
                      function(html) {
-                     			
-                         var video = $(html)[0];
                          var contents = jQuery(self.videoTemplate());
-                         contents.html(video);
+                         contents.html(html);
                          $mediaItem.html(contents);
                          self.addVideoControls($mediaItem);
                      });

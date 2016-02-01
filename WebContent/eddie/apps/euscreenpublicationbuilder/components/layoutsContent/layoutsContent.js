@@ -15,7 +15,6 @@ var LayoutsContent = function(options){
 LayoutsContent.prototype = Object.create(Component.prototype);
 
 LayoutsContent.prototype.renderLayouts = function(data) {
-	console.log('LayoutsContent.renderLayouts(' + data + ')');
 	var layouts = this.layouts.get('layouts');
 	var html = jQuery(this.layoutListTemplate({data: layouts}));
 	this.element.append(html);
