@@ -2,7 +2,6 @@ var Embedlib = function(){
 	var self = this;
 	this.ready = false;
 	this.loaded = function(){
-		console.info(Embedlib, " LOADED");
 		return new Promise(function(resolve, reject){
 			if(!self.ready){
 				$.getScript("http://pb.euscreenxl.eu:8080/euscreen_embed/euscreenembedlib.js", function( data, textStatus, jqxhr ) {
@@ -16,7 +15,6 @@ var Embedlib = function(){
 	};
 	
 	this.transformVideos = function() {
-      console.log("EmbedLib.transformVideos()");
       $('video[data-src]').each(function(index, video) {
         var src = $(video).data('src');
         var poster = $(video).data('poster');

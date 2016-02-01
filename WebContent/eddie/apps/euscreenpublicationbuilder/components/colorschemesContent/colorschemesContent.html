@@ -9,54 +9,28 @@
 	</div>
 </div>
 
-	<div class="container">
-	<%
-		var cntRow = 0;
-		var cntLayout = 0;
-		var isRow = false;
-		_.each(data, function(item, i) {
-			if (i % 3 == 0) {
-				isRow = true;
-	%>
-		<div class="row">
-	<%	
-			}
-	%>
-			<div class="col-sm-4 col-md-4 col-lg-4">
-				<div class="inner-div-scheme">
-					<img  class="scheme_image" id="<%= item.id %>" src="<%= item.icon %>"/>
-					<h3 class="theme_name">
-				 		<%= item.name %>
-					</h3>
-				</div>
+<div class="container">
+	<% var data = _.sortBy(data, function(item){ return item.theme.order }); %>
+	<% _.each(data, function(item, i) { %>
+		<% if(i % 3 === 0){ %>
+			<div class="row">
+		<% } %>
+				
+		<div class="col-sm-4 col-md-4 col-lg-4">
+			<div class="theme_image" data-theme-id="<%= item.theme.id %>">
+				<%= item.icon %>
 			</div>
-	<%
-	cntRow++;
-	cntLayout++;
-	
-	if(isRow == true) {
-		if(data.length > 3){
-    		if(cntRow == 3){
-	%>
+			<h4 class="theme_name">
+				<%= item.theme.name %>
+			</h4>
+			<p class="theme-desc">
+				<%= item.theme.description %>
+			</p>
 		</div>
-	<% 
-    			isRow = false;
-    			cntRow = 0;
-    			
-    		}
-    		
-		}else {
-			if(cntRow == data.length){
-	%>
-		</div>
-	<% 
-    			isRow = false;
-    			cntRow = 0;		
-    		}
-			
-		}
-	}
-		});
-	%>
+
+		<% if(i % 3 === 2 || i === (data.length - 1)){ %>
+			</div>
+		<% } %>
+	<% }); %>
 </div>
 </script>

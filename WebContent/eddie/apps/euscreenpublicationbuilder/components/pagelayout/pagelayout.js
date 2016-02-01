@@ -1,0 +1,3 @@
+var Pagelayout = function(){
+	
+};

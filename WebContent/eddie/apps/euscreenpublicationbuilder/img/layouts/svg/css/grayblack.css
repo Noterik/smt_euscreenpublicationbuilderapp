@@ -1,0 +1,19 @@
+.theme-grayblack{
+	
+}
+	.theme-grayblack .layout-icon{
+		
+	}
+		.theme-grayblack .layout-icon .layout-icon-bg{
+			fill: #e8e8e8;
+		}
+		
+		.theme-grayblack .layout-icon .layout-icon-text{
+			fill: #000000;
+			opacity: 0.4;
+		}
+		
+		.theme-grayblack .layout-icon .layout-icon-body{
+			fill: #FFFFFF;
+			opacity: 0.8;
+		}

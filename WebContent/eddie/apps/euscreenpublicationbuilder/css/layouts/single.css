@@ -12,29 +12,6 @@ footer {
 	padding: 0;
 }
 
-.media_item {
-	margin-bottom: 25px;
-	height: 422px;
-	background-color: rgba(255, 255, 255, 0.5);
-}
-
-.media_item video{
-	position: absolute;
-	height: 89%;
-	width: 100%;
-	background-color: black;
-	margin: -1px;
-}
-.media_item i{
-	cursor: pointer;
-	color: white;
-	position: absolute;
-}
-.media_item .fullscreen{
-	top: 10px;
-	left: 10px;
-}
-
 .comparison_page {
 	overflow-y: scroll;
 	/*background-image: url("../../img/layouts/green-bg.jpg");*/
@@ -52,13 +29,12 @@ footer {
 	font-family: Verdana, Geneva, sans-serif;
 	margin: 0 auto;
 	margin-bottom: 20px;
+	font-size: 20px;
+	padding: 5px 20px;
 }
 
-.videoAfterDrop {
-	width: 100%;
-	height: 100%;
-    border: 0;
-    background-color: black;
+.title:focus {
+	outline: none;
 }
 
 .top {
@@ -120,6 +96,14 @@ footer {
     float:  left;
     margin-top:  22px;
     margin-left: 32px;
+}
+
+.terms > a {
+    color: gray;
+}
+
+.terms > a:hover {
+    text-decoration: none;
 }
 
 .terms > a:focus {

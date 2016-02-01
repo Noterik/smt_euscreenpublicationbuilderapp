@@ -1,32 +1,214 @@
-package org.springfield.lou.application.types;
+package models;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import java.util.UUID;
 
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
-import org.dom4j.Node;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.springfield.fs.Fs;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springfield.fs.FsNode;
-import org.springfield.lou.application.session.PublicationbuilderSession;
-import org.springfield.lou.application.types.DTO.MediaItem;
-import org.springfield.lou.application.types.DTO.TextContent;
-import org.springfield.lou.application.util.PublicationHTMLWriter;
+import org.springfield.lou.application.types.Configuration;
+import org.springfield.lou.json.JSONField;
 import org.springfield.lou.screen.Screen;
+import org.springfield.lou.screencomponent.component.ScreenComponent;
 
-public class Publication extends VideoPoster{
-
-	public Publication() {
-		super();
+public class VideoPoster extends ScreenComponent{
+	
+	String id = null;
+	String title = null;
+	Layout layout;
+	Theme theme;
+	Document html;
+	String template;
+	LayoutIcon icon;
+	JSONObject contents;
+	
+	//TODO: Not happy with two different templates
+	String youtubeEmbed = "<iframe src=\"https://www.youtube.com/embed/<%= external.id %>?wmode=opaque&amp;rel=0&amp;autohide=1&amp;showinfo=0&amp;wmode=transparent\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>";
+	String vimeoEmbed = "<iframe src=\"https://player.vimeo.com/video/<%= external.id %>?color=ffffff&title=0&byline=0&portrait=0\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>";
+	String videoHTML = "<video data-src=\"<%= video.src %>\" data-poster=\"<%= video.poster %>\"></video>";
+	
+	//New videoposter
+	public VideoPoster(Screen s, Layout layout, Theme theme) {
+		super(s);
+		contents = new JSONObject();
+		this.layout = layout;
+		this.theme = theme;		
+		this.icon = new LayoutIcon(layout.getId());
+		this.icon.applyTheme(theme);
+		init();
 	}
 	
+	//Existing videoposter
+	public VideoPoster(Screen s, String id, String html, Layout layout, Theme theme){
+		super(s);
+		contents = new JSONObject();
+		this.id = id;
+		this.html = Jsoup.parse(html);
+		this.template = layout.getTemplate();
+		this.layout = layout;
+		this.theme = theme;		
+		this.icon = new LayoutIcon(layout.getId());
+		this.icon.applyTheme(theme);
+		populate();
+	}
 	
+	private void populate(){
+		Elements elements = this.html.select("[data-section-id]");
+		for(Element element : elements){
+			
+			String id = element.attr("data-section-id");
+			String type = element.attr("data-section-type");
+			JSONObject fieldObj = new JSONObject();
+			fieldObj.put("type", type);
+			if(type.equals("media")){
+				System.out.println("VideoPoster.populate() MEDIA = " + element);
+				fieldObj.put("contents", element.attr("data-media-src"));
+				fieldObj.put("thumb", element.attr("data-media-thumb"));
+			}else{
+				fieldObj.put("contents", element.html());
+			}
+			contents.put(id, fieldObj);
+		}
+	}
 
+	@JSONField(field = "id")
+	public String getId(){
+		return this.id;
+	}
+	
+	@JSONField(field = "title")
+	public String getTitle(){
+		return title;
+	}
+	
+	@JSONField(field = "template")
+	public String getTemplate(){
+		return template;
+	}
+	
+	@JSONField(field = "html")
+	public String getHTML(){
+		return html.toString();
+	}	
+	
+	@JSONField(field = "icon")
+	public String getIcon(){
+		return icon.getSVG();
+	}
+		
+	@JSONField(field = "layoutcss")
+	public String getLayoutCSS(){
+		return layout.getCSSURI();
+	}
+	
+	@JSONField(field = "themecss")
+	public String getThemeCSS(){
+		return theme.getCSSURI();
+	}
+	
+	@JSONField(field = "contents")
+	public JSONObject getContents(){
+		return contents;
+	}
+	
+	private void setGenericHead(){
+		html.head().append("<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\">&#xA0;</script>");
+		html.head().append("<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css\"></link>");
+		html.head().append("<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js\">&#xA0;</script>");
+		html.head().append("<script src=\"" + Configuration.getLibServer() + "\">&#xA0;</script>");
+		html.head().append("<link rel=\"stylesheet\" type=\"text/css\" href='" + Configuration.getServer() + "/eddie/apps/euscreenpublicationbuilder/css/layouts/shared.css'></link>");
+		html.head().append("<link rel=\"stylesheet\" type=\"text/css\" href='" + layout.getCSSURI() + "'></link>");
+		html.head().append("<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css\"></link>");
+	}
+	
+	private void setScript(){
+		String htmlStr = "<script type=\"text/javascript\">$(\"video[data-src]\").each(function(a,b){console.log(b);var c=$(b).data(\"src\"),d=$(b).data(\"poster\");EuScreen.getVideo({src:c,poster:d,controls:!0},function(a){return function(b){var c=$(b);$(a).replaceWith(c),$fullScreenIcon=$(\"<i class='fullscreen fa fa-resize-full'></i>\"),c.parent().append($fullScreenIcon),$fullScreenIcon.on(\"click\",function(){var a=c[0];a.requestFullscreen?a.requestFullscreen():a.msRequestFullscreen?a.msRequestFullscreen():a.mozRequestFullScreen?a.mozRequestFullScreen():a.webkitRequestFullscreen&&a.webkitRequestFullscreen()})}}(b))});</script>";
+		html.body().append(htmlStr);
+	}
+	
+	public void setTheme(Theme theme){
+		if(html.select("#theme-style").size() > 0){
+			html.select("#theme-style").get(0).attr("href", theme.getCSSURI());
+		}else{
+			html.head().append("<link id=\"theme-style\" rel=\"stylesheet\" href=\"" + theme.getCSSURI() + "\">");
+		}
+	}
+	
+	private void init(){
+		this.template = layout.getTemplate();
+		html = Jsoup.parseBodyFragment(this.template);
+		setGenericHead();
+		setTheme(theme);
+		setScript();
+	}
+	
+	private void handleTextUpdate(String id, JSONObject fieldData){
+		String value = (String) fieldData.get("contents");
+		if(html.select("[data-section-id=\"" + id + "\"]").size() > 0 && value != null){
+			html.select("[data-section-id=\"" + id + "\"]").get(0).html(value);
+		}
+	}
+	
+	private void handleMediaUpdate(String id, JSONObject fieldData){
+		System.out.println("handleMediaUpdate(" + fieldData + ")");
+		String value = (String) fieldData.get("contents");
+		Element element = html.select("[data-section-id=\"" + id + "\"]").size() > 0 ? html.select("[data-section-id=\"" + id + "\"]").get(0) : null;
+		
+		if(element != null && value != null && (value.indexOf("youtube(") != -1 || value.indexOf("vimeo(") != -1 || value.indexOf("internal(") != -1)){
+			String idOrSrc = value.substring(value.indexOf("(") + 1, value.lastIndexOf(")"));
+			element.attr("data-media-src", value);
+			if(value.indexOf("youtube(") != -1){
+				element.html(this.youtubeEmbed.replace("<%= external.id %>", idOrSrc));
+			}else if(value.indexOf("vimeo(") != -1){
+				element.html(this.vimeoEmbed.replace("<%= external.id %>", idOrSrc));
+			}else{
+				String poster = (String) fieldData.get("thumb");
+				if(poster != null)
+					element.attr("data-media-thumb", poster);
+				String videoStr = this.videoHTML.replace("<%= video.src %>", idOrSrc);
+				videoStr = videoStr.replace("<%= video.poster %>", poster);
+				element.html(videoStr);
+			}
+			
+		}else if(element != null){
+			element.html("");
+		}
+	}
+
+	public void processUpdate(JSONObject data) {
+		this.contents = data;
+		for(Object keyObj : data.keySet()){
+			String key = (String) keyObj;
+			JSONObject fieldData = (JSONObject) data.get(keyObj);
+			String type = (String) fieldData.get("type");
+			if(type.equals( "title" ) || type.equals("text") || type.equals("text_big")){
+				handleTextUpdate(key, fieldData);
+				if(type.equals("title")){
+					SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM d, ''yy");
+					String dateStr = sdf.format(new Date());
+					String newTitleStr;
+					if(fieldData.get("contents") != null && !fieldData.get("contents").equals("Fill in the title") && !fieldData.get("contents").equals("")){
+						newTitleStr = (String) fieldData.get("contents");
+					}else{
+						newTitleStr = "New Videoposter - " + dateStr;
+					}
+					
+					this.title = newTitleStr;
+				}
+			}else if(type.equals("media")){
+				handleMediaUpdate(key, fieldData);
+			}
+		}
+	}
+
+	public void setId(String eusId) {
+		this.id = eusId;
+	}
+	
+	/*
 	public static JSONArray getPublication(String posterUrl){
 		System.out.println("Publication.editPublication(" + posterUrl + ")");
         FsNode posterNode = Fs.getNode(posterUrl);
@@ -106,11 +288,11 @@ public class Publication extends VideoPoster{
         System.out.println("FINISHED Publication.editPublication()");
         
 		return jsArr;
-	}
-
+	}*/
 	
 	
-	public static JSONObject createXML(Publication publication, String user, String id){
+	/*
+	public static JSONObject createXML(VideoPoster publication, String user, String id){
 		FsNode layout = publication.template.layout.getCurrentLayout();
 		String layoutStyle = publication.template.layout.getCurrentLayoutStyle();
 		String layoutTemplate = layout.getProperty("template").trim();
@@ -138,7 +320,7 @@ public class Publication extends VideoPoster{
         return object;
 	}
 
-	public static JSONObject editXml(Publication publication, String user, String id, String oldId){
+	public static JSONObject editXml(VideoPoster poster, String user, String id, String oldId){
 		System.out.println("Publication.editXML()");
 		FsNode layout = publication.template.layout.getCurrentLayout();
 		String layoutStyle = publication.template.layout.getCurrentLayoutStyle();
@@ -291,7 +473,7 @@ public class Publication extends VideoPoster{
         object.put("layout", layoutStyle);
         object.put("theme", theme);
         PublicationHTMLWriter writer = new PublicationHTMLWriter();
-        object.put("xml", writer.getHTML(d));
+        //object.put("xml", writer.getHTML(d));
         System.out.println("=========== BUILD XML() ==========");
         System.out.println(object.toJSONString());
 		return object;
@@ -352,6 +534,7 @@ public class Publication extends VideoPoster{
 	
 		return result.toString();
 	}
+	*/
 }
 
 

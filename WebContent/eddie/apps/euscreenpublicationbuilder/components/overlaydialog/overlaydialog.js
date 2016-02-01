@@ -7,18 +7,9 @@ var Overlaydialog = function(){
 	this.closeButton = this.element.find('.action.close');
 	this.target = this.element.find(".contents");
 	
-	String.prototype.decodeHTML = function() {
-	    var map = {"gt":">" /* , … */};
-	    return this.replace(/&(#(?:x[0-9a-f]+|\d+)|[a-z]+);?/gi, function($0, $1) {
-	        if ($1[0] === "#") {
-	            return String.fromCharCode($1[1].toLowerCase() === "x" ? parseInt($1.substr(2), 16)  : parseInt($1.substr(1), 10));
-	        } else {
-	            return map.hasOwnProperty($1) ? map[$1] : $0;
-	        }
-	    });
-	};
-	
+	/*
 	this.on('url-changed', function(){
+<<<<<<< HEAD
 		console.log("THIS URL CHANGED!");
 		//I comment this line cuz it breaks preview part of publications in future if we need to show overlay with url we can fix it.
 //		self.target.html(self.template({data:self.vars}));
@@ -31,6 +22,18 @@ var Overlaydialog = function(){
 		self.target.html();
 		console.log(self.target);
 		self.target.html(html);
+=======
+		self.target.html(self.template({data:self.vars}));
+	});*/
+	
+	this.on('html-changed', function(){
+		var html = self.vars.html;
+		console.log("TARGET", self.target);
+		console.log("HTML: " + html);
+		var iframeHTML = self.template({data: { url : 'data:text/html;charset=utf-8,' + encodeURI(html) }});
+		console.log(iframeHTML);
+		self.target.html(iframeHTML);
+>>>>>>> svg-icons
 	});
 	
 	this.on('visible-changed', function(){
@@ -46,7 +49,7 @@ var Overlaydialog = function(){
 		self.element.hide();
 		var result = JSON.stringify({textItem: ""});
 
-		eddie.putLou('', 'closePreview(' + result + ')');
+		eddie.putLou('', 'closePreview()');
 		
 	});
 	

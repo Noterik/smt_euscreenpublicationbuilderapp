@@ -46,7 +46,7 @@ BookmarksContent.prototype.renderBookmarks = function() {
 		console.log(self.bookmarkContent[0]);
 		self.bookmarkContent.html(html);
 		var bookmarks = self.bookmarkContent
-				.find('.media-item[data-public="true"]');
+				.find('.list-media-item[data-public="true"]');
 
 		bookmarks.draggable({
 			cursor : 'move',
@@ -54,9 +54,16 @@ BookmarksContent.prototype.renderBookmarks = function() {
 			revertDuration : 0,
 			zIndex : 1000,
 			// helper: 'clone',
+			start: function(ui, event){
+				if(eddie.getComponent('buildContent')){
+					eddie.getComponent('buildContent').draggingStarted();
+				}
+			},
 			stop : function(ui, event) {
 				$(this).css("position", "relative");
-
+				if(eddie.getComponent('buildContent')){
+					eddie.getComponent('buildContent').draggingStopped();
+				}
 			}
 		});
 		
@@ -109,7 +116,7 @@ BookmarksContent.prototype.renderCollections = function() {
 		this.collectionContent.html(html);
 		
 		var items = self.collectionContent
-			.find('.media-item[data-public="true"]');
+			.find('.list-media-item[data-public="true"]');
 		
 		items.draggable({
 			cursor : 'move',

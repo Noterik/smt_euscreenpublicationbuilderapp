@@ -3,6 +3,19 @@ footer {
 	height: 60px;
 }
 
+.media-wrapper:first-child{
+	padding-right: 2px;
+}
+.media-wrapper:last-child{
+	padding-left: 2px;
+}
+
+.media-item {
+	margin-bottom: 5px;
+	height: 250px;
+	background-color: rgba(255, 255, 255, 0.5);
+}
+
 #layout {
 	padding: 0;
 }
@@ -17,29 +30,6 @@ footer {
 
 .left-pd {
 	padding-left: 1px;
-}
-
-.media_item {
-	margin-bottom: 25px;
-	height: 250px;
-	background-color: rgba(255, 255, 255, 0.5);
-}
-
-.media_item video{
-	position: absolute;
-	height: 89%;
-	width: 100%;
-	background-color: black;
-	margin: -1px;
-}
-.media_item i{
-	cursor: pointer;
-	color: white;
-	position: absolute;
-}
-.media_item .fullscreen{
-	top: 10px;
-	left: 10px;
 }
 
 .comparison_page {
@@ -58,13 +48,9 @@ footer {
 	text-align: center;
 	font-family: Verdana, Geneva, sans-serif;
 	margin: 0 auto;
-}
-
-.videoAfterDrop {
-	width: 100%;
-	height: 100%;
-    border: 0;
-    background-color: black;
+	font-size: 20px;
+	margin-bottom: 20px;
+	padding: 5px 20px;
 }
 
 .top {
@@ -83,17 +69,8 @@ footer {
 	margin: 0 auto;
 }
 
-#media_1.plus_icon {
-	margin-top: 50%;
-}
-
 .titleHolder {
 	width: 100%;
-}
-
-.removeVideo {
-	text-align: center;
-	cursor: pointer;
 }
 
 #context {
@@ -123,6 +100,14 @@ footer {
     float:  left;
     margin-top:  22px;
     margin-left: 32px;
+}
+
+.terms > a {
+    color: gray;
+}
+
+.terms > a:hover {
+    text-decoration: none;
 }
 
 .terms > a:focus {

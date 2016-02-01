@@ -11,8 +11,7 @@ footer {
 	padding: 0;
 }
 
-.media_item {
-	margin-bottom: 25px;
+.media-item {
 	height: 250px;
 	background-color: rgba(255, 255, 255, 0.5);
 }
@@ -21,7 +20,7 @@ footer {
     background-color: black;
 }
 
-.media_item video{
+.media-item video{
 	position: absolute;
 	height: 100%;
 	width: 100%;
@@ -121,6 +120,14 @@ footer {
     float:  left;
     margin-top:  22px;
     margin-left: 32px;
+}
+
+.terms > a {
+    color: gray;
+}
+
+.terms > a:hover {
+    text-decoration: none;
 }
 
 .terms > a:focus {

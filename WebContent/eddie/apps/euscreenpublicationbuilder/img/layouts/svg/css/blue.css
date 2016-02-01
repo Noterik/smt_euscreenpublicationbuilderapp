@@ -1,0 +1,19 @@
+.theme-blue{
+}
+.theme-blue .layout-icon{
+		
+	}
+		.theme-blue .layout-icon .layout-icon-bg{
+			fill: #00aeef;
+		}
+		
+		.theme-blue .layout-icon .layout-icon-text{
+			fill: #007faf;
+			opacity: 0.4;
+		}
+		
+		.theme-blue .layout-icon .layout-icon-body{
+			fill: #FFFFFF;
+			opacity: 0.8;
+		}
+	

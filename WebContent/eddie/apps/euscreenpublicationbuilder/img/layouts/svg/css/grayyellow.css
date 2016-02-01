@@ -1,0 +1,19 @@
+.theme-grayyellow{
+	
+}
+	.theme-grayyellow .layout-icon{
+		
+	}
+		.theme-grayyellow .layout-icon .layout-icon-bg{
+			fill: #e8e8e8;
+		}
+		
+		.theme-grayyellow .layout-icon .layout-icon-text{
+			fill: #f0d74b;
+			opacity: 0.4;
+		}
+		
+		.theme-grayyellow .layout-icon .layout-icon-body{
+			fill: #FFFFFF;
+			opacity: 0.8;
+		}

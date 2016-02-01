@@ -1,0 +1,19 @@
+.theme-graypurple{
+	
+}
+	.theme-graypurple .layout-icon{
+		
+	}
+		.theme-graypurple .layout-icon .layout-icon-bg{
+			fill: #e8e8e8;
+		}
+		
+		.theme-graypurple .layout-icon .layout-icon-text{
+			fill: #f06dd6;
+			opacity: 0.4;
+		}
+		
+		.theme-graypurple .layout-icon .layout-icon-body{
+			fill: #FFFFFF;
+			opacity: 0.8;
+		}

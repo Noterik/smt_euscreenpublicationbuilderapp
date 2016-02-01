@@ -2,7 +2,7 @@
     	<%
 			_.each(bookmarks, function(acs) {
 		%>
-					  <div class="media-item row" id="bookmarkItem_<%= acs.id %>" data-itemId="<%= acs.id %>" data-public="<%= acs.isPublic %>">
+					  <div class="list-media-item row" id="bookmarkItem_<%= acs.id %>" data-itemId="<%= acs.id %>" data-public="<%= acs.isPublic %>">
 							<div class="media-container col-md-12">
 								<div class="media-thumb col-md-6">
 									<% if(!acs.isPublic) { %><p>Unfortunately due to copyright agreements with the Content Provider this video cannot be used for making a video poster.</p><% } %>
@@ -56,7 +56,7 @@
 							<% var item = collection.videos[c]; %>
 							<% console.log("ITEM: " , item ); %>
 							<% if(item.video != null){ %>
-								<div class="media-item row" id="colItem_<%= item.id %>" class="drag_bookmark" data-public="<%= item.isPublic %>">
+								<div class="list-media-item row" id="colItem_<%= item.id %>" class="drag_bookmark" data-public="<%= item.isPublic %>">
 									<div class="media-container col-md-12">
 										<div class="media-thumb col-md-6">
 											<% if(!item.isPublic) { %><p>Unfortunately due to copyright agreements with the Content Provider this video cannot be used for making a video poster.</p><% } %>

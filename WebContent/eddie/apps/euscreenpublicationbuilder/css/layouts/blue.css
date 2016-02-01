@@ -1,29 +1,29 @@
 .comparison_page {
     overflow-y: auto;
     background-image: url("../../img/layouts/blue-bg.png");
-    background-repeat: repeat;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
 }
 
 .border {
     border-bottom: 4px solid #00aeef;
-    width: 75px;
+    width: 60px;
     margin: 0 auto;
+    margin-top: 20px;
 	margin-bottom: 20px;
+	border-radius: 2px;
 }
 
-.media_item {
+.media-item {
     background-color: #00aeef !important;
 }
 
 .title {
-    padding: 5px 0px;
     color: #007FAF;
-    width: 87%;
-    margin-bottom: 20px;
-    background-color: #FFF;
-    -webkit-box-shadow: 0px 4px 14px 0px rgba(0, 174, 239, 0.75);
-    -moz-box-shadow: 0px 4px 14px 0px rgba(0, 174, 239, 0.75);
-    box-shadow: 0px 4px 14px 0px rgba(0, 174, 239, 0.75);
+    /*background-color: #FFF;*/
+    -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 174, 239, 0.75);
+    -moz-box-shadow: 0px 1px 5px 0px rgba(0, 174, 239, 0.75);
+    box-shadow: 0px 1px 5px 0px rgba(0, 174, 239, 0.75);
 }
 
 .text_item > p {
