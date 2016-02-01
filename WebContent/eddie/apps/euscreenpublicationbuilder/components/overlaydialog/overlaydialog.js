@@ -10,6 +10,7 @@ var Overlaydialog = function(){
 	this.on('html-changed', function(){
 		var html = self.vars.html;
 		var iframeHTML = self.template({data: { url : 'data:text/html;charset=utf-8,' + encodeURI(html) }});
+		self.target.html(iframeHTML);
 	});
 
 	this.on('visible-changed', function(){

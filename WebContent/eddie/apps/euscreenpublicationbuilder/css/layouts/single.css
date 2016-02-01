@@ -118,3 +118,7 @@ footer {
     background-repeat:  no-repeat;
     background-image:  url("/eddie/apps/euscreenpublicationbuilder/img/layouts/ic_euscreen.png");
 }
+
+.media-item {
+	height: 500px;
+}

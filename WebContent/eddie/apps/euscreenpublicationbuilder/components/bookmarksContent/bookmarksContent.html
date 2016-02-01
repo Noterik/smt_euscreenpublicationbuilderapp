@@ -52,8 +52,8 @@
 									<div class="media-container col-md-12">
 										<div class="media-thumb col-md-6">
 											<% if(!item.isPublic) { %><p>Unfortunately due to copyright agreements with the Content Provider this video cannot be used for making a video poster.</p><% } %>
-											<p class="loading">Loading...</p>
 											<div class="media-thumb-image">
+												<img data-video-poster="<%= item.screenshot %>" data-video-src="<%= item.video %>" src="<%= item.screenshot %>" alt="<%= item.title %>"/>
 											</div>
 										</div>
 										<div class="media-info col-md-6">
@@ -62,17 +62,6 @@
 										</div>
 									</div>
 								</div>
-								<% 
-									(function(item){
-	            						eddie.getComponent('embedlib').loaded().then(function(){
-	            							EuScreen.getVideo({src: item.video, poster: item.screenshot, controls: true}, function(html){
-												console.log("HTML: " + html);
-												jQuery('#colItem_' + item.id + ' .media-container .media-thumb p.loading').remove(); 
-	            								jQuery('#colItem_' + item.id + ' .media-container .media-thumb .media-thumb-image').html(html);
-	            							});
-	            						});
-									})(item);
-								%>
 							<% } %>
 						<% } %>
 					</div>

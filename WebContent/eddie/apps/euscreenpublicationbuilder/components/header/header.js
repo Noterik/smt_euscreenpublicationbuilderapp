@@ -37,5 +37,4 @@ Header.prototype.setStep = function(message){
 		steps[step].removeClass('inactive');
 		steps[step].addClass('arrow-pointer');
 	}
-}
-});
+};
