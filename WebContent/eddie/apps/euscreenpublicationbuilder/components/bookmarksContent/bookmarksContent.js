@@ -10,6 +10,12 @@ var BookmarksContent = function(options) {
 			'#bookmarks_layout_template').text());
 	this.collectionsTemplate = _.template(this.element.find(
 			'#bookmarksContent_collections_template').text());
+	
+	this.collectionsVideosTemplate = _.template(this.element.find('#bookmarksContent_collections_videos_template').text());
+	
+	this.parent = eddie.getComponent('iframesender');
+	
+	this.collectionsRendered = false;
 		
 	// This is the view, the model is actually defined in bookmarks.js, the view
 	// listens to the model and updates the listing.
@@ -19,17 +25,18 @@ var BookmarksContent = function(options) {
 	this.bookmarksModel.on('bookmarks-changed', function(bookmarks) {
 		self.renderBookmarks();
 	});
+	
+	this.bookmarksModel.on('pages-changed', function(){
+		self.renderBookmarks();
+	});
+	
+	this.bookmarksModel.on('page-changed', function(){
+		self.renderBookmarks();
+	});
+	
 	self.renderBookmarks();
-	
-	this.bookmarksModel.on('pages-changed', function(pages){
-		self.renderArrows();
-	});
-	
-	this.bookmarksModel.on('page-changed', function(page){
-		self.renderArrows();
-	});
 
-	this.collectionsModel.on('collections-changed', function() {
+	this.collectionsModel.on('collections-changed', function(collections) {
 		self.renderCollections();
 	});
 	self.renderCollections();
@@ -39,14 +46,24 @@ BookmarksContent.prototype = Object.create(Component.prototype);
 
 BookmarksContent.prototype.renderBookmarks = function() {
 	var self = this;
-	if (self.bookmarksModel.get('bookmarks')) {
+	if (self.bookmarksModel.get('bookmarks') && self.bookmarksModel.get('pages') !== null && self.bookmarksModel.get('page') !== null) {
 		var html = self.bookmarksTemplate({
-			bookmarks : self.bookmarksModel.get('bookmarks')
+			bookmarks : self.bookmarksModel.get('bookmarks'),
+			page: self.bookmarksModel.get('page'),
+			pages: self.bookmarksModel.get('pages')
 		});
-		console.log(self.bookmarkContent[0]);
 		self.bookmarkContent.html(html);
 		var bookmarks = self.bookmarkContent
 				.find('.list-media-item[data-public="true"]');
+		
+		var pageLink = self.bookmarkContent.find('[data-page]');
+		pageLink.off('click').on('click', function(){
+			var page = $(this).data('page');
+			var message = {
+				page: page
+			};
+			eddie.putLou('', 'getBookmarkPage(' + JSON.stringify(message) + ')');
+		});
 
 		bookmarks.draggable({
 			cursor : 'move',
@@ -68,65 +85,64 @@ BookmarksContent.prototype.renderBookmarks = function() {
 		});
 		
 	}
-	self.renderArrows();
 }
 
-BookmarksContent.prototype.renderArrows = function(){
-	var self = this;
-	if((self.bookmarksModel.get('page') == 0 || self.bookmarksModel.get('page')) && (self.bookmarksModel.get('pages') == 0 || self.bookmarksModel.get('pages'))){
-		console.log("we need to do something with the arrows!");
-		var nextArrow = self.bookmarkContent.find('.arrow-right');
-		var prevArrow = self.bookmarkContent.find('.arrow-left');
-		
-		nextArrow.off('click').on('click', function(){
-			eddie.putLou('', 'getNextBookmarkPage()');
-		});
-		
-		prevArrow.off('click').on('click', function(){
-			eddie.putLou('', 'getPrevBookmarkPage()');
-		});
-		
-		if(nextArrow[0] && prevArrow[0]){
-			if(self.bookmarksModel.get('pages') == 1){
-				nextArrow.hide();
-				prevArrow.hide();
-			}else if(self.bookmarksModel.get('page') == 0){
-				nextArrow.show();
-				prevArrow.hide();
-			}else if(self.bookmarksModel.get('page') == (self.bookmarksModel.get('pages') - 1)){
-				nextArrow.hide();
-				prevArrow.show();
-			}else{
-				nextArrow.show();
-				prevArrow.show();
-			}
+
+BookmarksContent.prototype.renderVideosForCollection = function(target, collection){
+	target.html(this.collectionsVideosTemplate({collection: collection}));
+	
+	var pageLink = target.find('[data-page]');
+	pageLink.off('click').on('click', function(){
+		var collection = $(this).data('collection');
+		var page = $(this).data('page');
+		var message = {
+			collection: collection,
+			page: page
+		};
+		eddie.putLou('', 'getCollectionPage(' + JSON.stringify(message) + ')');
+	});
+	
+	var items = target.find('.list-media-item[data-public="true"]');
+
+	items.draggable({
+		cursor : 'move',
+		revert : true,
+		revertDuration : 0,
+		zIndex : 1000,
+		// helper: 'clone',
+		stop : function(ui, event) {
+			$(this).css("position", "relative");
 		}
-	}
+	});
 }
 
 BookmarksContent.prototype.renderCollections = function() {
 	var self = this;
-	console.log("renderCollections(", this.collectionsModel.get('collections'),
-			")");
-	var self = this;
+	
 	var collections = this.collectionsModel.get('collections');
-	if(collections){
+	
+	//If the collection structure hasn't been rendered out. 
+	if(!this.collectionsRendered && collections){		
 		var html = this.collectionsTemplate({collections: collections});
 		console.log("HTML: " + html);
 		this.collectionContent.html(html);
 		
-		var items = self.collectionContent
-			.find('.list-media-item[data-public="true"]');
-		
-		items.draggable({
-			cursor : 'move',
-			revert : true,
-			revertDuration : 0,
-			zIndex : 1000,
-			// helper: 'clone',
-			stop : function(ui, event) {
-				$(this).css("position", "relative");
-			}
+		this.collectionContent.find('a[data-toggle]').click(function(){
+			setTimeout(function(){
+	    		var message = {
+	    			height: document.documentElement.scrollHeight
+	    		}
+
+	    		self.parent.sendToParent(JSON.stringify(message));
+	    	}, 1000);
 		});
+		this.collectionsRendered = true;
+	}
+	
+	//Just update the structure
+	for(var i = 0; i < collections.length; i++){
+		var collection = collections[i];
+		var target = "#collapsibleCol_" + collection.id + " .panel-body";
+		self.renderVideosForCollection(jQuery(target), collection);
 	}
 }

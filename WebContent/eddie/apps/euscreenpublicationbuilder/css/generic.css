@@ -1,3 +1,7 @@
+html{
+	background-color: white;
+}
+
 body  {
     background-color: #F2F2F2 !important;
     -webkit-background-size:  1024px 768px;
@@ -322,8 +326,7 @@ a:hover  {
     margin: 0 auto;
     border:  none;
     height:  100%;
-    /*width:  100%;*/
-    width: 70%;
+    width:  100%;
     -webkit-box-align: center;
     -webkit-box-pack: center;
     display: -webkit-box;
@@ -522,29 +525,34 @@ a:hover  {
     border-bottom:  4px solid #afd779;
 }
 
-.arrow-wrap  {
-    width:  100%;
-    height:  30px;
-    margin:  0 auto;
-    margin-top:  20px;
+.pagination-wrapper{
+	border-top: 4px solid #AFD779;
+	width: 100%;
+}
+
+.pagination-wrapper .pagination{
+	margin: 20px auto;
+}
+
+.pagination-wrapper .pagination .pages{
+	width: auto;
+	float: left;
+}
+
+.pagination-wrapper .pagination .pages a{
+	color: #E0F0CC !important;
+}
+
+.pagination-wrapper .pagination .pages a.active, .pagination-wrapper .pagination .pages a:hover{
+	color:  #B6DC7E !important;
 }
 
 .arrow-left  {
-    width:  30px;
-    height:  30px;
-    float: left;
     cursor:  pointer;
-    background-repeat:  no-repeat;
-    background-image:  url("/eddie/apps/euscreenpublicationbuilder/img/arrow-left.png");
 }
 
 .arrow-right  {
-    width:  30px;
-    height:  30px;
-    float: left;
     cursor:  pointer;
-    background-repeat:  no-repeat;
-    background-image:  url("/eddie/apps/euscreenpublicationbuilder/img/arrow-right.png");
 }
 
 .right-header  {

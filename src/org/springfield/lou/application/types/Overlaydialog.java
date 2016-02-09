@@ -9,6 +9,7 @@ public class Overlaydialog extends ScreenComponent {
 	private String url;
 	private String html;
 	private boolean visible = false;
+	private boolean wrap = true;
 
 	public Overlaydialog(Screen s) {
 		super(s);
@@ -40,6 +41,11 @@ public class Overlaydialog extends ScreenComponent {
 	
 	public void setVisible(boolean visible){
 		this.visible = visible;
+	}
+	
+	@JSONField(field = "wrap")
+	public boolean getWrap(){
+		return this.wrap;
 	}
 	
 	public void update(){

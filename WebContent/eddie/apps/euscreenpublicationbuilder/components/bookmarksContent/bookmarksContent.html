@@ -20,9 +20,23 @@
 		<%
 			});
  		%>
-		<div class="arrow-wrap">
-			<div class="arrow-left"></div>
-			<div class="arrow-right"></div>
+		<div class="pagination-wrapper">
+			<div class="pagination pull-right">
+				
+				<% if(pages > 1){ %>
+				<span class="pages">
+					<% if(page > 0){ %>
+						<a class="arrow-left" data-page="<%= (page - 1) %>"><i class="fa fa-chevron-left"></i></a>&nbsp;
+					<% } %>
+					<% for(var i = 0; i < pages; i++){ %>
+						<a href="#" data-page="<%= i %>" <% if(i === page){ %>class="active"<% } %>><i class="fa fa-circle">&nbsp;</i></a>
+					<% } %>
+					<% if(page < (pages - 1)){ %>
+						&nbsp;<a class="arrow-right" data-page="<%= (page + 1) %>"><i class="fa fa-chevron-right"></i></a>
+					<% } %>
+				</span>
+				<% } %>
+			</div>
 		</div>
 </script>
 
@@ -44,31 +58,52 @@
 				</div>
 				<div id="collapsibleCol_<%= collection.id %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapsibleCol_<%= collection.id %>">
 					<div class="panel-body">
-						<% for(var c = 0; c < collection.videos.length; c++){ %>
-							<% var item = collection.videos[c]; %>
-							<% console.log("ITEM: " , item ); %>
-							<% if(item.video != null){ %>
-								<div class="list-media-item row" id="colItem_<%= item.id %>" class="drag_bookmark" data-public="<%= item.isPublic %>">
-									<div class="media-container col-md-12">
-										<div class="media-thumb col-md-6">
-											<% if(!item.isPublic) { %><p>Unfortunately due to copyright agreements with the Content Provider this video cannot be used for making a video poster.</p><% } %>
-											<div class="media-thumb-image">
-												<img data-video-poster="<%= item.screenshot %>" data-video-src="<%= item.video %>" src="<%= item.screenshot %>" alt="<%= item.title %>"/>
-											</div>
-										</div>
-										<div class="media-info col-md-6">
-											<h4><%= item.title %></h4>
-											<span class="provider">By <%= item.provider %></span> 
-										</div>
-									</div>
-								</div>
-							<% } %>
-						<% } %>
+						<!-- RENDER VIDEOS FOR COLLECTION HERE (check #bookmarksContent_collections_videos_template) -->
 					</div>
 				</div>
 			</div>
 		<% } %>
 	</div>
+</script>
+
+<script type="text/template" id="bookmarksContent_collections_videos_template">
+<% for(var c = 0; c < collection.paginatedVideos.length; c++){ %>
+	<% var item = collection.paginatedVideos[c]; %>
+	<% if(item.video != null){ %>
+		<div class="list-media-item row" id="colItem_<%= item.id %>" class="drag_bookmark" data-public="<%= item.isPublic %>">
+			<div class="media-container col-md-12">
+				<div class="media-thumb col-md-6">
+					<% if(!item.isPublic) { %><p>Unfortunately due to copyright agreements with the Content Provider this video cannot be used for making a video poster.</p><% } %>
+					<div class="media-thumb-image">
+						<img data-video-poster="<%= item.screenshot %>" data-video-src="<%= item.video %>" src="<%= item.screenshot %>" alt="<%= item.title %>"/>
+					</div>
+				</div>
+				<div class="media-info col-md-6">
+					<h4><%= item.title %></h4>
+					<span class="provider">By <%= item.provider %></span> 
+				</div>
+			</div>
+		</div>
+	<% } %>
+<% } %>
+<div class="pagination-wrapper">
+	<div class="pagination pull-right">
+		
+		<% if(collection.pages > 1){ %>
+		<span class="pages">
+			<% if(collection.page > 0){ %>
+				<a class="arrow-left" data-collection="<%= collection.id %>" data-page="<%= (collection.page - 1) %>"><i class="fa fa-chevron-left"></i></a>&nbsp;
+			<% } %>
+			<% for(var i = 0; i < collection.pages; i++){ %>
+				<a href="#" data-collection="<%= collection.id %>" data-page="<%= i %>" <% if(i === collection.page){ %>class="active"<% } %>><i class="fa fa-circle">&nbsp;</i></a>
+			<% } %>
+			<% if(collection.page < (collection.pages - 1)){ %>
+				&nbsp;<a class="arrow-right" data-collection="<%= collection.id %>" data-page="<%= (collection.page + 1) %>"><i class="fa fa-chevron-right"></i></a>
+			<% } %>
+		</span>
+		<% } %>
+	</div>
+</div>
 </script>
 
 <div class="side-box-wrapp-top bookmark-tabs">

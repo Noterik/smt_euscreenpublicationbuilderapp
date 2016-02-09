@@ -198,14 +198,21 @@ public class PublicationbuilderSession extends Session {
 		bookmarks.sync();
 		collections.sync();
 	}
-
-	public void getNextBookmarkPage(Screen s) {
-		bookmarks.setPage(bookmarks.getPage() + 1);
+	
+	
+	public void getBookmarkPage(Screen s, JSONObject message){
+		Long pageL = (Long) message.get("page");
+		Integer page = pageL.intValue();
+		bookmarks.setPage(page);
 		bookmarks.sync();
 	}
-
-	public void getPrevBookmarkPage(Screen s) {
-		bookmarks.setPage(bookmarks.getPage() - 1);
-		bookmarks.sync();
+	
+	public void getCollectionPage(Screen s, JSONObject message){
+		System.out.println("getNextCollectionPage(" + message + ")");
+		String collection = (String) message.get("collection");
+		Long pageL = (Long) message.get("page");
+		Integer page = pageL.intValue();
+		this.collections.getPageForCollection(collection, page);
+		this.collections.sync();
 	}
 }

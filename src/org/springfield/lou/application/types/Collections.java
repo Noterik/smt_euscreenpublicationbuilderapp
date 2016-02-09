@@ -21,18 +21,25 @@ public class Collections extends ScreenComponent {
 	private String address = "/domain/euscreenxl/user/";
 	private Blacklist blacklist;
 
-	
 	public Collections(Screen s, String user) {
 		super(s);
 		blacklist = new Blacklist();
 		populateCollections(user);
 	}
-		
 
 
 	@JSONField(field = "collections")
-	public List<Collection> getCollectionlist() {
+	public List<Collection> getCollectionlist() {		
 		return collectionlist;
+	}
+	
+	public Collection getCollectionById(String colId){
+		for(Collection col : collectionlist){
+			if(col.getId().equals(colId)){
+				return col;
+			}
+		}
+		return null;
 	}
 
 	private void populateCollections(String user) {
@@ -122,13 +129,20 @@ public class Collections extends ScreenComponent {
 						}
 					}
 				}
-				System.out.println("COLLECTIONS");
-				System.out.println("Collection: " + collection_name + " -> VideoList size: " +  videos.size());
 				collectionlist.add(new Collection(colNode.getId(), collection_name, videos));
 			} catch (Exception e) {
 				System.out.println("COLLECTION EXCEPTION");
 				e.printStackTrace();
 			}
+		}
+	}
+
+
+	public void getPageForCollection(String collection, Integer page) {
+		System.out.println("nextPageForCollection(" + collection + ")");
+		Collection col = getCollectionById(collection);
+		if(col != null){
+			col.setPage(page);
 		}
 	}
 }
