@@ -369,7 +369,7 @@ BuildContent.prototype.initTinyMce = function() {
 	            mode: "exact",
 	            menubar: false,
 	            plugins: 'link',
-	            toolbar: "fontselect | fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+	            toolbar: "fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
 	            elements: this.id,
 	            height: 256,
 	            setup: function(ed){
@@ -404,7 +404,7 @@ BuildContent.prototype.initTinyMce = function() {
                 		self.setupDelayedSaving.apply(self, [$element]);
                 	});
                 },
-                toolbar: "fontselect fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+                toolbar: "fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
             });
 
         }
