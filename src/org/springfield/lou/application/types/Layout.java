@@ -4,8 +4,6 @@ import java.util.List;
 import org.springfield.fs.Fs;
 import org.springfield.fs.FsNode;
 
-import sun.security.krb5.Config;
-
 public class Layout {
 	private List<FsNode> layouts;
 

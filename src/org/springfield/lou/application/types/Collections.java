@@ -101,23 +101,14 @@ public class Collections extends ScreenComponent {
 												.getProperty("mount")
 												.split(",");
 										for (String mnt : mounts) {
-											if (mnt.contains("http://")
-													&& mnt.contains("/progressive/")) {
-												mount = mnt;
-												break;
-											} else {
-												mount = "http://"
-														+ mnt
-														+ ".noterik.com/progressive/"
-														+ mnt
-														+ referNode.getPath()
-														+ "/raw.mp4";
+											if (!mnt.startsWith("http://") && !mnt.startsWith("https://")) {
+												mount = "http://" + mnt + ".noterik.com/progressive/" + mnt + referNode.getPath() + "/raw.mp4";
 												break;
 											}
+											mount = mnt;
 										}
 										break;
 									}
-									;
 								}
 								
 								if(mount != null){
