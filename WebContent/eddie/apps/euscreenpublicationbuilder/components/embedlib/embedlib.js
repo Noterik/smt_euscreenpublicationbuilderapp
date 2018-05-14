@@ -4,7 +4,7 @@ var Embedlib = function(){
 	this.loaded = function(){
 		return new Promise(function(resolve, reject){
 			if(!self.ready){
-				$.getScript("http://pb.euscreenxl.eu:8080/euscreen_embed/euscreenembedlib.js", function( data, textStatus, jqxhr ) {
+				$.getScript("http://euscreen.eu:8080/euscreen_embed/euscreenembedlib.js", function( data, textStatus, jqxhr ) {
 					self.ready = true;
 					resolve();
 				});

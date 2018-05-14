@@ -91,7 +91,7 @@ public class Bookmarks extends ScreenComponent{
 				if(referNode.getProperty("format").equals("MP4")){
 					String[] mounts = referNode.getProperty("mount").split(",");
 					for(String mnt : mounts){
-						System.out.println("mount for this bookmark video = "+mnt);
+						//System.out.println("mount for this bookmark video = "+mnt);
 						if (!mnt.startsWith("http://") && !mnt.startsWith("https://")) {
 							mount = "http://" + mnt + ".noterik.com/progressive/" + mnt + referNode.getPath() + "/raw.mp4";
 							break;
